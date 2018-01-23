@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.jspringcoffee.main.mapper.MainMapper">
+	<select id="selectPopularMenu" resultType="map">
+
+<![CDATA[
+
+select d.menu_id, e.menu_name,e.menu_img, e.menu_info
+from menu e,
+(
+select  b.menu_id ,b.순위
+from
+(
+select a.menu_id, row_number() over(order by a.판매횟수 desc) as 순위
+from
+(select menu_id, count(*) as 판매횟수
+from cust_sale_history
+group by menu_id) a
+) b
+where b.순위<6
+)d
+where d.menu_id = e.menu_id
+order by d.순위
+
+]]>
+
+	</select>
+	
+	
+	<insert id="insertCustomer" parameterType="kr.co.jspringcoffee.customer.model.Customer">
+
+		INSERT INTO customer (
+		cust_id,
+		cust_name,
+		cust_pwd,
+		cust_phone,
+		cust_email
+		) VALUES (
+		#{cust_id},
+		#{cust_name},
+		#{cust_pwd},
+		#{cust_phone},
+		#{cust_email}
+		)
+	</insert>
+	<update id="updateCustomer" parameterType="kr.co.jspringcoffee.customer.model.Customer">
+		update customer 
+		set
+		cust_name =#{cust_name}
+		,cust_pwd = #{cust_pwd}
+		,cust_phone = #{cust_phone}
+		,cust_email= #{cust_email}
+		where cust_id = #{cust_id}
+	</update>
+	
+	<delete id="deleteCustomer" parameterType="string">
+	delete from customer
+	where cust_id = #{cust_id}
+	</delete>
+	
+	
+	
+	
+
+<select id="selectCustomerWithId" parameterType="string" resultType="kr.co.jspringcoffee.customer.model.Customer" >
+
+select cust_id,
+		cust_name,
+		cust_pwd,
+		cust_phone,
+		cust_email,
+		cust_class,
+		cust_point,
+		cust_access
+from customer
+where cust_id = #{cust_id}
+
+</select>
+
+<select id="loginCheck" parameterType="string" resultType="string" >
+
+select cust_pwd
+from customer
+where cust_id = #{cust_id}
+
+</select>
+
+<select id="custPrefMenu" parameterType="string" resultType="map">
+
+<![CDATA[
+
+select a.menu_id ,b.menu_name ,b.menu_img,b.menu_info
+from
+(
+select cust_id, menu_id,row_number() over(order by count(*) desc) as 순위
+from cust_sale_history
+where cust_id = #{cust_id}
+group by cust_id,menu_id
+)a, menu b
+where a.순위<4
+and a.menu_id = b.menu_id
+order by a.순위
+
+
+]]>
+
+	</select>
+	
+	
+	<insert id="insertNotice" parameterType="kr.co.jspringcoffee.main.model.CommentNotice">
+	
+	INSERT INTO comment_notice (
+    notice_no,
+    cust_id,
+    bo_id,
+    co_id,
+    co_writer,
+    reg_date
+) VALUES (
+    notice_seq.nextval,
+    #{cust_id},
+    #{bo_id},
+    #{co_id},
+    #{co_writer},
+    SYSDATE
+)
+	
+	
+	</insert>
+	
+	
+<select id ="selectNoticeList" parameterType="string" resultType="kr.co.jspringcoffee.main.model.CommentNotice">
+<![CDATA[
+select 
+notice_no
+,cust_id
+,bo_id
+,co_id
+,co_writer
+,reg_date
+from comment_notice
+where cust_id = #{cust_id}
+and rownum < 6
+]]>
+
+</select>	
+
+<delete id="deleteNotice" parameterType="int">
+delete from comment_notice
+where bo_id = #{bo_id}
+
+</delete>
+
+<delete id="deleteNoticeAll" parameterType="string">
+delete from comment_notice
+where cust_id = #{cust_id}
+
+</delete>
+
+
+
+
+
+
+
+</mapper>
