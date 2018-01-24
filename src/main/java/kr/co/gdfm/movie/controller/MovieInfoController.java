@@ -1,5 +1,7 @@
 package kr.co.gdfm.movie.controller;
 
-public class MovieController {
+public class MovieInfoController {
 
+
+	
 }
