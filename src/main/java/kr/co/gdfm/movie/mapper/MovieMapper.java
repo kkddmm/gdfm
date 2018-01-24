@@ -2,6 +2,7 @@ package kr.co.gdfm.movie.mapper;
 
 import java.util.List;
 
+
 import org.apache.ibatis.annotations.Mapper;
 
 import kr.co.gdfm.movie.model.Movie;

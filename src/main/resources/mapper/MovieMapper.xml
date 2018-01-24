@@ -6,7 +6,7 @@
 
 
 <!-- 상영중인 영화 조회 -->
-<select id="selectShowMovie" resultType="kr.co.gdfm.movie.model">
+<select id="selectShowMovie" resultType="kr.co.gdfm.movie.model.Movie">
 SELECT *
 FROM MOVIE
 WHERE MOVIE_SHOW_YN = 'Y'
