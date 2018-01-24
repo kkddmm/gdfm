@@ -9,8 +9,13 @@
 
 <!-- CSS
 ================================================== -->
+
 <link href='http://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
+<%-- <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.css"> --%>
+
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.css">
+
+
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap-responsive.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/prettyPhoto.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/flexslider.css" />
@@ -54,17 +59,24 @@ $(document).ready(function () {
     
 });
 
- $(window).load(function(){
-
-    $('.flexslider').flexslider({
-        animation: "slide",
-        slideshow: true,
-        start: function(slider){
-          $('body').removeClass('loading');
-        }
-    });  
+$(function(){
+	$('')
+	
+	
+	
+	
+	
+	
 });
-
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
 </script>
 
 </head>
@@ -72,7 +84,28 @@ $(document).ready(function () {
 
 
 
+<div class="container">
 
+
+<div class="row">
+        <div class="col-md-4">
+          <h2>Heading</h2>
+          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+          <p><a class="btn btn-default" href="#" role="button">View details »</a></p>
+        </div>
+        <div class="col-md-4">
+          <h2>Heading</h2>
+          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+          <p><a class="btn btn-default" href="#" role="button">View details »</a></p>
+       </div>
+        <div class="col-md-4">
+          <h2>Heading</h2>
+          <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+          <p><a class="btn btn-default" href="#" role="button">View details »</a></p>
+        </div>
+      </div>
+
+</div>
 
 
 <div class="container">
@@ -166,24 +199,45 @@ $(document).ready(function () {
 <li role="presentation" class="span4"><a href="#">영화1</a></li>
  -->
  
-<div class="border row col-sm-12 " >
+			<div class="border row col-sm-12 " >
+ 
+
+
+
+
  <div align="center" class="div span3">
- 영화
+ <span>영화</span>
+ <!-- <ul id="movieUl" class="nav nav-tabs span3">
+  <li id="all" role="presentation" class="active"><a href="#">전체</a></li>
+  <li id="2D" role="presentation"><a href="#">2D</a></li>
+  <li id="3D" role="presentation"><a href="#">3D</a></li>
+<p>테스트 텍스트</p>   -->
+ 
+ 
+ 
  </div>
  <div align="center" class="div span3">
- 상영관
+ <span>상영관</span>
+ 
+  <!-- <ul id="movieUl" class="nav nav-tabs span3">
+  <li id="all" role="presentation" class="active"><a href="#">전체</a></li>
+  <li id="2D" role="presentation"><a href="#">2D</a></li>
+  <li id="3D" role="presentation"><a href="#">3D</a></li><br>
+  
+<p>테스트 텍스트</p>  -->
+ 
+ 
  </div>
  <div align="center" class="div span2">
  날짜
+ <!-- <div class="div span2"></div> -->
+ 
  </div>
  <div align="center" class="div span4">
  상영정보
+ <!-- <div class="div span4"></div> -->
  </div>
-<ul class="nav nav-tabs span3">
-  <li role="presentation" class="active"><a href="#">전체</a></li>
-  <li role="presentation"><a href="#">2D</a></li>
-  <li role="presentation"><a href="#">3D</a></li><br>
-<p>테스트 텍스트</p>  
+
 
 
 
