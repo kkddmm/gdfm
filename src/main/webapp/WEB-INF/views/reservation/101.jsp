@@ -14,8 +14,6 @@
 <%-- <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.css"> --%>
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.css">
-
-
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap-responsive.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/prettyPhoto.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/flexslider.css" />
