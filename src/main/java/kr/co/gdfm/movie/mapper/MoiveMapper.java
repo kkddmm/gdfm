@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 public interface MoiveMapper {
 
 		public void selectShowMovie(); 
-		
+		  
 		
 	
 	

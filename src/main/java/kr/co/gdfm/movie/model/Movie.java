@@ -12,7 +12,7 @@ public class Movie {
  private String movieName;
 
  // 영화장르code 
- private Integer movieGenreCode;
+ private Integer movieGenreCode;  
 
  // 상영등급 
  private String movieGrade;
