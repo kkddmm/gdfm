@@ -58,7 +58,7 @@
             
                 <ul class="nav">
                     <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">ìë§¤ <b class="caret"></b></a>
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">예매 <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li><a href="#">예매 depth1</a></li>
                             <li><a href="#">예매 depth1</a></li>
@@ -67,7 +67,7 @@
                     </li>
                   
                     <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">ìí <b class="caret"></b></a>
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">영화 <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li><a href="#">영화 depth1</a></li>
                             <li><a href="#">영화 depth2</a></li>
@@ -75,7 +75,7 @@
                         </ul>
                     </li>
                      <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">ì»¤ë®¤ëí° <b class="caret"></b></a>
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">커뮤니티<b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li><a href="#">커뮤니티 depth1</a></li>
                             <li><a href="#">커뮤니티 depth2</a></li>
