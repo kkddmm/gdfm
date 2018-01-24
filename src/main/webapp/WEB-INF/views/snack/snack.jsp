@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -48,7 +51,7 @@
         <!-- Logo
         ================================================== -->
         <div class="span5 logo">
-        	<a href="index.htm"><img src="img/piccolo-logo.png" alt="" /></a>
+        	<a href="index.jsp"><img src="img/piccolo-logo.png" alt="" /></a>
             <h5>Big Things... Small Packages</h5>
         </div>
         
@@ -59,16 +62,16 @@
             
                 <ul class="nav">
                     <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">ìë§¤ <b class="caret"></b></a>
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">예매 <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li><a href="#">예매 depth1</a></li>
-                            <li><a href="#">예 depth1</a></li>
+                            <li><a href="#">예매 depth1</a></li>
                             
                         </ul>
                     </li>
                   
                     <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">ìí <b class="caret"></b></a>
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">영화 <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li><a href="#">영화 depth1</a></li>
                             <li><a href="#">영화 depth2</a></li>
@@ -76,7 +79,7 @@
                         </ul>
                     </li>
                      <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">ì»¤ë®¤ëí° <b class="caret"></b></a>
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">커뮤니티 <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li><a href="#">커뮤니티 depth1</a></li>
                             <li><a href="#">커뮤니티 depth2</a></li>
@@ -85,7 +88,7 @@
                         </ul>
                      </li>
                      
-                     <li><a href="gallery-3col.htm">스낵관</a></li>
+                     <li><a href="gallery-3col.jsp">스낵관</a></li>
                     </ul>
            
             </div>
@@ -96,20 +99,20 @@
                 <div class="mobile-nav-select">
                 <select onchange="window.open(this.options[this.selectedIndex].value,'_top')">
                     
-                    <option value="index.htm">예매</option>
-                        <option value="index.htm">- Full Page</option>
-                        <option value="index-gallery.htm">- Gallery Only</option>
+                    <option value="index.jsp">예매</option>
+                        <option value="index.jsp">- Full Page</option>
+                        <option value="index-gallery.jsp">- Gallery Only</option>
                        
-                    <option value="features.htm">영화</option>
-                    <option value="page-full-width.htm">Pages</option>
-                        <option value="page-full-width.htm">- Full Width</option>
-                        <option value="page-right-sidebar.htm">- Right Sidebar</option>
+                    <option value="features.jsp">영화</option>
+                    <option value="page-full-width.jsp">Pages</option>
+                        <option value="page-full-width.jsp">- Full Width</option>
+                        <option value="page-right-sidebar.jsp">- Right Sidebar</option>
                         
-                    <option value="gallery-4col.htm">커뮤니티</option>
-                        <option value="gallery-3col.htm">- 3 Column</option>
-                        <option value="gallery-4col.htm">- 4 Column</option>               
+                    <option value="gallery-4col.jsp">커뮤니티</option>
+                        <option value="gallery-3col.jsp">- 3 Column</option>
+                        <option value="gallery-4col.jsp">- 4 Column</option>               
                        
-                    <option value="blog-style1.htm">스낵관</option>
+                    <option value="blog-style1.jsp">스낵관</option>
                         
                 </select>
                 </div>
@@ -137,11 +140,11 @@
                         <span class="gallery-hover-3col hidden-phone hidden-tablet">
                             <span class="gallery-icons">
                                 
-                                <a href="snack_detail.htm" class="item-details-link"></a>
+                                <a href="snack_detail.jsp" class="item-details-link"></a>
                             </span>
                         </span>
-                        <a href="gallery-single.htm"><img src="img/gallery/gallery-img-1-3col.jpg" alt="Gallery"></a>
-                        <span class="project-details"><a href="snack_detail.htm">Custom Illustration</a>For an international add campaign.</span>
+                        <a href="gallery-single.jsp"><img src="img/gallery/gallery-img-1-3col.jpg" alt="Gallery"></a>
+                        <span class="project-details"><a href="snack_detail.jsp">Custom Illustration</a>For an international add campaign.</span>
                     </li>
 
                     <!-- Gallery Item 2 -->
@@ -149,11 +152,11 @@
                         <span class="gallery-hover-3col hidden-phone hidden-tablet">
                             <span class="gallery-icons">
                                 
-                                <a href="snack_detail.htm" class="item-details-link"></a>
+                                <a href="snack_detail.jsp" class="item-details-link"></a>
                             </span>
                         </span>
-                        <a href="gallery-single.htm"><img src="img/gallery/gallery-img-1-3col.jpg" alt="Gallery"></a>
-                        <span class="project-details"><a href="snack_detail.htm">3 Color Poster Design</a>For a regional festival event.</span>
+                        <a href="gallery-single.jsp"><img src="img/gallery/gallery-img-1-3col.jpg" alt="Gallery"></a>
+                        <span class="project-details"><a href="snack_detail.jsp">3 Color Poster Design</a>For a regional festival event.</span>
                     </li>
 
                     <!-- Gallery Item 3 -->
@@ -161,11 +164,11 @@
                         <span class="gallery-hover-3col hidden-phone hidden-tablet">
                             <span class="gallery-icons">
                                
-                                <a href="snack_detail.htm" class="item-details-link"></a>
+                                <a href="snack_detail.jsp" class="item-details-link"></a>
                             </span>
                         </span>
-                        <a href="gallery-single.htm"><img src="img/gallery/gallery-img-1-3col.jpg" alt="Gallery"></a>
-                        <span class="project-details"><a href="snack_detail.htm">Ink Pen Illustration</a>Created for a best selling children's book.</span>
+                        <a href="gallery-single.jsp"><img src="img/gallery/gallery-img-1-3col.jpg" alt="Gallery"></a>
+                        <span class="project-details"><a href="snack_detail.jsp">Ink Pen Illustration</a>Created for a best selling children's book.</span>
                     </li>
 
                     <!-- Gallery Item 4 -->
@@ -173,11 +176,11 @@
                         <span class="gallery-hover-3col hidden-phone hidden-tablet">
                             <span class="gallery-icons">
                                
-                                <a href="snack_detail.htm" class="item-details-link"></a>
+                                <a href="snack_detail.jsp" class="item-details-link"></a>
                             </span>
                         </span>
-                       <a href="snack_detail.htm"><img src="img/gallery/gallery-img-1-3col.jpg" alt="Gallery"></a>
-                        <span class="project-details"><a href="snack_detail.htm">Custom Illustration</a>For an international add campaign.</span>
+                       <a href="snack_detail.jsp"><img src="img/gallery/gallery-img-1-3col.jpg" alt="Gallery"></a>
+                        <span class="project-details"><a href="snack_detail.jsp">Custom Illustration</a>For an international add campaign.</span>
                     </li>
 
                     <!-- Gallery Item 5 -->
@@ -185,11 +188,11 @@
                         <span class="gallery-hover-3col hidden-phone hidden-tablet">
                             <span class="gallery-icons">
                                 
-                                <a href="snack_detail.htm" class="item-details-link"></a>
+                                <a href="snack_detail.jsp" class="item-details-link"></a>
                             </span>
                         </span>
-                        <a href="snack_detail.htm"><img src="img/gallery/gallery-img-1-3col.jpg" alt="Gallery"></a>
-                        <span class="project-details"><a href="snack_detail.htm">Icon Design</a>Classic retro style illustration.</span>
+                        <a href="snack_detail.jsp"><img src="img/gallery/gallery-img-1-3col.jpg" alt="Gallery"></a>
+                        <span class="project-details"><a href="snack_detail.jsp">Icon Design</a>Classic retro style illustration.</span>
                     </li>
 
                     <!-- Gallery Item 6 -->
@@ -197,11 +200,11 @@
                         <span class="gallery-hover-3col hidden-phone hidden-tablet">
                             <span class="gallery-icons">
                                
-                                <a href="snack_detail.htm" class="item-details-link"></a>
+                                <a href="snack_detail.jsp" class="item-details-link"></a>
                             </span>
                         </span>
-                        <a href="snack_detail.htm"><img src="img/gallery/gallery-img-1-3col.jpg" alt="Gallery"></a>
-                        <span class="project-details"><a href="snack_detail.htm">Animation Cell</a>Creative storyboard illustration</span>
+                        <a href="snack_detail.jsp"><img src="img/gallery/gallery-img-1-3col.jpg" alt="Gallery"></a>
+                        <span class="project-details"><a href="snack_detail.jsp">Animation Cell</a>Creative storyboard illustration</span>
                     </li>
 
                     <!-- Gallery Item 7 -->
@@ -209,11 +212,11 @@
                         <span class="gallery-hover-3col hidden-phone hidden-tablet">
                             <span class="gallery-icons">
                                
-                                <a href="snack_detail.htm" class="item-details-link"></a>
+                                <a href="snack_detail.jsp" class="item-details-link"></a>
                             </span>
                         </span>
-                        <a href="snack_detail.htm"><img src="img/gallery/gallery-img-1-3col.jpg" alt="Gallery"></a>
-                        <span class="project-details"><a href="snack_detail.htm">Poster Ad Campaign</a>Regional ad for a local company.</span>
+                        <a href="snack_detail.jsp"><img src="img/gallery/gallery-img-1-3col.jpg" alt="Gallery"></a>
+                        <span class="project-details"><a href="snack_detail.jsp">Poster Ad Campaign</a>Regional ad for a local company.</span>
                     </li>
 
                     <!-- Gallery Item 8 -->
@@ -221,11 +224,11 @@
                         <span class="gallery-hover-3col hidden-phone hidden-tablet">
                             <span class="gallery-icons">
                                
-                                <a href="snack_detail.htm" class="item-details-link"></a>
+                                <a href="snack_detail.jsp" class="item-details-link"></a>
                             </span>
                         </span>
-                        <a href="snack_detail.htm"><img src="img/gallery/gallery-img-1-3col.jpg" alt="Gallery"></a>
-                        <span class="project-details"><a href="snack_detail.htm">Magazine Ad</a>For an international add campaign.</span>
+                        <a href="snack_detail.jsp"><img src="img/gallery/gallery-img-1-3col.jpg" alt="Gallery"></a>
+                        <span class="project-details"><a href="snack_detail.jsp">Magazine Ad</a>For an international add campaign.</span>
                     </li>
 
                     <!-- Gallery Item 9 -->
@@ -233,11 +236,11 @@
                         <span class="gallery-hover-3col hidden-phone hidden-tablet">
                             <span class="gallery-icons">
                                 
-                                <a href="snack_detail.htm" class="item-details-link"></a>
+                                <a href="snack_detail.jsp" class="item-details-link"></a>
                             </span>
                         </span>
-                        <a href="snack_detail.htm"><img src="img/gallery/gallery-img-1-3col.jpg" alt="Gallery"></a>
-                        <span class="project-details"><a href="snack_detail.htm">Character Designs</a>For a feature film.</span>
+                        <a href="snack_detail.jsp"><img src="img/gallery/gallery-img-1-3col.jpg" alt="Gallery"></a>
+                        <span class="project-details"><a href="snack_detail.jsp">Character Designs</a>For a feature film.</span>
                     </li>
 
                     <!-- Gallery Item 10 -->
@@ -245,11 +248,11 @@
                         <span class="gallery-hover-3col hidden-phone hidden-tablet">
                             <span class="gallery-icons">
                                
-                                <a href="snack_detail.htm" class="item-details-link"></a>
+                                <a href="snack_detail.jsp" class="item-details-link"></a>
                             </span>
                         </span>
-                        <a href="snack_detail.htm"><img src="img/gallery/gallery-img-1-3col.jpg" alt="Gallery"></a>
-                        <span class="project-details"><a href="snack_detail.htm">Poster and Ad Design</a>For an international add campaign.</span>
+                        <a href="snack_detail.jsp"><img src="img/gallery/gallery-img-1-3col.jpg" alt="Gallery"></a>
+                        <span class="project-details"><a href="snack_detail.jsp">Poster and Ad Design</a>For an international add campaign.</span>
                     </li>
 
                     <!-- Gallery Item 11 -->
@@ -257,11 +260,11 @@
                         <span class="gallery-hover-3col hidden-phone hidden-tablet">
                             <span class="gallery-icons">
                                
-                                <a href="snack_detail.htm" class="item-details-link"></a>
+                                <a href="snack_detail.jsp" class="item-details-link"></a>
                             </span>
                         </span>
-                        <a href="snack_detail.htm"><img src="img/gallery/gallery-img-1-3col.jpg" alt="Gallery"></a>
-                        <span class="project-details"><a href="snack_detail.htm">Website and Animation</a>For a local business.</span>
+                        <a href="snack_detail.jsp"><img src="img/gallery/gallery-img-1-3col.jpg" alt="Gallery"></a>
+                        <span class="project-details"><a href="snack_detail.jsp">Website and Animation</a>For a local business.</span>
                     </li>
 
                     <!-- Gallery Item 12 -->
@@ -269,11 +272,11 @@
                         <span class="gallery-hover-3col hidden-phone hidden-tablet">
                             <span class="gallery-icons">
                                 
-                                <a href="snack_detail.htm" class="item-details-link"></a>
+                                <a href="snack_detail.jsp" class="item-details-link"></a>
                             </span>
                         </span>
-                        <a href="snack_detail.htm"><img src="img/gallery/gallery-img-1-3col.jpg" alt="Gallery"></a>
-                        <span class="project-details"><a href="snack_detail.htm">Branding Design</a>For an international add campaign.</span>
+                        <a href="snack_detail.jsp"><img src="img/gallery/gallery-img-1-3col.jpg" alt="Gallery"></a>
+                        <span class="project-details"><a href="snack_detail.jsp">Branding Design</a>For an international add campaign.</span>
                     </li>
 
                 </ul>

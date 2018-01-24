@@ -166,46 +166,20 @@ $(document).ready(function () {
 <li role="presentation" class="span4"><a href="#">영화1</a></li>
  -->
  
-<div class="border row col-sm-12 " >
- <div align="center" class="div span3">
- 영화
- </div>
- <div align="center" class="div span3">
- 상영관
- </div>
- <div align="center" class="div span2">
- 날짜
- </div>
- <div align="center" class="div span4">
- 상영정보
- </div>
-<ul class="nav nav-tabs span3">
-  <li role="presentation" class="active"><a href="#">전체</a></li>
-  <li role="presentation"><a href="#">2D</a></li>
-  <li role="presentation"><a href="#">3D</a></li><br>
-<p>테스트 텍스트</p>  
-
-
-
-
-
-
-</ul>
-
-
-<ul class="nav nav-tabs span3">
-  <li role="presentation" class="active"><a href="#">Home</a></li>
-  <li role="presentation"><a href="#">Profile</a></li>
-  <li role="presentation"><a href="#">Messages</a></li>
-</ul>
-<ul class="span3">
-<li>테스트</li>
-</ul>
-<ul class="span3">
-<li>테스트</li>
-</ul>
-
-
+한글이깨지나확인해봅시다
+한글이깨지나확인해봅시다
+한글이깨지나확인해봅시다
+한글이깨지나확인해봅시다
+한글이깨지나확인해봅시다
+한글이깨지나확인해봅시다
+한글이깨지나확인해봅시다
+한글이깨지나확인해봅시다
+한글이깨지나확인해봅시다
+한글이깨지나확인해봅시다
+한글이깨지나확인해봅시다
+한글이깨지나확인해봅시다
+한글이깨지나확인해봅시다
+한글이깨지나확인해봅시다
 
 
 

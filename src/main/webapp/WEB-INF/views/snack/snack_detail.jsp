@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -48,7 +50,7 @@
         ================================================== -->
         <div class="span5 logo">
         	<a href="index.jsp"><img src="img/piccolo-logo.png" alt="" /></a>
-            <h4>영화 그 이상의 감동</h4>
+            <h4>영화 그 이상의 감동.</h4>
         </div>
         
        <!-- Main Navigation
@@ -75,7 +77,7 @@
                         </ul>
                     </li>
                      <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">커뮤니티<b class="caret"></b></a>
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">커뮤니티 <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li><a href="#">커뮤니티 depth1</a></li>
                             <li><a href="#">커뮤니티 depth2</a></li>
@@ -146,7 +148,7 @@
 
                     <button class="btn btn-inverse pull-left" type="button">장바구니</button>
                     <button class="btn btn-inverse pull-left" type="button">구매하기</button>
-                    <a href="snack.jsp" class="pull-right"><i class="icon-arrow-left"></i>스낵메뉴로</a>
+                    <a href="snack.jsp" class="pull-right"><i class="icon-arrow-left"></i>스낵 메뉴로</a>
                 </div>
             </div>
 
