@@ -93,9 +93,9 @@ $(document).ready(function () {
             
                 <ul class="nav">
                     <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">예매 <b class="caret"></b></a>
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="reservation/101">예매 <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li><a href="#">예매 depth1</a></li>
+                            <li><a href="reservation/101">빠른예매</a></li>
                             <li><a href="#">예매 depth1</a></li>
                             
                         </ul>
