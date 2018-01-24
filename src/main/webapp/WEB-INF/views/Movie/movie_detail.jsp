@@ -10,10 +10,10 @@
 <!-- CSS
 ================================================== -->
 <link href='http://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
-<link rel="stylesheet" href="css/bootstrap.css">
-<link rel="stylesheet" href="css/bootstrap-responsive.css">
-<link rel="stylesheet" href="css/jquery.lightbox-0.5.css">
-<link rel="stylesheet" href="css/custom-styles.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap-responsive.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/jquery.lightbox-0.5.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/custom-styles.css">
 
 <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -35,6 +35,9 @@
 
 </head>
 <body>
-
+	<div class="container main-container">
+	
+	
+	</div>
 </body>
 </html>
