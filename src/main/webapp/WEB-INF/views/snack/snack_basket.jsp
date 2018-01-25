@@ -1,19 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-
 <script type="text/javascript">
-function go_basket(){
-	location.href="snack_basket";	
+function go_snack(){
+	location.href="snack";	
 }
 function go_pay(){
-	location.href="snack_pay";
+	location.href="snack_pay";	
 }
-
-
 </script>
 <title>영화보기 좋은 날</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,7 +21,7 @@ function go_pay(){
 <link href='http://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap-responsive.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/prettyPhoto.css"/>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/prettyPhoto.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/custom-styles.css">
 
 <!--[if lt IE 9]>
@@ -40,13 +38,13 @@ function go_pay(){
 
 <!-- JS
 ================================================== -->
-<script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/jquery-3.3.1.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/jquery.easing.1.3.js"></script>
 <script src="${pageContext.request.contextPath}/js/bootstrap.js"></script>
 <script src="${pageContext.request.contextPath}/js/jquery.prettyPhoto.js"></script>
 <script src="${pageContext.request.contextPath}/js/jquery.quicksand.js"></script>
 <script src="${pageContext.request.contextPath}/js/jquery.custom.js"></script>
+
 
 </head>
 
@@ -61,11 +59,11 @@ function go_pay(){
         <!-- Logo
         ================================================== -->
         <div class="span5 logo">
-        	<a href="${pageContext.request.contextPath}/index.jsp"><img src="${pageContext.request.contextPath}/img/movielogo.png" alt="" /></a>
-            <h4>영화 그 이상의 감동.</h4>
+        	<a href="index.jsp"><img src="${pageContext.request.contextPath}/img/movielogo.png" alt="" /></a>
+            <h5>영화 그 이상의 감동</h5>
         </div>
         
-       <!-- Main Navigation
+        <!-- Main Navigation
         ================================================== -->
         <div class="span7 navigation">
             <div class="navbar hidden-phone">
@@ -98,8 +96,9 @@ function go_pay(){
                         </ul>
                      </li>
                      
-                     <li><a href="snack">스낵관</a></li>
-                    </ul>           
+                     <li><a href="snack_detail">스낵관</a></li>
+                    </ul>
+           
             </div>
 
             <!-- Mobile Nav
@@ -121,18 +120,14 @@ function go_pay(){
                         <option value="gallery-3col.jsp">- 3 Column</option>
                         <option value="gallery-4col.jsp">- 4 Column</option>               
                        
-                    <option value="snack">스낵관</option>
+                    <option value="snack_detail">스낵관</option>
                         
                 </select>
                 </div>
                 </form>
-
         </div>
 
-
       </div><!-- End Header -->
-      
-  
      
     <!-- Page Content
     ================================================== --> 
@@ -140,36 +135,28 @@ function go_pay(){
 
         <!-- Gallery Items
         ================================================== --> 
-        <div class="span12 gallery-single">
+        <div style="border: solid 1px gray;">
 
-            <div class="row">
-                <div class="span6">
-                    <img src="${pageContext.request.contextPath}/img/gallery/gallery-img-1-full.jpg" class="align-left thumbnail" alt="image">
-                </div>
-                <div class="span6">
-                    <h2>Custom Illustration</h2>
-                    <p class="lead">For an international ad campaign. Nulla iaculis mattis lorem, quis gravida nunc iaculis ac. Proin tristique tellus in est vulputate luctus</p>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla iaculis mattis lorem, quis gravida nunc iaculis ac. Proin tristique tellus in est vulputate luctus fermentum ipsum molestie. Vivamus tincidunt sem eu magna varius elementum. Maecenas felis tellus, fermentum vitae laoreet vitae, volutpat et urna. Nulla faucibus ligula eget ante varius ac euismod odio placerat. Nam sit amet felis non lorem faucibus rhoncus vitae id dui.</p>
+            <h1>주문정보</h1>
+            
+            	상품사진<br/>
+            
+				상품: 상품명<br/>
+				가격: 가격<br/>
+				
+				총 결제금액          
 
-                    <ul class="project-info">
-                        <li><h6>Date:</h6> 09/12/15</li>
-                        <li><h6>Client:</h6> John Doe, Inc.</li>
-                        <li><h6>Services:</h6> Design, Illustration</li>
-                        <li><h6>Art Director:</h6> Jane Doe</li>
-                        <li><h6>Designer:</h6> Jimmy Doe</li>
-                    </ul>
-
-                    <button class="btn btn-inverse pull-left" type="button" onclick="go_basket();">장바구니</button>
-                    <button class="btn btn-inverse pull-left" type="button" onclick="go_pay();">구매하기</button>
-                    <a href="snack" class="pull-right"><i class="icon-arrow-left"></i>스낵 메뉴로</a>
-                </div>
-            </div>
-
-        </div><!-- End gallery-single-->
+        </div><!-- End gallery list-->
+      	  <button class="pull-right" onclick="go_pay();" type="button">구매하기</button>
+          <button class="pull-right" onclick="go_snack();" type="button">스낵 메뉴로</button>
 
     </div><!-- End container row -->
     
     </div> <!-- End Container -->
+
+
+
+
 
     <!-- Footer Area
         ================================================== -->

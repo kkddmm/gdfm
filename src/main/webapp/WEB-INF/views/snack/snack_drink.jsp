@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -37,14 +37,8 @@
 <script src="${pageContext.request.contextPath}/js/jquery.quicksand.js"></script>
 <script src="${pageContext.request.contextPath}/js/jquery.custom.js"></script>
 
-<script type="text/javascript">
-	
-</script>
-
 
 </head>
-
-
 
 <body>
 	<div class="color-bar-1"></div>
@@ -58,7 +52,7 @@
         ================================================== -->
         <div class="span5 logo">
         	<a href="index.jsp"><img src="${pageContext.request.contextPath}/img/movielogo.png" alt="" /></a>
-            <h5>영화 그 이상의 감동</h5>
+            <h5>Big Things... Small Packages</h5>
         </div>
         
         <!-- Main Navigation
@@ -94,7 +88,7 @@
                         </ul>
                      </li>
                      
-                     <li><a href="snack">스낵관</a></li>
+                     <li><a href="snack_detail">스낵관</a></li>
                     </ul>
            
             </div>
@@ -118,7 +112,7 @@
                         <option value="gallery-3col.jsp">- 3 Column</option>
                         <option value="gallery-4col.jsp">- 4 Column</option>               
                        
-                    <option value="snack_main">스낵관</option>
+                    <option value="snack_detail">스낵관</option>
                         
                 </select>
                 </div>
@@ -130,29 +124,25 @@
       
           
     <!-- 스낵타입  -->
-    	
     		<div class="navbar hidden-phone">
             
                 <ul class="nav" >
                     <li>
-                        <a class="btn" href="#">콤보세트</a>                        
-                        
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">콤보세트</a>                        
                     </li>
                   
                     <li>
-                        <a class="btn" href="#" >팝콘</a>                        
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">팝콘</a>                        
                     </li>
                     
                      <li >
-                        <a class="btn" href="#">음료</a>                        
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">음료</a>                        
                      </li>
                      
-                     <li>
-                     	<a class="btn" href="#">스낵</a>
-                     </li>
-                 </ul>           
-     	       </div>
-
+                     <li><a href="snack">스낵</a></li>
+                    </ul>           
+            </div>
+    
     
    
       
@@ -176,51 +166,28 @@
             <div class="row clearfix">
                 <ul class="gallery-post-grid holder">
 
-				<c:if test="${not empty snackList}">
-					<c:forEach var="snack" items="${snackList}">
-						
-					<!-- Gallery Item 1 -->
-	                    <li  class="span4 gallery-item" data-id="id-1" data-type="illustration">
-	                        <span class="gallery-hover-3col hidden-phone hidden-tablet">
-	                            <span class="gallery-icons">
-	                                
-	                                <a href="${pageContext.request.contextPath}/snack/snack_detail" class="item-details-link"></a>
-	                            </span>
-	                        </span>
-	                        <a href="gallery-single.jsp"><img src="${pageContext.request.contextPath}/img/gallery/gallery-img-1-3col.jpg" alt="Gallery"></a>
-	                       
-	                       	<span class="project-details">${snackList.snack_name}</span>
-	                       <c:choose>
-	                       		<c:when test="${snackList.snack_combo_yn=='Y'}">
-	                       			<span class="project-details">${snackList.snack_name}</span>
-	                       		</c:when>
-	                       	
-	                       </c:choose>
-	                       
-	                       
-	                        
-	                        
-	                    </li>
-						
-						
-					</c:forEach>
-				
-				</c:if>
-
-
-
-
-                    
+                    <!-- Gallery Item 1 -->
+                    <li  class="span4 gallery-item" data-id="id-1" data-type="illustration">
+                        <span class="gallery-hover-3col hidden-phone hidden-tablet">
+                            <span class="gallery-icons">
+                                
+                                <a href="${pageContext.request.contextPath}/snack_detail" class="item-details-link"></a>
+                            </span>
+                        </span>
+                        <a href="gallery-single.jsp"><img src="${pageContext.request.contextPath}/img/gallery/gallery-img-1-3col.jpg" alt="Gallery"></a>
+                        <span class="project-details">극장</span>
+                    </li>
 
                     <!-- Gallery Item 2 -->
-                    <li class="span4 gallery-item" data-type="illustration">
+                    <li class="span4 gallery-item" data-id="id-2" data-type="illustration">
                         <span class="gallery-hover-3col hidden-phone hidden-tablet">
-                            <span class="gallery-icons">                                
+                            <span class="gallery-icons">
+                                
                                 <a href="snack_detail" class="item-details-link"></a>
                             </span>
                         </span>
                         <a href="gallery-single.jsp"><img src="${pageContext.request.contextPath}/img/gallery/gallery-img-1-3col.jpg" alt="Gallery"></a>
-                       <span class="project-details">콤보B</span>
+                       <span class="project-details">극장</span>
                     </li>
 
                     <!-- Gallery Item 3 -->
@@ -228,11 +195,11 @@
                         <span class="gallery-hover-3col hidden-phone hidden-tablet">
                             <span class="gallery-icons">
                                
-                                <a href="snack/snack_detail" class="item-details-link"></a>
+                                <a href="snack_detail" class="item-details-link"></a>
                             </span>
                         </span>
                         <a href="gallery-single.jsp"><img src="${pageContext.request.contextPath}/img/gallery/gallery-img-1-3col.jpg" alt="Gallery"></a>
-                        <span class="project-details">콤보C</span>
+                        <span class="project-details">극장</span>
                     </li>
 
                     <!-- Gallery Item 4 -->
@@ -244,7 +211,7 @@
                             </span>
                         </span>
                        <a href="snack_detail"><img src="${pageContext.request.contextPath}/img/gallery/gallery-img-1-3col.jpg" alt="Gallery"></a>
-                        <span class="project-details">콤보D</span>
+                        <span class="project-details">극장</span>
                     </li>
 
                     <!-- Gallery Item 5 -->
@@ -256,7 +223,7 @@
                             </span>
                         </span>
                         <a href="snack_detail"><img src="${pageContext.request.contextPath}/img/gallery/gallery-img-1-3col.jpg" alt="Gallery"></a>
-                        <span class="project-details">콤보E</span>
+                        <span class="project-details">극장</span>
                     </li>
 
                     <!-- Gallery Item 6 -->
@@ -268,8 +235,80 @@
                             </span>
                         </span>
                         <a href="snack_detail"><img src="${pageContext.request.contextPath}/img/gallery/gallery-img-1-3col.jpg" alt="Gallery"></a>
-                        <span class="project-details">콤보F</span>
-                    </li>                   
+                        <span class="project-details">극장</span>
+                    </li>
+
+                    <!-- Gallery Item 7 -->
+                    <li class="span4 gallery-item" data-id="id-7" data-type="design">
+                        <span class="gallery-hover-3col hidden-phone hidden-tablet">
+                            <span class="gallery-icons">
+                               
+                                <a href="snack_detail" class="item-details-link"></a>
+                            </span>
+                        </span>
+                        <a href="snack_detail"><img src="${pageContext.request.contextPath}/img/gallery/gallery-img-1-3col.jpg" alt="Gallery"></a>
+                        <span class="project-details">극장</span>
+                    </li>
+
+                    <!-- Gallery Item 8 -->
+                    <li class="span4 gallery-item" data-id="id-8" data-type="web video">
+                        <span class="gallery-hover-3col hidden-phone hidden-tablet">
+                            <span class="gallery-icons">
+                               
+                                <a href="snack_detail" class="item-details-link"></a>
+                            </span>
+                        </span>
+                        <a href="snack_detail"><img src="${pageContext.request.contextPath}/img/gallery/gallery-img-1-3col.jpg" alt="Gallery"></a>
+                        <span class="project-details">극장</span>
+                    </li>
+
+                    <!-- Gallery Item 9 -->
+                    <li class="span4 gallery-item" data-id="id-9" data-type="design">
+                        <span class="gallery-hover-3col hidden-phone hidden-tablet">
+                            <span class="gallery-icons">
+                                
+                                <a href="snack_detail" class="item-details-link"></a>
+                            </span>
+                        </span>
+                        <a href="snack_detail"><img src="${pageContext.request.contextPath}/img/gallery/gallery-img-1-3col.jpg" alt="Gallery"></a>
+                        <span class="project-details">극장</span>
+                    </li>
+
+                    <!-- Gallery Item 10 -->
+                    <li class="span4 gallery-item" data-id="id-10" data-type="web design">
+                        <span class="gallery-hover-3col hidden-phone hidden-tablet">
+                            <span class="gallery-icons">
+                               
+                                <a href="snack_detail" class="item-details-link"></a>
+                            </span>
+                        </span>
+                        <a href="snack_detail"><img src="${pageContext.request.contextPath}/img/gallery/gallery-img-1-3col.jpg" alt="Gallery"></a>
+						<span class="project-details">극장</span>
+                    </li>
+
+                    <!-- Gallery Item 11 -->
+                    <li class="span4 gallery-item" data-id="id-11" data-type="illustration">
+                        <span class="gallery-hover-3col hidden-phone hidden-tablet">
+                            <span class="gallery-icons">
+                               
+                                <a href="snack_detail" class="item-details-link"></a>
+                            </span>
+                        </span>
+                        <a href="snack_detail"><img src="${pageContext.request.contextPath}/img/gallery/gallery-img-1-3col.jpg" alt="Gallery"></a>
+                       <span class="project-details">극장</span>
+                    </li>
+
+                    <!-- Gallery Item 12 -->
+                    <li class="span4 gallery-item" data-id="id-12" data-type="illustration video">
+                        <span class="gallery-hover-3col hidden-phone hidden-tablet">
+                            <span class="gallery-icons">
+                                
+                                <a href="snack_detail" class="item-details-link"></a>
+                            </span>
+                        </span>
+                        <a href="snack_detail"><img src="${pageContext.request.contextPath}/img/gallery/gallery-img-1-3col.jpg" alt="Gallery"></a>
+                        <span class="project-details">극장</span>
+                    </li>
 
                 </ul>
             </div>

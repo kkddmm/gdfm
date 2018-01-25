@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.gdfm.snack.mapper.SnackMapper" >
+	
+	<select id="selectSnackList" parameterType="map" resultType="kr.co.gdfm.snack.model.Snack">
+		SELECT
+		    snack_id,
+		    snack_type,
+		    snack_combo_yn,
+		    snack_name,
+		    snack_subname,
+		    snack_price,
+		    snack_size,
+		    snack_origin,
+		    snack_mat,
+		    snack_info,
+		    snack_exp,
+		    snack_change_info,
+		    snack_use_info
+		FROM snack
+		where 1=1
+	</select>
+	
+	<select id="snackView" parameterType="int" resultType="kr.co.gdfm.snack.model.Snack">
+		SELECT
+		    snack_id,
+		    snack_type,
+		    snack_combo_yn,
+		    snack_name,
+		    snack_subname,
+		    snack_price,
+		    snack_size,
+		    snack_origin,
+		    snack_mat,
+		    snack_info,
+		    snack_exp,
+		    snack_change_info,
+		    snack_use_info
+		FROM snack
+		where snack_id=#{snack_id}
+	</select>
+
+
+
+
+	
+	<insert id="insertSnack" parameterType="kr.co.gdfm.snack.model.Snack">
+		INSERT INTO snack (
+		    snack_id,
+		    snack_type,
+		    snack_combo_yn,
+		    snack_name,
+		    snack_subname,
+		    snack_price,
+		    snack_size,
+		    snack_origin,
+		    snack_mat,
+		    snack_info,
+		    snack_exp,
+		    snack_change_info,
+		    snack_use_info
+		) VALUES (
+		    #{snack_id},
+		    #{snack_type},
+		    #{snack_combo_yn},
+		    #{snack_name},
+		    #{snack_subname},
+		    #{snack_price},
+		    #{snack_size},
+		    #{snack_origin},
+		    #{snack_mat},
+		    #{snack_info},
+		    #{snack_exp},
+		    #{snack_change_info},
+		    #{snack_use_info}
+		)
+	
+	</insert>
+
+
+	<update id="updateSnack" parameterType="kr.co.gdfm.snack.model.Snack">
+		UPDATE snack SET			
+		    snack_type=#{snack_type},
+		    snack_combo_yn=#{snack_combo_yn},
+		    snack_name=#{snack_name},
+		    snack_subname=#{snack_subname},
+		    snack_price=#{snack_price},
+		    snack_size=#{snack_size},
+		    snack_origin=#{snack_origin},
+		    snack_mat=#{snack_mat},
+		    snack_info=#{snack_info},
+		    snack_exp=#{snack_exp},
+		    snack_change_info=#{snack_change_info},
+		    snack_use_info=#{snack_use_info}
+		    
+		WHERE snack_id=#{snack_id}
+	</update>
+
+	
+	<delete id="deleteSnack" parameterType="map">
+		DELETE snack
+		WHERE snack_id =#{snack_id}
+	</delete>
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
