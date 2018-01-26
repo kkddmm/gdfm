@@ -38,9 +38,9 @@ public class SnackController {
 		model.addAttribute("snackList", snackList);
 		
 		
-		for (Snack snack : snackList) {
+		/*for (Snack snack : snackList) {
 			System.out.println(snack);
-		}
+		}*/
 		
 		return "snack/snack";
 	}
