@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -49,8 +51,7 @@
 ================================================== -->
 <script src="${pageContext.request.contextPath}/js/jquery-3.3.1.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/bootstrap.js"></script>
-<script
-	src="${pageContext.request.contextPath}/js/jquery.prettyPhoto.js"></script>
+<script src="${pageContext.request.contextPath}/js/jquery.prettyPhoto.js"></script>
 <script src="${pageContext.request.contextPath}/js/jquery.flexslider.js"></script>
 <script src="${pageContext.request.contextPath}/js/jquery.custom.js"></script>
 <script type="text/javascript">
@@ -71,20 +72,100 @@
 		});
 
 	});
+	
+	
+	var movieSelect = false;
+	var cinemaSelect = false;
+	
+	
 
+	function fn_changeMovieByCinema(ci_id){
+		
+		alert('실행됩니까?');
+		
+		
+	}
+	
+	
+	function fn_loadAddr2(addr1){
+		
+	
+		$.ajax({
+		 type : 'post',
+		 url :  '${pageContext.request.contextPath}/reservation/get/addr2',
+		data : "ci_addr1="+addr1,
+		dataType : "json",
+	   success : function(data, status){
+    	   $('#addr2View').html('');
+       for(i in data){
+// 			   var addr2 = data[i].CI_ADDR2;
+		   $('<li>').html(data[i].CI_ADDR2).on('click',function(){
+			   var addr2 = $(this).html();
+			   $.ajax({
+				   type :'post',
+				   url : '${pageContext.request.contextPath}/reservation/get/movieName',
+				   data : "ci_addr1="+addr1+"&ci_addr2="+addr2,
+				  dataType : "json", 
+				   success : function(data, status){
+					   $('#movieView').html('');
+					   for(k in data){
+						   $('<li>').
+						   html('<img src="${pageContext.request.contextPath}/img/'+data[k].MOVIE_GRADE+'.png" />'+data[k].MOVIE_KO_NAME)
+						   .appendTo('#movieView')
+						   
+						   
+					   }
+					    
+				   },
+				   error : function(){}
+			   })
+			   
+		   }).appendTo('#addr2View');
+		   
+		   
+		   } 
+	   },
+	error : function() {
+		alert("에러!");
+				}
+		})
+		
+	}
+	
+	
+			   
+	
+	
+	
+	
 	$(function() {
-
+	
+		
+		
+		
+		
 	});
+	
+	
+	
+	
 </script>
 
 
+
+
 <style>
-.row.main{
-border : 1px solid black;
+.row.main {
+	border: 1px solid black;
 }
 
-
+ul {
+	list-style: none;
+}
 </style>
+
+
+
 
 
 
@@ -104,7 +185,7 @@ border : 1px solid black;
 			<!-- Logo
         ================================================== -->
 			<div class="span5 logo">
-				<a href="index.htm"><img src="img/piccolo-logo.png" alt="" /></a>
+				<a href="../"><img src="${pageContext.request.contextPath}/img/movielogo.png" alt="" /></a>
 				<h4>영화 그 이상의 감동.</h4>
 			</div>
 
@@ -177,31 +258,44 @@ border : 1px solid black;
 
 
 		<div align="center" class="main row">
-			<div class="span3">
-				<h4>영화</h4><hr/>
-<ul class="nav nav-tabs">
-  <li role="presentation" class="active"><a href="#">전체</a></li>
-  <li role="presentation"><a href="#">2D</a></li>
-  <li role="presentation"><a href="#">3D</a></li>
-</ul>
+			<div class="span2">
+				<h4>영화</h4>
+				<hr />
+				<ul class="nav nav-tabs">
+					<li id="all" role="presentation" class="active"><a href="#">전체</a></li>
+					<li id="2D" role="presentation"><a href="#">2D</a></li>
+					<li id="3D" role="presentation"><a href="#">3D</a></li>
+				</ul>
+				<ul id="movieView">
+					<c:if test="${not empty movieList}">
+						<c:forEach items="${movieList}" var="movie">
+							<li id="${movie.movie_id}"><img
+								src="${pageContext.request.contextPath}/img/${movie.movie_grade}.png">${movie.movie_ko_name}</li>
+						</c:forEach>
+					</c:if>
 
-
-
+				</ul>
 
 			</div>
-			<div class="span4">
+			<div class="span5 row">
 				<h4>영화관</h4><hr/>
-				<p>Donec id elit non mi porta gravida at eget metus. Fusce
-					dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh,
-					ut fermentum massa justo sit amet risus. Etiam porta sem malesuada
-					magna mollis euismod. Donec sed odio dui.</p>
-				<p>
-					<a class="btn btn-default" href="#" role="button">View details
-						»</a>
-				</p>
+				<ul class="span2" id="addr1View">
+					<c:if test="${not empty addr1List}">
+						<c:forEach items="${addr1List}" var="cinema">
+							<li onclick="fn_loadAddr2('${cinema.ci_addr1}');">${cinema.ci_addr1}</li>
+						</c:forEach>
+						<%-- 				<li id="${cinema.ci_id}" onclick="fn_changeMovieByCinema(${cinema.ci_id});">${cinema.ci_addr1}</li> --%>
+					</c:if>
+					
+					</ul>
+					
+					<ul class="span1" id="addr2View">
+					
+					</ul>
 			</div>
 			<div class="span1">
-				<h4>날짜</h4><hr/>
+				<h4>날짜</h4>
+				<hr />
 				<p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in,
 					egestas eget quam. Vestibulum id ligula porta felis euismod semper.
 					Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum
@@ -212,14 +306,15 @@ border : 1px solid black;
 				</p>
 			</div>
 			<div class="span3">
-				<h4>상영정보</h4><hr/>
+				<h4>상영정보</h4>
+				<hr />
 				<p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in,
 					egestas eget quam. Vestibulum id ligula porta felis euismod semper.
 					Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum
 					nibh, ut fermentum massa justo sit amet risus.</p>
 				<p>
 					<a class="btn btn-default" href="#" role="button">View details
-						</a>
+					</a>
 				</p>
 			</div>
 		</div>
