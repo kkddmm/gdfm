@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.gdfm.board.mapper.BoardMapper">
+<!-- <![CDATA[]] < 특수문자사용시 -->
+<select id="selectBoardCount" resultType="int" parameterType="map"> 
+  	SELECT
+	    count(*) as count
+	FROM
+	    board a, member b
+	WHERE a.mem_id = b.mem_id
+	AND a.bo_delete_yn = 'N'
+	<if test="searchWord != null and searchWord !=''">
+		<if test="searchType == 01">
+			AND a.bo_title LIKE '%' || #{searchWord} || '%'
+		</if>
+		<if test="searchType == 02">
+			AND a.bo_content LIKE '%' || #{searchWord} || '%'
+		</if>
+		<if test="searchType == 03">
+			AND (a.bo_title LIKE '%' || #{searchWord} || '%' OR  a.bo_content LIKE '%' || #{searchWord} || '%')
+		</if>
+		<if test="searchType == 04">	
+			AND b.mem_name = #{searchWord}
+		</if>
+	</if>
+</select>
+  
+<select id="selectBoardList" resultType="Board" parameterType="map"> 
+<include refid="CommonMapper.pageHeader"></include>
+	SELECT
+	    a.bo_id,
+	    a.bo_type,
+	    a.mem_id,
+	    b.mem_name as mem_id_name,
+	    a.ci_id,
+	    c.ci_name as ci_id_name,
+	    a.bo_title,
+	    a.bo_content,
+	    a.bo_hit_cnt,
+	    a.bo_notice_yn,
+	    a.bo_delete_yn,  
+	    a.bo_reg_date,
+	    a.bo_upd_date,
+	    a.bo_upd_user
+	FROM
+	    board a, member b, cinema c
+	WHERE a.mem_id = b.mem_id	
+	AND a.ci_id=c.ci_id
+	AND a.bo_delete_yn = 'N'
+	
+	<if test="searchWord != null and searchWord !=''">
+		<if test="searchType == 01">
+			AND a.bo_title LIKE '%' || #{searchWord} || '%'
+		</if>
+		<if test="searchType == 02">
+			AND a.bo_content LIKE '%' || #{searchWord} || '%'
+		</if>
+		<if test="searchType == 03">
+			AND (a.bo_title LIKE '%' || #{searchWord} || '%' OR  a.bo_content LIKE '%' || #{searchWord} || '%')
+		</if>
+		<if test="searchType == 04">	
+			AND b.mem_name = #{searchWord}
+		</if>
+	</if>
+	ORDER BY bo_id DESC
+	<include refid="CommonMapper.pageFooter"></include>
+</select>
+
+<select id="selectBoard" resultType="Board" parameterType="int"><!-- alias -->
+  	SELECT
+	    a.bo_id,
+	    a.bo_type,
+	    a.mem_id,
+	    (select b.mem_name from member b 
+	    where a.mem_id = b.mem_id) as mem_id_name,
+	    a.bo_title,
+	    a.bo_content,
+	    a.bo_hit_cnt,
+	    a.bo_notice_yn,
+	    a.bo_delete_yn,  
+	    a.bo_reg_date,
+	    a.bo_upd_date,
+	    a.bo_upd_user
+	FROM
+	    board a
+	WHERE a.bo_id = #{bo_id}
+	AND a.bo_delete_yn = 'N'
+</select>
+
+<insert id="insertBoard" parameterType="Board">
+	<selectKey keyProperty="bo_id" resultType="int" order="BEFORE"><!-- BEFORE/AFTER -->
+		SELECT BOARD_SEQ.NEXTVAL FROM DUAL
+	</selectKey>
+	 
+	INSERT INTO board (
+	    bo_id,
+		bo_type,
+		mem_id,
+		ci_id,
+		bo_title,
+		bo_content,
+		bo_hit_cnt,
+		bo_notice_yn,
+		bo_delete_yn,
+		bo_reg_date,
+		bo_upd_date,
+		bo_upd_user
+	) VALUES (
+	    #{bo_id},
+	    #{bo_type},
+		#{mem_id},
+		NVL(#{ci_id}, 0),
+		#{bo_title},
+		#{bo_content},
+		0,
+		NVL(#{bo_notice_yn}, 'N'),
+	    'N',
+	    SYSDATE,
+	    SYSDATE,
+	   #{mem_id}
+	)
+</insert>
+
+<update id="updateBoard" parameterType="Board">
+	UPDATE board SET
+		bo_type         = #{bo_type},
+		bo_title        = #{bo_title},
+		bo_content      = #{bo_content},	
+		bo_notice_yn    = NVL(#{bo_notice_yn}, 'N'),
+		bo_upd_user     = #{bo_upd_user},
+		bo_upd_date        = SYSDATE
+	WHERE bo_id = #{bo_id}
+
+</update>
+
+<delete id="deleteBoard" parameterType="map">
+  	UPDATE board SET   
+		bo_delete_yn = 'Y',
+		bo_upd_user = #{bo_upd_user},
+		bo_upd_date = SYSDATE
+	WHERE bo_id = #{bo_id}
+</delete>
+
+<update id="updateHitCnt" parameterType="int">
+  	UPDATE board SET
+  		bo_hit_cnt = bo_hit_cnt + 1
+  	WHERE bo_id = #{bo_id}
+</update>
+</mapper>

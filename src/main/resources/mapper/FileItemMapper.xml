@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="kr.co.gdfm.common.file.mapper.FileItemMapper"><!-- 필수 고유해야함 -->
+
+  <select id="selectFileItemList" resultType="FileItem" parameterType="map"> 		
+		SELECT
+		    file_id,
+		    ref_id,
+		    file_biz_type,
+		    file_path,
+		    file_name,
+		    file_save_name,
+		    file_type,
+		    file_size,
+		    file_fancy_size,
+		    file_down_cnt,
+		    file_reg_user,
+		    file_reg_date,
+		    file_upd_user,
+		    file_upd_date
+		FROM
+   			file_item
+   		WHERE ref_id = #{ref_id}
+		AND file_biz_type = #{file_biz_type}       
+  </select>
+
+  <select id="selectFileItem" resultType="FileItem" parameterType="map"> 
+  
+		SELECT
+		    file_id,
+		    ref_id,
+		    file_biz_type,
+		    file_path,
+		    file_name,
+		    file_save_name,
+		    file_type,
+		    file_size,
+		    file_fancy_size,
+		    file_down_cnt,
+		    file_reg_user,
+		    file_reg_date,
+		    file_upd_user,
+		    file_upd_date
+		FROM
+   			file_item
+   		WHERE file_id = #{file_id}
+ 
+  </select>
+  
+  <insert id="insertFileItem" parameterType="fileItem">
+	INSERT INTO file_item (
+		file_id,
+		ref_id,
+		file_biz_type,
+		file_path,
+		file_name,
+		file_save_name,
+		file_type,
+		file_size,
+		file_fancy_size,
+		file_down_cnt,
+		file_reg_user,
+		file_reg_date,
+		file_upd_user,
+		file_upd_date
+	) VALUES (
+		FILE_ITEM_SEQ.NEXTVAL, 
+		#{ref_id},
+		#{file_biz_type},
+		#{file_path},
+		#{file_name},
+		#{file_save_name},
+		#{file_type},
+		#{file_size},
+		#{file_fancy_size},
+		0,
+		#{file_reg_user},
+		SYSDATE,
+		#{file_upd_user},
+		SYSDATE
+	)
+  </insert>
+  
+  <delete id="deleteFileItem" parameterType="map">
+	DELETE FROM file_item WHERE file_id IN 
+	<foreach item="fileSeqNo" index="index" collection="delFileSeqNo" open="(" separator="," close=")"><!-- collection map에들어있음.꺼내는 배열 -->  
+        #{fileSeqNo}
+  	</foreach>
+  </delete>
+  
+  <update id="updateDownloadCnt" parameterType="map">
+  		
+  		UPDATE file_item SET file_down_cnt = file_down_cnt + 1 WHERE file_id = #{file_id}
+  		
+ </update>
+  
+</mapper>
