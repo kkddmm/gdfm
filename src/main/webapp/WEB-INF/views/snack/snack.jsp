@@ -80,8 +80,7 @@
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#">영화 <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li><a href="#">영화 depth1</a></li>
-                            <li><a href="#">영화 depth2</a></li>
-                           
+                            <li><a href="#">영화 depth2</a></li>                           
                         </ul>
                     </li>
                      <li class="dropdown">
@@ -135,20 +134,20 @@
             
                 <ul class="nav" >
                     <li>
-                        <a class="btn" href="#">콤보세트</a>                        
+                        <a class="btn" href="${pageContext.request.contextPath}/snack/snack?snack_type=combo"}>콤보세트</a>                
                         
                     </li>
                   
                     <li>
-                        <a class="btn" href="#" >팝콘</a>                        
+                        <a class="btn" href="${pageContext.request.contextPath}/snack/snack?snack_type=popcorn" >팝콘</a>                        
                     </li>
                     
                      <li >
-                        <a class="btn" href="#">음료</a>                        
+                        <a class="btn" href="${pageContext.request.contextPath}/snack/snack?snack_type=drink">음료</a>                        
                      </li>
                      
                      <li>
-                     	<a class="btn" href="#">스낵</a>
+                     	<a class="btn" href="${pageContext.request.contextPath}/snack/snack?snack_type=snack">스낵</a>
                      </li>
                  </ul>           
      	       </div>
@@ -176,100 +175,36 @@
             <div class="row clearfix">
                 <ul class="gallery-post-grid holder">
 
-				<c:if test="${not empty snackList}">
-					<c:forEach var="snack" items="${snackList}">
+			<c:if test="${not empty snackList}">
+				<c:forEach var="snack" items="${snackList}">
 						
 					<!-- Gallery Item 1 -->
 	                    <li  class="span4 gallery-item" data-id="id-1" data-type="illustration">
-	                        <span class="gallery-hover-3col hidden-phone hidden-tablet">
-	                            <span class="gallery-icons">
+	                        <span class="gallery-hover-3col hidden-phone hidden-tablet" >
+	                            <span class="gallery-icons" >
 	                                
 	                                <a href="${pageContext.request.contextPath}/snack/snack_detail" class="item-details-link"></a>
 	                            </span>
 	                        </span>
-	                        <a href="gallery-single.jsp"><img src="${pageContext.request.contextPath}/img/gallery/gallery-img-1-3col.jpg" alt="Gallery"></a>
+	                        <a href="gallery-single.jsp"><img src="${pageContext.request.contextPath}/img/snack/${snack.snack_name}.jpg" alt="Gallery"></a>
 	                       
-	                       	<span class="project-details">${snackList.snack_name}</span>
+	                       	<span class="project-details">${snack.snack_name}</span>
 	                       <c:choose>
-	                       		<c:when test="${snackList.snack_combo_yn=='Y'}">
-	                       			<span class="project-details">${snackList.snack_name}</span>
-	                       		</c:when>
-	                       	
+	                       		<c:when test="${snack.snack_combo_yn=='Y'}">
+	                       			<span class="project-details">${snack.snack_subname}</span>
+	                       		</c:when>	                       	
 	                       </c:choose>
 	                       
-	                       
-	                        
-	                        
 	                    </li>
 						
 						
 					</c:forEach>
 				
 				</c:if>
-
-
-
-
-                    
-
-                    <!-- Gallery Item 2 -->
-                    <li class="span4 gallery-item" data-type="illustration">
-                        <span class="gallery-hover-3col hidden-phone hidden-tablet">
-                            <span class="gallery-icons">                                
-                                <a href="snack_detail" class="item-details-link"></a>
-                            </span>
-                        </span>
-                        <a href="gallery-single.jsp"><img src="${pageContext.request.contextPath}/img/gallery/gallery-img-1-3col.jpg" alt="Gallery"></a>
-                       <span class="project-details">콤보B</span>
-                    </li>
-
-                    <!-- Gallery Item 3 -->
-                    <li class="span4 gallery-item" data-id="id-3" data-type="web">
-                        <span class="gallery-hover-3col hidden-phone hidden-tablet">
-                            <span class="gallery-icons">
-                               
-                                <a href="snack/snack_detail" class="item-details-link"></a>
-                            </span>
-                        </span>
-                        <a href="gallery-single.jsp"><img src="${pageContext.request.contextPath}/img/gallery/gallery-img-1-3col.jpg" alt="Gallery"></a>
-                        <span class="project-details">콤보C</span>
-                    </li>
-
-                    <!-- Gallery Item 4 -->
-                    <li class="span4 gallery-item" data-id="id-4" data-type="video">
-                        <span class="gallery-hover-3col hidden-phone hidden-tablet">
-                            <span class="gallery-icons">
-                               
-                                <a href="snack_detail" class="item-details-link"></a>
-                            </span>
-                        </span>
-                       <a href="snack_detail"><img src="${pageContext.request.contextPath}/img/gallery/gallery-img-1-3col.jpg" alt="Gallery"></a>
-                        <span class="project-details">콤보D</span>
-                    </li>
-
-                    <!-- Gallery Item 5 -->
-                    <li class="span4 gallery-item" data-id="id-5" data-type="web illustration">
-                        <span class="gallery-hover-3col hidden-phone hidden-tablet">
-                            <span class="gallery-icons">
-                                
-                                <a href="snack_detail" class="item-details-link"></a>
-                            </span>
-                        </span>
-                        <a href="snack_detail"><img src="${pageContext.request.contextPath}/img/gallery/gallery-img-1-3col.jpg" alt="Gallery"></a>
-                        <span class="project-details">콤보E</span>
-                    </li>
-
-                    <!-- Gallery Item 6 -->
-                    <li class="span4 gallery-item" data-id="id-6" data-type="illustration design">
-                        <span class="gallery-hover-3col hidden-phone hidden-tablet">
-                            <span class="gallery-icons">
-                               
-                                <a href="snack_detail" class="item-details-link"></a>
-                            </span>
-                        </span>
-                        <a href="snack_detail"><img src="${pageContext.request.contextPath}/img/gallery/gallery-img-1-3col.jpg" alt="Gallery"></a>
-                        <span class="project-details">콤보F</span>
-                    </li>                   
+				
+				<c:if test="${empty snackList}">
+					<td colspan="5" align="center">메뉴가 존재하지 않습니다.</td>
+				</c:if>
 
                 </ul>
             </div>

@@ -20,7 +20,7 @@
 		    snack_change_info,
 		    snack_use_info
 		FROM snack
-		where 1=1
+		where snack_type=#{snack_type}
 	</select>
 	
 	<select id="snackView" parameterType="int" resultType="kr.co.gdfm.snack.model.Snack">
