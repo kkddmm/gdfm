@@ -9,6 +9,11 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
+
+
+<title>영화보기좋은날</title>
+
+
 <!-- Bootstrap -->
   <link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/css/font-awesome.min.css">
@@ -16,6 +21,9 @@
   <link href="${pageContext.request.contextPath}/css/prettyPhoto.css" rel="stylesheet">
   <link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet">
   <link href="${pageContext.request.contextPath}/css/responsive.css" rel="stylesheet">
+  
+  
+  
   <!-- =======================================================
     Theme Name: Gp
     Theme URL: https://bootstrapmade.com/gp-free-multipurpose-html-bootstrap-templat/
@@ -60,7 +68,15 @@ footer {
 }
 </style> -->
 
-<title>영화보기좋은날</title>
+
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="${pageContext.request.contextPath}/js/jquery.js"></script>
+<script src="${pageContext.request.contextPath}/js/jquery.prettyPhoto.js"></script>
+<script src="${pageContext.request.contextPath}/js/jquery.isotope.min.js"></script>
+
+<script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/wow.min.js"></script>
+
 
 </head>
 <body class="homepage">
@@ -86,6 +102,7 @@ footer {
 	</footer>
 
 </div>
+
 
 
 </body>

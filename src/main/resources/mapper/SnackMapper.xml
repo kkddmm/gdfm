@@ -31,17 +31,17 @@
 		    snack_id,
 		    snack_type,
 		    snack_combo_yn,
-		    snack_name,
-		    snack_subname,
+		    snack_name,		    
+		   	snack_subname,
 		    snack_price,
 		    snack_size,
-		    snack_origin,
+		   	snack_origin,
 		    snack_mat,
 		    snack_info,
 		    snack_exp,
 		    snack_change_info,
 		    snack_use_info
-		FROM snack
+		FROM snack 
 		where snack_id=#{snack_id}
 	</select>
 
