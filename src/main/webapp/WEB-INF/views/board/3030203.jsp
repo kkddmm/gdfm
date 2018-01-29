@@ -37,7 +37,7 @@ $(function () {
 });
 
 	function fn_list() {
-		location.href="3030101";
+		location.href="3030201";
 	}
 	
 	function fn_save(type) {
@@ -48,10 +48,10 @@ $(function () {
 		
 		var frm = document.boardForm;
 		
-		frm.action = "boardInsert";
+		frm.action = "boardqnaInsert";
 		
 		if(type == 'U'){
-			frm.action = "boardUpdate";
+			frm.action = "boardqnaUpdate";
 		}
 		frm.submit();
 		
@@ -85,18 +85,18 @@ $(function () {
 <div class="slider">
 	<div class="container">
 		
-		<h3>${board.bo_id == 0 ? '글쓰기' : '글수정'}</h3>
+		<h3>${boardqna.bo_id == 0 ? '글쓰기' : '글수정'}</h3>
 	
 	<form name="boardForm" id="boardForm" method="post" enctype="multipart/form-data">
-		<input type="hidden" name="bo_id" value="${board.bo_id}"><!-- 핵심 -->
-		<input type="hidden" name="bo_type" value="NOTI">
+		<input type="hidden" name="bo_id" value="${boardqna.bo_id}"><!-- 핵심 -->
+		<input type="hidden" name="bo_type" value="QNA">
 		<table class="table">
 			<tr>
 				<th width="15%" class="info text-center">제목</th>
 				<td>
 					<div class="col-xs-9"><!-- 12:size MAX -->
 						<!-- name은 프로퍼티이름 -->
-						<input type="text" name="bo_title" value="${board.bo_title}" class="form-control" placeholder="제목을 입력하세요.">
+						<input type="text" name="bo_title" value="${boardqna.bo_title}" class="form-control" placeholder="제목을 입력하세요.">
 					</div>
 				</td>
 			</tr>	
@@ -108,7 +108,7 @@ $(function () {
 							<option value="">선택해주세요</option>
 							<c:if test="${not empty cinemaList}" >
 								<c:forEach var="cinema" items="${cinemaList}">
-									<option value=${cinema.ci_id} ${cinema.ci_id == board.ci_id ? 'selected' : ''}>${cinema.ci_name}</option>
+									<option value=${cinema.ci_id} ${cinema.ci_id == boardqna.ci_id ? 'selected' : ''}>${cinema.ci_name}</option>
 								</c:forEach>			
 							</c:if>
 						</select>
@@ -121,16 +121,8 @@ $(function () {
 					<div class="col-xs-3">
 <%-- 						<input type="hidden" name="mem_id" value="${board.mem_id}"> --%>
 						<input type="hidden" name="mem_id" value="test">
-<%-- 						<input type="text" name="mem_id_name" value="${board.mem_id_name}" class="form-control" readonly> --%>
+<%-- 						<input type="text" name="mem_id_name" value="${boardqna.mem_id_name}" class="form-control" readonly> --%>
 						<input type="text" name="mem_id_name" value="홍길동" class="form-control" readonly>
-					</div>
-				</td>
-			</tr>	
-			<tr>
-				<th class="info text-center">공지여부</th>
-				<td>
-					<div class="checkbox col-xs-12">
-						<label for="bo_notice_yn"><input type="checkbox" name="bo_notice_yn" id="bo_notice_yn" value="Y" ${board.bo_notice_yn == 'Y' ? 'checked' : ''}>공지여부</label><!-- label체크시 체크박스체크같음 -->
 					</div>
 				</td>
 			</tr>	
@@ -139,7 +131,7 @@ $(function () {
 				<th class="info text-center">첨부파일</th>
 				<td>
 				<p>
-					<c:forEach var="fileItem" items="${board.fileItemList}">
+					<c:forEach var="fileItem" items="${boardqna.fileItemList}">
 						<div style="margin: 5px;">
 							<a href="${pageContext.request.contextPath}/common/download?file_id=${fileItem.file_id}">${fileItem.file_name}</a> ${fileItem.file_fancy_size}
 						<button type="button" class="btn btn-danger btn-xs btn-delete-exist" data-file_id="${fileItem.file_id}">X</button>
@@ -163,7 +155,7 @@ $(function () {
 			<!-- //첨부파일 -->	
 			<tr>
 				<td colspan="2">
-					<textarea rows="15" name="bo_content" id="bo_content" class="form-control">${board.bo_content}</textarea>
+					<textarea rows="15" name="bo_content" id="bo_content" class="form-control">${boardqna.bo_content}</textarea>
 					 <script>
 					    $(document).ready(function() {
 					    	$('#bo_content').summernote({
@@ -181,11 +173,11 @@ $(function () {
 		
 		<p align="right">
 			
-			<c:if test="${board.bo_id == 0}">
+			<c:if test="${boardqna.bo_id == 0}">
 			<input type="button" value="저장" class="btn btn-primary" onclick="fn_save('I');">
 			</c:if>
 			
-			<c:if test="${board.bo_id != 0}">
+			<c:if test="${boardqna.bo_id != 0}">
 			<input type="button" value="수정" class="btn btn-primary" onclick="fn_save('U');">	
 			</c:if>
 			

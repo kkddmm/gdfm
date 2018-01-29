@@ -37,7 +37,7 @@ $(document).ready(function () {
 </script>
 <script type="text/javascript">
 	function fn_writeForm() {
-		location.href = "${pageContext.request.contextPath}/board/3030103";
+		location.href = "${pageContext.request.contextPath}/board/3030203";
 	}
 	
 	
@@ -51,7 +51,7 @@ $(document).ready(function () {
 			return false;
 		}
 		
-		frm.action = "${pageContext.request.contextPath}/board/3030101";//절대경로
+		frm.action = "${pageContext.request.contextPath}/board/3030201";//절대경로
 		//frm.action = "boardList";//상대경로
 		frm.submit();
 		
@@ -112,39 +112,23 @@ $(document).ready(function () {
 			</thead>
 			
 			<tbody>
-				<c:if test="${not empty noticeList}" >
-					<c:forEach var="notice" items="${noticeList}">
-						<fmt:parseDate value="${notice.bo_reg_date}" pattern="yyyy-MM-dd" var="reg_notice_date2" />
-						<fmt:formatDate value="${reg_notice_date2}" pattern="yyyy-MM-dd" var="reg_notice_date3" />
-						<tr>
-							<td style="text-align:center;">공지</td>
-							<td style="text-align:center;">${notice.ci_id_name}</td>
-							
-							<td class="text-left"><a href="3030102/${notice.bo_id}">${notice.bo_title}</a></td>
-							
-							<td style="text-align:center;">${notice.mem_id_name}</td>
-							<td style="text-align:center;">${reg_notice_date3}</td>
-							<td style="text-align:center;"></td>
-						</tr>
-					</c:forEach>			
-				</c:if>
-				<c:if test="${not empty boardList}" >
-					<c:forEach var="board" items="${boardList}" varStatus="i">
-						<fmt:parseDate value="${board.bo_reg_date}" pattern="yyyy-MM-dd" var="reg_date2" />
+				<c:if test="${not empty boardqnaList}" >
+					<c:forEach var="boardqna" items="${boardqnaList}" varStatus="i">
+						<fmt:parseDate value="${boardqna.bo_reg_date}" pattern="yyyy-MM-dd" var="reg_date2" />
 						<fmt:formatDate value="${reg_date2}" pattern="yyyy-MM-dd" var="reg_date3" />
 						<tr>
 							<td style="text-align:center;">${(pagingUtil.totalCount-(pagingUtil.currentPage-1)*pagingUtil.pageCount) - i.index - ((pagingUtil.currentPage-1)*5)}</td>
-							<td style="text-align:center;">${board.ci_id_name}</td>
+							<td style="text-align:center;">${boardqna.ci_id_name}</td>
 							
-							<td class="text-left"><a href="3030102/${board.bo_id}">${board.bo_title}</a></td>
+							<td class="text-left"><a href="3030202/${boardqna.bo_id}">${boardqna.bo_title}</a></td>
 							
-							<td style="text-align:center;">${board.mem_id_name}</td>
+							<td style="text-align:center;">${boardqna.mem_id_name}</td>
 							<td style="text-align:center;">${reg_date3}</td>
-							<td style="text-align:center;">${board.bo_hit_cnt}</td>
+							<td style="text-align:center;">${boardqna.bo_hit_cnt}</td>
 						</tr>
 					</c:forEach>			
 				</c:if>
-				<c:if test="${empty boardList}" >
+				<c:if test="${empty boardqnaList}" >
 					<tr>
 						<td colspan="6" align="center">게시글이 존재하지 않습니다.</td>
 					</tr>		

@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 
 import kr.co.gdfm.board.model.Board;
+import kr.co.gdfm.cinema.model.Cinema;
 
 @Mapper
 public interface BoardMapper {
@@ -23,4 +24,8 @@ public interface BoardMapper {
 	public int deleteBoard(Map<String, Object> paramMap) throws Exception;
 
 	public int updateHitCnt(int bo_id) throws Exception;
+	
+	public List<Board> selectNoticeList(Map<String, Object> paramMap) throws Exception;
+
+	public List<Cinema> selectCinemaList(Map<String, Object> paramMap) throws Exception;
 }

@@ -1,4 +1,4 @@
-package kr.co.gdfm.board.controller;
+package kr.co.gdfm.boardqna.controller;
 
 import java.util.HashMap;
 import java.util.List;
@@ -16,8 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import kr.co.gdfm.board.model.Board;
-import kr.co.gdfm.board.service.BoardService;
+import kr.co.gdfm.boardqna.model.Boardqna;
+import kr.co.gdfm.boardqna.model.Comment;
+import kr.co.gdfm.boardqna.service.BoardqnaService;
 import kr.co.gdfm.cinema.model.Cinema;
 import kr.co.gdfm.common.cinemalist.mapper.CinemaListMapper;
 import kr.co.gdfm.common.file.model.FileItem;
@@ -27,10 +28,10 @@ import kr.co.gdfm.common.util.PagingUtil;
 
 @Controller
 @RequestMapping("/board")
-public class BoardController {
+public class BoardqnaController {
 	
 	@Autowired
-	BoardService boardService;
+	BoardqnaService boardqnaService;
 
 	@Autowired
 	CinemaListMapper cinamaListMapper;
@@ -38,8 +39,8 @@ public class BoardController {
 	@Autowired
 	FileItemService fileItemService;
 	
-	@RequestMapping("/3030101")
-	public String boardList(
+	@RequestMapping("/3030201")
+	public String boardListqna(
 			@RequestParam(value="searchType", required=false, defaultValue="") String searchType,
 			@RequestParam(value="searchWord", required=false, defaultValue="") String searchWord,
 			@RequestParam(value="currentPage", required=false, defaultValue="1") int currentPage,
@@ -59,50 +60,90 @@ public class BoardController {
 		}
 		
 		// 총 게시글 수
-		totalCount = boardService.getBoardCount(paramMap);
+		totalCount = boardqnaService.getBoardqnaCount(paramMap);
 		
 		// 페이징 처리
 		PagingUtil pagingUtil = new PagingUtil(currentPage, totalCount, pageSize, pageCount);
 		
-		
-		Map<String, Object> paramMap2 = new HashMap<>();
-		List<Board> noticeList = boardService.getNoticeList(paramMap2);
-		
-		
 		paramMap.put("startRow", pagingUtil.getStartRow());
 		paramMap.put("endRow", pagingUtil.getEndRow());
 		
-		List<Board> boardList = boardService.getBoardList(paramMap);
+		List<Boardqna> boardqnaList = boardqnaService.getBoardqnaList(paramMap);
 		
-		model.addAttribute("boardList", boardList);
+		model.addAttribute("boardqnaList", boardqnaList);
 		model.addAttribute("pagingUtil", pagingUtil);
-		model.addAttribute("noticeList", noticeList);
 		
-		return "board/3030101";
+		return "board/3030201";
 		
 	}
 	
-	@RequestMapping("/3030102/{bo_id}") // @PathVariable. /boardView/1233(pk,시퀀즈번호)/{mem_id}
-	public String boardView(
+	@RequestMapping("/3030202/{bo_id}") // @PathVariable. /boardView/1233(pk,시퀀즈번호)/{mem_id}
+	public String boardqnaView(
 			//@RequestParam(value="bo_seq_no") int bo_seq_no,
 			@PathVariable(value="bo_id", required=true) int bo_id,
 			Model model
 			) throws Exception {
 		
-		Board board = null;
+		Boardqna boardqna = null;
 		
 		if(bo_id != 0) {
-			board = boardService.getBoard(bo_id);
+			boardqna = boardqnaService.getBoardqna(bo_id);
 		}
-		Map<String, Object> paramMap = new HashMap<>();
 		
-		model.addAttribute("board", board);
+		List<Comment> commentList = boardqnaService.getCommentList(bo_id);
 		
-		return "board/3030102";
+		model.addAttribute("boardqna", boardqna);
+		model.addAttribute("commentList", commentList);
+		
+		return "board/3030202";
 	}
 	
-	@RequestMapping("/3030103")
-	public String boardForm(
+	@RequestMapping("/commentInsert")
+	public String commnetInsert(Comment comment) throws Exception {
+System.out.println(comment.getCo_id());
+		int bo_id = Integer.parseInt(comment.getParent_bo_id());
+		int variable = 1;
+		Map<String, Integer> paramMap= new HashMap<>();
+		paramMap.put("bo_id", bo_id);
+		paramMap.put("variable", variable);
+		
+	//boardqnaService.updateCommentCnt(paramMap);
+	boardqnaService.commentInsert(comment);
+	
+		return "redirect:/mainpage/board/communityBoardView?bo_id=" + bo_id;
+
+	}
+
+	@RequestMapping("/commentDelete")
+	public String commentDelete(int co_id, int bo_id) throws Exception {
+
+		int variable = -1;
+		Map<String, Integer> paramMap= new HashMap<>();
+		paramMap.put("bo_id", bo_id);
+		paramMap.put("variable", variable);
+		
+		//boardqnaService.updateCommentCnt(paramMap);
+		boardqnaService.commentDelete(co_id);
+
+		return "redirect:/mainpage/board/communityBoardView?bo_id=" + bo_id;
+
+	}
+
+	@RequestMapping("/commentUpdate")
+	public String commentDelete(int co_id, int bo_id, String co_content) throws Exception {
+
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("co_id", co_id);
+		paramMap.put("co_content", co_content);
+
+		boardqnaService.commentUpdate(paramMap);
+
+		return "redirect:/mainpage/board/communityBoardView?bo_id=" + bo_id;
+
+	}	
+	
+	@RequestMapping("/3030203")
+	public String boardqnaForm(
 			HttpSession session,
 			@RequestParam(value="bo_id", required=false, defaultValue="0") int bo_id,
 			Model model 
@@ -118,28 +159,28 @@ public class BoardController {
 			//	return "redirect:/login/loginForm";
 			//}
 
-			Board board = new Board();
+			Boardqna boardqna = new Boardqna();
 				
 			if(bo_id != 0) {
-				board = boardService.getBoard(bo_id);
+				boardqna = boardqnaService.getBoardqna(bo_id);
 					
 			}else {
 				// 로그인 사용자 정보
 				//board.setBo_writer(member.getMem_id());
 				//board.setBo_writer_name(member.getMem_name());
 			}
+			
 			Map<String, Object> paramMap = new HashMap<>();
 			List<Cinema> cinemaList = cinamaListMapper.selectCinemaList(paramMap);
-			
-			model.addAttribute("board", board);
+			model.addAttribute("boardqna", boardqna);
 			model.addAttribute("cinemaList", cinemaList);
 				
-			return "board/3030103";
+			return "board/3030203";
 	}
 	
-	@RequestMapping(value="/boardInsert", method=RequestMethod.POST)
-	public String boardInsert(
-			Board board,
+	@RequestMapping(value="/boardqnaInsert", method=RequestMethod.POST)
+	public String boardqnaInsert(
+			Boardqna boardqna,
 			HttpServletRequest request,
 			Model model
 			) throws Exception {
@@ -149,16 +190,16 @@ public class BoardController {
 
 				boolean isError = false;
 				String message = "정상 등록되었습니다.";
-				String locationURL = "/board/3030101";
+				String locationURL = "/board/3030201";
 				
 				try {
 				
 					// 파일 목록 생성.
-					List<FileItem> fileItemList = fileItemService.uploadFiles(request, board.getBo_type());
+					List<FileItem> fileItemList = fileItemService.uploadFiles(request, boardqna.getBo_type());
 					
-					board.setFileItemList(fileItemList);
+					boardqna.setFileItemList(fileItemList);
 					
-					int updCnt = boardService.insertBoard(board);
+					int updCnt = boardqnaService.insertBoardqna(boardqna);
 					
 					if(updCnt == 0) {
 						isError = true;
@@ -178,9 +219,9 @@ public class BoardController {
 		
 	}
 	
-	@RequestMapping(value="/boardUpdate", method=RequestMethod.POST)
-	public String boardUpdate(
-			Board board,
+	@RequestMapping(value="/boardqnaUpdate", method=RequestMethod.POST)
+	public String boardqnaUpdate(
+			Boardqna boardqna,
 			HttpSession session,
 			HttpServletRequest request,
 			Model model
@@ -194,22 +235,22 @@ public class BoardController {
 				
 				// 세션에서 로그인 사용자 정보 셋팅.
 			//	board.setUpd_user(member.getMem_id());
-				board.setBo_upd_user("test");
+				boardqna.setBo_upd_user("test");
 				
 				String viewPage = "common/message";
 
 				boolean isError = false;
 				String message = "정상 수정되었습니다.";
 				//String locationURL = "/board/boardView/" + board.getBo_seq_no();
-				String locationURL = "/board/3030102/" + board.getBo_id();
+				String locationURL = "/board/3030202/" + boardqna.getBo_id();
 		
 				try {
 							
 					// 파일 업로드처리
-					List<FileItem> fileItemList = fileItemService.uploadFiles(request, board.getBo_type());
-					board.setFileItemList(fileItemList);
+					List<FileItem> fileItemList = fileItemService.uploadFiles(request, boardqna.getBo_type());
+					boardqna.setFileItemList(fileItemList);
 					
-					int updCnt = boardService.updateBoard(board);
+					int updCnt = boardqnaService.updateBoardqna(boardqna);
 					
 					if(updCnt == 0) {
 						isError = true;
@@ -227,8 +268,8 @@ public class BoardController {
 				
 				return viewPage;
 	}
-	@RequestMapping("/boardDelete")
-	public String boardDelete(
+	@RequestMapping("/boardqnaDelete")
+	public String boardqnaDelete(
 			HttpSession session,
 			@RequestParam("bo_id") int bo_id,
 			Model model
@@ -250,11 +291,11 @@ public class BoardController {
 
 		boolean isError = false;
 		String message = "정상 삭제되었습니다.";
-		String locationURL = "/board/3030101";
+		String locationURL = "/board/3030201";
 		
 		try {
 			
-			int updCnt = boardService.deleteBoard(paramMap);
+			int updCnt = boardqnaService.deleteBoardqna(paramMap);
 			
 			if(updCnt == 0) {
 				isError = true;

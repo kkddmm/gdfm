@@ -1,0 +1,200 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<script type="text/javascript">
+$(document).ready(function () {
+
+    $("#btn-blog-next").click(function () {
+      $('#blogCarousel').carousel('next')
+    });
+     $("#btn-blog-prev").click(function () {
+      $('#blogCarousel').carousel('prev')
+    });
+
+     $("#btn-client-next").click(function () {
+      $('#clientCarousel').carousel('next')
+    });
+     $("#btn-client-prev").click(function () {
+      $('#clientCarousel').carousel('prev')
+    });
+    
+});
+
+ $(window).load(function(){
+
+    $('.flexslider').flexslider({
+        animation: "slide",
+        slideshow: true,
+        start: function(slider){
+          $('body').removeClass('loading');
+        }
+    });  
+});
+
+</script>
+<script type="text/javascript">
+	function fn_writeForm(seqNo) {
+		location.href = "${pageContext.request.contextPath}/board/3030203?bo_id=" + seqNo;
+	}
+	function fn_delete(seqNo) {
+		if(confirm("삭제하시겠습니까?")){
+			location.href = "${pageContext.request.contextPath}/board/boardDelete?bo_id=" + seqNo;
+	
+		}
+	}
+	function fn_list() {
+		location.href = "${pageContext.request.contextPath}/board/3030201";
+	}
+	
+
+	function fn_co_upt(co_id, bo_id, co_content){
+
+		//기존의 댓글 표시창 html 제거 
+		$('#td'+co_id).html('');
+		
+		$("<form>").attr('id','updateform'+co_id).appendTo('#td'+co_id);
+		$('<input>').attr({'type':'hidden','value':co_id,'name':'co_id'}).appendTo($('#updateform'+co_id));
+		$('<input>').attr({'type':'hidden','value':bo_id,'name':'bo_id'}).appendTo($('#updateform'+co_id));
+		
+		$('<textarea>').attr('name','co_content').val(co_content).css({
+			'width' : '800px'
+		}).addClass('co_upt_area').appendTo($('#updateform'+co_id));
+		$('<span>').addClass('glyphicon glyphicon-ok').on('click',function(){
+		var upt_co_content =$('.co_upt_area').val();
+		
+		
+		var upt_confirm = confirm("정말로 댓글을 수정하시겠습니까?");
+		if(upt_confirm==true){
+			var updateForm = $('#updateform'+co_id)[0];
+			updateForm.action = "commentUpdate";
+			updateForm.method = "post";
+			updateForm.submit();
+		}
+		else{
+			return false;
+		}
+		}).appendTo($('#td'+co_id));
+		
+		$('<span>').addClass('glyphicon glyphicon-share-alt').on('click',function(){
+			var uptconfirm2 = confirm("수정중인 내용은 저장되지 않습니다. 글 내용화면으로 돌아갈까요?");
+			
+			if(uptconfirm2==true){
+				
+				location.href ="communityBoardView?bo_id="+bo_id;
+			}else{
+				return false;
+			}
+		}).appendTo($('#td'+co_id));
+	}
+			
+	function fn_co_del(co_id, bo_id){
+				
+		var delCon = confirm("댓글을 삭제하시겠습니까?");
+				
+		if(delCon==true){
+			location.href = "commentDelete?co_id="+co_id+"&&bo_id="+bo_id;
+		}else{
+			return false;
+		}
+	}
+	
+	function fn_commentInsert(){
+		var commentFrm = document.commentForm;
+		if(commentFrm.co_content.value!=''){
+			commentFrm.action ="commentInsert"
+			commentFrm.submit();
+		}else{
+			alert("내용을 입력하세요");
+			return false;
+		}
+				
+	}
+</script>	
+<div class="slider">
+	<div class="container">
+	
+	<table class="table">
+		<tr>
+			<th class="col-xs-2 text-center">제목</th>
+			<td>
+				${boardqna.bo_title}
+			</td>
+		</tr>	
+		<tr>
+			<th class="text-center">작성자</th>
+			<td>
+				${boardqna.mem_id_name}
+			</td>
+		</tr>	
+		<tr>
+			<th class="text-center">영화관</th>
+			<td>
+				${boardqna.ci_id_name}
+			</td>
+		</tr>	
+		<tr>
+			<th class="text-center">첨부파일</th>			
+			<td>
+				<c:forEach var="fileItem" items="${boardqna.fileItemList}">
+					<div>
+						<a href="${pageContext.request.contextPath}/common/download?file_id=${fileItem.file_id}">${fileItem.file_name}</a> ${fileItem.file_fancy_size}
+					</div>
+				</c:forEach>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2" style="white-space: pre-wrap;">${boardqna.bo_content}</td>
+		</tr>			
+	</table>
+		
+		<p class="text-right">
+		
+<%-- 		<c:if test="${not empty LOGIN_USER and LOGIN_USER.mem_id == board.mem_id}">	 --%>
+			<input type="button" value="수정" class="btn btn-primary" onclick="fn_writeForm('${boardqna.bo_id}');">
+			<input type="button" value="삭제" class="btn btn" onclick="fn_delete('${boardqna.bo_id}');">
+<%-- 		</c:if>	 --%>
+			<input type="button" value="목록" class="btn btn-default" onclick="fn_list();">
+		</p>
+		
+		<p>댓글 수 : </p>
+			<table class="table table-bordered">
+				<c:forEach var="comment" items="${commentList}">
+					<tr>
+						<td><strong>${comment.mem_id}</strong> 등록 : ${comment.bo_co_reg_date}</td>
+					</tr>
+						<tr>
+							<td id="td${comment.co_id}" style="white-space: pre-wrap">${comment.bo_co_content}
+								<c:if test="${LOGIN_USER.cust_id == comment.mem_id}">   
+									<span id="commentUdt" onclick="fn_co_upt(${comment.co_id},${board.bo_id},'<spring:escapeBody javaScriptEscape="true">${comment.bo_co_content}</spring:escapeBody>');"class="glyphicon glyphicon-ok"></span>  
+									<span id="commentDel${comment.co_id}" onclick="fn_co_del(${comment.co_id},${board.bo_id});"class="glyphicon glyphicon-remove"></span>
+								</c:if>
+							</td>
+						</tr>
+
+				</c:forEach>
+
+			</table>
+
+			<c:if test="${empty LOGIN_USER}">
+				<div text-align="center">
+					<p>
+						<strong>로그인</strong>을 하시면 댓글을 등록할 수 있습니다.
+					</p>
+
+				</div>
+			</c:if>
+			<c:if test="${not empty LOGIN_USER}">
+				<h5>댓글 달기 - ${LOGIN_USER.mem_id}</h5>
+				<form method="post" name="commentForm">
+<%-- 					<input name="mem_id" type="text" style="display: none;" value="${LOGIN_USER.mem_id}" /> \ --%>
+					<input name="mem_id" type="text" style="display: none;" value="1111" /> \
+					<input name="bo_id" type="text" style="display: none;" value="${boardqna.bo_id}" />
+					<textarea placeholder="건강한 댓글은 작성자에게 힘이 됩니다." rows="8" class="form-control" name="bo_co_content"></textarea>
+					<a style="float: right;" class="button" onclick="fn_commentInsert();">댓글 등록</a>
+				</form>
+		</c:if>
+	</div>
+</div>

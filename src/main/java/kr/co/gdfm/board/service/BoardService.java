@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import kr.co.gdfm.board.model.Board;
+import kr.co.gdfm.cinema.model.Cinema;
 
 public interface BoardService {
 	// 총 게시글 수
@@ -23,4 +24,10 @@ public interface BoardService {
 	
 	// 게시글 삭제
 	public int deleteBoard(Map<String, Object> paramMap) throws Exception;
+	
+	// 게시글 공지
+	public List<Board> getNoticeList(Map<String, Object> paramMap) throws Exception;
+
+	// 영화관 목록
+	public List<Cinema> getCinemaList(Map<String, Object> paramMap) throws Exception;
 }

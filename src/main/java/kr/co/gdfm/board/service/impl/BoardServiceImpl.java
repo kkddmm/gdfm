@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import kr.co.gdfm.board.mapper.BoardMapper;
 import kr.co.gdfm.board.model.Board;
 import kr.co.gdfm.board.service.BoardService;
+import kr.co.gdfm.cinema.model.Cinema;
 import kr.co.gdfm.common.file.mapper.FileItemMapper;
 import kr.co.gdfm.common.file.model.FileItem;
 
@@ -100,6 +101,16 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public int deleteBoard(Map<String, Object> paramMap) throws Exception {
 		return boardMapper.deleteBoard(paramMap);
+	}
+
+	@Override
+	public List<Board> getNoticeList(Map<String, Object> paramMap) throws Exception {
+		return boardMapper.selectNoticeList(paramMap);
+	}
+
+	@Override
+	public List<Cinema> getCinemaList(Map<String, Object> paramMap) throws Exception {
+		return boardMapper.selectCinemaList(paramMap);
 	}
 	
 }

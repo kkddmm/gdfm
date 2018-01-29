@@ -2,15 +2,15 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="kr.co.gdfm.board.mapper.BoardMapper">
+<mapper namespace="kr.co.gdfm.boardqna.mapper.BoardqnaMapper">
 <!-- <![CDATA[]] < 특수문자사용시 -->
-<select id="selectBoardCount" resultType="int" parameterType="map"> 
+<select id="selectBoardqnaCount" resultType="int" parameterType="map"> 
   	SELECT
 	    count(*) as count
 	FROM
 	    board a, member b
 	WHERE a.mem_id = b.mem_id
-	AND a.bo_type = 'NOTI'
+	AND a.bo_type = 'QNA'
 	AND a.bo_delete_yn = 'N'
 	<if test="searchWord != null and searchWord !=''">
 		<if test="searchType == 01">
@@ -28,7 +28,7 @@
 	</if>
 </select>
   
-<select id="selectBoardList" resultType="Board" parameterType="map"> 
+<select id="selectBoardqnaList" resultType="Boardqna" parameterType="map"> 
 <include refid="CommonMapper.pageHeader"></include>
 	SELECT
 	    a.bo_id,
@@ -47,9 +47,9 @@
 	    a.bo_upd_user
 	FROM
 	    board a, member b, cinema c
-	WHERE a.mem_id = b.mem_id
-	AND a.bo_type = 'NOTI'	
+	WHERE a.mem_id = b.mem_id	
 	AND a.ci_id=c.ci_id
+	AND a.bo_type = 'QNA'
 	AND a.bo_delete_yn = 'N'
 	
 	<if test="searchWord != null and searchWord !=''">
@@ -70,42 +70,7 @@
 	<include refid="CommonMapper.pageFooter"></include>
 </select>
 
-<select id="selectNoticeList" resultType="Board" parameterType="map"> 
-	SELECT
-	    a.bo_id,
-	    a.bo_type,
-	    a.mem_id,
-	    b.mem_name as mem_id_name,
-	    a.ci_id,
-	    c.ci_name as ci_id_name,
-	    a.bo_title,
-	    a.bo_content,
-	    a.bo_hit_cnt,
-	    a.bo_notice_yn,
-	    a.bo_delete_yn,  
-	    a.bo_reg_date,
-	    a.bo_upd_date,
-	    a.bo_upd_user
-	FROM
-	    board a, member b, cinema c
-	WHERE a.mem_id = b.mem_id	
-	AND a.ci_id=c.ci_id
-	AND a.bo_type = 'NOTI'
-	AND a.bo_notice_yn = 'Y'
-	AND a.bo_delete_yn = 'N'
-	ORDER BY bo_id DESC
-</select>
-
-<!-- <select id="selectCinemaList" resultType="kr.co.gdfm.cinema.model.Cinema" parameterType="map"> 
-	SELECT
-	    ci_id,
-		ci_name
-	FROM
-	    cinema
-	ORDER BY ci_id ASC
-</select> -->
-
-<select id="selectBoard" resultType="Board" parameterType="int"><!-- alias -->
+<select id="selectBoardqna" resultType="Boardqna" parameterType="int"><!-- alias -->
   	SELECT
 	    a.bo_id,
 	    a.bo_type,
@@ -126,10 +91,56 @@
 	FROM
 	    board a
 	WHERE a.bo_id = #{bo_id}
+	AND a.bo_type = 'QNA'
 	AND a.bo_delete_yn = 'N'
 </select>
 
-<insert id="insertBoard" parameterType="Board">
+<select id="getCommentList" parameterType="int" resultType="kr.co.gdfm.boardqna.model.Comment">
+select * from bo_comment
+where bo_id = #{bo_id}
+order by bo_co_reg_date
+</select>
+
+<insert id="commentInsert" parameterType="kr.co.gdfm.boardqna.model.Comment" >
+<selectKey keyProperty="co_id" resultType="int" order="BEFORE">
+	select comment_seq.nextval from dual
+</selectKey>
+INSERT INTO bo_comment (
+    bo_co_id
+	mem_id
+	bo_co_content
+	bo_co_reg_date
+	bo_id
+) VALUES (
+    #{co_id},
+	#{mem_id},
+	#{bo_co_content},
+	SYSDATE,
+	SYSDATE,
+	#{mem_id},
+	#{bo_id}
+)
+
+</insert>
+
+<update id="updateCommentCnt" parameterType="map" >
+update board set 
+	comment_cnt = comment_cnt + #{variable}
+where bo_id = #{bo_id}
+
+</update>
+
+<delete id="commentDelete" parameterType="int" >
+delete from bo_comment where co_id = #{co_id}
+</delete>
+
+<update id="commentUpdate" parameterType="map">
+update bo_comment set 
+	co_content =#{co_content}
+where co_id =#{co_id}
+</update>
+
+<insert id="insertBoardqna" parameterType="Boardqna">
 	<selectKey keyProperty="bo_id" resultType="int" order="BEFORE"><!-- BEFORE/AFTER -->
 		SELECT BOARD_SEQ.NEXTVAL FROM DUAL
 	</selectKey>
@@ -163,10 +174,10 @@
 	)
 </insert>
 
-<update id="updateBoard" parameterType="Board">
+<update id="updateBoardqna" parameterType="Boardqna">
 	UPDATE board SET
 		bo_type         = #{bo_type},
-		ci_id           = #{ci_id},
+		ci_id         = #{ci_id},
 		bo_title        = #{bo_title},
 		bo_content      = #{bo_content},	
 		bo_notice_yn    = NVL(#{bo_notice_yn}, 'N'),
@@ -176,7 +187,7 @@
 
 </update>
 
-<delete id="deleteBoard" parameterType="map">
+<delete id="deleteBoardqna" parameterType="map">
   	UPDATE board SET   
 		bo_delete_yn = 'Y',
 		bo_upd_user = #{bo_upd_user},
@@ -184,7 +195,7 @@
 	WHERE bo_id = #{bo_id}
 </delete>
 
-<update id="updateHitCnt" parameterType="int">
+<update id="updateHitCntqna" parameterType="int">
   	UPDATE board SET
   		bo_hit_cnt = bo_hit_cnt + 1
   	WHERE bo_id = #{bo_id}
