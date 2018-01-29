@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.gdfm.reservation.mapper.ReservationMapper">
+
+	<select id="getDateList" resultType="map">
+	
+	<![CDATA[
+	SELECT TO_CHAR(TO_DATE(BB.DAY, 'YYYYMMDD') + NUM-1, 'YYYY') AS year
+      ,TO_CHAR(TO_DATE(BB.DAY, 'YYYYMMDD') + NUM-1, 'MM') AS month
+      ,TO_CHAR(TO_DATE(BB.DAY, 'YYYYMMDD') + NUM-1, 'DD') AS day
+      ,decode(TO_CHAR(TO_DATE(BB.DAY, 'YYYYMMDD') + NUM-1, 'd'),
+              '1','일',
+              '2','월',
+              '3','화',
+              '4','수',
+              '5','목',
+              '6','금','토') as weekday
+  FROM (
+                SELECT ROWNUM AS NUM 
+                  FROM dictionary A,(
+                            SELECT B.DAY AS BDAY, C.DAY AS CDAY 
+                              FROM
+                            ( SELECT TO_CHAR(sysdate, 'YYYYMMDD') AS DAY FROM DUAL ) B,
+                            ( SELECT TO_CHAR(sysdate+14, 'YYYYMMDD') AS DAY FROM DUAL ) C
+                                                   ) B
+         WHERE ROWNUM <= TO_DATE(B.CDAY, 'YYYYMMDD') - TO_DATE(B.BDAY, 'YYYYMMDD')  + 1) AA,
+( SELECT TO_CHAR(sysdate, 'YYYYMMDD') AS DAY FROM DUAL ) BB
+	]]>
+	
+	
+	
+	
+	
+	</select>
+	
+
+
+
+</mapper>
