@@ -1,5 +1,6 @@
 package kr.co.gdfm.movie.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,16 @@ public class MovieSerivceImpl implements MovieService {
 	public List<Movie> selectShowMovie() {
 		// TODO Auto-generated method stub
 		return movieMapper.selectShowMovie();
+	}
+
+
+	@Override
+	public List<Movie> selectMovieList() {
+		
+		List<Movie> movieList = new ArrayList<>();
+		movieList = movieMapper.selectMovieList();
+		
+		return movieList;
 	}
 	
 	

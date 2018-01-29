@@ -5,82 +5,103 @@ import java.util.Date;
 //영화 
 public class Movie {
 
-	private int Movie_id;
-	private String Movie_name;
-	private int Movie_genre_code;
-	private String Movie_grade;
-	private String Movie__story;
-	private String Movie_trailer;
-	private String Movie_show_yn;
-	private String Movie_release_date;
-	private int Movie_price;
-	private String Movie_demension;
-	private String Movie_ko_name;
+	private int  movie_id;
+	private String movie_name;
+	private String movie_ko_name;
+	private String movie_grade;
+	private String movie_story;
+	private String movie_snapshoot;
+	private String movie_show_yn;
+	private int  movie_dimension_code;
+	private String movie_release_date;
+	private String movie_director;
+	private String movie_actor;
+	private String movie_running_time;
+	private String movie_production_country;
+	private String movie_trailer;
 	public int getMovie_id() {
-		return Movie_id;
+		return movie_id;
 	}
 	public void setMovie_id(int movie_id) {
-		Movie_id = movie_id;
+		this.movie_id = movie_id;
 	}
 	public String getMovie_name() {
-		return Movie_name;
+		return movie_name;
 	}
 	public void setMovie_name(String movie_name) {
-		Movie_name = movie_name;
-	}
-	public int getMovie_genre_code() {
-		return Movie_genre_code;
-	}
-	public void setMovie_genre_code(int movie_genre_code) {
-		Movie_genre_code = movie_genre_code;
-	}
-	public String getMovie_grade() {
-		return Movie_grade;
-	}
-	public void setMovie_grade(String movie_grade) {
-		Movie_grade = movie_grade;
-	}
-	public String getMovie__story() {
-		return Movie__story;
-	}
-	public void setMovie__story(String movie__story) {
-		Movie__story = movie__story;
-	}
-	public String getMovie_trailer() {
-		return Movie_trailer;
-	}
-	public void setMovie_trailer(String movie_trailer) {
-		Movie_trailer = movie_trailer;
-	}
-	public String getMovie_show_yn() {
-		return Movie_show_yn;
-	}
-	public void setMovie_show_yn(String movie_show_yn) {
-		Movie_show_yn = movie_show_yn;
-	}
-	public String getMovie_release_date() {
-		return Movie_release_date;
-	}
-	public void setMovie_release_date(String movie_release_date) {
-		Movie_release_date = movie_release_date;
-	}
-	public int getMovie_price() {
-		return Movie_price;
-	}
-	public void setMovie_price(int movie_price) {
-		Movie_price = movie_price;
-	}
-	public String getMovie_demension() {
-		return Movie_demension;
-	}
-	public void setMovie_demension(String movie_demension) {
-		Movie_demension = movie_demension;
+		this.movie_name = movie_name;
 	}
 	public String getMovie_ko_name() {
-		return Movie_ko_name;
+		return movie_ko_name;
 	}
 	public void setMovie_ko_name(String movie_ko_name) {
-		Movie_ko_name = movie_ko_name;
+		this.movie_ko_name = movie_ko_name;
 	}
-
+	public String getMovie_grade() {
+		return movie_grade;
+	}
+	public void setMovie_grade(String movie_grade) {
+		this.movie_grade = movie_grade;
+	}
+	public String getMovie_story() {
+		return movie_story;
+	}
+	public void setMovie_story(String movie_story) {
+		this.movie_story = movie_story;
+	}
+	public String getMovie_snapshoot() {
+		return movie_snapshoot;
+	}
+	public void setMovie_snapshoot(String movie_snapshoot) {
+		this.movie_snapshoot = movie_snapshoot;
+	}
+	public String getMovie_show_yn() {
+		return movie_show_yn;
+	}
+	public void setMovie_show_yn(String movie_show_yn) {
+		this.movie_show_yn = movie_show_yn;
+	}
+	public int getMovie_dimension_code() {
+		return movie_dimension_code;
+	}
+	public void setMovie_dimension_code(int movie_dimension_code) {
+		this.movie_dimension_code = movie_dimension_code;
+	}
+	public String getMovie_release_date() {
+		return movie_release_date;
+	}
+	public void setMovie_release_date(String movie_release_date) {
+		this.movie_release_date = movie_release_date;
+	}
+	public String getMovie_director() {
+		return movie_director;
+	}
+	public void setMovie_director(String movie_director) {
+		this.movie_director = movie_director;
+	}
+	public String getMovie_actor() {
+		return movie_actor;
+	}
+	public void setMovie_actor(String movie_actor) {
+		this.movie_actor = movie_actor;
+	}
+	public String getMovie_running_time() {
+		return movie_running_time;
+	}
+	public void setMovie_running_time(String movie_running_time) {
+		this.movie_running_time = movie_running_time;
+	}
+	public String getMovie_production_country() {
+		return movie_production_country;
+	}
+	public void setMovie_production_country(String movie_production_country) {
+		this.movie_production_country = movie_production_country;
+	}
+	public String getMovie_trailer() {
+		return movie_trailer;
+	}
+	public void setMovie_trailer(String movie_trailer) {
+		this.movie_trailer = movie_trailer;
+	}
+	
 }
