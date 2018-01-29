@@ -34,9 +34,18 @@ where ci_addr1 = #{ci_addr1} and ci_addr2 = #{ci_addr2}
 ) c 
 where d.movie_id = c.선택지역상영영화id
 and d.movie_show_yn ='Y'
+	</select>
 	
 	
-	
+	<select id="selectCinemaListByMovie" resultType="kr.co.gdfm.cinema.model.Cinema" >
+select distinct a.ci_addr1
+from cinema a ,
+(
+select ci_id 
+from movie_show_info
+where movie_id = #{ci_id}
+) b
+where a.ci_id = b.ci_id
 	</select>
 	
 	

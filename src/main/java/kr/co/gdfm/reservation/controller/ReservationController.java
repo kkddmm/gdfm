@@ -1,5 +1,6 @@
 package kr.co.gdfm.reservation.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 import kr.co.gdfm.cinema.model.Cinema;
 import kr.co.gdfm.cinema.service.CinemaService;
@@ -36,11 +38,12 @@ public class ReservationController {
 		
 	List<Movie> movieList = movieService.selectShowMovie();
 	List<Cinema> addr1List = cinemaService.selectCinemaAddr1();	
+	List<Map<String, Object>> dateList = reservationService.getDateList();
 	
 	
-	
-		model.addAttribute("movieList", movieList);
-		model.addAttribute("addr1List", addr1List);
+	model.addAttribute("dateList", dateList);
+	model.addAttribute("movieList", movieList);
+	model.addAttribute("addr1List", addr1List);
 		
 		return "reservation/101";
 		
@@ -76,6 +79,21 @@ public List<Map<String, Object>> getMovieName(String ci_addr1, String ci_addr2){
 	
 }
 
+
+@RequestMapping("/get/cinemaList")
+@ResponseBody
+public List<Cinema> getCinemaList(int movie_id){
+	
+	List<Cinema> cinemaList = new ArrayList<>();
+	
+	
+	cinemaList = cinemaService.selectCinemaListByMovie(movie_id);
+
+//	System.out.println(cinemaList.get(0).getCi_addr1());
+	
+	
+	return cinemaList;
+}
 
 
 

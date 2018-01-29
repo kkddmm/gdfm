@@ -16,6 +16,8 @@ public interface CinemaMapper {
 	
 	
 	public List<Map<String, Object>> getMovieNameByCinema(Map<String, Object> paramMap);
+
+	public List<Cinema> selectCinemaListByMovie(int movie_id);
 	
 	
 	

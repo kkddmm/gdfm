@@ -34,4 +34,9 @@ public class CinemaServiceImpl implements CinemaService {
 		return cinemaMapper.getMovieNameByCinema(paramMap);
 	}
 
+	@Override
+	public List<Cinema> selectCinemaListByMovie(int movie_id) {
+		return cinemaMapper.selectCinemaListByMovie(movie_id);
+	}
+
 }

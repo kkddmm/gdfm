@@ -18,6 +18,8 @@ public interface CinemaService {
 	public List<Map<String, String>> getAddr2List(String ci_addr1);
 
 	public List<Map<String, Object>> getMovieNameByCinema(Map<String, Object> paramMap);
+
+	public List<Cinema> selectCinemaListByMovie(int movie_id);
 	
 	
 
