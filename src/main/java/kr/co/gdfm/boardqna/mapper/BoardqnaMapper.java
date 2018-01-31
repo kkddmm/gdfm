@@ -29,7 +29,7 @@ public interface BoardqnaMapper {
 	
 	public int commentInsert(Comment comment)throws Exception;
 	
-	public int commentDelete(int co_id)throws Exception;
+	public int commentDelete(int bo_co_id)throws Exception;
 	
 	public int commentUpdate(Map<String, Object> paramMap);
 }

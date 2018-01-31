@@ -37,7 +37,7 @@ $(function () {
 });
 
 	function fn_list() {
-		location.href="3030101";
+		location.href="3030101?bo_type_code=${param.bo_type_code}";
 	}
 	
 	function fn_save(type) {
@@ -89,7 +89,12 @@ $(function () {
 	
 	<form name="boardForm" id="boardForm" method="post" enctype="multipart/form-data">
 		<input type="hidden" name="bo_id" value="${board.bo_id}"><!-- 핵심 -->
-		<input type="hidden" name="bo_type" value="NOTI">
+		<c:if test="${not empty board.bo_type_code}">
+		<input type="hidden" name="bo_type_code" value="${board.bo_type_code}">
+		</c:if>
+		<c:if test="${empty board.bo_type_code}">
+		<input type="hidden" name="bo_type_code" value="${param.bo_type_code}">
+		</c:if>
 		<table class="table">
 			<tr>
 				<th width="15%" class="info text-center">제목</th>
@@ -125,7 +130,8 @@ $(function () {
 						<input type="text" name="mem_id_name" value="홍길동" class="form-control" readonly>
 					</div>
 				</td>
-			</tr>	
+			</tr>
+			<c:if test="${param.bo_type_code == 1}">
 			<tr>
 				<th class="info text-center">공지여부</th>
 				<td>
@@ -134,6 +140,7 @@ $(function () {
 					</div>
 				</td>
 			</tr>	
+			</c:if>
 			<!-- 첨부파일 multiple="multiple" -->
 			<tr>
 				<th class="info text-center">첨부파일</th>

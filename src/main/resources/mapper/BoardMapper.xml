@@ -10,7 +10,7 @@
 	FROM
 	    board a, member b
 	WHERE a.mem_id = b.mem_id
-	AND a.bo_type = 'NOTI'
+	AND a.bo_type_code = #{bo_type_code}
 	AND a.bo_delete_yn = 'N'
 	<if test="searchWord != null and searchWord !=''">
 		<if test="searchType == 01">
@@ -32,7 +32,7 @@
 <include refid="CommonMapper.pageHeader"></include>
 	SELECT
 	    a.bo_id,
-	    a.bo_type,
+	    a.bo_type_code,
 	    a.mem_id,
 	    b.mem_name as mem_id_name,
 	    a.ci_id,
@@ -48,7 +48,7 @@
 	FROM
 	    board a, member b, cinema c
 	WHERE a.mem_id = b.mem_id
-	AND a.bo_type = 'NOTI'	
+	AND a.bo_type_code = #{bo_type_code}
 	AND a.ci_id=c.ci_id
 	AND a.bo_delete_yn = 'N'
 	
@@ -73,7 +73,7 @@
 <select id="selectNoticeList" resultType="Board" parameterType="map"> 
 	SELECT
 	    a.bo_id,
-	    a.bo_type,
+	    a.bo_type_code,
 	    a.mem_id,
 	    b.mem_name as mem_id_name,
 	    a.ci_id,
@@ -90,7 +90,7 @@
 	    board a, member b, cinema c
 	WHERE a.mem_id = b.mem_id	
 	AND a.ci_id=c.ci_id
-	AND a.bo_type = 'NOTI'
+	AND a.bo_type_code = 1
 	AND a.bo_notice_yn = 'Y'
 	AND a.bo_delete_yn = 'N'
 	ORDER BY bo_id DESC
@@ -108,7 +108,7 @@
 <select id="selectBoard" resultType="Board" parameterType="int"><!-- alias -->
   	SELECT
 	    a.bo_id,
-	    a.bo_type,
+	    a.bo_type_code,
 	    a.mem_id,
 	    (select b.mem_name from member b 
 	    where a.mem_id = b.mem_id) as mem_id_name,
@@ -129,6 +129,58 @@
 	AND a.bo_delete_yn = 'N'
 </select>
 
+<select id="getCommentList" parameterType="int" resultType="kr.co.gdfm.boardqna.model.Comment">
+select
+	bo_co_id,
+    mem_id,
+    bo_co_content,
+    bo_co_reg_date,
+    bo_co_upd_date,
+    bo_co_upd_user,
+    bo_id 
+from 
+	bo_comment
+where bo_id = #{bo_id}
+order by bo_co_reg_date
+</select>
+
+<insert id="commentInsert" parameterType="kr.co.gdfm.boardqna.model.Comment" >
+<selectKey keyProperty="bo_co_id" resultType="int" order="BEFORE">
+	select bo_comment_seq.nextval from dual
+</selectKey>
+INSERT INTO bo_comment (
+    bo_co_id,
+	mem_id,
+	bo_co_content,
+	bo_co_upd_user,
+	bo_id
+) VALUES (
+    #{bo_co_id},
+	#{mem_id},
+	#{bo_co_content},
+	#{mem_id},
+	#{bo_id}
+)
+
+</insert>
+
+<update id="updateCommentCnt" parameterType="map" >
+update board set 
+	comment_cnt = comment_cnt + #{variable}
+where bo_id = #{bo_id}
+
+</update>
+
+<delete id="commentDelete" parameterType="int" >
+delete from bo_comment where bo_co_id = #{bo_co_id}
+</delete>
+
+<update id="commentUpdate" parameterType="map">
+update bo_comment set 
+	bo_co_content =#{bo_co_content}
+where bo_co_id =#{bo_co_id}
+</update>
+
 <insert id="insertBoard" parameterType="Board">
 	<selectKey keyProperty="bo_id" resultType="int" order="BEFORE"><!-- BEFORE/AFTER -->
 		SELECT BOARD_SEQ.NEXTVAL FROM DUAL
@@ -136,7 +188,7 @@
 	 
 	INSERT INTO board (
 	    bo_id,
-		bo_type,
+		bo_type_code,
 		mem_id,
 		ci_id,
 		bo_title,
@@ -149,7 +201,7 @@
 		bo_upd_user
 	) VALUES (
 	    #{bo_id},
-	    #{bo_type},
+	    #{bo_type_code},
 		#{mem_id},
 		NVL(#{ci_id}, 0),
 		#{bo_title},
@@ -165,7 +217,7 @@
 
 <update id="updateBoard" parameterType="Board">
 	UPDATE board SET
-		bo_type         = #{bo_type},
+		bo_type_code    = #{bo_type_code},
 		ci_id           = #{ci_id},
 		bo_title        = #{bo_title},
 		bo_content      = #{bo_content},	

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import kr.co.gdfm.board.mapper.BoardMapper;
 import kr.co.gdfm.board.model.Board;
 import kr.co.gdfm.board.service.BoardService;
+import kr.co.gdfm.boardqna.model.Comment;
 import kr.co.gdfm.cinema.model.Cinema;
 import kr.co.gdfm.common.file.mapper.FileItemMapper;
 import kr.co.gdfm.common.file.model.FileItem;
@@ -44,7 +45,7 @@ public class BoardServiceImpl implements BoardService {
 		//파일 목록 조회
 		Map<String, Object> paramMap = new HashMap<>();
 		paramMap.put("ref_id", board.getBo_id());
-		paramMap.put("file_biz_type", board.getBo_type());
+		paramMap.put("file_biz_type", board.getBo_type_code());
 					
 		List<FileItem> fileItemList = fileItemMapper.selectFileItemList(paramMap);
 		board.setFileItemList(fileItemList);
@@ -111,6 +112,26 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public List<Cinema> getCinemaList(Map<String, Object> paramMap) throws Exception {
 		return boardMapper.selectCinemaList(paramMap);
+	}
+	
+	@Override
+	public List<Comment> getCommentList(int bo_id) throws Exception {
+		return boardMapper.getCommentList(bo_id);
+	}
+
+	@Override
+	public int commentInsert(Comment comment) throws Exception {
+		return boardMapper.commentInsert(comment);
+	}
+	
+	@Override
+	public int commentDelete(int bo_co_id) throws Exception {
+		return boardMapper.commentDelete(bo_co_id);
+	}
+
+	@Override
+	public int commentUpdate(Map<String, Object> paramMap) throws Exception {
+		return boardMapper.commentUpdate(paramMap);
 	}
 	
 }

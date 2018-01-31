@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.co.gdfm.board.model.Board;
 import kr.co.gdfm.board.service.BoardService;
+import kr.co.gdfm.boardqna.model.Comment;
 import kr.co.gdfm.cinema.model.Cinema;
 import kr.co.gdfm.common.cinemalist.mapper.CinemaListMapper;
 import kr.co.gdfm.common.file.model.FileItem;
@@ -44,6 +45,7 @@ public class BoardController {
 			@RequestParam(value="searchWord", required=false, defaultValue="") String searchWord,
 			@RequestParam(value="currentPage", required=false, defaultValue="1") int currentPage,
 			@RequestParam(value="pageSize", required=false, defaultValue="10") int pageSize,
+			@RequestParam(value="bo_type_code", required=false, defaultValue="0") int bo_type_code,
 			Model model
 			) throws Exception {
 		
@@ -53,11 +55,12 @@ public class BoardController {
 		
 		Map<String, Object> paramMap = new HashMap<>();
 
+		paramMap.put("bo_type_code", bo_type_code);
+
 		if(StringUtils.isNotBlank(searchType) && StringUtils.isNotBlank( searchWord )) {
 			paramMap.put("searchType", searchType);
 			paramMap.put("searchWord", searchWord);
 		}
-		
 		// 총 게시글 수
 		totalCount = boardService.getBoardCount(paramMap);
 		
@@ -82,10 +85,11 @@ public class BoardController {
 		
 	}
 	
-	@RequestMapping("/3030102/{bo_id}") // @PathVariable. /boardView/1233(pk,시퀀즈번호)/{mem_id}
+	@RequestMapping("/3030102/{bo_id}/{bo_type_code}") // @PathVariable. /boardView/1233(pk,시퀀즈번호)/{mem_id}
 	public String boardView(
 			//@RequestParam(value="bo_seq_no") int bo_seq_no,
 			@PathVariable(value="bo_id", required=true) int bo_id,
+			@PathVariable(value="bo_type_code", required=true) int bo_type_code,
 			Model model
 			) throws Exception {
 		
@@ -96,7 +100,10 @@ public class BoardController {
 		}
 		Map<String, Object> paramMap = new HashMap<>();
 		
+		List<Comment> commentList = boardService.getCommentList(bo_id);
+		
 		model.addAttribute("board", board);
+		model.addAttribute("commentList", commentList);
 		
 		return "board/3030102";
 	}
@@ -149,12 +156,12 @@ public class BoardController {
 
 				boolean isError = false;
 				String message = "정상 등록되었습니다.";
-				String locationURL = "/board/3030101";
+				String locationURL = "/board/3030101?bo_type_code=" + board.getBo_type_code();
 				
 				try {
 				
 					// 파일 목록 생성.
-					List<FileItem> fileItemList = fileItemService.uploadFiles(request, board.getBo_type());
+					List<FileItem> fileItemList = fileItemService.uploadFiles(request, board.getBo_type_code());
 					
 					board.setFileItemList(fileItemList);
 					
@@ -201,12 +208,12 @@ public class BoardController {
 				boolean isError = false;
 				String message = "정상 수정되었습니다.";
 				//String locationURL = "/board/boardView/" + board.getBo_seq_no();
-				String locationURL = "/board/3030102/" + board.getBo_id();
+				String locationURL = "/board/3030102/" + board.getBo_id() + "/" + board.getBo_type_code();
 		
 				try {
 							
 					// 파일 업로드처리
-					List<FileItem> fileItemList = fileItemService.uploadFiles(request, board.getBo_type());
+					List<FileItem> fileItemList = fileItemService.uploadFiles(request, board.getBo_type_code());
 					board.setFileItemList(fileItemList);
 					
 					int updCnt = boardService.updateBoard(board);
@@ -231,6 +238,7 @@ public class BoardController {
 	public String boardDelete(
 			HttpSession session,
 			@RequestParam("bo_id") int bo_id,
+			@RequestParam("bo_type_code") int bo_type_code,
 			Model model
 			) {
 						
@@ -250,7 +258,7 @@ public class BoardController {
 
 		boolean isError = false;
 		String message = "정상 삭제되었습니다.";
-		String locationURL = "/board/3030101";
+		String locationURL = "/board/3030101?bo_type_code=" + bo_type_code;
 		
 		try {
 			
@@ -271,4 +279,49 @@ public class BoardController {
 		
 		return viewPage;
 	}
+	
+	@RequestMapping("/commentInsert")
+	public String commnetInsert(Comment comment, @RequestParam("bo_type_code") int bo_type_code) throws Exception {
+		//System.out.println(comment.getBo_co_id());
+		int bo_id = comment.getBo_id();
+		//int variable = 1;
+		//Map<String, Integer> paramMap= new HashMap<>();
+		//paramMap.put("bo_id", bo_id);
+		//paramMap.put("variable", variable);
+		//boardqnaService.updateCommentCnt(paramMap);
+		System.out.println(comment.getBo_co_id());
+		boardService.commentInsert(comment);
+		System.out.println(comment.getBo_co_id());
+	
+		return "redirect:/board/3030102/"+bo_id+"/"+bo_type_code;
+
+	}
+
+	@RequestMapping("/commentDelete")
+	public String commentDelete(int bo_co_id, int bo_id, int bo_type_code) throws Exception {
+
+		int variable = -1;
+		Map<String, Integer> paramMap= new HashMap<>();
+		paramMap.put("bo_co_id", bo_co_id);
+		paramMap.put("variable", variable);
+		
+		//boardqnaService.updateCommentCnt(paramMap);
+		boardService.commentDelete(bo_co_id);
+
+		return "redirect:/board/3030102/"+bo_id+"/"+bo_type_code;
+
+	}
+
+	@RequestMapping("/commentUpdate")
+	public String commentDelete(int bo_co_id, int bo_id, int bo_type_code, String bo_co_content) throws Exception {
+
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("bo_co_id", bo_co_id);
+		paramMap.put("bo_co_content", bo_co_content);
+
+		boardService.commentUpdate(paramMap);
+
+		return "redirect:/board/3030102/"+bo_id+"/"+bo_type_code;
+
+	}	
 }

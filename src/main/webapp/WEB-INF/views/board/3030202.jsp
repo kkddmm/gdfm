@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <script type="text/javascript">
 $(document).ready(function () {
@@ -50,25 +51,25 @@ $(document).ready(function () {
 	}
 	
 
-	function fn_co_upt(co_id, bo_id, co_content){
+	function fn_co_upt(bo_co_id, bo_id, co_content){
 
 		//기존의 댓글 표시창 html 제거 
-		$('#td'+co_id).html('');
+		$('#td'+bo_co_id).html('');
 		
-		$("<form>").attr('id','updateform'+co_id).appendTo('#td'+co_id);
-		$('<input>').attr({'type':'hidden','value':co_id,'name':'co_id'}).appendTo($('#updateform'+co_id));
-		$('<input>').attr({'type':'hidden','value':bo_id,'name':'bo_id'}).appendTo($('#updateform'+co_id));
+		$("<form>").attr('id','updateform'+bo_co_id).appendTo('#td'+bo_co_id);
+		$('<input>').attr({'type':'hidden','value':bo_co_id,'name':'bo_co_id'}).appendTo($('#updateform'+bo_co_id));
+		$('<input>').attr({'type':'hidden','value':bo_id,'name':'bo_id'}).appendTo($('#updateform'+bo_co_id));
 		
-		$('<textarea>').attr('name','co_content').val(co_content).css({
+		$('<textarea>').attr('name','bo_co_content').val(bo_co_content).css({
 			'width' : '800px'
-		}).addClass('co_upt_area').appendTo($('#updateform'+co_id));
+		}).addClass('co_upt_area').appendTo($('#updateform'+bo_co_id));
 		$('<span>').addClass('glyphicon glyphicon-ok').on('click',function(){
 		var upt_co_content =$('.co_upt_area').val();
 		
 		
 		var upt_confirm = confirm("정말로 댓글을 수정하시겠습니까?");
 		if(upt_confirm==true){
-			var updateForm = $('#updateform'+co_id)[0];
+			var updateForm = $('#updateform'+bo_co_id)[0];
 			updateForm.action = "commentUpdate";
 			updateForm.method = "post";
 			updateForm.submit();
@@ -76,7 +77,7 @@ $(document).ready(function () {
 		else{
 			return false;
 		}
-		}).appendTo($('#td'+co_id));
+		}).appendTo($('#td'+bo_co_id));
 		
 		$('<span>').addClass('glyphicon glyphicon-share-alt').on('click',function(){
 			var uptconfirm2 = confirm("수정중인 내용은 저장되지 않습니다. 글 내용화면으로 돌아갈까요?");
@@ -87,15 +88,15 @@ $(document).ready(function () {
 			}else{
 				return false;
 			}
-		}).appendTo($('#td'+co_id));
+		}).appendTo($('#td'+bo_co_id));
 	}
 			
-	function fn_co_del(co_id, bo_id){
+	function fn_co_del(bo_co_id, bo_id){
 				
 		var delCon = confirm("댓글을 삭제하시겠습니까?");
 				
 		if(delCon==true){
-			location.href = "commentDelete?co_id="+co_id+"&&bo_id="+bo_id;
+			location.href = "commentDelete?bo_co_id="+bo_co_id+"&bo_id="+bo_id;
 		}else{
 			return false;
 		}
@@ -103,7 +104,7 @@ $(document).ready(function () {
 	
 	function fn_commentInsert(){
 		var commentFrm = document.commentForm;
-		if(commentFrm.co_content.value!=''){
+		if(commentFrm.bo_co_content.value!=''){
 			commentFrm.action ="commentInsert"
 			commentFrm.submit();
 		}else{
@@ -166,13 +167,10 @@ $(document).ready(function () {
 						<td><strong>${comment.mem_id}</strong> 등록 : ${comment.bo_co_reg_date}</td>
 					</tr>
 						<tr>
-							<td id="td${comment.co_id}" style="white-space: pre-wrap">${comment.bo_co_content}
-								<c:if test="${LOGIN_USER.cust_id == comment.mem_id}">   
-									<span id="commentUdt" onclick="fn_co_upt(${comment.co_id},${board.bo_id},'<spring:escapeBody javaScriptEscape="true">${comment.bo_co_content}</spring:escapeBody>');"class="glyphicon glyphicon-ok"></span>  
-									<span id="commentDel${comment.co_id}" onclick="fn_co_del(${comment.co_id},${board.bo_id});"class="glyphicon glyphicon-remove"></span>
-								</c:if>
-							</td>
-						</tr>
+							
+									<td id="td${comment.bo_co_id}" style="white-space: pre-wrap">${comment.bo_co_content}<%-- <c:if test="${LOGIN_USER.mem_id == comment.mem_id}"> --%> <span id="commentUdt" onclick="fn_co_upt(${comment.bo_co_id},${boardqna.bo_id},'<spring:escapeBody javaScriptEscape="true">${comment.bo_co_content}</spring:escapeBody>');" class="glyphicon glyphicon-ok"></span>  <span id="commentDel${comment.bo_co_id}" onclick="fn_co_del(${comment.bo_co_id},${boardqna.bo_id});" class="glyphicon glyphicon-remove"></span>
+<%-- 								</c:if> --%></td>
+						</tr>	
 
 				</c:forEach>
 
@@ -186,15 +184,15 @@ $(document).ready(function () {
 
 				</div>
 			</c:if>
-			<c:if test="${not empty LOGIN_USER}">
+<%-- 			<c:if test="${not empty LOGIN_USER}"> --%>
 				<h5>댓글 달기 - ${LOGIN_USER.mem_id}</h5>
 				<form method="post" name="commentForm">
 <%-- 					<input name="mem_id" type="text" style="display: none;" value="${LOGIN_USER.mem_id}" /> \ --%>
-					<input name="mem_id" type="text" style="display: none;" value="1111" /> \
-					<input name="bo_id" type="text" style="display: none;" value="${boardqna.bo_id}" />
+					<input type="hidden" name="mem_id" value="test">
+					<input type="hidden" name="bo_id" value="${boardqna.bo_id}">
 					<textarea placeholder="건강한 댓글은 작성자에게 힘이 됩니다." rows="8" class="form-control" name="bo_co_content"></textarea>
 					<a style="float: right;" class="button" onclick="fn_commentInsert();">댓글 등록</a>
 				</form>
-		</c:if>
+<%-- 		</c:if> --%>
 	</div>
 </div>

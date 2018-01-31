@@ -7,7 +7,7 @@ import kr.co.gdfm.common.file.model.FileItem;
 
 public class Board {
 	private int bo_id;
-	private String bo_type;
+	private String bo_type_code;
 	private String mem_id;
 	private String mem_id_name;
 	private int ci_id;
@@ -31,11 +31,11 @@ public class Board {
 	public void setBo_id(int bo_id) {
 		this.bo_id = bo_id;
 	}
-	public String getBo_type() {
-		return bo_type;
+	public String getBo_type_code() {
+		return bo_type_code;
 	}
-	public void setBo_type(String bo_type) {
-		this.bo_type = bo_type;
+	public void setBo_type_code(String bo_type_code) {
+		this.bo_type_code = bo_type_code;
 	}
 	public String getMem_id() {
 		return mem_id;

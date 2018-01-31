@@ -96,27 +96,34 @@
 </select>
 
 <select id="getCommentList" parameterType="int" resultType="kr.co.gdfm.boardqna.model.Comment">
-select * from bo_comment
+select
+	bo_co_id,
+    mem_id,
+    bo_co_content,
+    bo_co_reg_date,
+    bo_co_upd_date,
+    bo_co_upd_user,
+    bo_id 
+from 
+	bo_comment
 where bo_id = #{bo_id}
 order by bo_co_reg_date
 </select>
 
 <insert id="commentInsert" parameterType="kr.co.gdfm.boardqna.model.Comment" >
-<selectKey keyProperty="co_id" resultType="int" order="BEFORE">
-	select comment_seq.nextval from dual
+<selectKey keyProperty="bo_co_id" resultType="int" order="BEFORE">
+	select bo_comment_seq.nextval from dual
 </selectKey>
 INSERT INTO bo_comment (
-    bo_co_id
-	mem_id
-	bo_co_content
-	bo_co_reg_date
+    bo_co_id,
+	mem_id,
+	bo_co_content,
+	BO_CO_UPD_USER,
 	bo_id
 ) VALUES (
-    #{co_id},
+    #{bo_co_id},
 	#{mem_id},
 	#{bo_co_content},
-	SYSDATE,
-	SYSDATE,
 	#{mem_id},
 	#{bo_id}
 )
@@ -131,13 +138,13 @@ where bo_id = #{bo_id}
 </update>
 
 <delete id="commentDelete" parameterType="int" >
-delete from bo_comment where co_id = #{co_id}
+delete from bo_comment where bo_co_id = #{bo_co_id}
 </delete>
 
 <update id="commentUpdate" parameterType="map">
 update bo_comment set 
-	co_content =#{co_content}
-where co_id =#{co_id}
+	bo_co_content =#{bo_co_content}
+where bo_co_id =#{bo_co_id}
 </update>
 
 <insert id="insertBoardqna" parameterType="Boardqna">

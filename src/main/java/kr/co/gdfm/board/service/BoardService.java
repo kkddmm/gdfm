@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import kr.co.gdfm.board.model.Board;
+import kr.co.gdfm.boardqna.model.Comment;
 import kr.co.gdfm.cinema.model.Cinema;
 
 public interface BoardService {
@@ -30,4 +31,12 @@ public interface BoardService {
 
 	// 영화관 목록
 	public List<Cinema> getCinemaList(Map<String, Object> paramMap) throws Exception;
+	
+	public int commentInsert(Comment comment) throws Exception;
+	
+	public int commentDelete(int bo_co_id) throws Exception;
+	
+	public int commentUpdate(Map<String, Object> paramMap) throws Exception;
+
+	public List<Comment> getCommentList(int bo_id) throws Exception;
 }

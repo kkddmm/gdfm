@@ -1,4 +1,4 @@
-package kr.co.gdfm.boardqna.model;
+package kr.co.gdfm.board.model;
 
 public class Comment {	
 	private int bo_co_id;
@@ -51,6 +51,4 @@ public class Comment {
 	public void setBo_id(int bo_id) {
 		this.bo_id = bo_id;
 	}
-	
-	
 }

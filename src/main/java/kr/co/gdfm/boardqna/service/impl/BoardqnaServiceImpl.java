@@ -114,8 +114,8 @@ public class BoardqnaServiceImpl implements BoardqnaService {
 	}
 	
 	@Override
-	public int commentDelete(int co_id) throws Exception {
-		return boardqnaMapper.commentDelete(co_id);
+	public int commentDelete(int bo_co_id) throws Exception {
+		return boardqnaMapper.commentDelete(bo_co_id);
 	}
 
 	@Override

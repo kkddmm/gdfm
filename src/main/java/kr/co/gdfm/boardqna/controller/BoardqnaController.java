@@ -98,47 +98,48 @@ public class BoardqnaController {
 		return "board/3030202";
 	}
 	
-	@RequestMapping("/commentInsert")
+	@RequestMapping("/3030202/commentInsert")
 	public String commnetInsert(Comment comment) throws Exception {
-System.out.println(comment.getCo_id());
-		int bo_id = Integer.parseInt(comment.getParent_bo_id());
-		int variable = 1;
-		Map<String, Integer> paramMap= new HashMap<>();
-		paramMap.put("bo_id", bo_id);
-		paramMap.put("variable", variable);
-		
-	//boardqnaService.updateCommentCnt(paramMap);
-	boardqnaService.commentInsert(comment);
+		//System.out.println(comment.getBo_co_id());
+		int bo_id = comment.getBo_id();
+		//int variable = 1;
+		//Map<String, Integer> paramMap= new HashMap<>();
+		//paramMap.put("bo_id", bo_id);
+		//paramMap.put("variable", variable);
+		//boardqnaService.updateCommentCnt(paramMap);
+		System.out.println(comment.getBo_co_id());
+		boardqnaService.commentInsert(comment);
+		System.out.println(comment.getBo_co_id());
 	
-		return "redirect:/mainpage/board/communityBoardView?bo_id=" + bo_id;
+		return "redirect:/board/3030202/"+bo_id;
 
 	}
 
-	@RequestMapping("/commentDelete")
-	public String commentDelete(int co_id, int bo_id) throws Exception {
+	@RequestMapping("/3030202/commentDelete")
+	public String commentDelete(int bo_co_id, int bo_id) throws Exception {
 
 		int variable = -1;
 		Map<String, Integer> paramMap= new HashMap<>();
-		paramMap.put("bo_id", bo_id);
+		paramMap.put("bo_co_id", bo_co_id);
 		paramMap.put("variable", variable);
 		
 		//boardqnaService.updateCommentCnt(paramMap);
-		boardqnaService.commentDelete(co_id);
+		boardqnaService.commentDelete(bo_co_id);
 
-		return "redirect:/mainpage/board/communityBoardView?bo_id=" + bo_id;
+		return "redirect:/board/3030202/"+bo_id;
 
 	}
 
-	@RequestMapping("/commentUpdate")
-	public String commentDelete(int co_id, int bo_id, String co_content) throws Exception {
+	@RequestMapping("/3030202/commentUpdate")
+	public String commentDelete(int bo_co_id, int bo_id, String bo_co_content) throws Exception {
 
 		Map<String, Object> paramMap = new HashMap<>();
-		paramMap.put("co_id", co_id);
-		paramMap.put("co_content", co_content);
+		paramMap.put("bo_co_id", bo_co_id);
+		paramMap.put("bo_co_content", bo_co_content);
 
 		boardqnaService.commentUpdate(paramMap);
 
-		return "redirect:/mainpage/board/communityBoardView?bo_id=" + bo_id;
+		return "redirect:/board/3030202/"+bo_id;
 
 	}	
 	
