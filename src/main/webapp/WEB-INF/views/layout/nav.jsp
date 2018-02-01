@@ -20,8 +20,8 @@
             	<li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">예매<b class="caret"></b></a>
                        <ul class="dropdown-menu">
-                           <li><a href="#">예매 depth1</a></li>
-                           <li><a href="#">예매 depth1</a></li>                            
+                           <li><a href="${pageContext.request.contextPath}/reservation/101">예매 depth1</a></li>
+                           <li><a href="#">예매 depth2</a></li>                            
                        </ul>
                   </li>
                   
@@ -29,7 +29,7 @@
                   <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">영화<b class="caret"></b></a>
                        <ul class="dropdown-menu">
-                           <li><a href="${pageContext.request.contextPath}/movie/movie_info">영화 depth1</a></li>
+                           <li><a href="${pageContext.request.contextPath}/movie/movie_information">영화 depth1</a></li>
                            <li><a href="#">영화 depth1</a></li>                            
                        </ul>
                   </li>
@@ -37,14 +37,14 @@
                   <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">커뮤니티<b class="caret"></b></a>
                        <ul class="dropdown-menu">
-                           <li><a href="#">공지사항</a></li>
-                           <li><a href="#">질문답변</a></li>                            
+                           <li><a href="${pageContext.request.contextPath}/board/3030101?bo_type_code=1">공지사항</a></li>
+                           <li><a href="${pageContext.request.contextPath}/board/3030101?bo_type_code=2">질문답변</a></li>                            
                        </ul>
                   </li>
                   
                   
                   <li >
-                    <a  href="#">스낵</b></a>                       
+                    <a  href="${pageContext.request.contextPath}/snack/snack">스낵</b></a>                       
                   </li>
                   
             <!-- <li class="dropdown"><a href="index.html">예매</a></li>
