@@ -19,128 +19,61 @@ import kr.co.gdfm.movie.service.MovieService;
 import kr.co.gdfm.reservation.model.MovieShowInfo;
 import kr.co.gdfm.reservation.service.ReservationService;
 
-
 @RequestMapping("/reservation")
 @Controller
 public class ReservationController {
-	
+
 	@Autowired
 	MovieService movieService;
 	@Autowired
 	CinemaService cinemaService;
 	@Autowired
 	ReservationService reservationService;
-	
 
-	
-	
 	@RequestMapping("/101")
 	public String reservePage(Model model) {
-		
-	List<Movie> movieList = movieService.selectShowMovie();
-	List<Cinema> addr1List = cinemaService.selectCinemaAddr1();	
-	List<Map<String, Object>> dateList = reservationService.getDateList();
-	
-	
-	model.addAttribute("dateList", dateList);
-	model.addAttribute("movieList", movieList);
-	model.addAttribute("addr1List", addr1List);
-		
+
+		List<Movie> movieList = movieService.selectShowMovie();
+		List<Cinema> addr1List = cinemaService.selectCinemaAddr1();
+		List<Map<String, Object>> dateList = reservationService.getDateList();
+		model.addAttribute("dateList", dateList);
+		model.addAttribute("movieList", movieList);
+		model.addAttribute("addr1List", addr1List);
 		return "reservation/101";
-		
 	}
-	
-	
-	
+
 	@RequestMapping("/get/addr2")
 	@ResponseBody
-	public List<Map<String, Object>> getCinemaAddr2(@RequestParam Map<String, Object> paramMap){
-		if(paramMap.get("movie_id").equals("undefined")) {
-			System.out.println("어떻게 처리하냐;");
-		}
-		
-		System.out.println(paramMap.get("ci_addr1"));
-		System.out.println("movie_id 는 :"+paramMap.get("movie_id"));
+	public List<Map<String, Object>> getCinemaAddr2(@RequestParam Map<String, Object> paramMap) {
 		List<Map<String, Object>> addr2List = cinemaService.getAddr2List(paramMap);
-		
-		
-		
-		
-		
 		return addr2List;
-		
-		
-		
-		
 	}
-	
-	
-@RequestMapping("/get/movieName")
-@ResponseBody
-public List<Map<String, Object>> getMovieName(String ci_addr1, String ci_addr2){
+	@RequestMapping("/get/movieName")
+	@ResponseBody
+	public List<Map<String, Object>> getMovieName(String ci_addr1, String ci_addr2) {
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("ci_addr1", ci_addr1);
+		paramMap.put("ci_addr2", ci_addr2);
+		List<Map<String, Object>> movieNameList = cinemaService.getMovieNameByCinema(paramMap);
+		return movieNameList;
+	}
+	@RequestMapping("/get/cinemaList")
+	@ResponseBody
+	public List<Cinema> getCinemaList(int movie_id) {
+		List<Cinema> cinemaList = new ArrayList<>();
+		cinemaList = cinemaService.selectCinemaListByMovie(movie_id);
+		return cinemaList;
+	}
+	@RequestMapping("/get/showInfo")
+	@ResponseBody
+	public List<MovieShowInfo> getShowInfo(@RequestParam Map<String, Object> paramMap) {
 
-	Map<String, Object> paramMap = new HashMap<>();
-	paramMap.put("ci_addr1", ci_addr1);	
-	paramMap.put("ci_addr2", ci_addr2);	
-	
-	List<Map<String, Object>> 	movieNameList = cinemaService.getMovieNameByCinema(paramMap);
-	
-	
-	return movieNameList ;
-	
-	
-	
-}
+		List<MovieShowInfo> resultList = new ArrayList<>();
 
+		resultList = reservationService.getShowInfo(paramMap);
 
-@RequestMapping("/get/cinemaList")
-@ResponseBody
-public List<Cinema> getCinemaList(int movie_id){
-	
-	List<Cinema> cinemaList = new ArrayList<>();
-	
-	
-	cinemaList = cinemaService.selectCinemaListByMovie(movie_id);
+		return resultList;
 
-	
-	
-	return cinemaList;
-}
-
-
-@RequestMapping("/get/showInfo")
-@ResponseBody
-public List<MovieShowInfo> getShowInfo(@RequestParam Map<String, Object> paramMap){
-	
-	List<MovieShowInfo> resultList = new ArrayList<>();
-	
- resultList =reservationService.getShowInfo(paramMap);
-	
-	
-	
-	return resultList;
-	
-	
-	
-	
-}
-
-
-
-
-
-
-
-
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	}
 
 }

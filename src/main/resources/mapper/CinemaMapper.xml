@@ -14,7 +14,7 @@
 
 	<select id="getCinemaAddr2" parameterType="map"
 		resultType="map">
-		select g.ci_id, i.ci_addr2
+			select g.ci_id, i.ci_addr2
 from cinema g,
 (
  select distinct a.ci_addr2
@@ -25,12 +25,18 @@ from cinema g,
      where d.screen_id = e.screen_id
      and e.ci_id = f.ci_id
     and f.ci_addr1 = #{ci_addr1}
-   	<if test="movie_id!=null and movie_id !='' and movie_id!='undefined'">
+    <if test="movie_id!=null and movie_id !='' and movie_id!='undefined'">
     and d.movie_id = #{movie_id}
 		</if>
+	and d.show_date - sysdate <![CDATA[ >-1 ]]>
      ) b
      where a.ci_id = b.ci_id ) i
      where g.ci_addr2= i.ci_addr2
+	
+		
+		
+		
+	
 		
 		
 		
@@ -80,6 +86,7 @@ and d.movie_show_yn ='Y'
      from movie_show_info d, screen e
      where d.screen_id = e.screen_id
      and d.movie_id = #{movie_id}
+    
      ) b
      where a.ci_id = b.ci_id
 	</select>	
