@@ -20,7 +20,7 @@ public class MovieInfoController {
 	@Autowired
 	MovieService movieService;
 	
-	@RequestMapping("/movie_info")
+	@RequestMapping("/movie_information")
 	public String selectMovieInfoList(Model model) {
 		
 		
@@ -30,7 +30,7 @@ public class MovieInfoController {
 		
 		
 		
-		return "movie/movie_info";
+		return "movie/movie_information";
 	}
 
 	

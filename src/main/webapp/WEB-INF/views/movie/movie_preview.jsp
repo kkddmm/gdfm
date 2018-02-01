@@ -6,22 +6,15 @@
 
 
 
-<script type="text/javascript">
+<script>
 $(".hover").mouseleave(function() {
     $(this).removeClass("hover");
  });
- 
- 	$("#btnPosterAdd").click(function (){
-		$('#movieList').append(
-					
-		
-		
-		);
-		
-		
-	})
- 
   
+ 
+	
+
+
 </script>
 	  
 
@@ -158,8 +151,7 @@ ul, li {
 		
  
 			<div class="center">
-				<h2 align="right" style="color: BLACK;"><a href="#">무비차트</a>
-				<a href="${pageContext.request.contextPath}/movie/movie_preview">상영예정직</a></h2>
+				<h2 align="right" style="color: BLACK;"><a href="${pageContext.request.contextPath}/movie/movie_information">무비차트</a></h2>
 
 			</div>
 
@@ -190,7 +182,6 @@ ul, li {
 
 <div>
 
-	<!--  poster output  -->
 
 	<c:if test="${not empty movieList}">
 		<c:forEach var="movie" items="${movieList}">
@@ -205,20 +196,16 @@ ul, li {
 					<a href="${pageContext.request.contextPath}/movie/movie_information/${movie.movie_name}">
 						<img src="${pageContext.request.contextPath}/movieposter/${movie.movie_name}_poster.jpg" alt="movie_poster">
 					</a> <br>
-					
 					</div> 
 					 <%-- 	<span>${snack.snack_name}</span><br>  --%>
+					
+					</li>
 				</div>
-				
-				
-				
 			</div>
 		</c:forEach>
+
 	</c:if>
-	
-	
-	<input type="button" value="더보기" class="btn btn-primary" onclick="fn_posterAdd();">
-	
+
 	
 
 

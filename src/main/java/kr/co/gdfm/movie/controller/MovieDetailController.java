@@ -10,7 +10,17 @@ public class MovieDetailController {
 		@RequestMapping("/movie_detail")
 		public String selectMovieDetailList() {
 			
+			
+			
 			return "movie/movie_detail";
+		}
+		
+		@RequestMapping("/movie_preview")
+		public String selectMoviePreviewList() {
+			
+			
+			
+			return "movie/movie_preview";
 		}
 	
 }
