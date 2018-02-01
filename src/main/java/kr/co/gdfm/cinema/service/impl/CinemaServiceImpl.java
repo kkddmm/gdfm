@@ -22,11 +22,8 @@ public class CinemaServiceImpl implements CinemaService {
 	}
 
 	@Override
-	public List<Map<String, String>> getAddr2List(String ci_addr1) {
-
-		System.out.println(ci_addr1);
-
-		return cinemaMapper.getCinemaAddr2(ci_addr1);
+	public List<Map<String, Object>> getAddr2List(Map<String, Object> paramMap) {
+		return cinemaMapper.getCinemaAddr2(paramMap);
 	}
 
 	@Override

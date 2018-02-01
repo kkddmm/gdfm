@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.co.gdfm.reservation.mapper.ReservationMapper;
+import kr.co.gdfm.reservation.model.MovieShowInfo;
 import kr.co.gdfm.reservation.service.ReservationService;
 
 @Service("reservationService")
@@ -17,6 +18,11 @@ public class ReservationServiceImpl implements ReservationService{
 	@Override
 	public List<Map<String, Object>> getDateList() {
 		return reservationMapper.getDateList();
+	}
+
+	@Override
+	public List<MovieShowInfo> getShowInfo(Map<String, Object> paramMap) {
+		return reservationMapper.getShowInfo(paramMap);
 	}
 
 

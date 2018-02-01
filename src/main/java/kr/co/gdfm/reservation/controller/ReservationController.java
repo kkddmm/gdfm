@@ -9,13 +9,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
 
 import kr.co.gdfm.cinema.model.Cinema;
 import kr.co.gdfm.cinema.service.CinemaService;
 import kr.co.gdfm.movie.model.Movie;
 import kr.co.gdfm.movie.service.MovieService;
+import kr.co.gdfm.reservation.model.MovieShowInfo;
 import kr.co.gdfm.reservation.service.ReservationService;
 
 
@@ -53,10 +54,24 @@ public class ReservationController {
 	
 	@RequestMapping("/get/addr2")
 	@ResponseBody
-	public List<Map<String, String>> getCinemaAddr2(String ci_addr1){
-		System.out.println(ci_addr1);
-		List<Map<String, String>> addr2List = cinemaService.getAddr2List(ci_addr1);
+	public List<Map<String, Object>> getCinemaAddr2(@RequestParam Map<String, Object> paramMap){
+		if(paramMap.get("movie_id").equals("undefined")) {
+			System.out.println("어떻게 처리하냐;");
+		}
+		
+		System.out.println(paramMap.get("ci_addr1"));
+		System.out.println("movie_id 는 :"+paramMap.get("movie_id"));
+		List<Map<String, Object>> addr2List = cinemaService.getAddr2List(paramMap);
+		
+		
+		
+		
+		
 		return addr2List;
+		
+		
+		
+		
 	}
 	
 	
@@ -64,13 +79,11 @@ public class ReservationController {
 @ResponseBody
 public List<Map<String, Object>> getMovieName(String ci_addr1, String ci_addr2){
 
-//	System.out.println(paramMap.get("addr1"));
-//	System.out.println(paramMap.get("addr2"));
 	Map<String, Object> paramMap = new HashMap<>();
 	paramMap.put("ci_addr1", ci_addr1);	
 	paramMap.put("ci_addr2", ci_addr2);	
 	
-	List<Map<String, Object>> movieNameList = cinemaService.getMovieNameByCinema(paramMap);
+	List<Map<String, Object>> 	movieNameList = cinemaService.getMovieNameByCinema(paramMap);
 	
 	
 	return movieNameList ;
@@ -89,12 +102,28 @@ public List<Cinema> getCinemaList(int movie_id){
 	
 	cinemaList = cinemaService.selectCinemaListByMovie(movie_id);
 
-//	System.out.println(cinemaList.get(0).getCi_addr1());
 	
 	
 	return cinemaList;
 }
 
+
+@RequestMapping("/get/showInfo")
+@ResponseBody
+public List<MovieShowInfo> getShowInfo(@RequestParam Map<String, Object> paramMap){
+	
+	List<MovieShowInfo> resultList = new ArrayList<>();
+	
+ resultList =reservationService.getShowInfo(paramMap);
+	
+	
+	
+	return resultList;
+	
+	
+	
+	
+}
 
 
 

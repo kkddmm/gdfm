@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.gdfm.cinema.mapper.CinemaMapper">
 
-	<!-- 상영중인 영화 조회 -->
+
 	<select id="selectCinemaAddr1" parameterType="map"
 		resultType="kr.co.gdfm.cinema.model.Cinema">
 		select distinct ci_addr1
@@ -12,19 +12,52 @@
 
 	</select>
 
-	<select id="getCinemaAddr2" parameterType="string"
+	<select id="getCinemaAddr2" parameterType="map"
 		resultType="map">
-		select ci_addr2
-		from CINEMA
-		where ci_addr1 = #{ci_addr1}
-	</select>
+		select g.ci_id, i.ci_addr2
+from cinema g,
+(
+ select distinct a.ci_addr2
+     from cinema a,
+     (
+     select e.ci_id 
+     from movie_show_info d, screen e, cinema f
+     where d.screen_id = e.screen_id
+     and e.ci_id = f.ci_id
+    and f.ci_addr1 = #{ci_addr1}
+   	<if test="movie_id!=null and movie_id !='' and movie_id!='undefined'">
+    and d.movie_id = #{movie_id}
+		</if>
+     ) b
+     where a.ci_id = b.ci_id ) i
+     where g.ci_addr2= i.ci_addr2
+		
+		
+		
+		
+		
+		
 	
+		
+		
+		
+		
+		
+		
+	</select>
+		<!-- 상영중인 영화 조회 -->
 	<select id="getMovieNameByCinema" resultType="map">
-	select d.movie_id, d.movie_grade,d.movie_ko_name
+select d.movie_id, d.movie_grade,d.movie_ko_name
 from movie d, 
 (
 select distinct a.movie_id as 선택지역상영영화id 
-from movie_show_info a, cinema b
+from 
+(
+select f.movie_id ,e.ci_id
+from movie_show_info f, screen e
+where e.screen_id = f.screen_id
+)a,
+cinema b
 where a.ci_id = 
 (
 select ci_id 
@@ -37,20 +70,23 @@ and d.movie_show_yn ='Y'
 	</select>
 	
 	
+	
+	
 	<select id="selectCinemaListByMovie" resultType="kr.co.gdfm.cinema.model.Cinema" >
-select distinct a.ci_addr1
-from cinema a ,
-(
-select ci_id 
-from movie_show_info
-where movie_id = #{ci_id}
-) b
-where a.ci_id = b.ci_id
-	</select>
+     select distinct a.ci_addr1
+     from cinema a,
+     (
+     select e.ci_id 
+     from movie_show_info d, screen e
+     where d.screen_id = e.screen_id
+     and d.movie_id = #{movie_id}
+     ) b
+     where a.ci_id = b.ci_id
+	</select>	
 	
 	
 	
-	
+
 	
 
 

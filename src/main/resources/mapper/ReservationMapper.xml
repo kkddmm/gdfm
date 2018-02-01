@@ -7,8 +7,14 @@
 	<select id="getDateList" resultType="map">
 	
 	<![CDATA[
-	SELECT TO_CHAR(TO_DATE(BB.DAY, 'YYYYMMDD') + NUM-1, 'YYYY') AS year
-      ,TO_CHAR(TO_DATE(BB.DAY, 'YYYYMMDD') + NUM-1, 'MM') AS month
+	SELECT TO_CHAR(TO_DATE(BB.DAY, 'YYYYMMDD') + NUM-1,'YYYYMMDD') AS useday,
+	TO_CHAR(TO_DATE(BB.DAY, 'YYYYMMDD') + NUM-1, 'YYYY') AS year
+      ,
+      case when 
+      substr(TO_CHAR(TO_DATE(BB.DAY, 'YYYYMMDD') + NUM-1, 'MM'),1,1) = '0' then 
+    substr(TO_CHAR(TO_DATE(BB.DAY, 'YYYYMMDD') + NUM-1, 'MM'),2,1) else  
+    TO_CHAR(TO_DATE(BB.DAY, 'YYYYMMDD') + NUM-1, 'MM') end
+        as month 
       ,TO_CHAR(TO_DATE(BB.DAY, 'YYYYMMDD') + NUM-1, 'DD') AS day
       ,decode(TO_CHAR(TO_DATE(BB.DAY, 'YYYYMMDD') + NUM-1, 'd'),
               '1','일',
@@ -23,17 +29,41 @@
                             SELECT B.DAY AS BDAY, C.DAY AS CDAY 
                               FROM
                             ( SELECT TO_CHAR(sysdate, 'YYYYMMDD') AS DAY FROM DUAL ) B,
-                            ( SELECT TO_CHAR(sysdate+14, 'YYYYMMDD') AS DAY FROM DUAL ) C
+                            ( SELECT TO_CHAR(sysdate+7, 'YYYYMMDD') AS DAY FROM DUAL ) C
                                                    ) B
          WHERE ROWNUM <= TO_DATE(B.CDAY, 'YYYYMMDD') - TO_DATE(B.BDAY, 'YYYYMMDD')  + 1) AA,
 ( SELECT TO_CHAR(sysdate, 'YYYYMMDD') AS DAY FROM DUAL ) BB
 	]]>
-	
-	
-	
-	
-	
 	</select>
+	
+	
+	
+	
+	
+
+	<select id ="getShowInfo" resultType="kr.co.gdfm.reservation.model.MovieShowInfo">
+  select d.*, (d.좌석수-nvl(e.예매좌석수,0)) as sit
+    from
+    (
+    select a.show_id, b.ci_id, a.screen_id, b.screen_name,(b.screen_row*b.screen_column) as 좌석수,a.start_time,a.end_time,c.dimension_name
+    from movie_show_info a, screen b ,movie_dimension_code c
+    where a.screen_id = b.screen_id
+    and a.dimension_code = c.dimension_code
+    and a.movie_id = #{movie_id} and b.ci_id = #{ci_id} and show_date = to_date(#{show_date},'yyyy/mm/dd')
+    ) d left outer join 
+    (
+    select f.show_id, f.reservation_id, count(g.sit_num) as 예매좌석수
+    from movie_reservation f, reservation_sit g 
+    where f.reservation_id = g.reservation_id 
+  and f.pay_id is not null
+  group by f.show_id, f.reservation_id
+    ) e
+    on(d.show_id = e.show_id)
+    order by d.screen_name,d.start_time
+	</select>
+	
+	
+	
 	
 
 
