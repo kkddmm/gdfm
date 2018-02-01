@@ -20,6 +20,6 @@ public interface SnackMapper {
 	
 	public int deleteSnack(Map<String, Object> params) throws Exception;
 	
-	public Snack snackBasket(int snack_id) throws Exception;
+	public void insertBasket(Map<String, Object> params) throws Exception;
 	
 }

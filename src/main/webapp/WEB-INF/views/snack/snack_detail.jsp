@@ -5,11 +5,69 @@
 
 
 <script>
+
+function fn_insertBasket(snack_id){
 	
+	var snackCnt = $('#snack_cnt').val(); 
+	
+	console.log(snackCnt);
+	
+	$.ajax({
+		type: 'post',
+		url : '${pageContext.request.contextPath}/snack/snack_insertBasket',
+		data : "snack_id="+snack_id+"&mem_id=test"+"&snack_cnt="+snackCnt,
+		dataType: "json",
+		success : function(data, status){
+			alert("장바구니에 담았습니다.");
+			alert(data.status);
+			alert(data.message);
+		},
+		error : function(error){
+			console.log(error);
+		}
+	});
+}
+
+
+
+
+
+
+
+
+
+
 	$(function(){
 		$('.snack-type.${snack.snack_type}').addClass('active');
 		
+		
+
+		//장바구니 DB에 저장
+		/* $("#BtnInsertBasket").on("click",  function(){
+			
+			
+			$.ajax({
+				type: 'post',
+				url : '${pageContext.request.contextPath}/snack/snack_insertBasket',
+				data : "snack_id=3&pay_id=3",
+				success : function(data, status){
+					alert("장바구니에 담았습니다.");
+					alert(data.status);
+					alert(data.message);
+				},
+				error : function(error){
+					console.log(error);
+				}
+			});
+		}); */
+		
+		
+		
 	});
+	
+	
+	
+	
 		
 </script>
 
@@ -17,12 +75,14 @@
 ul, li {
 	list-style: none;	
 }
-li:hover{
+.image:hover{
 	border:1px solid yellow;
 }
 .snackId{
 	text-decoration: underline;
 }
+
+
 
 </style>
 
@@ -41,11 +101,11 @@ li:hover{
 
 					<li><a class="btn btn-default snack-type combo"
 						href="<c:url value="/snack/snack?snack_type=combo"/>">콤보</a></li>
-					<li class="popcorn"><a class="btn btn-default  snack-type popcorn"
+					<li ><a class="btn btn-default  snack-type popcorn"
 						href="<c:url value="/snack/snack?snack_type=popcorn"/>">팝콘</a></li>
-					<li class="drink"><a class="btn btn-default  snack-type drink"
+					<li><a class="btn btn-default  snack-type drink"
 						href="<c:url value="/snack/snack?snack_type=drink"/>">음료</a></li>
-					<li class="snack"><a class="btn btn-default  snack-type snack"
+					<li><a class="btn btn-default  snack-type snack"
 						href="<c:url value="/snack/snack?snack_type=snack"/>">스낵</a></li>
 
 				</ul>
@@ -75,7 +135,7 @@ li:hover{
 				<!-- Gallery Item 1 -->
 				<div style="height: 400px; border: 10px; border-color: 3f3f3f;">
 
-					<li align="center">								
+					<li class="image" align="center">								
 		                        
 					
 							<img src="${pageContext.request.contextPath}/img/snack/${snack.snack_name}.jpg" alt="Gallery">
@@ -108,13 +168,20 @@ li:hover{
 								
 							</div>
 			
+			<!--임시 수량   -->
+			<!-- <input id="snack_cnt" type="text" value="3" /> -->
+					<span>수량:
+						<input type="number" min="0" required value="1" name="snack_cnt" id="snack_cnt" style="width:50px;">
+					</span>		
+			
+			
 		
 		<div>
 		<hr>
 			${snack.snack_use_info} 
 		</div>
 		<div>
-			<input class="btn" type="button" value="장바구니"/>
+			<input class="btn" type="button" id="BtnInsertBasket" onclick="fn_insertBasket(${snack.snack_id});" name="BtnInsertBasket" value="장바구니"/>
 			<input class ="btn" type="button" value="구매하기"/>
 			<input class ="btn" onclick="location.href='${pageContext.request.contextPath}/snack/snack' " type="button" value="목록으로"/>
 		</div>

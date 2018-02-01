@@ -107,6 +107,28 @@
 		WHERE snack_id =#{snack_id}
 	</delete>
 	
+	<insert id="insertBasket" parameterType="map">
+		INSERT INTO snack_buy (
+		    snack_buy_id,
+		    mem_id,
+		    snack_id,
+		    snack_cnt,
+		    pay_id
+		) VALUES (
+		    snack_buy_seq.nextval,
+		    'test',
+		    #{snack_id},
+		    #{snack_cnt},
+		    null
+		)
+			
+	</insert>
+	
+	
+	
+	
+	
+	
 </mapper>
 
 

@@ -29,7 +29,7 @@
                   <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">영화<b class="caret"></b></a>
                        <ul class="dropdown-menu">
-                           <li><a href="#">영화 depth1</a></li>
+                           <li><a href="${pageContext.request.contextPath}/movie/movie_info">영화 depth1</a></li>
                            <li><a href="#">영화 depth1</a></li>                            
                        </ul>
                   </li>

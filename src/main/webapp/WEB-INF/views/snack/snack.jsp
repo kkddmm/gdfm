@@ -15,7 +15,7 @@
 ul, li {
 	list-style: none;	
 }
-li:hover{
+.image:hover{
 	border:1px solid yellow;
 }
 </style>
@@ -35,13 +35,13 @@ li:hover{
 				<ul class="nav nav-pills nav-justified pull-right">
 
 
-					<li><a class="btn btn-default"
+					<li class="image"><a class="btn btn-default"
 						href="<c:url value="/snack/snack?snack_type=combo"/>">콤보</a></li>
-					<li><a class="btn btn-default"
+					<li class="image"><a class="btn btn-default"
 						href="<c:url value="/snack/snack?snack_type=popcorn"/>">팝콘</a></li>
-					<li><a class="btn btn-default"
+					<li class="image"><a class="btn btn-default"
 						href="<c:url value="/snack/snack?snack_type=drink"/>">음료</a></li>
-					<li><a class="btn btn-default"
+					<li class="image"><a class="btn btn-default"
 						href="<c:url value="/snack/snack?snack_type=snack"/>">스낵</a></li>
 
 					
@@ -65,7 +65,7 @@ li:hover{
 				<!-- Gallery Item 1 -->
 				<div style="height: 400px; border: 10px; border-color: 3f3f3f;">
 
-					<li align="center">								
+					<li class="image" align="center">								
 		                        
 					<a href="${pageContext.request.contextPath}/snack/snack_detail/${snack.snack_id}">
 						<img src="${pageContext.request.contextPath}/img/snack/${snack.snack_name}.jpg" alt="Gallery">
