@@ -21,7 +21,11 @@ $(".hover").mouseleave(function() {
 		
 	})
  
-  
+  selectMovieList : function(no){
+	  
+	  var pageNo = (no )
+	  
+  }
 </script>
 	  
 
