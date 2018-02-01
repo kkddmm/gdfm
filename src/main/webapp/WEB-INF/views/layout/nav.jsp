@@ -12,7 +12,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-          <a class="navbar-brand" href="/"><img src="${pageContext.request.contextPath}/img/movielogo.png" width="250" height="80"/></a>
+          <a class="navbar-brand" href="${pageContext.request.contextPath}/"><img src="${pageContext.request.contextPath}/img/movielogo.png" width="250" height="80"/></a>
         </div>
 
         <div class="collapse navbar-collapse navbar-right">
