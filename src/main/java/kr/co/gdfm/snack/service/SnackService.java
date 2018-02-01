@@ -26,6 +26,7 @@ public interface SnackService {
 	public void insertBasket(Map<String, Object> params) throws Exception;
 	
 	//스낵 장바구니 목록 보기
+	public List<Snack> getBasketList(Map<String, Object> params) throws Exception;
 	
 	// 스낵 장바구니 삭제
 

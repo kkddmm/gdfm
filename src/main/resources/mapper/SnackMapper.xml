@@ -120,9 +120,21 @@
 		    #{snack_id},
 		    #{snack_cnt},
 		    null
-		)
-			
+		)			
 	</insert>
+	
+	
+	<select id="getBasketList" parameterType="map" resultType="kr.co.gdfm.snack.model.Snack">
+		SELECT
+		    snack_id,
+		    snack_buy_id,
+		    snack_cnt,
+		    pay_id
+		FROM snack_buy
+		where 1=1
+		<if test="pay_id ==0">			
+		</if>
+	</select>
 	
 	
 	

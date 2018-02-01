@@ -22,4 +22,6 @@ public interface SnackMapper {
 	
 	public void insertBasket(Map<String, Object> params) throws Exception;
 	
+	public List<Snack> getBasketList(Map<String, Object> params) throws Exception;
+	
 }

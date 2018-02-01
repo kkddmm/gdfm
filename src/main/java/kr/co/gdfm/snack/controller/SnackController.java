@@ -103,6 +103,18 @@ public class SnackController {
 
 	}
 	
+	@RequestMapping("/snack_basket/{mem_id}")
+	public String basketList(@RequestParam Map<String, Object> params, Model model,			
+			@RequestParam(value="pay_id", required=true, defaultValue="0") int pay_id			
+			) throws Exception {
+		
+		
+		List<Snack> basketList = snackService.getBasketList(params); 
+		model.addAttribute("basketList", basketList); 
+		
+		return "snack/snack_basket";
+	}
+	
 	
 	
 	@RequestMapping("/snack_pay")

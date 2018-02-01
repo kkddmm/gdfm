@@ -19,7 +19,7 @@ ul, li {
 
 </style>
 
-		<section id="portfolio">
+<section id="portfolio">
 		
  
 			<div class="center">
@@ -42,7 +42,7 @@ ul, li {
 
 <div>
 
-	<c:if test="${snack_id !=0}">
+	<c:if test="${pay_id ==0}">
 		
 			<div class="col-md-4">
 				<!-- Gallery Item 1 -->
@@ -50,33 +50,20 @@ ul, li {
 
 					<li class="image" align="center">
 							<img src="${pageContext.request.contextPath}/img/snack/${snack.snack_name}.jpg" alt="Gallery">							
-					</li>
-					
+					</li>					
 				</div>
 			</div>
 					
 			
-					<c:forEach var="" items="">
+					<c:forEach var="basket" items="${basketList}">
 							<div>
-								<span>제품명: ${snack.snack_name}</span><br>
-								<span>가격: ${snack.snack_price} 원</span><br> 
-								<span>수량:
-									<select name="snack_cnt">
-									    <option value="${snack.snack_cnt}">1</option>
-									    <option value="${snack.snack_cnt}">2</option>
-									    <option value="${snack.snack_cnt}">3</option>
-									    <option value="${snack.snack_cnt}">4</option>
-									    <option value="${snack.snack_cnt}">5</option>
-									</select>
-								</span>		
-								<span align="right"><input type="button"  value="삭제"></span>									
+								<span>제품명: ${basket.snack_name}</span><br>
+								<span>가격: ${basket.snack_price} 원</span><br> 
+								<span>수량: ${basket.snack_cnt}개</span><br>									
+								<span align="right"><input type="button" onclick="fn_delte(${basket.snack_id});" value="삭제"></span>									
 							</div>
 					</c:forEach>
 		
-		<div>
-		<hr>
-			${snack.snack_use_info} 
-		</div>
 		<div>
 			
 			<input class ="btn" type="button" value="결제하기"/>
@@ -84,10 +71,11 @@ ul, li {
 		</div>
 	</c:if>
 	
-
-	<c:if test="${snack_id ==0}">
-		<td colspan="5" align="center">제품정보가 존재하지 않습니다.</td>
+	<c:if test="${pay_id!=0 }">
+		<span>장바구니가 비어있습니다.</span>
 	</c:if>
+	
+
 
 
 
@@ -95,36 +83,6 @@ ul, li {
 
 
 
-<!--특정 스낵메뉴 사용가능 극장 Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">사용가능 극장</h4>
-      </div>
-      <div class="modal-body">
-       	 <c:if test="${snack.snack_id==17 }">
-				<span>대전 용문점</span><br>
-				<span>서울 홍대점</span><br>
-				<span>전북대</span>		
-			</c:if>
-		
-			<c:if test="${snack.snack_id==18 }">
-				<span>대전 용문점</span><br>
-				<span>서울 종로점</span> 	
-			</c:if>
-			
-			<c:if test="${snack.snack_id==19 }">
-				<span>서울 종로점</span>				
-				<span>객사점</span>				
-			</c:if>      
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
-      </div>
-    </div>
-  </div></div>
 
 
 

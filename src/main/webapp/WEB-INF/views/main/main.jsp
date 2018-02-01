@@ -14,13 +14,13 @@
 
           <div class="carousel-inner">
             <div class="item active">
-              <img src="${pageContext.request.contextPath}/images/slider_one.jpg" class="img-responsive" alt="">
+              <img src="${pageContext.request.contextPath}/img/인터스텔라.jpg" class="img-responsive" alt="">
             </div>
             <div class="item">
-              <img src="${pageContext.request.contextPath}/images/slider_one.jpg" class="img-responsive" alt="">
+              <img src="${pageContext.request.contextPath}/img/1987.jpg" class="img-responsive" alt="">
             </div>
             <div class="item">
-              <img src="${pageContext.request.contextPath}/images/slider_one.jpg" class="img-responsive" alt="">
+              <img src="${pageContext.request.contextPath}/img/역린.jpg" class="img-responsive" alt="">
             </div>
           </div>
 
