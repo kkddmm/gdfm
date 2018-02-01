@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 
 import kr.co.gdfm.board.mapper.BoardMapper;
 import kr.co.gdfm.board.model.Board;
+import kr.co.gdfm.board.model.Boardcmtnotice;
+import kr.co.gdfm.board.model.Boardtype;
 import kr.co.gdfm.board.service.BoardService;
 import kr.co.gdfm.boardqna.model.Comment;
 import kr.co.gdfm.cinema.model.Cinema;
@@ -134,4 +136,13 @@ public class BoardServiceImpl implements BoardService {
 		return boardMapper.commentUpdate(paramMap);
 	}
 	
+	@Override
+	public List<Boardtype> getBoardtypeList(Map<String, Object> paramMap) throws Exception {
+		return boardMapper.selectBoardtypeList(paramMap);
+	}
+	
+	@Override
+	public int commentInsertnotice(Boardcmtnotice boardcmtnotice) throws Exception {
+		return boardMapper.insertBoardcmtnotice(boardcmtnotice);
+	}
 }

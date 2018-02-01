@@ -241,4 +241,53 @@ where bo_co_id =#{bo_co_id}
   		bo_hit_cnt = bo_hit_cnt + 1
   	WHERE bo_id = #{bo_id}
 </update>
+<select id="selectBoardtypeList" resultType="kr.co.gdfm.board.model.Boardtype" parameterType="map"> 
+	SELECT
+	    bo_type_code,
+	    bo_type_name
+	FROM
+	    board_type
+	WHERE bo_type_code = #{bo_type_code}
+</select>
+<select id="selectBoardcmtnoticeList" resultType="Board" parameterType="map"> 
+	SELECT
+	    a.bo_id,
+	    a.bo_type_code,
+	    a.mem_id,
+	    b.mem_name as mem_id_name,
+	    a.ci_id,
+	    c.ci_name as ci_id_name,
+	    a.bo_title,
+	    a.bo_content,
+	    a.bo_hit_cnt,
+	    a.bo_notice_yn,
+	    a.bo_delete_yn,  
+	    a.bo_reg_date,
+	    a.bo_upd_date,
+	    a.bo_upd_user,
+	    d.notice_check_yn
+	FROM
+	    board a, member b, cinema c, bo_comment_notice d
+	WHERE a.mem_id = b.mem_id	
+	AND a.ci_id=c.ci_id
+	AND a.bo_type_code = 2
+	AND d.notice_check_yn = 'N'
+	AND a.bo_delete_yn = 'N'
+	ORDER BY bo_id DESC
+</select>
+<insert id="insertBoardcmtnotice" parameterType="kr.co.gdfm.board.model.Boardcmtnotice">
+	<selectKey keyProperty="notice_id" resultType="int" order="BEFORE"><!-- BEFORE/AFTER -->
+		SELECT BO_COMMENT_NOTICE_SEQ.NEXTVAL FROM DUAL
+	</selectKey>
+	 
+	INSERT INTO bo_comment_notice (
+	    notice_id,
+		bo_co_id,
+		notice_check_yn
+	) VALUES (
+	    #{notice_id},
+	    #{bo_co_id},
+		NVL(#{notice_check_yn}, 'N')
+	)
+</insert>
 </mapper>

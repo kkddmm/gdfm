@@ -85,7 +85,7 @@ $(function () {
 <div class="slider">
 	<div class="container">
 		
-		<h3>${board.bo_id == 0 ? '글쓰기' : '글수정'}</h3>
+		<h2>${board.bo_id == 0 ? '글쓰기' : '글수정'}</h2>
 	
 	<form name="boardForm" id="boardForm" method="post" enctype="multipart/form-data">
 		<input type="hidden" name="bo_id" value="${board.bo_id}"><!-- 핵심 -->
@@ -154,7 +154,7 @@ $(function () {
 					</c:forEach>
 				</p>
 				<p>
-					<button type="button" class="btn btn-primary btn-xs" id="btnFileAdd">추가</button>
+					<button type="button" class="btn btn-warning btn-xs" id="btnFileAdd">추가</button>
 				</p>
 				<div id="fileList">	
 					
@@ -189,11 +189,11 @@ $(function () {
 		<p align="right">
 			
 			<c:if test="${board.bo_id == 0}">
-			<input type="button" value="저장" class="btn btn-primary" onclick="fn_save('I');">
+			<input type="button" value="저장" class="btn btn-warning" onclick="fn_save('I');">
 			</c:if>
 			
 			<c:if test="${board.bo_id != 0}">
-			<input type="button" value="수정" class="btn btn-primary" onclick="fn_save('U');">	
+			<input type="button" value="수정" class="btn btn-warning" onclick="fn_save('U');">	
 			</c:if>
 			
 			<input type="reset" value="취소" class="btn">

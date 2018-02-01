@@ -60,8 +60,13 @@ $(document).ready(function () {
 </script>
 <div class="slider">
 	<div class="container">
+		<c:if test="${not empty boardtypeList}" >
+			<c:forEach var="boardtype" items="${boardtypeList}">
+				<h2>${boardtype.bo_type_name}</h2>		
+			</c:forEach>			
+		</c:if>
 		<div align="right">
-				<input type="button" value="글쓰기" class="btn btn-primary" onclick="fn_writeForm();">
+				<input type="button" value="글쓰기" class="btn btn-warning" onclick="fn_writeForm();">
 		</div>
 		
 		
@@ -80,7 +85,7 @@ $(document).ready(function () {
 					</select>
 					
 					<input type="text" name="searchWord" value="${param.searchWord}" size="40" class="form-control">
-					<input type="button" value="검색" onclick="fn_search(1);" class="btn btn-primary">
+					<input type="button" value="검색" onclick="fn_search(1);" class="btn btn-warning">
 				</p>
 				<p>
 					<div class="form-group">
@@ -121,7 +126,7 @@ $(document).ready(function () {
 							<td style="text-align:center;">공지</td>
 							<td style="text-align:center;">${notice.ci_id_name}</td>
 							
-							<td class="text-left"><a href="3030102/${notice.bo_id}/${notice.bo_type_code}">${notice.bo_title}</a></td>
+							<td class="text-left"><a href="3030102/${notice.bo_id}/${notice.bo_type_code}" style="color:#666666;"><b>${notice.bo_title}</b></a></td>
 							
 							<td style="text-align:center;">${notice.mem_id_name}</td>
 							<td style="text-align:center;">${reg_notice_date3}</td>
@@ -138,7 +143,7 @@ $(document).ready(function () {
 							<td style="text-align:center;">${(pagingUtil.totalCount-(pagingUtil.currentPage-1)*pagingUtil.pageCount) - i.index - ((pagingUtil.currentPage-1)*5)}</td>
 							<td style="text-align:center;">${board.ci_id_name}</td>
 							
-							<td class="text-left"><a href="3030102/${board.bo_id}/${board.bo_type_code}">${board.bo_title}</a></td>
+							<td class="text-left"><a href="3030102/${board.bo_id}/${board.bo_type_code}" style="color:#666666;">${board.bo_title}</a></td>
 							
 							<td style="text-align:center;">${board.mem_id_name}</td>
 							<td style="text-align:center;">${reg_date3}</td>

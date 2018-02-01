@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.co.gdfm.board.model.Board;
+import kr.co.gdfm.board.model.Boardcmtnotice;
+import kr.co.gdfm.board.model.Boardtype;
 import kr.co.gdfm.board.service.BoardService;
 import kr.co.gdfm.boardqna.model.Comment;
 import kr.co.gdfm.cinema.model.Cinema;
@@ -77,11 +79,29 @@ public class BoardController {
 		
 		List<Board> boardList = boardService.getBoardList(paramMap);
 		
+		List<Boardtype> boardtypeList = boardService.getBoardtypeList(paramMap);
+		
 		model.addAttribute("boardList", boardList);
 		model.addAttribute("pagingUtil", pagingUtil);
 		model.addAttribute("noticeList", noticeList);
+		model.addAttribute("boardtypeList", boardtypeList);
 		
 		return "board/3030101";
+		
+	}
+	
+	@RequestMapping("/boardtypeList")
+	public String boardtypeList(
+			@RequestParam(value="bo_type_code", required=false, defaultValue="0") int bo_type_code,
+			Model model) throws Exception {
+		
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("bo_type_code", bo_type_code);
+		List<Boardtype> boardtypeList = boardService.getBoardtypeList(paramMap);
+		
+		model.addAttribute("boardtypeList", boardtypeList);
+		
+		return "board/boardtypeList";
 		
 	}
 	
@@ -102,8 +122,12 @@ public class BoardController {
 		
 		List<Comment> commentList = boardService.getCommentList(bo_id);
 		
+		paramMap.put("bo_type_code", bo_type_code);
+		List<Boardtype> boardtypeList = boardService.getBoardtypeList(paramMap);
+		
 		model.addAttribute("board", board);
 		model.addAttribute("commentList", commentList);
+		model.addAttribute("boardtypeList", boardtypeList);
 		
 		return "board/3030102";
 	}
@@ -281,7 +305,7 @@ public class BoardController {
 	}
 	
 	@RequestMapping("/commentInsert")
-	public String commnetInsert(Comment comment, @RequestParam("bo_type_code") int bo_type_code) throws Exception {
+	public String commnetInsert(Comment comment, @RequestParam("bo_type_code") int bo_type_code, Boardcmtnotice boardcmtnotice) throws Exception {
 		//System.out.println(comment.getBo_co_id());
 		int bo_id = comment.getBo_id();
 		//int variable = 1;
@@ -292,6 +316,15 @@ public class BoardController {
 		System.out.println(comment.getBo_co_id());
 		boardService.commentInsert(comment);
 		System.out.println(comment.getBo_co_id());
+		
+		//String cust_id = board.getBo_writer();
+		//String co_writer = comment.getCo_writer();
+		boardcmtnotice.setBo_co_id(comment.getBo_co_id());
+		
+		//if(!cust_id.equals(co_writer)) {
+			boardService.commentInsertnotice(boardcmtnotice);
+		//}
+		
 	
 		return "redirect:/board/3030102/"+bo_id+"/"+bo_type_code;
 

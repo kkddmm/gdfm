@@ -117,28 +117,32 @@ $(document).ready(function () {
 </script>	
 <div class="slider">
 	<div class="container">
-	
+	<c:if test="${not empty boardtypeList}" >
+		<c:forEach var="boardtype" items="${boardtypeList}">
+			<h2>${boardtype.bo_type_name}</h2>		
+		</c:forEach>			
+	</c:if>
 	<table class="table">
 		<tr>
-			<th class="col-xs-2 text-center">제목</th>
+			<th class="col-xs-2 text-center info">제목</th>
 			<td>
-				${board.bo_title}
+				<b>${board.bo_title}</b>
 			</td>
 		</tr>	
 		<tr>
-			<th class="text-center">작성자</th>
+			<th class="text-center info">작성자</th>
 			<td>
 				${board.mem_id_name}
 			</td>
 		</tr>	
 		<tr>
-			<th class="text-center">영화관</th>
+			<th class="text-center info">영화관</th>
 			<td>
 				${board.ci_id_name}
 			</td>
 		</tr>	
 		<tr>
-			<th class="text-center">첨부파일</th>			
+			<th class="text-center info">첨부파일</th>			
 			<td>
 				<c:forEach var="fileItem" items="${board.fileItemList}">
 					<div>
@@ -155,7 +159,7 @@ $(document).ready(function () {
 		<p class="text-right">
 		
 <%-- 		<c:if test="${not empty LOGIN_USER and LOGIN_USER.mem_id == board.mem_id}">	 --%>
-			<input type="button" value="수정" class="btn btn-primary" onclick="fn_writeForm('${board.bo_id}','${board.bo_type_code}');">
+			<input type="button" value="수정" class="btn btn-warning" onclick="fn_writeForm('${board.bo_id}','${board.bo_type_code}');">
 			<input type="button" value="삭제" class="btn btn" onclick="fn_delete('${board.bo_id}','${board.bo_type_code}');">
 <%-- 		</c:if>	 --%>
 			<input type="button" value="목록" class="btn btn-default" onclick="fn_list();">
