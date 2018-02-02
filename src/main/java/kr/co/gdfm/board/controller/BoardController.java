@@ -26,6 +26,7 @@ import kr.co.gdfm.common.cinemalist.mapper.CinemaListMapper;
 import kr.co.gdfm.common.file.model.FileItem;
 import kr.co.gdfm.common.file.service.FileItemService;
 import kr.co.gdfm.common.util.PagingUtil;
+import kr.co.gdfm.member.model.Member;
 
 
 @Controller
@@ -142,12 +143,12 @@ public class BoardController {
 
 			// 로그인 여부 확인
 				
-			//Member member = (Member)session.getAttribute("LOGIN_USER");
+			Member member = (Member)session.getAttribute("LOGIN_USER");
 			
 			// 로그인 폼으로 리다이렉트
-			//if(member == null) {
-			//	return "redirect:/login/loginForm";
-			//}
+			if(member == null) {
+				return "redirect:/login/loginForm";
+			}
 
 			Board board = new Board();
 				
@@ -156,8 +157,8 @@ public class BoardController {
 					
 			}else {
 				// 로그인 사용자 정보
-				//board.setBo_writer(member.getMem_id());
-				//board.setBo_writer_name(member.getMem_name());
+				board.setMem_id(member.getMem_id());
+				board.setMem_id_name(member.getMem_name());
 			}
 			Map<String, Object> paramMap = new HashMap<>();
 			List<Cinema> cinemaList = cinamaListMapper.selectCinemaList(paramMap);
@@ -217,15 +218,15 @@ public class BoardController {
 			Model model
 			) throws Exception {
 				
-				//Member member = (Member)session.getAttribute("LOGIN_USER");
+			Member member = (Member)session.getAttribute("LOGIN_USER");
 					
-			//	if(member == null) {
-			//		return "redirect:/login/loginForm";
-			//	}
+				if(member == null) {
+					return "redirect:/login/loginForm";
+				}
 				
 				// 세션에서 로그인 사용자 정보 셋팅.
-			//	board.setUpd_user(member.getMem_id());
-				board.setBo_upd_user("test");
+				board.setBo_upd_user(member.getMem_id());
+				//board.setBo_upd_user("test");
 				
 				String viewPage = "common/message";
 
@@ -266,7 +267,7 @@ public class BoardController {
 			Model model
 			) {
 						
-		//Member member = (Member)session.getAttribute("LOGIN_USER");
+		Member member = (Member)session.getAttribute("LOGIN_USER");
 					
 		//if(member == null) {
 		//	return "redirect:/login/loginForm";
@@ -274,8 +275,8 @@ public class BoardController {
 		
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		
-		//paramMap.put("upd_user", member.getMem_id());
-		paramMap.put("upd_user", "test");
+		paramMap.put("bo_upd_user", member.getMem_id());
+		//paramMap.put("upd_user", "test");
 		paramMap.put("bo_id", bo_id);
 		
 		String viewPage = "common/message";

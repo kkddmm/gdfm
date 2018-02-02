@@ -9,10 +9,22 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.css">
-<script src="${pageContext.request.contextPath}/js/jquery-3.2.1.js"></script>
+<!-- Bootstrap -->
+<link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/font-awesome.min.css">
+<link href="${pageContext.request.contextPath}/css/animate.min.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/css/prettyPhoto.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/css/responsive.css" rel="stylesheet">
 
-<style>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="${pageContext.request.contextPath}/js/jquery.js"></script>
+<script src="${pageContext.request.contextPath}/js/jquery.prettyPhoto.js"></script>
+<script src="${pageContext.request.contextPath}/js/jquery.isotope.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/wow.min.js"></script>
+
+<!-- <style>
 /* Remove the navbar's default margin-bottom and rounded borders */
 .navbar {
 	margin-bottom: 0;
@@ -48,9 +60,9 @@ footer {
 		height: auto;
 	}
 }
-</style>
+</style> -->
 
-<title>NextIT 교육센터</title>
+<title>영화보기좋은날</title>
 
 </head>
 <body>
@@ -60,7 +72,9 @@ footer {
 	<%-- <header>
 		<tiles:insertAttribute name="header"/>
 	</header> --%>
-	
+	<nav class="navbar navbar-default">
+		<tiles:insertAttribute name="nav"/>
+	</nav>
 	<!-- <article> -->
 	<div class="container-fluid text-center" style="min-height: 500px;">		
 		<tiles:insertAttribute name="body"/>

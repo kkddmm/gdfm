@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="kr.co.gdfm.member.mapper.MemberMapper"><!-- 필수 고유해야함 -->
+  
+  <select id="selectMemberCount" resultType="int" parameterType="map"> 
+	SELECT
+	     count(*) as count
+	FROM
+	    member WHERE 1=1
+	    
+	    <if test="searchWord != null and searchWord != ''">
+	    	<if test="searchType == 'id'">
+	    		AND mem_id = #{searchWord}
+	    	</if>
+	    	<if test="searchType == 'name'">
+	    		AND mem_name LIKE '%' || #{searchWord} || '%'
+	    	</if>
+	    </if>
+  </select>
+  
+  <select id="selectMemberList" resultType="kr.co.gdfm.member.model.Member" parameterType="map"> 
+  <include refid="CommonMapper.pageHeader"></include>
+	SELECT
+	     a.mem_id
+		,a.mem_name
+		,a.mem_pwd
+		,a.mem_phone
+		,a.mem_age
+		,a.mem_gender
+		,a.mem_addr
+		,a.mem_addr_detail
+		,a.class_code
+		,b.class_name as class_code_name
+		,a.mem_point
+		,a.mem_reg_date
+		,a.mem_zipcode
+		,a.mem_email
+		,a.mem_birth
+	FROM
+	    member a, member_class b  
+	    WHERE 1=1
+	    AND a.class_code=b.class_code
+	    <if test="searchWord != null and searchWord != ''">
+	    	<if test="searchType == 'id'">
+	    		AND a.mem_id = #{searchWord}
+	    	</if>
+	    	<if test="searchType == 'name'">
+	    		AND a.mem_name LIKE '%' || #{searchWord} || '%'
+	    	</if>
+	    </if>
+	    
+	ORDER BY a.mem_reg_date DESC
+	<include refid="CommonMapper.pageFooter"></include>
+  </select>
+  
+  <select id="selectMember" resultType="kr.co.gdfm.member.model.Member" parameterType="string"><!-- alias -->
+  	SELECT
+	     a.mem_id
+		,a.mem_name
+		,a.mem_pwd
+		,a.mem_phone
+		,a.mem_age
+		,a.mem_gender
+		,a.mem_addr
+		,a.mem_addr_detail
+		,a.class_code
+		,(select b.class_name from member_class b where a.class_code = b.class_code) as class_code_name
+		,a.mem_point
+		,a.mem_reg_date
+		,a.mem_zipcode
+		,a.mem_email
+		,a.mem_birth
+	FROM
+	    member a
+	WHERE a.mem_id = #{mem_id} <!--  parameter 동일 -->
+  </select>
+  
+  <insert id="insertMember" parameterType="kr.co.gdfm.member.model.Member">
+     INSERT INTO member (
+	     mem_id
+		,mem_name
+		,mem_pwd
+		,mem_phone
+		,mem_age
+		
+		,mem_gender
+		,mem_addr
+		,mem_addr_detail
+		,class_code
+		,mem_zipcode
+		
+		,mem_email
+		,mem_birth
+	) VALUES (
+	     #{mem_id}
+		,#{mem_name}
+		,#{mem_pwd}
+		,#{mem_phone}
+		,#{mem_age}
+		
+		,#{mem_gender}
+		,#{mem_addr}
+		,#{mem_addr_detail}
+		,NVL(#{class_code}, '1')
+		,#{mem_zipcode}
+		
+		,#{mem_email}
+		,#{mem_birth}
+	)
+  </insert>
+  
+  <update id="updateMember" parameterType="kr.co.gdfm.member.model.Member">
+  	UPDATE member SET
+	      mem_name 			= #{mem_name}
+		, mem_pwd 			= #{mem_pwd}
+		, mem_phone 		= #{mem_phone}
+		, mem_age			= #{mem_age}
+		, mem_gender		= #{mem_gender}
+		
+		, mem_addr		 	= #{mem_addr}
+		, mem_addr_detail 	= #{mem_addr_detail}
+		, class_code		= #{class_code}
+		, mem_zipcode 		= #{mem_zipcode}
+		, mem_email 		= #{mem_email}
+		
+		, mem_birth 		= #{mem_birth}
+		, mem_point 		= #{mem_point}
+	WHERE mem_id = #{mem_id}
+  </update>
+  
+  <delete id="deleteMember" parameterType="string">
+  	DELETE FROM member WHERE mem_id = #{mem_id}
+  </delete>
+  
+  <select id="selectMemberclassList" resultType="kr.co.gdfm.member.model.Memberclass" parameterType="map"> 
+	SELECT
+		class_code,
+		class_name
+	FROM
+	    member_class
+	ORDER BY class_code ASC
+  </select>
+  
+</mapper>

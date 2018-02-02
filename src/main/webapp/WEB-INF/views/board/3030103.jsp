@@ -70,6 +70,11 @@ $(function () {
 			frm.mem_id.focus();
 			return false;
 		}
+		if(frm.ci_id.value == ""){
+			alert("영화관선택은 필수 입력 항목입니다.");
+			frm.ci_id.focus();
+			return false;
+		}
 		
 		if(frm.bo_content.value == ""){
 			alert("내용을 입력하세요.");
@@ -124,10 +129,8 @@ $(function () {
 				<th class="info text-center">작성자</th>
 				<td>
 					<div class="col-xs-3">
-<%-- 						<input type="hidden" name="mem_id" value="${board.mem_id}"> --%>
-						<input type="hidden" name="mem_id" value="test">
-<%-- 						<input type="text" name="mem_id_name" value="${board.mem_id_name}" class="form-control" readonly> --%>
-						<input type="text" name="mem_id_name" value="홍길동" class="form-control" readonly>
+	 					<input type="hidden" name="mem_id" value="${board.mem_id}">
+	 					<input type="text" name="mem_id_name" value="${board.mem_id_name}" class="form-control" readonly>					
 					</div>
 				</td>
 			</tr>
