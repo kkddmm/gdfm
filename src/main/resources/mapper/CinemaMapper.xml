@@ -14,7 +14,7 @@
 
 	<select id="getCinemaAddr2" parameterType="map"
 		resultType="map">
-			select g.ci_id, i.ci_addr2
+			select g.ci_id,g.ci_name, i.ci_addr2
 from cinema g,
 (
  select distinct a.ci_addr2
@@ -32,28 +32,11 @@ from cinema g,
      ) b
      where a.ci_id = b.ci_id ) i
      where g.ci_addr2= i.ci_addr2
-	
-		
-		
-		
-	
-		
-		
-		
-		
-		
-		
-	
-		
-		
-		
-		
-		
 		
 	</select>
 		<!-- 상영중인 영화 조회 -->
 	<select id="getMovieNameByCinema" resultType="map">
-select d.movie_id, d.movie_grade,d.movie_ko_name
+select d.movie_id, d.movie_grade,d.movie_ko_name, d.movie_name
 from movie d, 
 (
 select distinct a.movie_id as 선택지역상영영화id 

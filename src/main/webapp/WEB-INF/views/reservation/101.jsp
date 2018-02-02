@@ -8,9 +8,12 @@
 	var cinemaSelect = false;
 	var dateSelect = false;
 
-	function fn_changeCinemaByMovie(movie_id) {
+	function fn_changeCinemaByMovie(movie_id, movie_name, movie_ko_name) {
 		//영화를 눌렀을때 영화관 목록이 바뀌는 메소드
 		$('#selectedMovie').val(movie_id);
+		$("#imgView").children().remove();
+		$('<img>').attr("src","${pageContext.request.contextPath}/movieposter/"+movie_name+"_poster.jpg").appendTo('#imgView');
+		$('#selectMovieName').html(movie_ko_name);
 		$.ajax({
 			type : 'post',
 			url : '${pageContext.request.contextPath}/reservation/get/cinemaList',
@@ -46,9 +49,13 @@
 						//기존 데이터 제거 
 						$('#addr2View').html('');
 						for (var i in data) {
-							$('<li>').html(data[i].CI_ADDR2).attr("id",data[i].CI_ID).addClass("list-group-item").on('click',function() {
+							$('<li>').html(data[i].CI_ADDR2).attr("id",data[i].CI_ID).attr("name",data[i].CI_NAME).addClass("list-group-item").on('click',function() {
 								var cineid = $(this).attr("id"); 
+								var cineName=$(this).attr("name");
+								
+								
 								$('#selectedCinema').val(cineid);
+								$('#selectCinemaName').html('영화보기 좋은날&nbsp;'+cineName);
 								var addr2 = $(this).html();
 								cinemaSelect = true;
 												$.ajax({type : 'post',
@@ -58,10 +65,13 @@
 															success : function(data,status) {
 																$('#movieView').html('');
 																for (k in data) {
-																	$('<li>').addClass("list-group-item").attr("id",data[k].MOVIE_ID).html('<img src="${pageContext.request.contextPath}/img/'+data[k].MOVIE_GRADE+'.png" />'
+																	$('<li>').addClass("list-group-item").attr("id",data[k].MOVIE_ID).attr("name",data[k].MOVIE_NAME)
+																.attr("movie_ko_name",data[k].MOVIE_KO_NAME).html('<img src="${pageContext.request.contextPath}/img/'+data[k].MOVIE_GRADE+'.png" />'
 																		+ data[k].MOVIE_KO_NAME).click(function(){
 																		var movie_id =$(this).attr("id");
-																			fn_changeCinemaByMovie(movie_id);
+																		var movie_name=$(this).attr("name");
+																		var movie_ko_name=$(this).attr("movie_ko_name");
+																			fn_changeCinemaByMovie(movie_id, movie_name, movie_ko_name);
 																		}).appendTo('#movieView')
 																		}
 																if(movieSelect == true&&cinemaSelect==true&&dateSelect==true){
@@ -72,12 +82,17 @@
 															}})}).appendTo('#addr2View');}},
 															error : function() {
 																alert("에러났어요!");}
-															})
-																}
+															})}
 	
-	function fn_selectedDate(date){
+	function fn_selectedDate(date,year,month,day,weekday){
+		$('#dateView button').removeClass('active');
+		$('#'+date).addClass('active');
 		dateSelect = true;
 		$('#selectedDate').val(date);
+		
+		$('#selectDateName').html(year+'년&nbsp;'+month+'월&nbsp;'+day+'일&nbsp;'+weekday+'요일');
+		
+		
 		if(movieSelect == true&&cinemaSelect==true&&dateSelect==true){
 			fn_show_info();
 			}
@@ -98,7 +113,7 @@ if(data[0]!=null){
 				$('<h4>').html(data[0].screen_name+'('+data[0].dimension_name+')').appendTo('#infoView');
 				for(var j in data){
 					if(j!=0&&data[j].screen_name!=data[j-1].screen_name){
-						$('<h4>').html(data[j].screen_name+'('+data[j].dimension_name+')').appendTo('#infoView');
+						$('<h4>').html('<hr/>'+data[j].screen_name+'('+data[j].dimension_name+')').appendTo('#infoView');
 					}
 					$('<span>').html('<button id="'+data[j].show_id+'"type="button" class="btn" > '+data[j].start_time+'</button>&nbsp;'+data[j].sit +'석&nbsp;' )
 					.appendTo('#infoView');
@@ -121,9 +136,18 @@ ul {
 	list-style: none;
 	padding : 0px;
 }
+#imgView img{
+width : 150px;
+height: 150px;
+}
+
+
 </style>
 <div class="slider">
 	<div class="container">
+	
+	<a type="button" href="101" class="btn btn-default"><span class="glyphicon glyphicon-repeat"></span>다시예매하기</a>
+
 		<div align="center" class="col-md-12 main row">
 			<div align="center" class="col-md-2 list-group">
 				<h4 class="sessionTitle">영화</h4>
@@ -132,7 +156,7 @@ ul {
 				<ul style="height:500px; overflow:scroll;" id="movieView">
 					<c:if test="${not empty movieList}">
 						<c:forEach items="${movieList}" var="movie">
-							<li id="${movie.movie_id}" class="list-group-item" onclick="fn_changeCinemaByMovie(${movie.movie_id});"><img
+							<li id="${movie.movie_id}" class="list-group-item" onclick="fn_changeCinemaByMovie(${movie.movie_id},'${movie.movie_name}','${movie.movie_ko_name}');"><img
 								src="${pageContext.request.contextPath}/img/${movie.movie_grade}.png">${movie.movie_ko_name}</li>
 						</c:forEach>
 					</c:if>
@@ -141,7 +165,8 @@ ul {
 				</div>
 
 			</div>
-			<div   class="col-md-3 row list-group">
+			
+			<div  class="col-md-3 row list-group">
 				<h4>영화관</h4>
 				<hr />
 				<ul  class="col-md-6" id="addr1View">
@@ -163,7 +188,7 @@ ul {
 				<c:if test="${date.MONTH!=dateList[status.index-1].MONTH}">
 				<h2>${date.MONTH}월</h5>
 				</c:if>
-           <li onclick="fn_selectedDate(${date.USEDAY})"><button type="button" class="btn btn-default">${date.WEEKDAY}&nbsp;${date.DAY}</button></li><br/>
+           <li onclick="fn_selectedDate(${date.USEDAY},${date.YEAR},${date.MONTH},${date.DAY},'${date.WEEKDAY}')"><button id="${date.USEDAY}" type="button" class="btn btn-default">${date.WEEKDAY}&nbsp;${date.DAY}</button></li><br/>
 				</c:forEach>
 				</ul>
 				</div>
@@ -171,8 +196,11 @@ ul {
 			<div class="col-md-6"> 
 				<h4>상영정보</h4><hr/>
 				<div align="left" class="row">
-				<div class="col-md-1"></div>
+				<div class="col-md-1">
+			
+				</div>
 			<ul class="col-md-11" id="infoView"> 
+			<p>예매할 사항을 선택해주세요</p>
 			</ul>
 			
 				</div>
@@ -183,9 +211,55 @@ ul {
 		<br/>
 		<br/>
 		<br/>
-		<input name="selectedMovie" type="text" id="selectedMovie" />
-		<input name="selectedCinema" type="text" id="selectedCinema" />
-		<input name="selectedDate" type="text" id="selectedDate" />
+		
+		<div class="col-md-12 row" style="height :200px; background-color : black;">
+		<br/>
+		<div id="imgView" class = col-md-2>
+		</div>
+<div class="col-md-2">
+<br/>
+<br/>
+		<h2 id="selectMovieName" style="color: white;">영화 선택</h2>
+</div>		
+<div class="col-md-1">
+<br/>
+<br/>
+<h1>
+<span class="glyphicon glyphicon-menu-right"></span>
+</h1>
+</div>
+<div id="selectCinemaView" class="col-md-3">
+<br/>
+<br/>
+<h2 id="selectCinemaName" style="color: white;">영화관 선택</h2>
+</div>
+
+<div class="col-md-1">
+<br/>
+<br/>
+<h1>
+<span class="glyphicon glyphicon-menu-right"></span>
+</h1>
+</div>
+
+
+
+
+<div id="selectDateView" class="col-md-3">
+<br/>
+<br/>
+<h2 id="selectDateName" style="color: white;">날짜 선택</h2>
+</div>		
+		
+		
+		</div>
+		
+		
+		
+		
+		<input type="hidden" name="selectedMovie" type="text" id="selectedMovie" />
+		<input type="hidden" name="selectedCinema" type="text" id="selectedCinema" />
+		<input type="hidden" name="selectedDate" type="text" id="selectedDate" />
 
 
 
