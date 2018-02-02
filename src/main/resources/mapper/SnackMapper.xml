@@ -126,23 +126,27 @@
 	
 	<select id="getBasketList" parameterType="map" resultType="kr.co.gdfm.snack.model.Snack">
 		SELECT
-		    snack_id,
-		    snack_buy_id,
-		    snack_cnt,
-		    pay_id
-		FROM snack_buy
-		where 1=1
-		<if test="pay_id ==0">			
-		</if>
+		     a.snack_buy_id,
+			 a.mem_id,
+			 a.snack_id,
+			 a.snack_cnt,
+			 a.pay_id,
+			 
+			 b.snack_name,
+			 b.snack_price			 
+		FROM snack_buy a, snack b
+		where a.mem_id='test' and  a.snack_id=b.snack_id					
 	</select>
 	
 	
-	
-	
+	<delete id="deleteBasket" parameterType="map">
+		DELETE 	 
+		FROM snack_buy 
+		where snack_buy_id=#{snack_buy_id}
+	</delete>
 	
 	
 </mapper>
-
 
 
 

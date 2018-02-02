@@ -53,11 +53,16 @@ public class SnackServiceImpl implements SnackService {
 		
 		return snackMapper.getBasketList(params);
 	}
+
+	@Override
+	public int deleteBasket(Map<String, Object> params) throws Exception {
+		
+		return snackMapper.deleteBasket(params);
+	}
 	
 	
 
 }
-
 
 
 

@@ -15,8 +15,7 @@ function fn_insertBasket(snack_id){
 	$.ajax({
 		type: 'post',
 		url : '${pageContext.request.contextPath}/snack/snack_insertBasket',
-		data : "snack_id="+snack_id+"&mem_id=test"+"&snack_cnt="+snackCnt,
-		dataType: "json",
+		data : "snack_id="+snack_id+"&mem_id=test"+"&snack_cnt="+snackCnt,		
 		success : function(data, status){
 			alert("장바구니에 담았습니다.");
 			alert(data.status);
@@ -40,10 +39,9 @@ function fn_insertBasket(snack_id){
 	$(function(){
 		$('.snack-type.${snack.snack_type}').addClass('active');
 		
-		
 
 		//장바구니 DB에 저장
-		/* $("#BtnInsertBasket").on("click",  function(){
+		 /* $("#BtnInsertBasket").on("click",  function(){
 			
 			
 			$.ajax({
@@ -59,9 +57,8 @@ function fn_insertBasket(snack_id){
 					console.log(error);
 				}
 			});
-		}); */
-		
-		
+		}); 
+		 */
 		
 	});
 	
@@ -236,19 +233,19 @@ ul, li {
       </div>
       <div class="modal-body">
        	 <c:if test="${snack.snack_id==17 }">
-				<span>대전 용문점</span><br>
-				<span>서울 홍대점</span><br>
-				<span>전북대</span>		
+				<span>대전 탄방점</span><br>
+				<span>서울 역삼점</span><br>
+				<span>전북 객사점</span>		
 			</c:if>
 		
 			<c:if test="${snack.snack_id==18 }">
-				<span>대전 용문점</span><br>
-				<span>서울 종로점</span> 	
+				<span>대전 대전점</span><br>
+				<span>서울 강남점</span> 	
 			</c:if>
 			
 			<c:if test="${snack.snack_id==19 }">
-				<span>서울 종로점</span>				
-				<span>객사점</span>				
+				<span>서울 역삼점</span>				
+				<span>전북 객사점</span>				
 			</c:if>      
       </div>
       <div class="modal-footer">
@@ -277,7 +274,6 @@ ul, li {
 <br>
 <br>
 <br>
-
 
 
 

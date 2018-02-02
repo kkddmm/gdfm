@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -80,12 +81,15 @@ public class SnackController {
 	
 	@RequestMapping("/snack_insertBasket")
 	@ResponseBody
-	public  void insertBasket(@RequestParam Map<String, Object> params
+	public  void insertBasket(@RequestParam Map<String, Object> params, HttpSession session
 			) throws Exception {
 		System.out.println("snack_id="+params.get("snack_id"));
 		System.out.println("snack_id="+params.get("snack_cnt"));
 		
 		HashMap<String, Object> result = new HashMap<>();
+		
+		/*session.setAttribute("USER", );*/
+		
 		
 		try {			
 			snackService.insertBasket(params);
@@ -97,35 +101,46 @@ public class SnackController {
 			e.printStackTrace();
 			result.put("status", false);
 			result.put("message", e.getMessage());
-		}
-		
-	
-
+		}		
 	}
 	
-	@RequestMapping("/snack_basket/{mem_id}")
-	public String basketList(@RequestParam Map<String, Object> params, Model model,			
-			@RequestParam(value="pay_id", required=true, defaultValue="0") int pay_id			
+	@RequestMapping("/snack_basket")
+	public String basketList(@RequestParam Map<String, Object> params, Model model			
 			) throws Exception {
-		
-		
-		List<Snack> basketList = snackService.getBasketList(params); 
+				
+		List<Snack> basketList = snackService.getBasketList(params);   
 		model.addAttribute("basketList", basketList); 
-		
+				
 		return "snack/snack_basket";
 	}
 	
+	@RequestMapping("/snack_deleteBasket")
+	@ResponseBody
+	public String deleteBasket(@RequestParam(value="snack_id") int snack_id, 
+								@RequestParam(value="snack_buy_id") int snack_buy_id, 
+								 Model model) throws Exception {		
+		Map<String, Object> params = new HashMap<>();
+		
+		params.put("snackId", snack_id);
+		params.put("snack_buy_id", snack_buy_id);
+		
+		int delBasket = snackService.deleteBasket(params); 
+		
+		String mem_id="test";
+		
+		model.addAttribute("delBasket",delBasket);
+		
+		return "redirect:snack/snack_basket?mem_id="+mem_id;
+	}
 	
-	
+		
 	@RequestMapping("/snack_pay")
 	public String snackPay() {
-		
 		
 		return "snack/snack_pay";
 	}
 	
 }
-
 
 
 

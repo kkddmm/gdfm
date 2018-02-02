@@ -23,10 +23,6 @@ public class Snack {
 	
 	
 	
-	
-	
-	
-	
 	public int getSnack_id() {
 		return snack_id;
 	}
