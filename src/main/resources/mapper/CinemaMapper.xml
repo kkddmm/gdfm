@@ -35,7 +35,11 @@ from cinema g,
 		
 	</select>
 		<!-- 상영중인 영화 조회 -->
+		
+		
 	<select id="getMovieNameByCinema" resultType="map">
+	
+	
 select d.movie_id, d.movie_grade,d.movie_ko_name, d.movie_name
 from movie d, 
 (
@@ -45,6 +49,7 @@ from
 select f.movie_id ,e.ci_id
 from movie_show_info f, screen e
 where e.screen_id = f.screen_id
+and f.show_date - sysdate <![CDATA[ >-1 ]]>
 )a,
 cinema b
 where a.ci_id = 
@@ -56,6 +61,8 @@ where ci_addr1 = #{ci_addr1} and ci_addr2 = #{ci_addr2}
 ) c 
 where d.movie_id = c.선택지역상영영화id
 and d.movie_show_yn ='Y'
+
+
 	</select>
 	
 	
@@ -69,9 +76,12 @@ and d.movie_show_yn ='Y'
      from movie_show_info d, screen e
      where d.screen_id = e.screen_id
      and d.movie_id = #{movie_id}
+    and d.show_date - sysdate <![CDATA[ >-1 ]]>
     
      ) b
      where a.ci_id = b.ci_id
+     
+     
 	</select>	
 	
 	

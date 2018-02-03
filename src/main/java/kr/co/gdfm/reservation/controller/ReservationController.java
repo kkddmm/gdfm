@@ -75,5 +75,26 @@ public class ReservationController {
 		return resultList;
 
 	}
+	
+	@RequestMapping("/102")
+public String goReservationSit(@RequestParam int show_id) {
+		
+		
+		
+		return "reservation/102";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 }

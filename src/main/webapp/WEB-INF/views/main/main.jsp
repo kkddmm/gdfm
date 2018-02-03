@@ -421,4 +421,4 @@
     </div>
   </section>
   <!--/#bottom-->
-<script src="${pageContext.request.contextPath}/js/main.js"></script>
+<script src="${pageContext.request.contextPath}/js/main1.js"></script>

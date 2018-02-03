@@ -52,8 +52,6 @@
 							$('<li>').html(data[i].CI_ADDR2).attr("id",data[i].CI_ID).attr("name",data[i].CI_NAME).addClass("list-group-item").on('click',function() {
 								var cineid = $(this).attr("id"); 
 								var cineName=$(this).attr("name");
-								
-								
 								$('#selectedCinema').val(cineid);
 								$('#selectCinemaName').html('영화보기 좋은날&nbsp;'+cineName);
 								var addr2 = $(this).html();
@@ -89,10 +87,7 @@
 		$('#'+date).addClass('active');
 		dateSelect = true;
 		$('#selectedDate').val(date);
-		
 		$('#selectDateName').html(year+'년&nbsp;'+month+'월&nbsp;'+day+'일&nbsp;'+weekday+'요일');
-		
-		
 		if(movieSelect == true&&cinemaSelect==true&&dateSelect==true){
 			fn_show_info();
 			}
@@ -115,18 +110,47 @@ if(data[0]!=null){
 					if(j!=0&&data[j].screen_name!=data[j-1].screen_name){
 						$('<h4>').html('<hr/>'+data[j].screen_name+'('+data[j].dimension_name+')').appendTo('#infoView');
 					}
-					$('<span>').html('<button id="'+data[j].show_id+'"type="button" class="btn" > '+data[j].start_time+'</button>&nbsp;'+data[j].sit +'석&nbsp;' )
+					$('<span>').html('<button id="'+data[j].show_id+'"type="button" onclick="fn_selectShowInfo('+data[j].show_id+');" class="btn" > '+data[j].start_time+'</button>&nbsp;'+data[j].sit +'석&nbsp;' )
 					.appendTo('#infoView');
 				}
+				
+				
 }	else{
 	$('#infoView').html('상영 정보가 없습니다');
 }
 			},
 			error : function(){
-				alert("에러났어");
+				alert("에러가 발생했습니다.");
 			}
 		})
 	}
+	function fn_selectShowInfo(show_id){
+		$('#selectedShow').val(show_id);
+		console.log(show_id);
+		$('#goSitDiv').html(''); 	
+$('<img>').attr('src',"${pageContext.request.contextPath}/img/goSitBtn.png").on('click',function(){
+	
+
+	
+	var sel = confirm("선택하신 정보로 예매하시겠습니까?")
+	if(sel ==true){
+		
+		var frm = document.selectForm;
+		frm.method = "post";
+		frm.action = "102";
+		frm.submit();
+		
+		
+	}
+}).appendTo('#goSitDiv');
+
+
+	}
+	
+	
+	
+	
+	
 </script>
 <style>
 .row.main {
@@ -148,7 +172,7 @@ height: 150px;
 	
 	<a type="button" href="101" class="btn btn-default"><span class="glyphicon glyphicon-repeat"></span>다시예매하기</a>
 
-		<div align="center" class="col-md-12 main row">
+		<div  align="center" class="col-md-12 main row">
 			<div align="center" class="col-md-2 list-group">
 				<h4 class="sessionTitle">영화</h4>
 				<hr />
@@ -219,47 +243,39 @@ height: 150px;
 <div class="col-md-2">
 <br/>
 <br/>
-		<h2 id="selectMovieName" style="color: white;">영화 선택</h2>
+		<h2 id="selectMovieName" style="color: white;"></h2>
 </div>		
 <div class="col-md-1">
 <br/>
 <br/>
 <h1>
-<span class="glyphicon glyphicon-menu-right"></span>
+<span class="glyphicon glyphicon-chevron-right"></span>
 </h1>
 </div>
 <div id="selectCinemaView" class="col-md-3">
 <br/>
-<br/>
-<h2 id="selectCinemaName" style="color: white;">영화관 선택</h2>
+<h2 id="selectCinemaName" style="color: white;"></h2>
+<h2 id="selectDateName" style="color: white;"></h2>
 </div>
 
 <div class="col-md-1">
 <br/>
 <br/>
 <h1>
-<span class="glyphicon glyphicon-menu-right"></span>
+<span class="glyphicon glyphicon-chevron-right"></span>
 </h1>
 </div>
 
-
-
-
-<div id="selectDateView" class="col-md-3">
-<br/>
-<br/>
-<h2 id="selectDateName" style="color: white;">날짜 선택</h2>
+<div style="background-color : black; " id="goSitDiv" class="col-md-3">
 </div>		
-		
-		
 		</div>
-		
-		
-		
-		
 		<input type="hidden" name="selectedMovie" type="text" id="selectedMovie" />
 		<input type="hidden" name="selectedCinema" type="text" id="selectedCinema" />
 		<input type="hidden" name="selectedDate" type="text" id="selectedDate" />
+		
+		<form name ="selectForm">
+		<input type="hidden" name="show_id" type="text" id="selectedShow" />
+		</form>
 
 
 
