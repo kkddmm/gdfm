@@ -11,8 +11,9 @@
 			<a href="${pageContext.request.contextPath}/member/memberForm?type=I" style="color:#FFFFFF;font-size:11px;">회원가입</a>                
 	    </c:if>
       	<c:if test="${not empty sessionScope.LOGIN_USER}">
-			<a href="${pageContext.request.contextPath}/login/logout" style="color:#FFFFFF;font-size:11px;">로그아웃</a> <span style="color:#FFFFFF;font-size:11px;">|</span>                
-			<a href="${pageContext.request.contextPath}/member/memberView?mem_id=${LOGIN_USER.mem_id}" style="color:#FFFFFF;font-size:11px;">마이페이지</a>                
+			<span style="color:#FFFFFF;font-size:12px;"><b>${LOGIN_USER.mem_name}</b> 님 환영합니다.</span>                
+			<a href="${pageContext.request.contextPath}/member/memberView?mem_id=${LOGIN_USER.mem_id}" style="color:#FFFFFF;font-size:11px;">마이페이지</a><span style="color:#FFFFFF;font-size:11px;">|</span>                
+			<a href="${pageContext.request.contextPath}/login/logout" style="color:#FFFFFF;font-size:11px;">로그아웃</a>                
 	    </c:if>
 	    </div>
         <div class="navbar-header">

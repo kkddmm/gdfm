@@ -23,10 +23,10 @@
 </script>
 <div class="slider">
 <div class="container">
-	<div class="panel panel-default" style="width: 400px; margin: auto">
+	<div class="panel panel-success" style="width: 400px; margin: auto">
 		
 		<div class="panel-heading">
-			로그인 <span style="float: right;"><a href="${pageContext.request.contextPath}/">Home</a></span>
+			<span style="font-size:24px;"><b>로그인</b></span> <div style="text-align:right;"><a href="${pageContext.request.contextPath}/" style="color:#666666;">Home</a></div>
 		</div>
 		
 		<div class="panel-body">
@@ -48,7 +48,7 @@
 				</div>
 				<div class="form-group">
 					<div class="col-xs-12">
-						<input type="button" value="login" class="btn btn-info btn-block" onclick="fn_login();">
+						<input type="button" value="login" class="btn btn-warning btn-block" onclick="fn_login();">
 					</div>
 				</div>
 			</form>
@@ -56,9 +56,9 @@
 			<hr>
 			
 			<div align="center">
-				<a href="#">아이디 찾기</a> |
-				<a href="#">비밀번호 찾기</a> |
-				<a href="${pageContext.request.contextPath}/member/memberForm?type=I">회원가입</a>
+				<a href="#" style="color:#666666;">아이디 찾기</a> |
+				<a href="#" style="color:#666666;">비밀번호 찾기</a> |
+				<a href="${pageContext.request.contextPath}/member/memberForm?type=I" style="color:#666666;">회원가입</a>
 			</div>
 			
 		</div>
