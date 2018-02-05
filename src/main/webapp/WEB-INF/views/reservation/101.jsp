@@ -110,7 +110,7 @@ if(data[0]!=null){
 					if(j!=0&&data[j].screen_name!=data[j-1].screen_name){
 						$('<h4>').html('<hr/>'+data[j].screen_name+'('+data[j].dimension_name+')').appendTo('#infoView');
 					}
-					$('<span>').html('<button id="'+data[j].show_id+'"type="button" onclick="fn_selectShowInfo('+data[j].show_id+');" class="btn" > '+data[j].start_time+'</button>&nbsp;'+data[j].sit +'석&nbsp;' )
+					$('<span>').html('<button id="'+data[j].show_id+'" data-eee="hhh" type="button" onclick="fn_selectShowInfo('+data[j].show_id+',\''+data[j].dimension_name+'\',\''+data[j].start_time+'\',\''+data[j].end_time+'\',\''+data[j].screen_name+'\');" class="btn" > '+data[j].start_time+'</button>&nbsp;'+data[j].sit +'석&nbsp;' )
 					.appendTo('#infoView');
 				}
 				
@@ -124,9 +124,18 @@ if(data[0]!=null){
 			}
 		})
 	}
-	function fn_selectShowInfo(show_id){
+	
+	
+	function fn_selectShowInfo(show_id, dimension_name,start_time,end_time,screen_name){
 		$('#selectedShow').val(show_id);
 		console.log(show_id);
+		
+		$('#selectShowView').html(screen_name+'('+dimension_name+')&nbsp;'+start_time+'&nbsp;~&nbsp;'+end_time);
+		
+		
+		
+		
+		
 		$('#goSitDiv').html(''); 	
 $('<img>').attr('src',"${pageContext.request.contextPath}/img/goSitBtn.png").on('click',function(){
 	
@@ -253,9 +262,9 @@ height: 150px;
 </h1>
 </div>
 <div id="selectCinemaView" class="col-md-3">
-<br/>
 <h2 id="selectCinemaName" style="color: white;"></h2>
 <h2 id="selectDateName" style="color: white;"></h2>
+<h2 id="selectShowView" style="color: white;"></h2>
 </div>
 
 <div class="col-md-1">

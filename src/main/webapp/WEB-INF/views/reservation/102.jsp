@@ -1,12 +1,12 @@
-<%-- <%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"
 	import="java.util.*" 
 	%>
 
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> --%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
-<html lang="en" class="no-js">
+<html lang="ko" class="no-js">
 	<head>
 		<meta charset="UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -37,12 +37,16 @@
 				<div class="cube__side cube__side--back">
 					<div class="screen">
 						<div class="video">
-							<video class="video-player" src="${pageContext.request.contextPath}/media/sintel.mp4" preload="auto" poster="${pageContext.request.contextPath}/media/sintel.jpg">
-								<source src="${pageContext.request.contextPath}/media/sintel.ogg" type='video/ogg; codecs="theora, vorbis"'>
+						
+<%-- 							<video class="video-player" src="${pageContext.request.contextPath}/media/sintel.mp4" preload="auto" poster="${pageContext.request.contextPath}/media/sintel.jpg"> --%>
+						<iframe width="100%" height="100%" src="https://www.youtube.com/embed/Dl4cnk7NAJ0" frameborder="0"  encrypted-media" allowfullscreen></iframe>
+							
+							
+<%-- 								<source src="${pageContext.request.contextPath}/media/sintel.ogg" type='video/ogg; codecs="theora, vorbis"'> --%>
 								<source src="${pageContext.request.contextPath}/media/sintel.mp4" type='video/mp4; codecs="avc1.4D401E, mp4a.40.2"'>
 								<p>Sorry, but your browser does not support this video format.</p>
 							</video>
-							<button class="action action--play action--shown" aria-label="Play Video"></button>
+<!-- 							<button class="action action--play action--shown" aria-label="Play Video"></button> -->
 						</div>
 						<div class="intro intro--shown">
 							<div class="intro__side">
@@ -52,7 +56,7 @@
 								</h2>
 							</div>
 							<div class="intro__side">
-								<button class="action action--seats">Select your seats</button>
+								<button class="action action--seats">자리 선택하기</button>
 							</div>
 						</div>
 					</div>
@@ -799,7 +803,7 @@
 		</div><!-- /plan -->
 		<button class="action action--lookaround action--disabled" arial-label="Unlook View"></button>
 		<script src="${pageContext.request.contextPath}/js/classie.js"></script>
-		<script src="${pageContext.request.contextPath}/js/main.js"></script>
+		<script src="${pageContext.request.contextPath}/js/main/main.js"></script>
 	</body>
 </html>
 

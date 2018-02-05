@@ -16,6 +16,25 @@
 		<put-attribute name="body" value="/WEB-INF/views/login/loginForm.jsp" />
 		<put-attribute name="footer" value="/WEB-INF/views/layout/footer.jsp" />
 	</definition>
+
+
+	<definition name="empty" template="/WEB-INF/views/layout/empty.jsp">
+        <put-attribute name="content" value=""/>
+    </definition>
+
+
+	<definition name="reservation/102" extends="empty">
+          <put-attribute name="content" value="/WEB-INF/views/reservation/102.jsp"></put-attribute>
+    </definition>
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	<!-- viewname = "member/memberList"
 	<definition name="member/memberList" extends="default">
@@ -41,6 +60,12 @@
 	<definition name="*/*/*" extends="default">
 		<put-attribute name="body" value="/WEB-INF/views/{1}/{2}/{3}.jsp" />
 	</definition>
+	
+	
+	
+	
+	
+	
 
 </tiles-definitions>
 
