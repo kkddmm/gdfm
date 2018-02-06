@@ -10,6 +10,10 @@ import kr.co.gdfm.snack.model.Snack;
 @Mapper
 public interface SnackMapper {
 	
+	
+
+	public int selectSnackCount(Map<String, Object> params) throws Exception;
+	
 	public List<Snack> selectSnackList(Map<String, Object> params) throws Exception;
 	
 	public Snack snackView(int snack_id) throws Exception;
@@ -22,8 +26,8 @@ public interface SnackMapper {
 	
 	public void insertBasket(Map<String, Object> params) throws Exception;
 	
-	public List<Snack> getBasketList(Map<String, Object> params) throws Exception;
+	public List<Snack> getBasketList(String mem_id) throws Exception;
 	
-	public int deleteBasket(Map<String, Object> params) throws Exception;
+	public void deleteBasket(int snack_buy_id) throws Exception;
 	
 }

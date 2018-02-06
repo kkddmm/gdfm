@@ -4,7 +4,18 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.gdfm.snack.mapper.SnackMapper" >
 	
+	<select id="selectSnackCount" parameterType="map" resultType="int">
+	SELECT
+		    count(*) as count
+		FROM snack	
+	</select>
+	
+	
 	<select id="selectSnackList" parameterType="map" resultType="kr.co.gdfm.snack.model.Snack">
+	
+	select a.*
+	from
+	(
 		SELECT
 		    snack_id,
 		    snack_type,
@@ -18,13 +29,21 @@
 		    snack_info,
 		    snack_exp,
 		    snack_change_info,
-		    snack_use_info
+		    snack_use_info, 
+		    rownum as rnum
 		FROM snack
-		where 1=1
 		<if test="snack_type !=null">
-		and snack_type=#{snack_type}		
-		</if>
+		where snack_type=#{snack_type}		
+		</if> 
+		
+		) a
+		where 1=1
+		and a.rnum between #{startRow} and #{endRow}
 	</select>
+	
+	
+	
+	
 	
 	<select id="snackView" parameterType="int" resultType="kr.co.gdfm.snack.model.Snack">
 		SELECT
@@ -116,7 +135,7 @@
 		    pay_id
 		) VALUES (
 		    snack_buy_seq.nextval,
-		    'test',
+		    #{mem_id},
 		    #{snack_id},
 		    #{snack_cnt},
 		    null
@@ -124,7 +143,7 @@
 	</insert>
 	
 	
-	<select id="getBasketList" parameterType="map" resultType="kr.co.gdfm.snack.model.Snack">
+	<select id="getBasketList" parameterType="string" resultType="kr.co.gdfm.snack.model.Snack">
 		SELECT
 		     a.snack_buy_id,
 			 a.mem_id,
@@ -135,11 +154,12 @@
 			 b.snack_name,
 			 b.snack_price			 
 		FROM snack_buy a, snack b
-		where a.mem_id='test' and  a.snack_id=b.snack_id					
+		where a.mem_id=#{mem_id} and  a.snack_id=b.snack_id				
+		and a.pay_id is null	
 	</select>
 	
 	
-	<delete id="deleteBasket" parameterType="map">
+	<delete id="deleteBasket" parameterType="int">
 		DELETE 	 
 		FROM snack_buy 
 		where snack_buy_id=#{snack_buy_id}
@@ -147,24 +167,4 @@
 	
 	
 </mapper>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

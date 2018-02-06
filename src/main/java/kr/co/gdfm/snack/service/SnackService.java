@@ -7,6 +7,9 @@ import kr.co.gdfm.snack.model.Snack;
 
 public interface SnackService {
 
+	//스낵메뉴 개수
+	public int getSnackCount(Map<String, Object> params) throws Exception;	
+	
 	// 스낵메뉴보기
 	public List<Snack> getSnackList(Map<String, Object> params) throws Exception;
 
@@ -26,13 +29,20 @@ public interface SnackService {
 	public void insertBasket(Map<String, Object> params) throws Exception;
 	
 	//스낵 장바구니 목록 보기
-	public List<Snack> getBasketList(Map<String, Object> params) throws Exception;
+	public List<Snack> getBasketList(String mem_id) throws Exception;
 	
 	// 스낵 장바구니 삭제
-	public int deleteBasket(Map<String, Object> params) throws Exception;
+	public void deleteBasket(int snack_buy_id) throws Exception;
 
 	// 스낵 결제
-
+	
+	
+	
 	// 스낵 결제취소
+	
+	
+	
+	
+	
 
 }

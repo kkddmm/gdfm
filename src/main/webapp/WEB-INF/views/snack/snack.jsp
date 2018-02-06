@@ -5,10 +5,57 @@
 
 
 <script>
+
+var currentCnt= 1;
+
 	function fn_comboset(snack_type) {
 		location.href = "${pageContext.request.contextPath}/snack/snack?snack_type="
 				+ snack_type;
 	}
+	
+	
+	function fn_more(startRow,endRow){		
+		currentCnt=currentCnt+1;
+// 		alert(startRow);
+// 		alert(endRow);
+		
+		$.ajax({
+			type: 'post',
+			url : '${pageContext.request.contextPath}/snack/snackjson',
+			data : "currentPage="+currentCnt,		
+			success : function(data, status){			
+// 				alert(data);				
+// 				alert(data.snackPaging.totalPage);
+				for(var i in data){
+					console.log(data[i].snack_name);					
+					
+			$('<div>').addClass('col-md-4').html(
+				
+				'<div style="height: 400px; border: 10px; border-color: 3f3f3f;">'+
+				'<li class="image" align="center">'+								
+							'<a href="${pageContext.request.contextPath}/snack/snack_detail/'+data[i].snack_id+'">'+
+								'<img src="${pageContext.request.contextPath}/img/snack/'+data[i].snack_name+'.jpg" alt="Gallery">'+
+							'</a> <br>'+						
+							 	 '<span>'+data[i].snack_name+'</span><br>'+
+							 	 <c:if test="data[i].snack_combo_yn=='Y'">
+							 	'<span>'+data[i].snack_subname+'</span>'+
+							 	 </c:if>						 	 
+									
+							'</li></div>'
+
+			).appendTo('#snackDiv');
+
+					
+				}
+	
+			},
+			error : function(error){
+				console.log(error);
+				}
+			});
+		 
+	}
+	
 </script>
 
 <style>
@@ -27,11 +74,11 @@ ul, li {
  
 			<div class="center">
 				<h2 align="left">스낵메뉴</h2>
-
+	
 			</div>
 
 			<div class="col-md-12">
-
+			
 				<ul class="nav nav-pills nav-justified pull-right">
 
 
@@ -43,9 +90,6 @@ ul, li {
 						href="<c:url value="/snack/snack?snack_type=drink"/>">음료</a></li>
 					<li class="image"><a class="btn btn-default"
 						href="<c:url value="/snack/snack?snack_type=snack"/>">스낵</a></li>
-
-					
-
 				</ul>
 
 			</div>
@@ -55,10 +99,10 @@ ul, li {
 			<!--/#portfolio-filter-->
 
 
-<div>
-
+<div id="snackDiv">
 
 	<c:if test="${not empty snackList}">
+	
 		<c:forEach var="snack" items="${snackList}">
 
 			<div class="col-md-4">
@@ -76,21 +120,31 @@ ul, li {
 								<span>${snack.snack_subname}</span>
 							</c:when>
 					</c:choose>
-
 					</li>
 				</div>
+				
 			</div>
+			
 		</c:forEach>
 
+
+
+
+	<c:if test="${empty param.snack_type}">
+		<div class="col-md-4">
+			<input type="button" value="더보기" onclick="fn_more();">
+		</div>
 	</c:if>
+	
+	</c:if>
+	
 
 	<c:if test="${empty snackList}">
 		<td colspan="5" align="center">메뉴가 존재하지 않습니다.</td>
 	</c:if>
-
-
-
+	
 </div>
+
 <!-- End gallery list-->
 
 
@@ -98,12 +152,9 @@ ul, li {
 
 
 
-<div class="row">
-				
-</div>
- 		
+
 		
-		</section>
+</section>
 		<!--/#portfolio-item-->
 
 
@@ -120,7 +171,6 @@ ul, li {
 <br>
 <br>
 <br>
-
 
 
 

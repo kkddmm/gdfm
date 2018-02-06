@@ -16,6 +16,14 @@ public class SnackServiceImpl implements SnackService {
 	@Autowired
 	SnackMapper snackMapper;
 
+	
+	@Override
+	public int getSnackCount(Map<String, Object> params) throws Exception {
+		
+		return snackMapper.selectSnackCount(params);
+	}	
+	
+	
 	@Override
 	public List<Snack> getSnackList(Map<String, Object> params) throws Exception {
 
@@ -49,21 +57,24 @@ public class SnackServiceImpl implements SnackService {
 		}
 
 	@Override
-	public List<Snack> getBasketList(Map<String, Object> params) throws Exception {
+	public List<Snack> getBasketList(String mem_id) throws Exception {
 		
-		return snackMapper.getBasketList(params);
+		return snackMapper.getBasketList(mem_id);
 	}
 
 	@Override
-	public int deleteBasket(Map<String, Object> params) throws Exception {
+	public void deleteBasket(int snack_buy_id) throws Exception {
 		
-		return snackMapper.deleteBasket(params);
+		snackMapper.deleteBasket(snack_buy_id);
 	}
+
+	
+
+	
 	
 	
 
 }
-
 
 
 
