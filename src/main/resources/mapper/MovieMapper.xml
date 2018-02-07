@@ -12,14 +12,31 @@ FROM MOVIE
 WHERE MOVIE_SHOW_YN = 'Y'
 </select>
 
+<!-- 영화 상세 보기  -->
+<select id="selectMovieDetail" resultType="kr.co.gdfm.movie.model.Movie" parameterType="int">
+	select movie_id,movie_name,movie_ko_name,movie_grade,movie_story,movie_trailer,movie_show_yn
+	,to_char(movie_release_date,'yyyy.mm.dd') as movie_release_date,movie_director,movie_actor,movie_running_time,movie_production_country
+   from movie
+	 where movie_id=#{xx}
+
+	<!-- select *
+	from movie
+	where movie_id=#{xx} -->
+</select>
+
 
 
 <select id="selectMovieList" resultType="kr.co.gdfm.movie.model.Movie">
-	select  movie_id,movie_name,movie_ko_name,movie_release_date 
+	select *
 from movie
 order by  movie_release_date DESC
 </select>
 
-
+<select id="selectMoviePreviewList" resultType="kr.co.gdfm.movie.model.Movie">
+	select * 
+	 from movie
+   where SYSDATE-movie_release_date <![CDATA[<]]>0
+</select>
+	 
 
 </mapper>

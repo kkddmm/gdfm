@@ -206,7 +206,7 @@ ul, li {
 					<!-- <li align="center">			 -->					
 		                        
 		                 <div class="moive_poster">
-					<a href="${pageContext.request.contextPath}/movie/movie_information/${movie.movie_name}">
+					<a href="${pageContext.request.contextPath}/movie/movie_detail/${movie.movie_id}">
 						<img src="${pageContext.request.contextPath}/movieposter/${movie.movie_name}_poster.jpg" alt="movie_poster">
 					</a> <br>
 					

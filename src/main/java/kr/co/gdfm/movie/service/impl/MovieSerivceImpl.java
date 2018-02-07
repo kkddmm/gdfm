@@ -22,15 +22,35 @@ public class MovieSerivceImpl implements MovieService {
 		// TODO Auto-generated method stub
 		return movieMapper.selectShowMovie();
 	}
-
-
+	
+	//
+	
+	
+	
+	//무비차트 포스터 가져오기 
 	@Override
-	public List<Movie> selectMovieList() {
+	public List<Movie> selectMovieList() throws Exception {
 		
 		List<Movie> movieList = new ArrayList<>();
 		movieList = movieMapper.selectMovieList();
 		
 		return movieList;
+	}
+	
+	//상영예정작 포스터 가져오기 
+	@Override
+	public List<Movie> selectMoviePreviewList() throws Exception {
+		
+		List<Movie> movieList = new ArrayList<>();
+		movieList = movieMapper.selectMoviePreviewList();
+		
+		return movieList;
+	}
+
+	@Override
+	public Movie selectMovieDetail(int movie_id) throws Exception {
+		
+		return movieMapper.selectMovieDetail(movie_id);
 	}
 	
 	

@@ -13,10 +13,12 @@ public interface MovieMapper {
 	
 	//상영중인 영화 리스트 조회
 		public List<Movie> selectShowMovie();
-
-		public List<Movie> selectMovieList(); 
-		  
 		
-	
-	
+		//영화 상세보기 리스트
+		public Movie selectMovieDetail(int movie_id)throws Exception;
+
+		public List<Movie> selectMovieList()throws Exception;
+		  
+		//상영예정작인 영화 리스트 조회 
+		public List<Movie> selectMoviePreviewList()throws Exception;
 }
