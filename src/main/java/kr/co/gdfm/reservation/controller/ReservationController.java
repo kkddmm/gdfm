@@ -114,8 +114,6 @@ public String goReservationSit(@RequestParam int show_id,
 	}
 	
 	
-	
-	
 	@RequestMapping("/isreserved")
 	@ResponseBody
 	public boolean isReservedSit(@RequestParam Map<String, Object> paramMap) {
