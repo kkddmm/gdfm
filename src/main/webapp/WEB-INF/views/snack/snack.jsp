@@ -39,13 +39,10 @@ var currentCnt= 1;
 							 	 '<span>'+data[i].snack_name+'</span><br>'+
 							 	 <c:if test="data[i].snack_combo_yn=='Y'">
 							 	'<span>'+data[i].snack_subname+'</span>'+
-							 	 </c:if>						 	 
-									
+							 	 </c:if>
 							'</li></div>'
 
-			).appendTo('#snackDiv');
-
-					
+			).appendTo('#snackDiv');					
 				}
 	
 			},
@@ -65,6 +62,27 @@ ul, li {
 .image:hover{
 	border:1px solid yellow;
 }
+
+.btn-style{
+	border : solid 0px #c7c7c7;
+	border-radius : 9px 9px 20px 15px ;
+	moz-border-radius : 9px 9px 20px 15px ;
+	font-size : 13px;
+	color : #ffae00;
+	padding : 2px 10px;
+	background : #ffffff;
+	background : -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(100%,#e6e6e6));
+	background : -moz-linear-gradient(top, #ffffff 0%, #e6e6e6 100%);
+	background : -webkit-linear-gradient(top, #ffffff 0%, #e6e6e6 100%);
+	background : -o-linear-gradient(top, #ffffff 0%, #e6e6e6 100%);
+	background : -ms-linear-gradient(top, #ffffff 0%, #e6e6e6 100%);
+	background : linear-gradient(top, #ffffff 0%, #e6e6e6 100%);
+	filter : progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e6e6e6',GradientType=0 );
+
+}
+
+
+
 </style>
 
  
@@ -130,15 +148,9 @@ ul, li {
 
 
 
-	<c:if test="${empty param.snack_type}">
-		<div class="col-md-4">
-			<input type="button" value="더보기" onclick="fn_more();">
-		</div>
-	</c:if>
+	
 	
 	</c:if>
-	
-
 	<c:if test="${empty snackList}">
 		<td colspan="5" align="center">메뉴가 존재하지 않습니다.</td>
 	</c:if>
@@ -156,7 +168,17 @@ ul, li {
 		
 </section>
 		<!--/#portfolio-item-->
-
+		<br>
+	<c:if test="${empty param.snack_type}">
+		
+		<div align="left" class="col-md-12">
+			<input name="btn" class="btn btn-warning" type="button" value="더보기" style="width: 100%;" onclick="fn_more();"/>		
+			<p>
+		</div>
+		
+		
+	</c:if>
+	
 
 
 		<!--/#bottom-->
