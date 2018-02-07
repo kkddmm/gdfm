@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import kr.co.gdfm.reservation.model.MovieShowInfo;
+import kr.co.gdfm.reservation.model.Reservation;
 
 
 public interface ReservationService {
@@ -17,6 +18,15 @@ public interface ReservationService {
 	public Map<String, Object> getReserveShowInfo(int show_id);
 
 	public List<Map<String, String>> getReservedSit(int show_id);
+
+	public void insertReservation(Reservation reservation);
+
+	public Map<String, Object> isReservedSit(Map<String, Object> paramMap);
+
+	public void insertSit(Map<String, Object> paramMap);
+
+
+
 
 	
 	

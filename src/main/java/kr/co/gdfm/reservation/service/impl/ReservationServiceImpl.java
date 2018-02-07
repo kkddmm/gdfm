@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import kr.co.gdfm.reservation.mapper.ReservationMapper;
 import kr.co.gdfm.reservation.model.MovieShowInfo;
+import kr.co.gdfm.reservation.model.Reservation;
 import kr.co.gdfm.reservation.service.ReservationService;
 
 @Service("reservationService")
@@ -19,7 +20,6 @@ public class ReservationServiceImpl implements ReservationService{
 	public List<Map<String, Object>> getDateList() {
 		return reservationMapper.getDateList();
 	}
-
 	@Override
 	public List<MovieShowInfo> getShowInfo(Map<String, Object> paramMap) {
 		return reservationMapper.getShowInfo(paramMap);
@@ -34,6 +34,19 @@ public class ReservationServiceImpl implements ReservationService{
 	@Override
 	public List<Map<String, String>> getReservedSit(int show_id) {
 		return reservationMapper.getReservedSit(show_id);
+	}
+
+	@Override
+	public void insertReservation(Reservation reservation) {
+		reservationMapper.insertReservation(reservation);
+	}
+	@Override
+	public Map<String, Object> isReservedSit(Map<String, Object> paramMap) {
+		return reservationMapper.isReservedSit(paramMap);
+	}
+	@Override
+	public void insertSit(Map<String, Object> paramMap) {
+		reservationMapper.insertSit(paramMap);
 	}
 
 

@@ -110,7 +110,7 @@ if(data[0]!=null){
 					if(j!=0&&data[j].screen_name!=data[j-1].screen_name){
 						$('<h4>').html('<hr/>'+data[j].screen_name+'('+data[j].dimension_name+')').appendTo('#infoView');
 					}
-					$('<span>').html('<button id="'+data[j].show_id+'" data-eee="hhh" type="button" onclick="fn_selectShowInfo('+data[j].show_id+',\''+data[j].dimension_name+'\',\''+data[j].start_time+'\',\''+data[j].end_time+'\',\''+data[j].screen_name+'\');" class="btn" > '+data[j].start_time+'</button>&nbsp;'+data[j].sit +'석&nbsp;' )
+					$('<span>').html('<button id="'+data[j].show_id+'" type="button" onclick="fn_selectShowInfo('+data[j].show_id+',\''+data[j].dimension_name+'\',\''+data[j].start_time+'\',\''+data[j].end_time+'\',\''+data[j].screen_name+'\');" class="btn" > '+data[j].start_time+'</button>&nbsp;'+data[j].sit +'석&nbsp;' )
 					.appendTo('#infoView');
 				}
 				
@@ -131,24 +131,28 @@ if(data[0]!=null){
 		console.log(show_id);
 		
 		$('#selectShowView').html(screen_name+'('+dimension_name+')&nbsp;'+start_time+'&nbsp;~&nbsp;'+end_time);
-		
-		
-		
-		
-		
 		$('#goSitDiv').html(''); 	
 $('<img>').attr('src',"${pageContext.request.contextPath}/img/goSitBtn.png").on('click',function(){
-	
-
-	
 	var sel = confirm("선택하신 정보로 예매하시겠습니까?")
 	if(sel ==true){
-		
-		var frm = document.selectForm;
-		frm.method = "post";
-		frm.action = "102";
-		frm.submit();
-		
+		$.ajax({
+			method : 'post',
+			url : "${pageContext.request.contextPath}/reservation/put/movieReservation",
+			data : "show_id="+show_id+"&mem_id=${LOGIN_USER.mem_id}",
+			dataType : "json",
+			success: function(data, status){
+				$('#reservation_id').val(data);
+				var frm = document.selectForm;
+				frm.method = "post";
+				frm.action = "102";
+				frm.submit();
+				
+			},
+			error : function(){
+				alert("예약정보 insert 에러")
+				
+			}
+		})
 		
 	}
 }).appendTo('#goSitDiv');
@@ -283,6 +287,10 @@ height: 150px;
 		
 		<form name ="selectForm">
 		<input type="hidden" name="show_id" type="text" id="selectedShow" />
+		<input type="hidden" name="reservation_id" type="text" id="reservation_id" />
+		
+		
+		
 		</form>
 
 

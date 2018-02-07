@@ -2,11 +2,13 @@ package kr.co.gdfm.reservation.mapper;
 
 import java.util.List;
 
+
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
 import kr.co.gdfm.reservation.model.MovieShowInfo;
+import kr.co.gdfm.reservation.model.Reservation;
 
 @Mapper
 public interface ReservationMapper {
@@ -18,6 +20,12 @@ public interface ReservationMapper {
 	Map<String, Object> getReserveShowInfo(int show_id);
 
 	List<Map<String, String>> getReservedSit(int show_id);
+
+	void insertReservation(Reservation reservation);
+
+	Map<String, Object> isReservedSit(Map<String, Object> paramMap);
+
+	void insertSit(Map<String, Object> paramMap);
 
 	
 	

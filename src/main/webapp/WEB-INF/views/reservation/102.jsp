@@ -21,6 +21,11 @@
 		<script src="${pageContext.request.contextPath}/js/jquery-3.2.1.js"></script>
 		<script src="${pageContext.request.contextPath}/js/modernizr-custom.js"></script>
 		<script>
+		//예매 인원을 정해줄 변수
+		var cnt = 0;
+		
+		
+		
 		function fn_goBack(){
 			var goCon = confirm("선택한 정보는 저장되지 않습니다. 예매화면으로 돌아갈까요?");
 			
@@ -32,12 +37,60 @@
 			
 		}
 		$(function(){
-			console.log("ready~~");
+			
 			<c:forEach var="vo" items="${reservedSit}">
-			console.log("${vo.SIT_NUM}");
-			console.log($('.plan--shown [data-tooltip="${vo.SIT_NUM}"]'));
 			$('.plan [data-tooltip="${vo.SIT_NUM}"]').addClass('row__seat--reserved').removeClass("tooltip").data("toolTip","");
 			</c:forEach>	
+			
+			$('.cnt').on("click",function(){
+				$('.cnt').removeClass('white');
+				$(this).addClass('white');
+			cnt = $(this).html();
+			})
+			
+			$('.tooltip:not(.row__seat--selected)').on("click",function(){
+				console.log('예약 가능 좌석 클릭! 사실은모름..');
+				
+			 var selectSit = $(this).attr('data-tooltip');
+				
+				$.ajax({
+				method : 'post',
+				url : '${pageContext.request.contextPath}/reservation/isreserved',
+				data : "selectSit="+selectSit+"&show_id=${reserveMap.SHOW_ID}",
+				dataType : 'json',
+				success : function(data, status){
+					if(data==true){
+						return false;
+					}if(data==false){
+						$.ajax({
+							method : 'post',
+							url : '${pageContext.request.contextPath}/reservation/insertSit',
+							data : 'reservation_id=${reservation_id}&selectSit='+selectSit,
+							dataType : 'json',
+							success : function(data, status){
+							},
+							error : function(){
+							}
+						})
+						
+					}
+					
+					
+					
+				},
+				error : function(){
+					alert("좌석 예매된건지 조회 할 때 에러 발생함!")
+					}
+				})
+				
+				
+				
+				
+				
+				
+				
+				
+			})
 			
 			
 			
@@ -48,6 +101,15 @@
 			
 		});
 		</script>
+		
+		<style>
+		.white{
+		background-color : white;
+		}
+		
+		</style>
+		
+		
 		
 	</head>
 	<body>
@@ -75,10 +137,19 @@
 								<h2 class="intro__title">
 									<span class="intro__up">영화보기 좋은날 ${reserveMap.CI_NAME} </span>
 									<span class="intro__down">${reserveMap.MOVIE_KO_NAME}<span class="intro__partial"></span></span>
+								
 								</h2>
+								
 							</div>
 							<div class="intro__side">
-								<button class="action action--seats">자리 선택하기</button>
+								<h2>예매할 인원수를 선택하세요
+								
+								    <button style="border : 1px solid white"  class="action cnt">1</button>
+									<button style="border : 1px solid white"  class="action cnt">2</button>
+									<button style="border : 1px solid white"  class="action cnt">3</button>
+									<button style="border : 1px solid white"  class="action cnt">4</button>
+								</h2>
+								<button class="action action--seats">좌석 선택하기</button>
 							</div>
 						</div>
 					</div>
@@ -118,7 +189,7 @@
 			</div><!-- /rows -->
 			<ul class="legend">
 				<li class="legend__item legend__item--free">선택가능</li>
-				<li class="legend__item legend__item--reserved">예약됨</li>
+				<li class="legend__item legend__item--reserved">선택불가</li>
 				<li class="legend__item legend__item--selected">선택됨</li>
 			</ul>
 			<button class="action action--buy">결제하기</button>

@@ -20,6 +20,7 @@ import kr.co.gdfm.cinema.service.CinemaService;
 import kr.co.gdfm.movie.model.Movie;
 import kr.co.gdfm.movie.service.MovieService;
 import kr.co.gdfm.reservation.model.MovieShowInfo;
+import kr.co.gdfm.reservation.model.Reservation;
 import kr.co.gdfm.reservation.service.ReservationService;
 
 @RequestMapping("/reservation")
@@ -79,9 +80,24 @@ public class ReservationController {
 
 	}
 	
-	@RequestMapping("/102")
-public String goReservationSit(@RequestParam int show_id,Model model) {
+	
+	@RequestMapping("/put/movieReservation")
+	@ResponseBody
+	public int insertReservation (Reservation reservation) {
+
+		reservationService.insertReservation(reservation);
 		
+		return reservation.getReservation_id();
+		
+		
+		
+		
+	}
+	
+	@RequestMapping("/102")
+public String goReservationSit(@RequestParam int show_id,
+		@RequestParam int reservation_id,
+		Model model) {
 		
 		Map<String, Object> reserveMap = new HashMap<>();
 		List<Map<String, String>> reservedSit = new ArrayList<>();
@@ -89,15 +105,39 @@ public String goReservationSit(@RequestParam int show_id,Model model) {
 		reservedSit = reservationService.getReservedSit(show_id);
 		reserveMap = reservationService.getReserveShowInfo(show_id);
 		
-	
 		model.addAttribute("reserveMap", reserveMap);
 		model.addAttribute("reservedSit", reservedSit);
-	
-	
+		model.addAttribute("reservation_id", reservation_id);
 	
 	
 		return "reservation/102";
 	}
+	
+	
+	
+	
+	@RequestMapping("/isreserved")
+	@ResponseBody
+	public boolean isReservedSit(@RequestParam Map<String, Object> paramMap) {
+		boolean reserved = true; //트루일때는 안되게 
+		
+	Map<String, Object> checkMap = new HashMap<>();
+		checkMap =reservationService.isReservedSit(paramMap);
+		System.out.println(checkMap);
+	if(checkMap==null) {
+	reserved = false;
+	}
+	return reserved;	
+	
+	}
+	@RequestMapping("/insertSit")
+	@ResponseBody
+	public void insertSit(@RequestParam Map<String, Object> paramMap) {
+		reservationService.insertSit(paramMap);
+		
+	}
+	
+	
 	
 	
 	
