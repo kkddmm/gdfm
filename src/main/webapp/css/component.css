@@ -6,14 +6,13 @@
   width: 100vw;
   height: 100vh;
 }
-
 .cube {
   position: absolute;
   top: 50%;
   left: 50%;
   margin: -500px 0 0 -960px;
   width: 1920px;
-  height: 1000px;
+  height: 1000px;s
   -webkit-transform-style: preserve-3d;
   transform-style: preserve-3d;
 }
@@ -94,10 +93,12 @@
   display: -webkit-flex;
   display: flex;
   width: 100%;
+  justify-content : center;
+  
 }
 
 .rows--mini .row:nth-child(9) {
-  margin: 0 0 15px 0;
+  margin: 0 0 0 0;  
 }
 
 .rows--large .row {
@@ -140,11 +141,11 @@
 }
 
 .rows--mini .row__seat:nth-child(9) {
-  margin-right: 15px;
+  margin-right: 0px;
 }
 
 .rows--large .row__seat:nth-child(9) {
-  margin-right: 160px;
+  margin-right: 0px;
 }
 
 /* Row positioning */
@@ -192,49 +193,57 @@
   -webkit-transform: translate3d(0, -144px, -1400px);
   transform: translate3d(0, -144px, -1400px);
 }
-
-/* Second back row set of seats (starting point needs to have the previous sums of the Y and Z translates) */
 .rows--large .row:nth-child(10) {
+  -webkit-transform: translate3d(0, -162px, -1300px);
+  transform: translate3d(0, -162px, -1300px);
+}
+.rows--large .row:nth-child(11) {
+  -webkit-transform: translate3d(0, -180px, -1200px);
+  transform: translate3d(0, -180px, -1200px);
+}
+/* Second back row set of seats (starting point needs to have the previous sums of the Y and Z translates) */
+
+.rows--large .row:nth-child(12) {
   -webkit-transform: translate3d(0, -198px, -1100px);
   transform: translate3d(0, -198px, -1100px);
 }
 
-.rows--large .row:nth-child(11) {
+.rows--large .row:nth-child(13) {
   -webkit-transform: translate3d(0, -216px, -1000px);
   transform: translate3d(0, -216px, -1000px);
 }
 
-.rows--large .row:nth-child(12) {
+.rows--large .row:nth-child(14) {
   -webkit-transform: translate3d(0, -234px, -900px);
   transform: translate3d(0, -234px, -900px);
 }
 
-.rows--large .row:nth-child(13) {
+.rows--large .row:nth-child(15) {
   -webkit-transform: translate3d(0, -252px, -800px);
   transform: translate3d(0, -252px, -800px);
 }
 
-.rows--large .row:nth-child(14) {
+.rows--large .row:nth-child(16) {
   -webkit-transform: translate3d(0, -270px, -700px);
   transform: translate3d(0, -270px, -700px);
 }
 
-.rows--large .row:nth-child(15) {
+.rows--large .row:nth-child(17) {
   -webkit-transform: translate3d(0, -288px, -600px);
   transform: translate3d(0, -288px, -600px);
 }
 
-.rows--large .row:nth-child(16) {
+.rows--large .row:nth-child(18) {
   -webkit-transform: translate3d(0, -306px, -500px);
   transform: translate3d(0, -306px, -500px);
 }
 
-.rows--large .row:nth-child(17) {
+.rows--large .row:nth-child(19) {
   -webkit-transform: translate3d(0, -324px, -400px);
   transform: translate3d(0, -324px, -400px);
 }
 
-.rows--large .row:nth-child(18) {
+.rows--large .row:nth-child(20) {
   -webkit-transform: translate3d(0, -342px, -300px);
   transform: translate3d(0, -342px, -300px);
 }

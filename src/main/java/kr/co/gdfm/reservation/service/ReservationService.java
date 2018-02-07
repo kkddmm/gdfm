@@ -14,6 +14,10 @@ public interface ReservationService {
 
 	public List<MovieShowInfo> getShowInfo(Map<String, Object> paramMap);
 
+	public Map<String, Object> getReserveShowInfo(int show_id);
+
+	public List<Map<String, String>> getReservedSit(int show_id);
+
 	
 	
 	

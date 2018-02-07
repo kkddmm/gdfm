@@ -178,7 +178,6 @@ height: 150px;
 </style>
 <div class="slider">
 	<div class="container">
-	
 	<a type="button" href="101" class="btn btn-default"><span class="glyphicon glyphicon-repeat"></span>다시예매하기</a>
 
 		<div  align="center" class="col-md-12 main row">

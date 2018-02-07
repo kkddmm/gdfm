@@ -259,8 +259,12 @@
 		};
 		selectSeatsCtrl.addEventListener('click', onSelectSeats);
 
-		// play video
-		playCtrl.addEventListener('click', videoPlay);
+		/*// play video
+		playCtrl.addEventListener('click', videoPlay);*/
+		
+		
+		
+		
 		// ended video event
 		video.addEventListener('ended', videoLoad);
 

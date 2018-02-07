@@ -25,6 +25,17 @@ public class ReservationServiceImpl implements ReservationService{
 		return reservationMapper.getShowInfo(paramMap);
 	}
 
+	@Override
+	public Map<String, Object> getReserveShowInfo(int show_id) {
+		// TODO Auto-generated method stub
+		return reservationMapper.getReserveShowInfo(show_id);
+	}
+
+	@Override
+	public List<Map<String, String>> getReservedSit(int show_id) {
+		return reservationMapper.getReservedSit(show_id);
+	}
+
 
 	
 	

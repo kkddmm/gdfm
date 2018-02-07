@@ -34,6 +34,12 @@
          WHERE ROWNUM <= TO_DATE(B.CDAY, 'YYYYMMDD') - TO_DATE(B.BDAY, 'YYYYMMDD')  + 1) AA,
 ( SELECT TO_CHAR(sysdate, 'YYYYMMDD') AS DAY FROM DUAL ) BB
 	]]>
+	
+	
+	
+	
+	
+	
 	</select>
 	
 	
@@ -55,12 +61,40 @@
     select f.show_id, f.reservation_id, count(g.sit_num) as 예매좌석수
     from movie_reservation f, reservation_sit g 
     where f.reservation_id = g.reservation_id 
-  and f.pay_id is not null
   group by f.show_id, f.reservation_id
     ) e
     on(d.show_id = e.show_id)
     order by d.screen_name,d.start_time
 	</select>
+	
+	<select id = "getReserveShowInfo" resultType ="map">
+   select b.movie_trailer, b.movie_ko_name,a.* ,c.screen_row, c.screen_column,d.ci_name
+from
+    (
+    select movie_id,screen_id,dimension_code,start_time,end_time,show_date
+    from movie_show_info
+    where show_id = #{show_id}
+    ) a , movie b, screen c ,cinema d
+    where a.movie_id = b.movie_id
+    and a.screen_id = c.screen_id
+    and c.ci_id = d.ci_id
+
+
+	</select>
+	
+	
+	<select id="getReservedSit" resultType="map">
+	
+	select b.sit_num
+from reservation_sit b,
+movie_reservation a
+where a.reservation_id = b.reservation_id
+and a.show_id = #{show_id}
+	</select>
+	
+	
+	
+	
 	
 	
 	

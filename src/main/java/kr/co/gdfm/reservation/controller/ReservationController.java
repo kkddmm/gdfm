@@ -1,3 +1,6 @@
+
+
+
 package kr.co.gdfm.reservation.controller;
 
 import java.util.ArrayList;
@@ -77,12 +80,30 @@ public class ReservationController {
 	}
 	
 	@RequestMapping("/102")
-public String goReservationSit(@RequestParam int show_id) {
+public String goReservationSit(@RequestParam int show_id,Model model) {
 		
 		
+		Map<String, Object> reserveMap = new HashMap<>();
+		List<Map<String, String>> reservedSit = new ArrayList<>();
 		
+		reservedSit = reservationService.getReservedSit(show_id);
+		reserveMap = reservationService.getReserveShowInfo(show_id);
+		
+	
+		model.addAttribute("reserveMap", reserveMap);
+		model.addAttribute("reservedSit", reservedSit);
+	
+	
+	
+	
 		return "reservation/102";
 	}
+	
+	
+	
+	
+	
+	
 	
 	
 	

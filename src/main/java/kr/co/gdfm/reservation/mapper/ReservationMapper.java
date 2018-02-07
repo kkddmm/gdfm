@@ -15,6 +15,10 @@ public interface ReservationMapper {
 
 	List<MovieShowInfo> getShowInfo(Map<String, Object> paramMap);
 
+	Map<String, Object> getReserveShowInfo(int show_id);
+
+	List<Map<String, String>> getReservedSit(int show_id);
+
 	
 	
 	
