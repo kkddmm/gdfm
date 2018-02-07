@@ -1,10 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <script>
 
+function agree_check() {
+	//var frm = document.memberAgree;
+	if($('[name="acc1"]').is(":checked") != true)
+	{
+		alert('가입 약관에 동의하셔야 합니다.');
+		$('[name="acc1"]').focus();
+		return false;
+	}
+	document.memberAgree.submit();
+}
+
+	
 </script>
 
 <style>
@@ -194,15 +205,15 @@ dt, dd{
 		<p>
 		<p>
 	
-	<form action="" name="" method="post">
-		<input type="checkbox">
+	<form name="memberAgree" method="post" action="memberForm?type=I">
+		<input type="checkbox" name='acc1'>
 			<label>회원약관에 동의합니다.</label>
 		</input>
-	</form>
 	<div align="center">
-		<input class="btn btn-success" type="button" value="확인">
+		<input class="btn btn-success" type="button" value="확인" onclick="agree_check()">
 		<input class="btn" type="button" value="취소">
 	</div>
+	</form>
 	<br>
 	<br>
 	

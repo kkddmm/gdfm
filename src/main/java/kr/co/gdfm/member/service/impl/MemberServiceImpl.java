@@ -72,4 +72,14 @@ public class MemberServiceImpl implements MemberService {
 	public List<Memberclass> getMemberclassList(Map<String, Object> paramMap) throws Exception {
 		return memberMapper.selectMemberclassList(paramMap);
 	}
+
+	@Override
+	public Member getMemberidcheck(Map<String, Object> paramMap) throws Exception {
+		return memberMapper.selectMemberidcheck(paramMap);
+	}
+
+	@Override
+	public Member getMemberpwdcheck(Map<String, Object> paramMap) throws Exception {
+		return memberMapper.selectMemberpwdcheck(paramMap);
+	}
 }

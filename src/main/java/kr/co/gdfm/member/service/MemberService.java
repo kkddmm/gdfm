@@ -31,4 +31,10 @@ public interface MemberService {
 	
 	// 회원등급
 	public List<Memberclass> getMemberclassList(Map<String, Object> paramMap) throws Exception;
+	
+	// 회원아이디찾기
+	public Member getMemberidcheck(Map<String, Object> paramMap) throws Exception;
+
+	// 회원비밀번호찾기
+	public Member getMemberpwdcheck(Map<String, Object> paramMap) throws Exception;
 }

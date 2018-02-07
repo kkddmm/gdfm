@@ -56,9 +56,9 @@
 			<hr>
 			
 			<div align="center">
-				<a href="#" style="color:#666666;">아이디 찾기</a> |
-				<a href="#" style="color:#666666;">비밀번호 찾기</a> |
-				<a href="${pageContext.request.contextPath}/member/memberForm?type=I" style="color:#666666;">회원가입</a>
+				<a href="${pageContext.request.contextPath}/member/memberFormId" style="color:#666666;">아이디 찾기</a> |
+				<a href="${pageContext.request.contextPath}/member/memberFormPwd" style="color:#666666;">비밀번호 찾기</a> |
+				<a href="${pageContext.request.contextPath}/member/memberAgree" style="color:#666666;">회원가입</a>
 			</div>
 			
 		</div>

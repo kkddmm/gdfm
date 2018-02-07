@@ -1,21 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
-
-
 	 <nav class="navbar navbar-fixed-top" role="banner">
       <div class="container">
-      	<div style="text-align:right;">
-      	<c:if test="${empty sessionScope.LOGIN_USER}">
-			<a href="${pageContext.request.contextPath}/login/loginForm" style="color:#FFFFFF;font-size:11px;">로그인</a> <span style="color:#FFFFFF;font-size:11px;">|</span>                
-			<a href="${pageContext.request.contextPath}/member/memberForm?type=I" style="color:#FFFFFF;font-size:11px;">회원가입</a>                
-	    </c:if>
-      	<c:if test="${not empty sessionScope.LOGIN_USER}">
-			<span style="color:#FFFFFF;font-size:12px;"><b>${LOGIN_USER.mem_name}</b> 님 환영합니다.</span>                
-			<a href="${pageContext.request.contextPath}/member/memberView?mem_id=${LOGIN_USER.mem_id}" style="color:#FFFFFF;font-size:11px;">마이페이지</a><span style="color:#FFFFFF;font-size:11px;">|</span>                
-			<a href="${pageContext.request.contextPath}/login/logout" style="color:#FFFFFF;font-size:11px;">로그아웃</a>                
-	    </c:if>
-	    </div>
         <div class="navbar-header">
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                         <span class="sr-only">Toggle navigation</span>
@@ -25,7 +11,30 @@
                     </button>
           <a class="navbar-brand" href="${pageContext.request.contextPath}/"><img src="${pageContext.request.contextPath}/img/movielogo.png" width="250" height="80"/></a>
         </div>
-        
+        <div style="text-align:right;">
+	      	<c:if test="${empty sessionScope.LOGIN_USER}">
+				<a href="${pageContext.request.contextPath}/login/loginForm" style="color:#FFFFFF;font-size:11px;">로그인</a> <span style="color:#FFFFFF;font-size:11px;">|</span>                
+				<a href="${pageContext.request.contextPath}/member/memberAgree" style="color:#FFFFFF;font-size:11px;">회원가입</a>                
+		    </c:if>
+	      	<c:if test="${not empty sessionScope.LOGIN_USER}">
+				<span style="color:#FFFFFF;font-size:12px;">
+					<b>
+						${LOGIN_USER.mem_name}
+							<c:if test="${LOGIN_USER.class_code == 1}">
+								(<img alt="실버" src="${pageContext.request.contextPath}/img/silver.png">)
+							</c:if> 
+							<c:if test="${LOGIN_USER.class_code == 2}">
+								(<img alt="골드" src="${pageContext.request.contextPath}/img/gold.png">)
+							</c:if> 
+							<c:if test="${LOGIN_USER.class_code == 3}">
+								(<img alt="다이아" src="${pageContext.request.contextPath}/img/dia.png">)
+							</c:if> 
+					</b> 님
+				</span> |                
+				<a href="${pageContext.request.contextPath}/member/memberView?mem_id=${LOGIN_USER.mem_id}" style="color:#FFFFFF;font-size:11px;">마이페이지</a><span style="color:#FFFFFF;font-size:11px;">|</span>                
+				<a href="${pageContext.request.contextPath}/login/logout" style="color:#FFFFFF;font-size:11px;">로그아웃</a>                
+		    </c:if>
+	    </div>
         <div class="collapse navbar-collapse navbar-right">
           <ul class="nav navbar-nav">
             	<li class="dropdown">

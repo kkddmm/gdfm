@@ -38,7 +38,7 @@
 				<h3>영화보기 좋은날 회원가입이 완료되었습니다.</h3></center>
 			</div><br>
 			<div>
-				<input class="btn btn-success" style="width: 100%;" type="button" value="확인">
+				<a href="${pageContext.request.contextPath}/main/main"><button class="btn btn-success" style="width: 100%;">확인</button></a>
 			</div>
 			<br/>
 			<br/>

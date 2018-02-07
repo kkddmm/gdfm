@@ -196,7 +196,7 @@ public class MemberController {
 		
 		model.addAttribute("isError", isError);
 		model.addAttribute("message", message);
-		model.addAttribute("locationURL", "/member/memberList");
+		model.addAttribute("locationURL", "/member/memberEnd");
 		return viewPage;
 		
 	}
@@ -299,6 +299,85 @@ public class MemberController {
 			resultMap.put("result", "false");
 		}
 		return resultMap;
+	}
+	
+	@RequestMapping(value="/memberIdcheck")
+	@ResponseBody
+	public Map<String, Object> memberIdcheck(
+			@RequestParam(value="mem_name", required=true) String mem_name,
+			@RequestParam(value="mem_email", required=true) String mem_email
+			) throws Exception {
+		
+		Map<String, Object> paramMap = new HashMap<>();		
+		paramMap.put("mem_name", mem_name);
+		paramMap.put("mem_email",mem_email);
+		
+		Member member = memberService.getMemberidcheck(paramMap);
+		
+		if(member != null) {
+			paramMap.put("mem_id", member.getMem_id());
+		}
+
+		return paramMap;
+	
+		
+	}
+	
+	@RequestMapping(value="/memberFormId")
+	public String memberFormId(
+			Model model
+			) throws Exception {
+		
+		return "member/memberFormId";
+		
+	}
+	
+	@RequestMapping(value="/memberPwdcheck")
+	@ResponseBody
+	public Map<String, Object> memberPwdcheck(
+			@RequestParam(value="mem_id", required=true) String mem_id,
+			@RequestParam(value="mem_name", required=true) String mem_name,
+			@RequestParam(value="mem_email", required=true) String mem_email
+			) throws Exception {
+		
+		Map<String, Object> paramMap = new HashMap<>();		
+		paramMap.put("mem_name", mem_name);
+		paramMap.put("mem_email",mem_email);
+		paramMap.put("mem_id",mem_id);
+		
+		Member member = memberService.getMemberpwdcheck(paramMap);
+		
+		if(member != null) {
+			paramMap.put("mem_pwd", member.getMem_pwd());
+		}
+		
+		return paramMap;
+		
+		
+	}
+	
+	@RequestMapping(value="/memberFormPwd")
+	public String memberFormPwd(
+			Model model
+			) throws Exception {
+		
+		return "member/memberFormPwd";
+		
+	}
+	
+	@RequestMapping(value="/memberAgree")
+	public String memberAgree(
+			Model model
+			) throws Exception {
+		return "member/memberAgree";
+	}
+	
+	@RequestMapping(value="/memberEnd")
+	public String memberEnd(
+			Model model
+			) throws Exception {
+		return "member/memberEnd";
+		
 	}
 	
 }

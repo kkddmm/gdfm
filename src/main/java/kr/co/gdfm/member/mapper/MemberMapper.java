@@ -24,4 +24,8 @@ public interface MemberMapper {
 	public int deleteMember(String mem_id) throws Exception;
 
 	public List<Memberclass> selectMemberclassList(Map<String, Object> paramMap) throws Exception;
+	
+	public Member selectMemberidcheck(Map<String, Object> paramMap) throws Exception;
+
+	public Member selectMemberpwdcheck(Map<String, Object> paramMap) throws Exception;
 }
