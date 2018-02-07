@@ -59,7 +59,11 @@
 				data : "selectSit="+selectSit+"&show_id=${reserveMap.SHOW_ID}",
 				dataType : 'json',
 				success : function(data, status){
+					console.log(data);
 					if(data==true){
+						alert("이미 예약된 좌석입니다");
+						$('[data-tooltip="'+selectSit+'"]').removeClass('row__seat--selected');
+						console.log($('[data-tooltip="'+selectSit+'"]').html());
 						return false;
 					}if(data==false){
 						$.ajax({

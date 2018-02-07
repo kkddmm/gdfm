@@ -23,7 +23,7 @@ public interface ReservationMapper {
 
 	void insertReservation(Reservation reservation);
 
-	Map<String, Object> isReservedSit(Map<String, Object> paramMap);
+    int isReservedSit(Map<String, Object> paramMap);
 
 	void insertSit(Map<String, Object> paramMap);
 

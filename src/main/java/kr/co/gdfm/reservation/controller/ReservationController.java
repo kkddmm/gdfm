@@ -117,14 +117,19 @@ public String goReservationSit(@RequestParam int show_id,
 	@RequestMapping("/isreserved")
 	@ResponseBody
 	public boolean isReservedSit(@RequestParam Map<String, Object> paramMap) {
-		boolean reserved = true; //트루일때는 안되게 
+		boolean reserved = false; //트루일때는 안되게 
 		
-	Map<String, Object> checkMap = new HashMap<>();
-		checkMap =reservationService.isReservedSit(paramMap);
-		System.out.println(checkMap);
-	if(checkMap==null) {
-	reserved = false;
+		System.out.println("날아간 상영정보 : "+ paramMap.get("show_id"));
+		System.out.println("날아간 자리정보" + paramMap.get("selectSit"));
+		
+		int check =reservationService.isReservedSit(paramMap);
+		
+		System.out.println(check);
+	if(check!=0) {
+	reserved = true;
 	}
+	
+	
 	return reserved;	
 	
 	}

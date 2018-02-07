@@ -71,10 +71,10 @@
    select b.movie_trailer, b.movie_ko_name,a.* ,c.screen_row, c.screen_column,d.ci_name
 from
     (
-    select movie_id,screen_id,dimension_code,start_time,end_time,show_date
+    select show_id, movie_id,screen_id,dimension_code,start_time,end_time,show_date
     from movie_show_info
     where show_id = #{show_id}
-    ) a , movie b, screen c ,cinema d
+    ) a , movie b, screen c ,cinema d 
     where a.movie_id = b.movie_id
     and a.screen_id = c.screen_id
     and c.ci_id = d.ci_id
@@ -114,13 +114,13 @@ where a.reservation_id = b.reservation_id
 and a.show_id = #{show_id}
 	</select>
 	
-<select id="isReservedSit" parameterType="map" resultType="map">
-select 1
+<select id="isReservedSit" parameterType="map" resultType="int">
+select count(*)
 from movie_reservation a, reservation_sit b, movie_show_info c
 where a.reservation_id = b.reservation_id
 and a.show_id = c.show_id
 and c.show_id = #{show_id} 
-and b.sit_num = #{sit_num}
+and b.sit_num = #{selectSit} 
 </select>	
 	
 	

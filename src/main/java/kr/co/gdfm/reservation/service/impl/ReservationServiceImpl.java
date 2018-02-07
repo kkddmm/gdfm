@@ -41,7 +41,7 @@ public class ReservationServiceImpl implements ReservationService{
 		reservationMapper.insertReservation(reservation);
 	}
 	@Override
-	public Map<String, Object> isReservedSit(Map<String, Object> paramMap) {
+	public int isReservedSit(Map<String, Object> paramMap) {
 		return reservationMapper.isReservedSit(paramMap);
 	}
 	@Override
