@@ -122,13 +122,15 @@ public String goReservationSit(@RequestParam int show_id,
 		System.out.println("날아간 상영정보 : "+ paramMap.get("show_id"));
 		System.out.println("날아간 자리정보" + paramMap.get("selectSit"));
 		
+	
+		
+		
 		int check =reservationService.isReservedSit(paramMap);
 		
 		System.out.println(check);
 	if(check!=0) {
 	reserved = true;
 	}
-	
 	
 	return reserved;	
 	
@@ -139,19 +141,11 @@ public String goReservationSit(@RequestParam int show_id,
 		reservationService.insertSit(paramMap);
 		
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	@RequestMapping("/deleteSit")
+	@ResponseBody
+	public void deleteSit(@RequestParam Map<String, Object> paramMap) {
+		reservationService.deleteSit(paramMap);
+	}
 	
 	
 	

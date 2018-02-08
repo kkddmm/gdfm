@@ -48,6 +48,11 @@ public class ReservationServiceImpl implements ReservationService{
 	public void insertSit(Map<String, Object> paramMap) {
 		reservationMapper.insertSit(paramMap);
 	}
+	@Override
+	public void deleteSit(Map<String, Object> paramMap) {
+		reservationMapper.deleteSit(paramMap);
+		
+	}
 
 
 	

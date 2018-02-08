@@ -250,6 +250,12 @@
 
 		// select seats control click (intro button): show the room layout
 		var onSelectSeats = function() { 
+			if(cntFlag==false){
+				alert("예매할 인원을 선택해주세요");
+				return false;
+			}
+			
+			
 			classie.remove(intro, 'intro--shown');
 			classie.add(plan, 'plan--shown');
 			classie.add(playCtrl, 'action--faded');
@@ -265,9 +271,9 @@
 		
 		
 		
-		// ended video event
+		/*// ended video event
 		video.addEventListener('ended', videoLoad);
-
+*/ 
 		// window resize: update window size
 		window.addEventListener('resize', throttle(function(ev) {
 			winsize = {width: window.innerWidth, height: window.innerHeight};
@@ -285,12 +291,9 @@
 			return false;
 		}
 		if( classie.has(planseat, 'row__seat--selected') ) {
-			classie.remove(planseat, 'row__seat--selected');
 			return false;
 		}
-		// add selected class
-		classie.add(planseat, 'row__seat--selected');
-
+		// add selected class  
 		// the real seat
 		var seat = seats[planseats.indexOf(planseat)];
 		// show the seat´s perspective

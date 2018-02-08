@@ -27,6 +27,8 @@ public interface ReservationMapper {
 
 	void insertSit(Map<String, Object> paramMap);
 
+	void deleteSit(Map<String, Object> paramMap);
+
 	
 	
 	

@@ -122,16 +122,11 @@ and a.show_id = c.show_id
 and c.show_id = #{show_id} 
 and b.sit_num = #{selectSit} 
 </select>	
-	
-	
 	<insert id="insertSit" parameterType="map">
 	INSERT INTO reservation_sit ( reservation_id,sit_num ) VALUES (#{reservation_id},#{selectSit})
 	</insert>
-	
-	
-	
-	
-
-
-
+	<delete id="deleteSit" parameterType="map">
+	delete from reservation_sit
+	where reservation_id = #{reservation_id} and sit_num = #{selectSit}
+	</delete>
 </mapper>
