@@ -102,7 +102,7 @@ function fn_list() {
 
 </script>
 <div class="slider">
-	<div class="container">
+	<div>
 		<!-- name bean 프로퍼티와 같게 -->
 		<h2>아이디찾기</h2>
 	

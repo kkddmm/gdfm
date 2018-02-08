@@ -22,7 +22,7 @@
 	}
 </script>
 <div class="slider">
-<div class="container">
+<div>
 	<div class="panel panel-success" style="width: 400px; margin: auto">
 		
 		<div class="panel-heading">

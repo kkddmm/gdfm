@@ -116,7 +116,7 @@ $(document).ready(function () {
 	
 </script>	
 <div class="slider">
-	<div class="container">
+	<div>
 	<c:if test="${not empty boardtypeList}" >
 		<c:forEach var="boardtype" items="${boardtypeList}">
 			<h2>${boardtype.bo_type_name}</h2>		
@@ -158,14 +158,14 @@ $(document).ready(function () {
 		
 		<p class="text-right">
 		
-<%-- 		<c:if test="${not empty LOGIN_USER and LOGIN_USER.mem_id == board.mem_id}">	 --%>
+		<c:if test="${not empty LOGIN_USER and LOGIN_USER.mem_id == board.mem_id}">	
 			<input type="button" value="수정" class="btn btn-warning" onclick="fn_writeForm('${board.bo_id}','${board.bo_type_code}');">
 			<input type="button" value="삭제" class="btn btn" onclick="fn_delete('${board.bo_id}','${board.bo_type_code}');">
-<%-- 		</c:if>	 --%>
+		</c:if>	
 			<input type="button" value="목록" class="btn btn-default" onclick="fn_list();">
 		</p>
 		<c:if test="${board.bo_type_code == 2}">
-		<p>댓글 수 : </p>
+<!-- 		<p>댓글 수 : </p> -->
 			<table class="table table-bordered">
 				<c:forEach var="comment" items="${commentList}">
 					<tr>
@@ -173,8 +173,8 @@ $(document).ready(function () {
 					</tr>
 						<tr>
 							
-									<td id="td${comment.bo_co_id}" style="white-space: pre-wrap">${comment.bo_co_content}<%-- <c:if test="${LOGIN_USER.mem_id == comment.mem_id}"> --%> <span id="commentUdt" onclick="fn_co_upt(${comment.bo_co_id},${board.bo_id},${board.bo_type_code},'<spring:escapeBody javaScriptEscape="true">${comment.bo_co_content}</spring:escapeBody>');" class="glyphicon glyphicon-ok"></span>  <span id="commentDel${comment.bo_co_id}" onclick="fn_co_del(${comment.bo_co_id},${board.bo_id},${board.bo_type_code});" class="glyphicon glyphicon-remove"></span>
-<%-- 								</c:if> --%></td>
+									<td id="td${comment.bo_co_id}" style="white-space: pre-wrap">${comment.bo_co_content}<c:if test="${LOGIN_USER.mem_id == comment.mem_id}"><span id="commentUdt" onclick="fn_co_upt(${comment.bo_co_id},${board.bo_id},${board.bo_type_code},'<spring:escapeBody javaScriptEscape="true">${comment.bo_co_content}</spring:escapeBody>');" class="glyphicon glyphicon-ok"></span>  <span id="commentDel${comment.bo_co_id}" onclick="fn_co_del(${comment.bo_co_id},${board.bo_id},${board.bo_type_code});" class="glyphicon glyphicon-remove"></span>
+ 								</c:if></td>
 						</tr>	
 
 				</c:forEach>
@@ -189,16 +189,18 @@ $(document).ready(function () {
 
 				</div>
 			</c:if>
-<%-- 			<c:if test="${not empty LOGIN_USER}"> --%>
+			 <c:if test="${not empty LOGIN_USER}">
 				<h5>댓글 달기 - ${LOGIN_USER.mem_id}</h5>
 				<form method="post" name="commentForm">
-<%-- 					<input name="mem_id" type="text" style="display: none;" value="${LOGIN_USER.mem_id}" /> \ --%>
-					<input type="hidden" name="mem_id" value="test">
+				<input name="mem_id" type="text" style="display: none;" value="${LOGIN_USER.mem_id}" /> 
+<!-- 					<input type="hidden" name="mem_id" value="test"> -->
 					<input type="hidden" name="bo_id" value="${board.bo_id}">
 					<textarea placeholder="건강한 댓글은 작성자에게 힘이 됩니다." rows="8" class="form-control" name="bo_co_content"></textarea>
-					<a style="float: right;" class="button" onclick="fn_commentInsert('${board.bo_type_code}');">댓글 등록</a>
+					<p>
+						<a style="float: right;" class="button" onclick="fn_commentInsert('${board.bo_type_code}');"><button>댓글등록</button></a>
+					</p>
 				</form>
-<%-- 		</c:if> --%>
+			</c:if>
 		</c:if>
 		
 	</div>

@@ -16,7 +16,7 @@
 	}
 </script>
 <div class="slider">
-<div class="container">
+<div>
 	
 	<h2>회원정보</h2>
 	<table class="table table-bordered">

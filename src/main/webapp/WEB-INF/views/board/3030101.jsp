@@ -59,7 +59,7 @@ $(document).ready(function () {
 
 </script>
 <div class="slider">
-	<div class="container">
+	<div>
 		<c:if test="${not empty boardtypeList}" >
 			<c:forEach var="boardtype" items="${boardtypeList}">
 				<h2>${boardtype.bo_type_name}</h2>		

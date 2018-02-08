@@ -200,7 +200,7 @@ function fn_list() {
 				    }
 				</script>
 <div class="slider">
-	<div class="container">
+	<div>
 		<!-- name bean 프로퍼티와 같게 -->
 		<c:if test="${param.type == 'I'}">
 			<h2>회원가입</h2>

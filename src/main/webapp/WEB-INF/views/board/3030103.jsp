@@ -88,7 +88,7 @@ $(function () {
 	
 </script>
 <div class="slider">
-	<div class="container">
+	<div>
 		
 		<h2>${board.bo_id == 0 ? '글쓰기' : '글수정'}</h2>
 	

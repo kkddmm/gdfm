@@ -27,7 +27,7 @@ function fn_search(currentPage) {
 
 </script>
 <div class="slider">
-	<div class="container">
+	<div>
 		
 		<h2>회원목록</h2>
 		<!-- 검색폼 -->
