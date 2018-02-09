@@ -1,7 +1,30 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-
+<script type="text/javascript">
+$(function(){
+	$.ajax({
+		type: 'post',
+		url : '${pageContext.request.contextPath}/main/mainMovieApi',
+		dataType: 'json',
+		success : function(data, status){
+ //			console.log(status);
+ //			console.log(data);
+ 			console.log(data.dailyBoxOfficeList);
+ //			console.log(JSON.stringify(data));
+ 			for(var i = 0; i < data.dailyBoxOfficeList.length; i++){
+ 				var dboList = data.dailyBoxOfficeList[i];
+				$('<tr>').html('<td>'+dboList.rank+'</td><td>'+dboList.movieNm+'</td><td>'+dboList.audiAcc+'</td>').appendTo('#movieTr');					
+			}
+				
+		},
+		error : function(){
+			console.log(error);
+		}
+	});
+});
+		
+</script>
 <style>
 dl, dt { margin:0; display:inline; }
 li{
@@ -228,7 +251,13 @@ li{
     </div>
   </section>
   <!--/#bottom-->
-      
+    <table border="0" class="table table-bordered table-striped table-hover text-center" id="movieTr">
+		<tr>
+			<th class="col-xs-1 text-center">순위</th>
+			<th class="text-center">영화명</td>
+			<th class="col-xs-2 text-center">누적관객수</th>
+		</tr>
+	</table>  
       
       
       

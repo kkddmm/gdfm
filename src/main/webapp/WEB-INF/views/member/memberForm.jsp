@@ -94,6 +94,20 @@ function validate() {
 		return false;
 	}
 	
+	if(frm.mem_id.value.length < 8 || frm.mem_id.value.length > 21){
+		alert("8자이상 ~ 20자이하가능합니다.");
+		return false;
+	}
+	
+	 var chk_num = frm.mem_id.value.search(/[0-9]/g); 
+	 var chk_eng = frm.mem_id.value.search(/[a-z]/ig);
+
+	 if(chk_num < 0 || chk_eng < 0)
+	 { 
+		alert('비밀번호는 숫자와 영문자를 혼용하여야 합니다.'); 
+	    return false;
+	  }
+	
 	if(frm.mem_name.value == ""){
 		alert("이름을 입력하세요.");
 		frm.mem_name.focus();
@@ -109,6 +123,20 @@ function validate() {
 			return false;
 		}
 	}
+	
+	if(frm.mem_pwd.value.length < 8 || frm.mem_pwd.value.length > 21){
+		alert("8자이상 ~ 20자이하가능합니다.");
+		return false;
+	}
+	
+	 var chk_num = frm.mem_pwd.value.search(/[0-9]/g); 
+	 var chk_eng = frm.mem_pwd.value.search(/[a-z]/ig);
+
+	 if(chk_num < 0 || chk_eng < 0)
+	 { 
+		alert('비밀번호는 숫자와 영문자를 혼용하여야 합니다.'); 
+	    return false;
+	  }
 	
 	if(frm.mem_birth.value == ""){
 		alert("생년월을 입력하세요.");
@@ -216,7 +244,7 @@ function fn_list() {
 				<th class="info col-xs-2 text-center">회원아이디</th>
 				<td>
 					<input type="hidden" id="idChk" value="N" />
-					<input type="text" name="mem_id" value="${member.mem_id}"> 
+					<input type="text" name="mem_id" value="${member.mem_id}" maxlength="20"> 
 					<button type="button" class="btn btn-warning" id="btnIdCheck">중복체크</button>
 					8~20자 내의 영문,숫자 조합
 					<label id="resultMsg"></label>
@@ -224,15 +252,15 @@ function fn_list() {
 			</tr>
 			<tr>
 				<th class="info text-center">회원명</th>
-				<td><input type="text" name="mem_name" size="20" value="${member.mem_name}"> 실명을 입력하세요</td>
+				<td><input type="text" name="mem_name" size="20" value="${member.mem_name}" maxlength="10"> 실명을 입력하세요</td>
 			</tr>
 			<tr>
 				<th class="info text-center">회원비밀번호</th>
-				<td><input type="password" name="mem_pwd" size="20" value="${member.mem_pwd}"> 8~20자 내의 영문,숫자 조합</td>
+				<td><input type="password" name="mem_pwd" size="20" value="${member.mem_pwd}" maxlength="20"> 8~20자 내의 영문,숫자 조합</td>
 			</tr>
 			<tr>
 				<th class="info text-center">회원비밀번호확인</th>
-				<td><input type="password" name="mem_pwd_confirm" size="20" value="${member.mem_pwd}"> 8~20자 내의 영문,숫자 조합</td>
+				<td><input type="password" name="mem_pwd_confirm" size="20" value="${member.mem_pwd}" maxlength="20"> 8~20자 내의 영문,숫자 조합</td>
 			</tr>
 			<tr>
 				<th class="info text-center">회원연령</th>
@@ -250,7 +278,7 @@ function fn_list() {
 			</tr>
 			<tr>
 				<th class="info text-center">회원생년월일</th>
-				<td><input type="text" name="mem_birth" size="10" value="${member.mem_birth}" id="mem_birth"> (예: 19910101)</td>
+				<td><input type="text" name="mem_birth" size="10" value="${member.mem_birth}" id="mem_birth" maxlength="8"> (예: 19910101)</td>
 			</tr>
 			<tr>
 				<th class="info text-center">회원성별</th>
@@ -267,19 +295,19 @@ function fn_list() {
 			</tr>
 			<tr>
 				<th class="info text-center">회원이메일</th>
-				<td><input type="text" name="mem_email" size="20" value="${member.mem_email}"> (예:test@naver.com)</td>
+				<td><input type="text" name="mem_email" size="20" value="${member.mem_email}" maxlength="100"> (예:test@naver.com)</td>
 			</tr>
 			<tr>
 				<th class="info text-center">전화번호</th>
-				<td><input type="text" name="mem_phone" size="20" value="${member.mem_phone}"> '-' 없이 입력</td>
+				<td><input type="text" name="mem_phone" size="20" value="${member.mem_phone}" maxlength="12"> '-' 없이 입력</td>
 			</tr>
 			<tr>
 				<th class="info text-center">회원주소</th>
 				<td>
-					<p><input type="text" name="mem_zipcode" size="6" value="${member.mem_zipcode}" id="sample6_postcode" placeholder="우편번호">
+					<p><input type="text" name="mem_zipcode" size="6" value="${member.mem_zipcode}" id="sample6_postcode" placeholder="우편번호" maxlength="6">
 					<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기" class="btn btn-warning"></p>
-					<p><input type="text" name="mem_addr" size="50" value="${member.mem_addr}" id="sample6_address" placeholder="주소"></p>
-					<p><input type="text" name="mem_addr_detail" size="50" value="${member.mem_addr_detail}" id="sample6_address2" placeholder="상세주소"></p>
+					<p><input type="text" name="mem_addr" size="50" value="${member.mem_addr}" id="sample6_address" placeholder="주소" maxlength="200"></p>
+					<p><input type="text" name="mem_addr_detail" size="50" value="${member.mem_addr_detail}" id="sample6_address2" placeholder="상세주소" maxlength="200"></p>
 				</td>
 			</tr>
 			<tr>
