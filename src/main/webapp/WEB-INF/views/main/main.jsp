@@ -1,11 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <script type="text/javascript">
 $(function(){
 	$.ajax({
 		type: 'post',
-		url : '${pageContext.request.contextPath}/main/mainMovieApi',
+		url : '${pageContext.request.contextPath}/main/mainMovieDay',
 		dataType: 'json',
 		success : function(data, status){
  //			console.log(status);
@@ -14,7 +15,24 @@ $(function(){
  //			console.log(JSON.stringify(data));
  			for(var i = 0; i < data.dailyBoxOfficeList.length; i++){
  				var dboList = data.dailyBoxOfficeList[i];
-				$('<tr>').html('<td>'+dboList.rank+'</td><td>'+dboList.movieNm+'</td><td>'+dboList.audiAcc+'</td>').appendTo('#movieTr');					
+				$('<tr>').html('<td>'+dboList.rank+'</td><td align="left">'+dboList.movieNm+' ('+dboList.rankInten+') ('+dboList.salesShare+'%)</td><td align="right">'+dboList.audiAcc+'명</td>').appendTo('#movieTr');					
+			}
+				
+		},
+		error : function(){
+			console.log(error);
+		}
+	});
+	
+	$.ajax({
+		type: 'post',
+		url : '${pageContext.request.contextPath}/main/mainMovieWeek',
+		dataType: 'json',
+		success : function(data, status){
+ 			console.log(data.weeklyBoxOfficeList);
+ 			for(var i = 0; i < data.weeklyBoxOfficeList.length; i++){
+ 				var wboList = data.weeklyBoxOfficeList[i];
+				$('<tr>').html('<td>'+wboList.rank+'</td><td align="left">'+wboList.movieNm+' ('+wboList.rankInten+') ('+wboList.salesShare+'%)</td><td align="right">'+wboList.audiAcc+'명</td>').appendTo('#movieweekTr');					
 			}
 				
 		},
@@ -243,7 +261,26 @@ li{
     <div class="container wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
       <div class="row">
         <div class="col-md-12">
-          <h3>공지사항 들어갈 부분</h3>
+         <table class="table table-bordered table-striped table-hover" style="width:400px;" align="center">
+			<c:if test="${not empty mainList}" >
+				<c:forEach var="main" items="${mainList}" begin="1" end="5">
+				<fmt:parseDate value="${main.reg_date}" pattern="yyyy-MM-dd" var="reg_date2" />
+				<fmt:formatDate value="${reg_date2}" pattern="yyyy-MM-dd" var="reg_date3" />
+					<tr>
+						<td><a href="${pageContext.request.contextPath}/board/boardView/${main.bo_seq_no}">${main.bo_title}</a></td>
+						<td class="text-right col-xs-3">${reg_date3}</td>
+					</tr>
+				</c:forEach>			
+			</c:if>
+			<c:if test="${empty mainList}" >
+				<tr>
+					<td colspan="2" align="center">게시글이 존재하지 않습니다.</td>
+				</tr>		
+			</c:if>
+			
+			
+		</tbody>
+	</table>
         </div>
         <!--/.col-md-12-->
       </div>
@@ -251,15 +288,28 @@ li{
     </div>
   </section>
   <!--/#bottom-->
-    <table border="0" class="table table-bordered table-striped table-hover text-center" id="movieTr">
-		<tr>
-			<th class="col-xs-1 text-center">순위</th>
-			<th class="text-center">영화명</td>
-			<th class="col-xs-2 text-center">누적관객수</th>
-		</tr>
-	</table>  
-      
-      
+  <div style="border:1px solid #FFFF00;">
+	  <div style="float: left;">
+		일별박스오피스
+	    <table border="0" class="table table-bordered table-striped table-hover text-center" id="movieTr">
+			<tr>
+				<th class="col-xs-1 text-center">순위</th>
+				<th class="text-center">영화명</td>
+				<th class="col-xs-2 text-center">누적관객수</th>
+			</tr>
+		</table>
+	  </div>
+	  <div style="float: right;">  
+		주간/주말박스오피스
+	    <table border="0" class="table table-bordered table-striped table-hover text-center" id="movieweekTr">
+			<tr>
+				<th class="col-xs-1 text-center">순위</th>
+				<th class="text-center">영화명</td>
+				<th class="col-xs-2 text-center">누적관객수</th>
+			</tr>
+		</table>  
+	  </div>
+	</div>   
       
     </div>
   </div>
