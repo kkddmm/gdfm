@@ -25,8 +25,6 @@
 		var cnt = 0;
 		var cntFlag = false;
 		
-		i<data.l
-		
 		function fn_goBack(){
 			var goCon = confirm("선택한 정보는 저장되지 않습니다. 예매화면으로 돌아갈까요?");
 			if(goCon==false){
