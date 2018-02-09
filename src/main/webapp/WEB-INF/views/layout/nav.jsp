@@ -61,9 +61,18 @@
                        </ul>
                   </li>
             
-                  <li >
-                    <a  href="${pageContext.request.contextPath}/snack/snack">스낵</b></a>                       
-                  </li>             
+                  <li class="dropdown">
+                    <a  href="${pageContext.request.contextPath}/snack/snack">스낵
+                    <c:if test="${not empty sessionScope.LOGIN_USER}"> 
+                    <b class="caret"></b>
+                    </c:if></a>      
+                    <c:if test="${not empty sessionScope.LOGIN_USER}">              
+                       <ul class="dropdown-menu">
+                           <li><a href="${pageContext.request.contextPath}/snack/snack_basket/${LOGIN_USER.mem_id}">스낵 장바구니</a></li>                                                   
+                       </ul>      
+                    </c:if>  
+                        
+                  </li>                   
            <!-- <li class="dropdown"><a href="index.html">예매</a></li>
             <li class="dropdown toggle"><a href="about-us.html">영화</a></li>
             <li class="dropdown"><a href="services.html">커뮤니티</a></li>
