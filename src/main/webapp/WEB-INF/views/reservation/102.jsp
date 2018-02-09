@@ -82,7 +82,7 @@
 			if(cnt<=0){
 				alert("선택한 최대 인원수를 초과하셨습니다.")
 			return false;
-			}
+			}         
 			
 		
 			
