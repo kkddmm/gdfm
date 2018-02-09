@@ -22,6 +22,7 @@ import com.google.gson.Gson;
 
 import kr.co.gdfm.board.model.Board;
 import kr.co.gdfm.board.service.BoardService;
+import kr.co.gdfm.common.util.PagingUtil;
 
 @RequestMapping("/main")
 @Controller
@@ -33,17 +34,29 @@ public class MainController {
 	public String goMain(
 			//@RequestParam(value="searchType", required=false, defaultValue="") String searchType,
 			//@RequestParam(value="searchWord", required=false, defaultValue="") String searchWord,
+			@RequestParam(value="currentPage", required=false, defaultValue="1") int currentPage,
+			@RequestParam(value="pageSize", required=false, defaultValue="10") int pageSize,
 			Model model
 			) throws Exception {
-		
+		int pageCount = 5;	//기본값
+		int totalCount = 0;
 		Map<String, Object> paramMap = new HashMap<>();
-		
+		// 총 게시글 수
 		paramMap.put("bo_type_code", 1);
+		totalCount = boardService.getBoardCount(paramMap);
+				
+				// 페이징 처리
+		PagingUtil pagingUtil = new PagingUtil(currentPage, totalCount, pageSize, pageCount);
 		
-		//if(StringUtils.isNotBlank(searchType) && StringUtils.isNotBlank( searchWord )) {
-			//paramMap.put("searchType", searchType);
-			//paramMap.put("searchWord", searchWord);
-		//}
+		
+//		if(StringUtils.isNotBlank(searchType) && StringUtils.isNotBlank( searchWord )) {
+//			paramMap.put("searchType", searchType);
+//			paramMap.put("searchWord", searchWord);
+//		}
+		
+		paramMap.put("startRow", pagingUtil.getStartRow());
+		paramMap.put("endRow", pagingUtil.getEndRow());
+		
 		List<Board> mainList = boardService.getBoardList(paramMap); 
 	
 		model.addAttribute("mainList", mainList);
