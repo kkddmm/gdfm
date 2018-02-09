@@ -118,6 +118,9 @@ if(data[0]!=null){
 }	else{
 	$('#infoView').html('상영 정보가 없습니다');
 }
+
+$('#goSitDiv').html(''); 
+
 			},
 			error : function(){
 				alert("에러가 발생했습니다.");
@@ -156,14 +159,7 @@ $('<img>').attr('src',"${pageContext.request.contextPath}/img/goSitBtn.png").on(
 		
 	}
 }).appendTo('#goSitDiv');
-
-
 	}
-	
-	
-	
-	
-	
 </script>
 <style>
 .row.main {
@@ -176,6 +172,11 @@ ul {
 #imgView img{
 width : 150px;
 height: 150px;
+}
+
+#movieView img{
+width : 20px;
+height : 20px;
 }
 
 
@@ -229,13 +230,13 @@ height: 150px;
 				</ul>
 				</div>
 			</div>
-			<div class="col-md-6"> 
+			<div   class="col-md-6"> 
 				<h4>상영정보</h4><hr/>
 				<div align="left" class="row">
 				<div class="col-md-1">
 			
 				</div>
-			<ul class="col-md-11" id="infoView"> 
+			<ul style=" height:500px; overflow:auto;" class="col-md-11" id="infoView"> 
 			<p>예매할 사항을 선택해주세요</p>
 			</ul>
 			

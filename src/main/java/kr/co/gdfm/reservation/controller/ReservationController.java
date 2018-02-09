@@ -1,6 +1,4 @@
 
-
-
 package kr.co.gdfm.reservation.controller;
 
 import java.util.ArrayList;
@@ -26,7 +24,6 @@ import kr.co.gdfm.reservation.service.ReservationService;
 @RequestMapping("/reservation")
 @Controller
 public class ReservationController {
-
 	@Autowired
 	MovieService movieService;
 	@Autowired
@@ -34,6 +31,8 @@ public class ReservationController {
 	@Autowired
 	ReservationService reservationService;
 
+	
+	
 	@RequestMapping("/101")
 	public String reservePage(Model model) {
 
@@ -52,6 +51,7 @@ public class ReservationController {
 		List<Map<String, Object>> addr2List = cinemaService.getAddr2List(paramMap);
 		return addr2List;
 	}
+
 	@RequestMapping("/get/movieName")
 	@ResponseBody
 	public List<Map<String, Object>> getMovieName(String ci_addr1, String ci_addr2) {
@@ -61,6 +61,7 @@ public class ReservationController {
 		List<Map<String, Object>> movieNameList = cinemaService.getMovieNameByCinema(paramMap);
 		return movieNameList;
 	}
+
 	@RequestMapping("/get/cinemaList")
 	@ResponseBody
 	public List<Cinema> getCinemaList(int movie_id) {
@@ -68,6 +69,7 @@ public class ReservationController {
 		cinemaList = cinemaService.selectCinemaListByMovie(movie_id);
 		return cinemaList;
 	}
+
 	@RequestMapping("/get/showInfo")
 	@ResponseBody
 	public List<MovieShowInfo> getShowInfo(@RequestParam Map<String, Object> paramMap) {
@@ -77,82 +79,58 @@ public class ReservationController {
 		resultList = reservationService.getShowInfo(paramMap);
 
 		return resultList;
-
 	}
-	
-	
+
 	@RequestMapping("/put/movieReservation")
 	@ResponseBody
-	public int insertReservation (Reservation reservation) {
-
+	public int insertReservation(Reservation reservation) {
 		reservationService.insertReservation(reservation);
-		
 		return reservation.getReservation_id();
-		
-		
-		
-		
 	}
-	
+
 	@RequestMapping("/102")
-public String goReservationSit(@RequestParam int show_id,
-		@RequestParam int reservation_id,
-		Model model) {
-		
+	public String goReservationSit(@RequestParam int show_id, @RequestParam int reservation_id, Model model) {
+
 		Map<String, Object> reserveMap = new HashMap<>();
 		List<Map<String, String>> reservedSit = new ArrayList<>();
-		
+
 		reservedSit = reservationService.getReservedSit(show_id);
 		reserveMap = reservationService.getReserveShowInfo(show_id);
-		
 		model.addAttribute("reserveMap", reserveMap);
 		model.addAttribute("reservedSit", reservedSit);
 		model.addAttribute("reservation_id", reservation_id);
-	
-	
 		return "reservation/102";
 	}
-	
-	
+
 	@RequestMapping("/isreserved")
 	@ResponseBody
 	public boolean isReservedSit(@RequestParam Map<String, Object> paramMap) {
-		boolean reserved = false; //트루일때는 안되게 
-		
-		System.out.println("날아간 상영정보 : "+ paramMap.get("show_id"));
-		System.out.println("날아간 자리정보" + paramMap.get("selectSit"));
-		
-	
-		
-		
-		int check =reservationService.isReservedSit(paramMap);
-		
-		System.out.println(check);
-	if(check!=0) {
-	reserved = true;
+		boolean reserved = false; // 트루일때는 안되게
+
+		int check = reservationService.isReservedSit(paramMap);
+		if (check != 0) {
+			reserved = true;
+		}
+		return reserved;
 	}
-	
-	return reserved;	
-	
-	}
+
 	@RequestMapping("/insertSit")
 	@ResponseBody
-	public void insertSit(@RequestParam Map<String, Object> paramMap) {
-		reservationService.insertSit(paramMap);
-		
+	public Map<String, Object> insertSit(@RequestParam Map<String, Object> paramMap) {
+		int success = reservationService.insertSit(paramMap);
+		Map<String, Object> successMap = new HashMap<>();
+		successMap.put("success", success);
+		return successMap;
 	}
+
 	@RequestMapping("/deleteSit")
 	@ResponseBody
-	public void deleteSit(@RequestParam Map<String, Object> paramMap) {
+	public Map<String, Object> deleteSit(@RequestParam Map<String, Object> paramMap) {
 		reservationService.deleteSit(paramMap);
+		Map<String, Object> successMap = new HashMap<>();
+		int success = reservationService.deleteSit(paramMap);
+		successMap.put("success", success);
+		return successMap;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
 
 }

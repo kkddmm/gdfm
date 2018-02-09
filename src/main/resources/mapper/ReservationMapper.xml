@@ -35,17 +35,7 @@
 ( SELECT TO_CHAR(sysdate, 'YYYYMMDD') AS DAY FROM DUAL ) BB
 	]]>
 	
-	
-	
-	
-	
-	
 	</select>
-	
-	
-	
-	
-	
 
 	<select id ="getShowInfo" resultType="kr.co.gdfm.reservation.model.MovieShowInfo">
   select d.*, (d.좌석수-nvl(e.예매좌석수,0)) as sit
@@ -68,18 +58,17 @@
 	</select>
 	
 	<select id = "getReserveShowInfo" resultType ="map">
-   select b.movie_trailer, b.movie_ko_name,a.* ,c.screen_row, c.screen_column,d.ci_name
+select b.movie_trailer, b.movie_ko_name,a.* ,c.screen_row, c.screen_column,d.ci_name
 from
     (
-    select show_id, movie_id,screen_id,dimension_code,start_time,end_time,show_date
-    from movie_show_info
+    select e.show_id, e.movie_id,e.screen_id,f.dimension_price,f.dimension_name,e.start_time,e.end_time,e.show_date
+    from movie_show_info e, movie_dimension_code f
     where show_id = #{show_id}
+    and e.dimension_code = f.dimension_code
     ) a , movie b, screen c ,cinema d 
     where a.movie_id = b.movie_id
     and a.screen_id = c.screen_id
     and c.ci_id = d.ci_id
-
-
 	</select>
 	
 	<insert id="insertReservation" parameterType="kr.co.gdfm.reservation.model.Reservation">
