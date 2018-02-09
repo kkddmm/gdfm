@@ -86,7 +86,7 @@
 			
 		
 			
-			
+			//조회 전
 			console.log('예약 가능 좌석 클릭! 사실은모름..');			
 			 var selectSit = $(this).attr('data-tooltip');
 				$.ajax({
