@@ -1,5 +1,6 @@
 package kr.co.gdfm.member.controller;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -106,6 +107,7 @@ public class MemberController {
 			HttpSession session,
 			@RequestParam(value="mem_id", required=false) String mem_id ,
 			//Member member,
+			@ModelAttribute("now") Date now,
 			Model model
 			) throws Exception {
 		

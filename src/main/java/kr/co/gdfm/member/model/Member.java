@@ -16,6 +16,9 @@ public class Member {
 	private String mem_reg_date;
 	private String mem_email;
 	private String mem_birth;
+	private String mem_year;
+	private String mem_month;
+	private String mem_day;
 
 	public Member() {}
 
@@ -138,5 +141,28 @@ public class Member {
 	public void setClass_code_name(String class_code_name) {
 		this.class_code_name = class_code_name;
 	}
-	
+
+	public String getMem_year() {
+		return mem_year;
+	}
+
+	public void setMem_year(String mem_year) {
+		this.mem_year = mem_year;
+	}
+
+	public String getMem_month() {
+		return mem_month;
+	}
+
+	public void setMem_month(String mem_month) {
+		this.mem_month = mem_month;
+	}
+
+	public String getMem_day() {
+		return mem_day;
+	}
+
+	public void setMem_day(String mem_day) {
+		this.mem_day = mem_day;
+	}
 }

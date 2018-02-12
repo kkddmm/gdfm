@@ -99,16 +99,16 @@
 		,#{mem_name}
 		,#{mem_pwd}
 		,#{mem_phone}
-		,#{mem_age}
+		,NVL(#{mem_age}, 0)
 		
 		,#{mem_gender}
 		,#{mem_addr}
 		,#{mem_addr_detail}
-		,NVL(#{class_code}, '1')
+		,NVL(#{class_code}, 1)
 		,#{mem_zipcode}
 		
 		,#{mem_email}
-		,#{mem_birth}
+		,#{mem_year}||#{mem_month}||#{mem_day}
 	)
   </insert>
   
@@ -126,7 +126,7 @@
 		, mem_zipcode 		= #{mem_zipcode}
 		, mem_email 		= #{mem_email}
 		
-		, mem_birth 		= #{mem_birth}
+		, mem_birth 		= #{mem_year}||#{mem_month}||#{mem_day}
 		, mem_point 		= #{mem_point}
 	WHERE mem_id = #{mem_id}
   </update>

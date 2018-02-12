@@ -1,7 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
   
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>      
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>     
+
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
     
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <c:if test="${isError}">
@@ -15,6 +19,7 @@
 <script type="text/javascript">
 
 var duplicateCheck = false;
+function numkeyCheck(e) { var keyValue = event.keyCode; if( ((keyValue >= 48) && (keyValue <= 57)) ) return true; else return false; }
 $(function(){
 	$("input[name=mem_id]").on("keyup",function(){
 		duplicateCheck = false;
@@ -95,7 +100,8 @@ function validate() {
 	}
 	
 	if(frm.mem_id.value.length < 8 || frm.mem_id.value.length > 21){
-		alert("8자이상 ~ 20자이하가능합니다.");
+		alert("아이이디는 8자이상 ~ 20자이하가능합니다.");
+		frm.mem_id.focus();
 		return false;
 	}
 	
@@ -120,12 +126,16 @@ function validate() {
 	}else{
 		if(frm.mem_pwd.value != frm.mem_pwd_confirm.value){
 			alert("비밀번호가 같지 않습니다.");
+			frm.mem_pwd_confirm.value="";
+			frm.mem_pwd_confirm.focus();
 			return false;
 		}
 	}
 	
 	if(frm.mem_pwd.value.length < 8 || frm.mem_pwd.value.length > 21){
-		alert("8자이상 ~ 20자이하가능합니다.");
+		alert("비밀번호는 8자이상 ~ 20자이하가능합니다.");
+		frm.mem_pwd.value="";
+		frm.mem_pwd.focus();
 		return false;
 	}
 	
@@ -135,14 +145,16 @@ function validate() {
 	 if(chk_num < 0 || chk_eng < 0)
 	 { 
 		alert('비밀번호는 숫자와 영문자를 혼용하여야 합니다.'); 
+		frm.mem_pwd.value="";
+		frm.mem_pwd.focus();
 	    return false;
 	  }
 	
-	if(frm.mem_birth.value == ""){
+	/* if(frm.mem_birth.value == ""){
 		alert("생년월을 입력하세요.");
 		frm.mem_birth.focus();
 		return false;
-	}
+	} */
 	
 	if(frm.mem_phone.value == ""){
 		alert("전화번호를 입력하세요.");
@@ -262,7 +274,7 @@ function fn_list() {
 				<th class="info text-center">회원비밀번호확인</th>
 				<td><input type="password" name="mem_pwd_confirm" size="20" value="${member.mem_pwd}" maxlength="20"> 8~20자 내의 영문,숫자 조합</td>
 			</tr>
-			<tr>
+			<%-- <tr>
 				<th class="info text-center">회원연령</th>
 				<td>
 					<select name="mem_age">
@@ -275,10 +287,59 @@ function fn_list() {
 					</select>
 					세
 				</td>
-			</tr>
+			</tr> --%>
 			<tr>
 				<th class="info text-center">회원생년월일</th>
-				<td><input type="text" name="mem_birth" size="10" value="${member.mem_birth}" id="mem_birth" maxlength="8"> (예: 19910101)</td>
+				<td>
+					<fmt:formatDate value="${now}" pattern="yyyy" var="nowDate" />
+					
+					<select name="mem_year">
+						<c:if test="${param.type != 'I'}">
+							<option value="${fn:substring(member.mem_birth,0,4)}">${fn:substring(member.mem_birth,0,4)}</option>
+						</c:if>
+						<c:forEach var="m_year" begin="1920" end="${nowDate}">
+							<option value="${m_year}">${m_year}</option>
+						</c:forEach>
+					</select>
+					년
+					<select name="mem_month">
+						<c:if test="${param.type != 'I'}">
+							<option value="${fn:substring(member.mem_birth,4,6)}">${fn:substring(member.mem_birth,4,6)}</option>						
+						</c:if>   
+							<option value="01">01</option>
+							<option value="02">02</option>
+							<option value="03">03</option>
+							<option value="04">04</option>
+							<option value="05">05</option>
+							<option value="06">06</option>
+							<option value="07">07</option>
+							<option value="08">08</option>
+							<option value="09">09</option>
+							<option value="10">10</option>
+							<option value="11">11</option>
+							<option value="12">12</option>
+					</select>
+					월
+					<select name="mem_day">
+						<c:if test="${param.type != 'I'}">
+							<option value="${fn:substring(member.mem_birth,6,8)}">${fn:substring(member.mem_birth,6,8)}</option>
+						</c:if> 
+							<option value="01">01</option>
+							<option value="02">02</option>
+							<option value="03">03</option>
+							<option value="04">04</option>
+							<option value="05">05</option>
+							<option value="06">06</option>
+							<option value="07">07</option>
+							<option value="08">08</option>
+							<option value="09">09</option>
+						<c:forEach var="m_day" begin="10" end="31">
+							<option value="${m_day}">${m_day}</option>
+						</c:forEach>
+					</select>
+					일
+					<%-- <input type="text" name="mem_birth" size="10" value="${member.mem_birth}" id="mem_birth" maxlength="8"> (예: 19910101) --%>
+				</td>
 			</tr>
 			<tr>
 				<th class="info text-center">회원성별</th>
@@ -299,7 +360,7 @@ function fn_list() {
 			</tr>
 			<tr>
 				<th class="info text-center">전화번호</th>
-				<td><input type="text" name="mem_phone" size="20" value="${member.mem_phone}" maxlength="12"> '-' 없이 입력</td>
+				<td><input type="text" name="mem_phone" size="20" value="${member.mem_phone}" maxlength="12" onKeyPress="return numkeyCheck(event)"> '-' 없이 입력</td>
 			</tr>
 			<tr>
 				<th class="info text-center">회원주소</th>
@@ -315,7 +376,6 @@ function fn_list() {
 				<td>
 					<div class="col-xs-2">
 						<select name="class_code" class="form-control">
-							<option value="">선택해주세요</option>
 							<c:if test="${not empty memberclassList}" >
 								<c:forEach var="memberclass" items="${memberclassList}">
 									<option value=${memberclass.class_code} ${memberclass.class_code == member.class_code ? 'selected' : ''}>${memberclass.class_name}</option>

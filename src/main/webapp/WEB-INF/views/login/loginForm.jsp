@@ -38,7 +38,7 @@
 				</div>
 				<div class="form-group">
 					<div class="col-xs-12">
-						<input type="password" name="mem_pwd" value="" class="form-control" placeholder="비밀번호">
+						<input type="password" name="mem_pwd" value="" class="form-control" placeholder="비밀번호" onkeypress="if( event.keyCode==13 ){fn_login();}">
 					</div>
 				</div>
 				<div class="form-group">

@@ -28,10 +28,10 @@
 			<th class="info text-center">회원명</th>
 			<td>${member.mem_name}</td>
 		</tr>
-		<tr>
-			<th class="info text-center">회원연령</th>
-			<td>${member.mem_age} 세</td>
-		</tr>
+<!-- 		<tr> -->
+<!-- 			<th class="info text-center">회원연령</th> -->
+<%-- 			<td>${member.mem_age} 세</td> --%>
+<!-- 		</tr> -->
 		<tr>
 			<th class="info text-center">회원생년월일</th>
 			<td>${member.mem_birth}</td>
