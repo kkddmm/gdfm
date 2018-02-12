@@ -28,4 +28,8 @@ public interface ReservationMapper {
 
 	public int deleteSit(Map<String, Object> paramMap);
 
+	public int deleteOldReservation(String mem_id);
+
+	public int deleteUncountedSit();
+
 }

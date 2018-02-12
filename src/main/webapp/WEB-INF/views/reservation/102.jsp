@@ -97,53 +97,63 @@
 			});
 			
 		$('.plan').on("click",'.tooltip:not(.row__seat--selected)',function(){ 
-			if(cnt<=0){
+			 if(cnt<=0){
 				alert("선택한 최대 인원수를 초과하셨습니다.")
 			return false;
 			}         
-			//조회 전 실행
-			console.log('예약 가능 좌석 클릭! 사실은모름..');			
-			 var selectSit = $(this).attr('data-tooltip');
-				$.ajax({
-				method : 'post',
-				url : '${pageContext.request.contextPath}/reservation/isreserved',
-				data : "selectSit="+selectSit+"&show_id=${reserveMap.SHOW_ID}",
-				dataType : 'json',
-				success : function(data, status){
-					console.log(data); 
-					if(data==true){
-						alert("이미 선택된 좌석입니다");
-						$('[data-tooltip="'+selectSit+'"]').removeClass('row__seat--selected');
-						console.log($('[data-tooltip="'+selectSit+'"]').html());
-						return false;
-					}if(data==false){
-						console.log("insert 되는중..");
+			 var selectSit = $(this).attr('data-tooltip');  
 						$.ajax({
 							method : 'post',
 							url : '${pageContext.request.contextPath}/reservation/insertSit',
-							data : 'reservation_id=${reservation_id}&selectSit='+selectSit,
+							data : 'reservation_id=${reservation_id}&selectSit='+selectSit+'&show_id=${reserveMap.SHOW_ID}',
 							dataType : 'json',
 							success : function(data, status){
+								if(data.success!=0){
 								$('[data-tooltip="'+selectSit+'"]').addClass('row__seat--selected');
 								cnt--;
-								selectCnt++;
+								selectCnt++; 
 								selectSitArray.push(selectSit);
 								showSelectSit();
 								showPrice();
+								}else{
+									alert("이미 선택된 좌석입니다");
+									$('[data-tooltip="'+selectSit+'"]').removeClass('row__seat--selected');
+									console.log($('[data-tooltip="'+selectSit+'"]').html());
+									return false;
+								}
 							},
 							error : function(){
 							}
 						})	
-					
-					}
-				},
-				error : function(){
-					alert("좌석 예매된건지 조회 할 때 에러 발생함!")
-					}
-				})
-			})
+					})
 		});
 		</script>
+	<%-- 	 //조회 전 실행
+		console.log('예약 가능 좌석 클릭! 사실은모름..');			
+		 var selectSit = $(this).attr('data-tooltip');
+			$.ajax({
+			method : 'post',
+			url : '${pageContext.request.contextPath}/reservation/isreserved',
+			data : "selectSit="+selectSit+"&show_id=${reserveMap.SHOW_ID}",
+			dataType : 'json',
+			success : function(data, status){
+				console.log(data); 
+				if(data==true){
+					alert("이미 선택된 좌석입니다");
+					$('[data-tooltip="'+selectSit+'"]').removeClass('row__seat--selected');
+					console.log($('[data-tooltip="'+selectSit+'"]').html());
+					return false;
+				}if(data==false){
+					console.log("insert 되는중..");  
+ 				},
+ 				error : function(){
+ 					alert("좌석 예매된건지 조회 할 때 에러 발생함!")
+ 					}
+ 				})
+		 --%>
+		
+		
+		
 <style>
 .white {
 	background-color: white;
@@ -245,11 +255,11 @@
 			<li class="legend__item legend__item--selected">선택됨</li>
 		</ul>
 		<h2 style="color: white;">선택한 좌석번호</h2>
-		<h3 id="selectSitView" style="color: white;">
+		<h3 id="selectSitView" style="color: white;"> 
 			</h2>
 			<h2 style="color: white;">총 가격</h2>
 			<h2 id="amountView" style="color: white;"></h2>
-	<button class="action action--buy">결제하기</button>
+	<button class="action action--buy"><a href="https://pgweb.uplus.co.kr:8443/pg/wmp/Home2009/demo/xpaydemo/payreq_crossplatform.jsp">결제하기</a></button>
 		<button onclick="fn_goBack();" class="action action--buy">이전
 			화면으로</button>
 	</div>

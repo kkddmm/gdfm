@@ -40,7 +40,7 @@ from cinema g,
 	<select id="getMovieNameByCinema" resultType="map">
 	
 	
-select d.movie_id, d.movie_grade,d.movie_ko_name, d.movie_name
+select d.movie_id, d.movie_grade,d.movie_ko_name, d.movie_name,d.movie_grade
 from movie d, 
 (
 select distinct a.movie_id as 선택지역상영영화id 

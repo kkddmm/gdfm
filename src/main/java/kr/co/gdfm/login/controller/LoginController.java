@@ -1,5 +1,6 @@
 package kr.co.gdfm.login.controller;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -27,6 +28,7 @@ public class LoginController {
 			@RequestParam(value="remember_me", required=false) String remember_me,
 			HttpSession session,
 			HttpServletResponse response,
+			String url,
 			Model model
 			) throws Exception {
 		
@@ -58,14 +60,18 @@ public class LoginController {
 		
 		model.addAttribute("isError",isError);
 		model.addAttribute("message",message);
-		model.addAttribute("locationURL","/");
-		
+		model.addAttribute("locationURL","/"+url);
+		model.addAttribute("login","login");
 		return "common/message";
 	}
 	
 	@RequestMapping("/loginForm")
-	public String loginForm() {
+	public String loginForm(HttpServletRequest request, Model model) {
+ String url = request.getHeader("referer");
+url = url.substring(url.indexOf("GoodDayForMovie/")+"GoodDayForMovie/".length());
+model.addAttribute("url",url);
 		return "login/loginForm";
+		
 	}
 	
 	@RequestMapping("/logout")

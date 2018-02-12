@@ -96,13 +96,22 @@ public class ReservationController {
 
 		reservedSit = reservationService.getReservedSit(show_id);
 		reserveMap = reservationService.getReserveShowInfo(show_id);
+		
+		
+		
 		model.addAttribute("reserveMap", reserveMap);
 		model.addAttribute("reservedSit", reservedSit);
 		model.addAttribute("reservation_id", reservation_id);
 		return "reservation/102";
+		
+		
+		
+		
+		
+		
 	}
 
-	@RequestMapping("/isreserved")
+/*	@RequestMapping("/isreserved")
 	@ResponseBody
 	public boolean isReservedSit(@RequestParam Map<String, Object> paramMap) {
 		boolean reserved = false; // 트루일때는 안되게
@@ -112,7 +121,7 @@ public class ReservationController {
 			reserved = true;
 		}
 		return reserved;
-	}
+	}*/
 
 	@RequestMapping("/insertSit")
 	@ResponseBody

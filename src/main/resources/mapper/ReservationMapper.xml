@@ -71,6 +71,13 @@ from
     and c.ci_id = d.ci_id
 	</select>
 	
+	
+	<delete id="deleteOldReservation" parameterType="string">
+	delete from movie_reservation
+	where mem_id = #{mem_id}
+	and pay_id is null
+	</delete>
+	
 	<insert id="insertReservation" parameterType="kr.co.gdfm.reservation.model.Reservation">
 	
 <selectKey keyProperty="reservation_id" resultType="int" order="BEFORE" >
@@ -95,27 +102,46 @@ INSERT INTO movie_reservation (
 	</insert>
 	
 	<select id="getReservedSit" resultType="map">
-	
-	select b.sit_num
-from reservation_sit b,
-movie_reservation a
-where a.reservation_id = b.reservation_id
-and a.show_id = #{show_id}
+select a.sit_num
+   from reservation_sit a, movie_reservation b
+   where a.reservation_id = b.reservation_id
+   and a.show_id = #{show_id}
+   and SYSDATE - b.reservation_reg_date<![CDATA[ <]]> 1/72
 	</select>
 	
-<select id="isReservedSit" parameterType="map" resultType="int">
+<!-- <select id="isReservedSit" parameterType="map" resultType="int">
 select count(*)
 from movie_reservation a, reservation_sit b, movie_show_info c
 where a.reservation_id = b.reservation_id
 and a.show_id = c.show_id
 and c.show_id = #{show_id} 
 and b.sit_num = #{selectSit} 
-</select>	
+</select>	 -->
+
+
+<delete id="deleteUncountedSit">
+delete from movie_reservation
+where SYSDATE-reservation_reg_date <![CDATA[ > 1/72]]>
+and pay_id is null
+</delete>
+ 
+
 	<insert id="insertSit" parameterType="map">
-	INSERT INTO reservation_sit ( reservation_id,sit_num ) VALUES (#{reservation_id},#{selectSit})
+	INSERT INTO reservation_sit (
+    show_id,
+    sit_num,
+    reservation_id
+) VALUES (
+    #{show_id},
+    #{selectSit},
+    #{reservation_id}
+)
 	</insert>
 	<delete id="deleteSit" parameterType="map">
 	delete from reservation_sit
 	where reservation_id = #{reservation_id} and sit_num = #{selectSit}
 	</delete>
+	
+	
+	
 </mapper>

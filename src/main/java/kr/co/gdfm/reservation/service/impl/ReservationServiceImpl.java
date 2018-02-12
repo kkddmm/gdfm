@@ -28,7 +28,16 @@ public class ReservationServiceImpl implements ReservationService{
 	@Override
 	public Map<String, Object> getReserveShowInfo(int show_id) {
 		// TODO Auto-generated method stub
+		
+		
+		
 		return reservationMapper.getReserveShowInfo(show_id);
+		
+		
+		
+		
+		
+		
 	}
 
 	@Override
@@ -38,15 +47,29 @@ public class ReservationServiceImpl implements ReservationService{
 
 	@Override
 	public void insertReservation(Reservation reservation) {
+		
+		reservationMapper.deleteOldReservation(reservation.getMem_id());
+		
 		reservationMapper.insertReservation(reservation);
+		
+		
 	}
-	@Override
+	/*@Override
 	public int isReservedSit(Map<String, Object> paramMap) {
 		return reservationMapper.isReservedSit(paramMap);
-	}
+	}*/
 	@Override
 	public int insertSit(Map<String, Object> paramMap) {
-	return	reservationMapper.insertSit(paramMap);
+		try {
+			reservationMapper.deleteUncountedSit();
+			return	reservationMapper.insertSit(paramMap);
+			
+			
+			
+			
+		}catch(RuntimeException e){
+			return 0;
+		}
 	}
 	@Override
 	public int deleteSit(Map<String, Object> paramMap) {

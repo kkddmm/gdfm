@@ -3,14 +3,32 @@
 
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
+
+
+
+
+<script src="${pageContext.request.contextPath}/js/moment.min.js"></script>
 <script type="text/javascript">
+
+
 	var movieSelect = false;
 	var cinemaSelect = false;
 	var dateSelect = false;
-
-	function fn_changeCinemaByMovie(movie_id, movie_name, movie_ko_name) {
+	
+	 function getAgeFromBirthDay(birth_day) {
+		var birthday = moment(birth_day).toDate();
+		var today = new Date();
+		var years = today.getFullYear() - birthday.getFullYear();
+		birthday.setFullYear(today.getFullYear());
+		if (today < birthday) years--;
+		return years;
+		}
+	
+	
+	function fn_changeCinemaByMovie(movie_id, movie_name, movie_ko_name,movie_grade) {
 		//영화를 눌렀을때 영화관 목록이 바뀌는 메소드
 		$('#selectedMovie').val(movie_id);
+		$('#selectedMovieGrade').val(movie_grade);
 		$("#imgView").children().remove();
 		$('<img>').attr("src","${pageContext.request.contextPath}/movieposter/"+movie_name+"_poster.jpg").appendTo('#imgView');
 		$('#selectMovieName').html(movie_ko_name);
@@ -33,6 +51,7 @@
  				 fn_loadAddr2(addr1,movie_id);
  				}).appendTo('#addr1View');
  				}
+			// 영화,상영관, 날짜가 전부 선택되었을때 상영정보를 출력하는 함수를 실행.
 			if(movieSelect == true&&cinemaSelect==true&&dateSelect==true){
 				fn_show_info ()
 				}
@@ -41,8 +60,8 @@
 			} )
 		}
 	function fn_loadAddr2(addr1, movie_id) {
-		$.ajax({ type : 'post',
-					url : '${pageContext.request.contextPath}/reservation/get/addr2',
+		$.ajax({ type : 'post', 
+			url : '${pageContext.request.contextPath}/reservation/get/addr2',
 					data : "ci_addr1=" + addr1+"&movie_id="+movie_id,
 					dataType : "json",
 					success : function(data, status) {
@@ -64,12 +83,14 @@
 																$('#movieView').html('');
 																for (k in data) {
 																	$('<li>').addClass("list-group-item").attr("id",data[k].MOVIE_ID).attr("name",data[k].MOVIE_NAME)
-																.attr("movie_ko_name",data[k].MOVIE_KO_NAME).html('<img src="${pageContext.request.contextPath}/img/'+data[k].MOVIE_GRADE+'.png" />'
+																.attr("movie_ko_name",data[k].MOVIE_KO_NAME).attr("data-grade",data[k].MOVIE_GRADE).html('<img src="${pageContext.request.contextPath}/img/'+data[k].MOVIE_GRADE+'.png" />'
 																		+ data[k].MOVIE_KO_NAME).click(function(){
-																		var movie_id =$(this).attr("id");
-																		var movie_name=$(this).attr("name");
-																		var movie_ko_name=$(this).attr("movie_ko_name");
-																			fn_changeCinemaByMovie(movie_id, movie_name, movie_ko_name);
+																			$movie = $(this);
+																		var movie_id =$movie.attr("id");
+																		var movie_name=$movie.attr("name");
+																		var movie_ko_name=$movie.attr("movie_ko_name");
+																		var movie_grade = $movie.attr("data-grade");
+																			fn_changeCinemaByMovie(movie_id, movie_name, movie_ko_name,movie_grade);
 																		}).appendTo('#movieView')
 																		}
 																if(movieSelect == true&&cinemaSelect==true&&dateSelect==true){
@@ -93,6 +114,13 @@
 			}
 	}
 	function fn_show_info (){
+	
+		
+	
+		
+		
+		
+		
 	var movie_id = $('#selectedMovie').val();
 	var ci_id = $('#selectedCinema').val();
 	var show_date = $('#selectedDate').val();
@@ -113,7 +141,7 @@ if(data[0]!=null){
 					$('<span>').html('<button id="'+data[j].show_id+'" type="button" onclick="fn_selectShowInfo('+data[j].show_id+',\''+data[j].dimension_name+'\',\''+data[j].start_time+'\',\''+data[j].end_time+'\',\''+data[j].screen_name+'\');" class="btn" > '+data[j].start_time+'</button>&nbsp;'+data[j].sit +'석&nbsp;' )
 					.appendTo('#infoView');
 				}
-				
+				 
 				
 }	else{
 	$('#infoView').html('상영 정보가 없습니다');
@@ -136,6 +164,38 @@ $('#goSitDiv').html('');
 		$('#selectShowView').html(screen_name+'('+dimension_name+')&nbsp;'+start_time+'&nbsp;~&nbsp;'+end_time);
 		$('#goSitDiv').html(''); 	
 $('<img>').attr('src',"${pageContext.request.contextPath}/img/goSitBtn.png").on('click',function(){
+	
+	if(${empty LOGIN_USER}){
+		 alert("로그인이 필요합니다.");
+		 location.href ="${pageContext.request.contextPath}/login/loginForm";
+	}
+	
+	
+	//작업중
+	else{
+		console.log("로그인한 유저의 만 나이 " +getAgeFromBirthDay('${LOGIN_USER.mem_birth}')); 
+		//선택한 영화의 등급과 나이 대조 
+		if($('#selectedMovieGrade').val()=='rate12'){
+		if( getAgeFromBirthDay('${LOGIN_USER.mem_birth}')<12){
+			alert("해당 영화는 12세 미만 관람불가입니다.")
+			return false;
+		}}
+		if($('#selectedMovieGrade').val()=='rate15'){
+		if( getAgeFromBirthDay('${LOGIN_USER.mem_birth}')<15){
+			alert("해당 영화는 15세 미만 관람불가입니다.")
+			return false;
+		}}
+		if($('#selectedMovieGrade').val()=='rate19'){
+		if( getAgeFromBirthDay('${LOGIN_USER.mem_birth}')<19){
+			alert("해당 영화는 19세 미만 관람불가입니다.")
+			return false;
+		}  
+		}
+		
+		
+		
+		
+		
 	var sel = confirm("선택하신 정보로 예매하시겠습니까?")
 	if(sel ==true){
 		$.ajax({
@@ -158,8 +218,14 @@ $('<img>').attr('src',"${pageContext.request.contextPath}/img/goSitBtn.png").on(
 		})
 		
 	}
+	}
+	
+	
 }).appendTo('#goSitDiv');
 	}
+	
+	
+	
 </script>
 <style>
 .row.main {
@@ -193,7 +259,7 @@ height : 20px;
 				<ul style="height:500px; overflow:scroll;" id="movieView">
 					<c:if test="${not empty movieList}">
 						<c:forEach items="${movieList}" var="movie">
-							<li id="${movie.movie_id}" class="list-group-item" onclick="fn_changeCinemaByMovie(${movie.movie_id},'${movie.movie_name}','${movie.movie_ko_name}');"><img
+							<li id="${movie.movie_id}" class="list-group-item" onclick="fn_changeCinemaByMovie(${movie.movie_id},'${movie.movie_name}','${movie.movie_ko_name}','${movie.movie_grade}');"><img
 								src="${pageContext.request.contextPath}/img/${movie.movie_grade}.png">${movie.movie_ko_name}</li>
 						</c:forEach>
 					</c:if>
@@ -283,13 +349,13 @@ height : 20px;
 </div>		
 		</div>
 		<input type="hidden" name="selectedMovie" type="text" id="selectedMovie" />
+		<input type="hidden" name="selectedMovieGrade" type="text" id="selectedMovieGrade" /> 
 		<input type="hidden" name="selectedCinema" type="text" id="selectedCinema" />
 		<input type="hidden" name="selectedDate" type="text" id="selectedDate" />
-		
+		 
 		<form name ="selectForm">
 		<input type="hidden" name="show_id" type="text" id="selectedShow" />
 		<input type="hidden" name="reservation_id" type="text" id="reservation_id" />
-		
 		
 		
 		</form>
