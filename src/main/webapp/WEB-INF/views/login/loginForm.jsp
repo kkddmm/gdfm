@@ -51,6 +51,7 @@
 						<input type="button" value="login" class="btn btn-warning btn-block" onclick="fn_login();">
 					</div>
 				</div>
+				<input type="hidden" name="url" value="${url}"/>
 			</form>
 			
 			<hr>
