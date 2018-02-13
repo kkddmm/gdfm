@@ -41,6 +41,26 @@ $(function(){
 		}
 	});
 	
+	$.ajax({
+		type: 'post',
+		url : '${pageContext.request.contextPath}/main/mainMovieNew',
+		dataType: 'json',
+		success : function(data, status){
+//  			console.log(data);
+//  			console.log(data.movienewList);
+  			for(var i = 0; i <= 15; i++){
+//  			console.log(data.movienewList[i]);
+//  			console.log(data.movienewList2[i]);
+//  			console.log(data.movienewList3[i]);
+  			$('<div>').html('<a href="http://movie.daum.net/magazine/'+data.movienewList4[i]+'"><img src="'+data.movienewList[i]+'"><br>'+data.movienewList2[i]+'<br>'+data.movienewList3[i]+'</a>').appendTo('.skill');	
+  				
+  			}	
+		},
+		error : function(){
+			console.log(error);
+		}
+	});
+	
 	
 	
 });

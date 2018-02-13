@@ -6,6 +6,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -15,6 +16,10 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang3.StringUtils;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -110,8 +115,6 @@ public class MainController {
 		return recommendList;		
 	}
 	
-	
-	
 	@RequestMapping("/mainOpenMovieChart")
 	@ResponseBody
 	public Map<String, Object> getOpenMovieChart(			  
@@ -144,10 +147,6 @@ public class MainController {
 		
 		return preMap;		
 	}
-	
-	
-	
-	
 	
 	@RequestMapping("/mainMovieDay")
 	@ResponseBody
@@ -190,20 +189,48 @@ public class MainController {
 		return boxMap;
 		
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+	@RequestMapping("/mainMovieNew")
+	@ResponseBody
+	public Map<String, Object> mainMovieNew() throws Exception {
+		String reqUrl = "http://movie.daum.net/magazine/movienews/";
+		
+			InputStream is = new URL(reqUrl).openStream(); // openConnect() + getInputStream()
+			
+			Document doc = Jsoup.parse(is, "UTF-8", reqUrl); // 자바스크립트가능, 스크립트단 불러오기불가능
+			
+			Elements liList = doc.select("ul.list_magazine > li");
+			//System.out.println( liList.size() );
+			Map<String, Object> movienewMap = new HashMap<>();
+			List<String> movienewList = new ArrayList<>();
+			List<String> movienewList2 = new ArrayList<>();
+			List<String> movienewList3 = new ArrayList<>();
+			List<String> movienewList4 = new ArrayList<>();
+			//int i=1;
+			//int i2=1;
+			//int i3=1;
+			for(Element li : liList) {
+				Element link = li.selectFirst("span.magazine_img");
+				Element link2 = li.selectFirst("strong.tit_magazine");
+				Element link3 = li.selectFirst("span.txt_magazine");
+				Element link4 = li.selectFirst("a.link_magazine");
+				
+				System.out.println( link.attr("style").split("[() ]")[1] );
+				System.out.println( link2.text() );
+				System.out.println( link3.text() );
+				System.out.println( link4.attr("herf") );
+				movienewList.add(link.attr("style").split("[() ]")[1]);
+				movienewList2.add(link2.text());
+				movienewList3.add(link3.text());
+				movienewList4.add(link4.attr("href"));
+				movienewMap.put("movienewList", movienewList);
+				movienewMap.put("movienewList2", movienewList2);
+				movienewMap.put("movienewList3", movienewList3);
+				movienewMap.put("movienewList4", movienewList4);
+			
+			}
+			return movienewMap;
+	}
 	
 	
 }
