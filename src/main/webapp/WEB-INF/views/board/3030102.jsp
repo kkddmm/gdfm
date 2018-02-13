@@ -84,7 +84,7 @@ $(document).ready(function () {
 			
 			if(uptconfirm2==true){
 				
-				location.href ="${pageContext.request.contextPath}/board/communityBoardView?bo_id="+bo_id+"&bo_type_code="+bo_type_code;
+				location.href ="${pageContext.request.contextPath}/board/3030102/"+bo_id+"/"+bo_type_code;
 			}else{
 				return false;
 			}
