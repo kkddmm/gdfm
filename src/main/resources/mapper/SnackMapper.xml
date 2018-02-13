@@ -159,10 +159,10 @@
 	</select>
 	
 	
-	<delete id="deleteBasket" parameterType="int">
-		DELETE 	 
-		FROM snack_buy 
-		where snack_buy_id=#{snack_buy_id}
+	<delete id="deleteBasket" parameterType="int">		
+		DELETE 	
+			FROM snack_buy 
+		where snack_buy_id=#{snack_buy_id}			
 	</delete>
 	
 	

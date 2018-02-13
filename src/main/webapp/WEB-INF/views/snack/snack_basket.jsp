@@ -5,16 +5,19 @@
 
 <script>
 
-function fn_delSnackBasket(snack_buy_id){	
+function fn_delSnackBasket(snack_buy_id,mem_id){	
 	$.ajax({
 		type: 'post',
 		url : '${pageContext.request.contextPath}/snack/snack_deleteBasket',
-		data : "snack_buy_id="+snack_buy_id,   		
+		data : "snack_buy_id="+snack_buy_id,  		
+		
 		success : function(data, status){
 			alert("물품을 장바구니에서 삭제했습니다.");
-			alert(data.status);
-			alert(data.message);
-		},
+  			location.href='${pageContext.request.contextPath}/snack/snack_basket/'+mem_id;			
+			console.log('스낵아이디'+snack_buy_id);
+//  			location.reload();
+
+		},		
 		error : function(error){
 			console.log(error);
 		}
@@ -69,16 +72,17 @@ ul, li {
 				<div class="col-md-12">
 					<!-- Gallery Item 1 -->
 					
-					
-					<div class="row" style="height: 400px; border: 10px; border-color: 3f3f3f;">														
-						<div class="col-md-4""><img src="${pageContext.request.contextPath}/img/snack/${basket.snack_name}.jpg" alt="Gallery"></div>											
-						<div class="col-md-6">
-							<span>제품명: ${basket.snack_name}<br>가격: ${basket.snack_price}원<br>수량: ${basket.snack_cnt}개</span>				
+
+						<div class="row" style="height: 400px; border: 10px; border-color: 3f3f3f;">														
+							<div class="col-md-4""><img src="${pageContext.request.contextPath}/img/snack/${basket.snack_name}.jpg" alt="Gallery"></div>											
+							<div class="col-md-6">
+								<span>제품명: ${basket.snack_name}<br>가격: ${basket.snack_price}원<br>수량: ${basket.snack_cnt}개</span>				
+							</div>
+							<div class="col-md-2">
+								<span align="right"><input type="button" id="BtnDelete" onclick="fn_delSnackBasket(${basket.snack_buy_id},'${LOGIN_USER.mem_id}');" value="삭제"></span>
+							</div>
 						</div>
-						<div class="col-md-2">
-							<span align="right"><input type="button" id="BtnDelete" onclick="fn_delSnackBasket(${basket.snack_buy_id});" value="삭제"></span>
-						</div>
-					</div>												
+
 					<br>	
 																		
 				</div>						
@@ -90,9 +94,7 @@ ul, li {
 		<span>장바구니가 비어있습니다.</span>
 	</c:if>	
 </div>
-		<div>
-			
-		</div>
+		
 
 		<div align="right">			
 			<input class ="btn" type="button" value="결제하기"/>
@@ -123,7 +125,6 @@ ul, li {
 <br>
 <br>
 <br>
-
 
 
 

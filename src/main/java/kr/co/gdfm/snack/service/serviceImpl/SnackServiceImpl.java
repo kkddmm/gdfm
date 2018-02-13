@@ -16,20 +16,20 @@ public class SnackServiceImpl implements SnackService {
 	@Autowired
 	SnackMapper snackMapper;
 
-	
+	//스낵메뉴 개수
 	@Override
 	public int getSnackCount(Map<String, Object> params) throws Exception {
 		
 		return snackMapper.selectSnackCount(params);
 	}	
 	
-	
+	//스낵메뉴 리스트
 	@Override
 	public List<Snack> getSnackList(Map<String, Object> params) throws Exception {
 
 		return snackMapper.selectSnackList(params);
 	}
-
+	//스낵메뉴 상세정보
 	@Override
 	public Snack snackView(int snack_id) throws Exception {
 
@@ -50,18 +50,18 @@ public class SnackServiceImpl implements SnackService {
 	 * 
 	 * return snackMapper.updateSnack(snack); }
 	 */
-
+	//장바구니 담기
 	@Override
 	public void insertBasket(Map<String, Object> params) throws Exception {
 			snackMapper.insertBasket(params);
 		}
-
+	//장바구니 보기
 	@Override
 	public List<Snack> getBasketList(String mem_id) throws Exception {
 		
 		return snackMapper.getBasketList(mem_id);
 	}
-
+	//장바구니 삭제
 	@Override
 	public void deleteBasket(int snack_buy_id) throws Exception {
 		

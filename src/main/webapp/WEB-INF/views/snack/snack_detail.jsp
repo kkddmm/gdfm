@@ -18,8 +18,8 @@ function fn_insertBasket(snack_id){
 		data : "snack_id="+snack_id+"&mem_id=test"+"&snack_cnt="+snackCnt,		
 		success : function(data, status){
 			alert("장바구니에 담았습니다.");
-			alert(data.status);
-			alert(data.message);
+// 			alert(data.status);
+// 			alert(data.message);
 		},
 		error : function(error){
 			console.log(error);
@@ -178,8 +178,10 @@ ul, li {
 			${snack.snack_use_info} 
 		</div>
 		<div>
+		<c:if test="${not empty LOGIN_USER.mem_id}">
 			<input class="btn" type="button" id="BtnInsertBasket" onclick="fn_insertBasket(${snack.snack_id});" name="BtnInsertBasket" value="장바구니"/>
 			<input class ="btn" type="button" value="구매하기"/>
+		</c:if>
 			<input class ="btn" onclick="location.href='${pageContext.request.contextPath}/snack/snack' " type="button" value="목록으로"/>
 		</div>
 	</c:if>

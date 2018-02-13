@@ -1,7 +1,5 @@
 package kr.co.gdfm.snack.controller;
 
-import static org.hamcrest.CoreMatchers.nullValue;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,8 +7,6 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,13 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import kr.co.gdfm.board.model.Board;
 import kr.co.gdfm.board.service.BoardService;
-import kr.co.gdfm.common.util.PagingUtil;
 import kr.co.gdfm.member.model.Member;
 import kr.co.gdfm.member.service.MemberService;
 import kr.co.gdfm.snack.Page.SnackPaging;
-import kr.co.gdfm.snack.mapper.SnackMapper;
 import kr.co.gdfm.snack.model.Snack;
 import kr.co.gdfm.snack.service.SnackService;
 
@@ -143,7 +136,7 @@ public class SnackController {
 
 	@RequestMapping("/snack_deleteBasket")
 	@ResponseBody
-	public void deleteBasket(@RequestParam(value = "snack_buy_id") int snack_buy_id) throws Exception {
+	public void deleteBasket(@RequestParam(value="snack_buy_id") int snack_buy_id) throws Exception {
 
 		snackService.deleteBasket(snack_buy_id);
 	}
@@ -158,7 +151,6 @@ public class SnackController {
 	
 
 }
-
 
 
 

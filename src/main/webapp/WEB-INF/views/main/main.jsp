@@ -3,6 +3,17 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <script type="text/javascript">
+
+
+function fn_movieDetail(movie_id){
+	location.href="${pageContext.request.contextPath}/movie/movie_detail/"+movie_id;
+}
+function fn_movieReservation(){
+	location.href="${pageContext.request.contextPath}/reservation/101";
+}
+
+
+
 $(function(){
 	$.ajax({
 		type: 'post',
@@ -65,7 +76,7 @@ $(function(){
 	
 });
 
-/* main 화면 로딩시 자동실행 */
+/*main 화면 로딩시 자동실행 */
 $(function(){	
 	fn_movieOpenList();	
 })
@@ -87,10 +98,11 @@ function fn_movieOpenList(){
 				$('<div>').addClass('col-md-3').html(
 					'<img alt="" style="width:230px;height:336px;" src="${pageContext.request.contextPath}/movieposter/'+openMovieList[i].movie_name+'_poster.jpg"><br>'+
        			'<div style="padding-top: 10px;">'+
-       				'<button class="btn btn-default">상세정보</button>'+
-       				'<button class="btn btn-default" >예매하기</button>'+
+       				'<button class="btn btn-default" onclick="fn_movieDetail('+openMovieList[i].movie_id+');">상세정보</button>'+
+       				'<button class="btn btn-default" onclick="fn_movieReservation('+openMovieList[i].movie_id+');">예매하기</button>'+
        			'</div>'	 				
-					).appendTo('#mList');			
+					).appendTo('#mList');	
+				
 				}   
 			
 			
@@ -101,10 +113,9 @@ function fn_movieOpenList(){
 	});
 }
 
-
  
 /* main 화면 개봉예정작 */ 
- function fn_moviePreList(){
+function fn_moviePreList(){
 	
 	 $.ajax({
 			type: 'post',
@@ -118,8 +129,8 @@ function fn_movieOpenList(){
 						$('<div>').addClass('col-md-3').html(
 							'<img alt="" style="width:230px;height:336px;" src="${pageContext.request.contextPath}/movieposter/'+preMovieList[i].movie_name+'_poster.jpg"><br>'+
 		       			'<div style="padding-top: 10px;">'+
-		       				'<button class="btn btn-default">상세정보</button>'+
-		       				'<button class="btn btn-default" >예매하기</button>'+
+		       				'<button class="btn btn-default" onclick="fn_movieDetail('+preMovieList[i].movie_id+');">상세정보</button>'+
+		       				'<button class="btn btn-default" onclick="fn_movieReservation('+preMovieList[i].movie_id+');">예매하기</button>'+
 		       			'</div>'	 				
 							).appendTo('#mList');			
 						} 
@@ -133,9 +144,10 @@ function fn_movieOpenList(){
 }
 
 
- /* main 로그인 여부 영화추천 */
 
- function fn_reservation(){	 
+/* main 로그인 여부 영화추천 */
+
+function fn_reservation(){	 
 
 	 $.ajax({
 			type: 'post',
@@ -148,8 +160,8 @@ function fn_movieOpenList(){
 						$('<div>').addClass('col-md-3').html(
 							'<img alt="" style="width:230px;height:336px;" src="${pageContext.request.contextPath}/movieposter/'+recommendList[i].movie_name+'_poster.jpg"><br>'+
 		       			'<div style="padding-top: 10px;">'+
-		       				'<button class="btn btn-default">상세정보</button>'+
-		       				'<button class="btn btn-default">예매하기</button>'+
+		       				'<button class="btn btn-default" onclick="fn_movieDetail('+recommendList[i].movie_id+');">상세정보</button>'+
+		       				'<button class="btn btn-default" onclick="fn_movieReservation('+recommendList[i].movie_id+');" >예매하기</button>'+
 		       			'</div>'	 				
 							).appendTo('#mList');			
 						} 
@@ -160,7 +172,8 @@ function fn_movieOpenList(){
 				}
 			});	
 	
- } 
+} 
+ 
   
  
 
