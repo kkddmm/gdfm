@@ -371,6 +371,7 @@ function fn_list() {
 					<p><input type="text" name="mem_addr_detail" size="50" value="${member.mem_addr_detail}" id="sample6_address2" placeholder="상세주소" maxlength="200"></p>
 				</td>
 			</tr>
+			<c:if test="${LOGIN_USER.class_code == 99}">
 			<tr>
 				<th class="info text-center">회원등급</th>
 				<td>
@@ -389,6 +390,7 @@ function fn_list() {
 				<th class="info text-center">회원포인트</th>
 				<td><input type="text" name="mem_point" size="20" value="${member.mem_point}"></td>
 			</tr>
+			</c:if>
 		</table>
 			<p align="right">
 					<c:if test="${param.type == 'I'}">
@@ -397,8 +399,10 @@ function fn_list() {
 					<c:if test="${param.type != 'I'}">
 						<input type="button" class="btn btn-warning" value="수정하기" onclick="fn_save('U')">
 					</c:if>
-					<input type="reset" class="btn btn" value="취소">
-					<input type="button" class="btn btn-default" value="목록" onclick="fn_list()">
+						<input type="reset" class="btn btn" value="취소">
+					<c:if test="${LOGIN_USER.class_code == 99}">
+						<input type="button" class="btn btn-default" value="목록" onclick="fn_list()">
+					</c:if>
 			</p>
 		</form>
 	</div>

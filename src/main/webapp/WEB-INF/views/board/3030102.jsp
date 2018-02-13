@@ -157,11 +157,16 @@ $(document).ready(function () {
 	</table>
 		
 		<p class="text-right">
-		
-		<c:if test="${not empty LOGIN_USER and LOGIN_USER.mem_id == board.mem_id}">	
+		<c:if test="${LOGIN_USER.class_code == 99}">
 			<input type="button" value="수정" class="btn btn-warning" onclick="fn_writeForm('${board.bo_id}','${board.bo_type_code}');">
 			<input type="button" value="삭제" class="btn btn" onclick="fn_delete('${board.bo_id}','${board.bo_type_code}');">
-		</c:if>	
+		</c:if>
+		<c:if test="${LOGIN_USER.class_code != 99}">
+			<c:if test="${not empty LOGIN_USER and LOGIN_USER.mem_id == board.mem_id}">	
+				<input type="button" value="수정" class="btn btn-warning" onclick="fn_writeForm('${board.bo_id}','${board.bo_type_code}');">
+				<input type="button" value="삭제" class="btn btn" onclick="fn_delete('${board.bo_id}','${board.bo_type_code}');">
+			</c:if>	
+		</c:if>
 			<input type="button" value="목록" class="btn btn-default" onclick="fn_list();">
 		</p>
 		<c:if test="${board.bo_type_code == 2}">

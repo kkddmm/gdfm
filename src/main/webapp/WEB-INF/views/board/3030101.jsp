@@ -66,7 +66,16 @@ $(document).ready(function () {
 			</c:forEach>			
 		</c:if>
 		<div align="right">
-				<input type="button" value="글쓰기" class="btn btn-warning" onclick="fn_writeForm();">
+				<c:if test="${param.bo_type_code == 1}">
+					<c:if test="${not empty sessionScope.LOGIN_USER && LOGIN_USER.class_code == 99}">
+						<input type="button" value="글쓰기" class="btn btn-warning" onclick="fn_writeForm();">
+					</c:if>
+				</c:if>
+				<c:if test="${param.bo_type_code != 1}">
+					<c:if test="${not empty sessionScope.LOGIN_USER}">
+						<input type="button" value="글쓰기" class="btn btn-warning" onclick="fn_writeForm();">
+					</c:if>
+				</c:if>
 		</div>
 		
 		

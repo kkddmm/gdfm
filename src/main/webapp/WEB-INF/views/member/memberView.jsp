@@ -10,7 +10,7 @@
 	}
 	
 	function fn_delete(mem_id) {// js분리시 사용
-		if(confirm("삭제하시겠습니까?")){
+		if(confirm("정말 회원하시겠습니까?")){
 			location.href='memberDelete?mem_id=' + mem_id;
 		}
 	}
@@ -66,9 +66,11 @@
 		</tr>
 		</table>
 		<p align="right">
-				<input type="button" class="btn btn-warning" value="수정" onclick="location.href='memberForm?type=U&mem_id=${member.mem_id}'">
-				<input type="button" class="btn btn" value="삭제" onclick="fn_delete('${member.mem_id}')">
-				<input type="button" class="btn btn-default" value="목록" onclick="location.href='memberList'">
+				<input type="button" class="btn btn-warning" value="회원수정" onclick="location.href='memberForm?type=U&mem_id=${member.mem_id}'">
+				<input type="button" class="btn btn" value="회원탈퇴" onclick="fn_delete('${member.mem_id}')">
+				<c:if test="${LOGIN_USER.class_code == 99}">
+					<input type="button" class="btn btn-default" value="회원목록" onclick="location.href='memberList'">
+				</c:if>
 		</p>
 	
 </div>
