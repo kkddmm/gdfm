@@ -5,10 +5,14 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +27,9 @@ import com.google.gson.Gson;
 import kr.co.gdfm.board.model.Board;
 import kr.co.gdfm.board.service.BoardService;
 import kr.co.gdfm.common.util.PagingUtil;
+import kr.co.gdfm.main.service.MainService;
+import kr.co.gdfm.member.model.Member;
+import kr.co.gdfm.movie.model.Movie;
 
 @RequestMapping("/main")
 @Controller
@@ -30,12 +37,15 @@ public class MainController {
 	@Autowired
 	BoardService boardService;
 	
+	@Autowired
+	MainService mainService;
+	
 	@RequestMapping("/main")
 	public String goMain(
 			//@RequestParam(value="searchType", required=false, defaultValue="") String searchType,
 			//@RequestParam(value="searchWord", required=false, defaultValue="") String searchWord,
 			@RequestParam(value="currentPage", required=false, defaultValue="1") int currentPage,
-			@RequestParam(value="pageSize", required=false, defaultValue="10") int pageSize,
+			@RequestParam(value="pageSize", required=false, defaultValue="10") int pageSize,			
 			Model model
 			) throws Exception {
 		int pageCount = 5;	//기본값
@@ -48,6 +58,7 @@ public class MainController {
 				// 페이징 처리
 		PagingUtil pagingUtil = new PagingUtil(currentPage, totalCount, pageSize, pageCount);
 		
+	
 		
 //		if(StringUtils.isNotBlank(searchType) && StringUtils.isNotBlank( searchWord )) {
 //			paramMap.put("searchType", searchType);
@@ -58,12 +69,85 @@ public class MainController {
 		paramMap.put("endRow", pagingUtil.getEndRow());
 		
 		List<Board> mainList = boardService.getBoardList(paramMap); 
-	
+		
+
+			
 		model.addAttribute("mainList", mainList);
 		
 		
 		return "main/main";
 	}
+	
+	@RequestMapping("/recommendMovieChart")	
+	@ResponseBody
+	public Map<String, Object> getRecommendMovieChart(
+			HttpSession session,  
+//			@RequestParam(value="mem_id", required=false) String mem_id, 
+//			@RequestParam(value="movie_show_yn", required=true) String movie_show_yn, 
+			Model model
+			) throws Exception {
+		Member member = null;
+		member=(Member)session.getAttribute("LOGIN_USER");
+		
+		
+		Movie movie = null;
+		
+		
+		List<Movie> movieList = null;
+		Map<String, Object> recommendList= new HashMap<>();
+		
+				//&&StringUtils.isNotBlank(member.getMem_id())
+		if( member!=null) {
+			movieList=mainService.getMainMovieChartWithLogin(member); //로그인 한 사용자 영화추천 리스트
+		}else {
+			movieList=mainService.getMainMovieChartWithNoLogin(); //로그인 안 했을 때 예매율 순위 영화 리스트
+		}
+		
+//		movieList=mainService.getMainMovieChartWithNoLogin(); 
+		
+		recommendList.put("movieList", movieList);
+		
+		return recommendList;		
+	}
+	
+	
+	
+	@RequestMapping("/mainOpenMovieChart")
+	@ResponseBody
+	public Map<String, Object> getOpenMovieChart(			  
+//				@RequestParam(value="movie_release_date", required=true) String movie_release_date, Model model
+			) throws Exception {
+		
+	
+		Map<String, Object> openMap = new HashMap<>();
+		List<Movie> openMovieList = null;
+	
+			openMovieList=mainService.mainOpenMovieList(); 
+				//openMovieList 자체를 return 하면 안되나?
+			openMap.put("openMovieList", openMovieList);
+		return openMap;		
+	}
+	
+	
+	//개봉예정 영화
+	@RequestMapping("/mainPreMovieChart")
+	@ResponseBody
+	public Map<String, Object> getPreMovieChart(							
+			) throws Exception {
+		
+		Map<String, Object> preMap = new HashMap<>();
+		List<Movie> preMovieList = null;
+		
+		preMovieList=mainService.mainPreMovieList();
+		
+		preMap.put("preMovieList", preMovieList);	
+		
+		return preMap;		
+	}
+	
+	
+	
+	
 	
 	@RequestMapping("/mainMovieDay")
 	@ResponseBody

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="kr.co.gdfm.main.mapper.MainMapper">
+
+  
+  <!-- 로그인 안했을 때 예매율별 순위 -->
+  	<select id="getMainMovieChartWithNoLogin" resultType="kr.co.gdfm.movie.model.Movie">
+  	<![CDATA[
+  		SELECT e.* FROM
+			(
+			SELECT  c.영화id, d.movie_name, d.movie_grade, d.movie_ko_name,c.cnt
+			FROM
+				(
+					SELECT a.movie_id  as 영화id, count(b.pay_id)  as cnt
+					FROM movie_show_info a, movie_reservation b
+					WHERE a.show_id=b.show_id(+)
+					GROUP by a.movie_id 
+				) c,  movie d
+			WHERE c.영화id=d.movie_id 
+			ORDER BY c.cnt desc
+			) e
+		WHERE ROWNUM<=4		  	
+  	]]>
+  	</select>
+  	
+  	<!-- 로그인 했을 때 성별, 연령별 맞춤 영화 추천 -->
+  	<select id="getMainMovieChartWithLogin"  parameterType="kr.co.gdfm.member.model.Member" 
+  								resultType="kr.co.gdfm.movie.model.Movie">
+  	<![CDATA[
+		select f.*
+			from(
+				select d.movie_id, e.movie_name, e.movie_ko_name, nvl(d.집계 ,0) as 집계
+				from (
+				    select b.movie_id, count(c.pay_id) as 집계 
+				    from 
+				    movie_show_info b,
+				    (
+					    select mem_id, mem_gender,
+					    trunc(to_char(sysdate, 'yyyy')-substr(mem_birth, 1,4)+1,-1)||'대' as 나이대
+					    from member
+					    where trunc(to_char(sysdate,'yyyy')-substr(mem_birth,1,4)+1,-1)||'대'
+					    =trunc(to_char(sysdate,'yyyy')-substr(#{mem_birth},1,4)+1,-1)||'대'  
+					    and mem_gender=#{mem_gender}   
+				    )a,
+				    movie_reservation c
+					    where b.show_id=c.show_id
+					    and a.mem_id=c.mem_id
+					    and c.pay_id is not null
+                        and c.mem_id <>#{mem_id}  
+					    group by b.movie_id
+				    )d   inner join movie e
+				    on (d.movie_id = e.movie_id)
+				    where e.movie_show_yn='Y'
+				    order by nvl(d.집계, 0) desc
+				) f
+			where rownum<=4 	
+  	]]>
+  	</select>
+  	
+ <!-- 최신 영화 -->
+  	<select id="mainOpenMovieList" parameterType="string" resultType="kr.co.gdfm.movie.model.Movie">  	
+	<![CDATA[
+	 select *
+     from
+      (
+        SELECT *
+		FROM MOVIE  
+		WHERE movie_show_yn='Y'
+		and to_date(movie_release_date)<=SYSDATE
+        order by movie_release_date desc
+        )
+        
+        where rownum <=4
+  	  ]]>
+  	</select> 
+  	
+  	<!-- 개봉예정영화 -->  	
+  	<select id="mainPreMovieList" parameterType="string" resultType="kr.co.gdfm.movie.model.Movie">  	
+	  <![CDATA[	
+	  	 select * 
+        from  
+        (
+        SELECT *
+		FROM MOVIE   
+		where to_date(movie_release_date)>sysdate	
+		ORDER BY movie_release_date desc
+	    )
+	    where rownum <=4
+		]]> 	
+  	</select>
+  </mapper>
+  
+  
+  
+  

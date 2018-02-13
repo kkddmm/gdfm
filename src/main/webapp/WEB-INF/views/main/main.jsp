@@ -11,7 +11,7 @@ $(function(){
 		success : function(data, status){
  //			console.log(status);
  //			console.log(data);
- 			console.log(data.dailyBoxOfficeList);
+//  			console.log(data.dailyBoxOfficeList);
  //			console.log(JSON.stringify(data));
  			for(var i = 0; i < data.dailyBoxOfficeList.length; i++){
  				var dboList = data.dailyBoxOfficeList[i];
@@ -29,7 +29,7 @@ $(function(){
 		url : '${pageContext.request.contextPath}/main/mainMovieWeek',
 		dataType: 'json',
 		success : function(data, status){
- 			console.log(data.weeklyBoxOfficeList);
+//  			console.log(data.weeklyBoxOfficeList);
  			for(var i = 0; i < data.weeklyBoxOfficeList.length; i++){
  				var wboList = data.weeklyBoxOfficeList[i];
 				$('<tr>').html('<td>'+wboList.rank+'</td><td align="left">'+wboList.movieNm+' ('+wboList.rankInten+') ('+wboList.salesShare+'%)</td><td align="right">'+wboList.audiAcc+'명</td>').appendTo('#movieweekTr');					
@@ -40,7 +40,110 @@ $(function(){
 			console.log(error);
 		}
 	});
+	
+	
+	
 });
+
+/* main 화면 로딩시 자동실행 */
+$(function(){	
+	fn_movieOpenList();	
+})
+/* main 화면 최신개봉작 */
+function fn_movieOpenList(){
+		
+	$.ajax({
+		type: 'post',
+		url : '${pageContext.request.contextPath}/main/mainOpenMovieChart',
+// 		data : "movie_release_date="+movie_release_date,
+		dataType: 'json',
+		success : function(data, status){
+			console.log(data.openMovieList);
+			
+ 		 var openMovieList=data.openMovieList;			
+ 		 	$('#mList').empty();
+			 for(var i in openMovieList){  				
+				
+				$('<div>').addClass('col-md-3').html(
+					'<img alt="" style="width:230px;height:336px;" src="${pageContext.request.contextPath}/movieposter/'+openMovieList[i].movie_name+'_poster.jpg"><br>'+
+       			'<div style="padding-top: 10px;">'+
+       				'<button class="btn btn-default">상세정보</button>'+
+       				'<button class="btn btn-default" >예매하기</button>'+
+       			'</div>'	 				
+					).appendTo('#mList');			
+				}   
+			
+			
+		},
+		error : function(error){
+			console.log(error);
+		}
+	});
+}
+
+
+ 
+/* main 화면 개봉예정작 */ 
+ function fn_moviePreList(){
+	
+	 $.ajax({
+			type: 'post',
+			url : '${pageContext.request.contextPath}/main/mainPreMovieChart',
+			success : function(data, status){	
+				
+				var preMovieList=data.preMovieList;
+				$('#mList').empty();
+				 for(var i in preMovieList){  				
+						
+						$('<div>').addClass('col-md-3').html(
+							'<img alt="" style="width:230px;height:336px;" src="${pageContext.request.contextPath}/movieposter/'+preMovieList[i].movie_name+'_poster.jpg"><br>'+
+		       			'<div style="padding-top: 10px;">'+
+		       				'<button class="btn btn-default">상세정보</button>'+
+		       				'<button class="btn btn-default" >예매하기</button>'+
+		       			'</div>'	 				
+							).appendTo('#mList');			
+						} 
+					
+			},
+			error : function(error){
+				console.log(error);
+				}
+			});	
+	
+}
+
+
+ /* main 로그인 여부 영화추천 */
+
+ function fn_reservation(){	 
+
+	 $.ajax({
+			type: 'post',
+			url : '${pageContext.request.contextPath}/main/recommendMovieChart',
+			success : function(data, status){	
+				
+				var recommendList=data.movieList;
+				$('#mList').empty();
+				 for(var i in recommendList){						
+						$('<div>').addClass('col-md-3').html(
+							'<img alt="" style="width:230px;height:336px;" src="${pageContext.request.contextPath}/movieposter/'+recommendList[i].movie_name+'_poster.jpg"><br>'+
+		       			'<div style="padding-top: 10px;">'+
+		       				'<button class="btn btn-default">상세정보</button>'+
+		       				'<button class="btn btn-default">예매하기</button>'+
+		       			'</div>'	 				
+							).appendTo('#mList');			
+						} 
+					
+			},
+			error : function(error){
+				console.log(error);
+				}
+			});	
+	
+ } 
+  
+ 
+
 
 jQuery(function($)
 		{
@@ -188,17 +291,11 @@ li{
 			<p>
         <div>
         	<div style="padding-bottom: 10px;">
-        	<dl>
-        		<dt>
-        			<input class="btn" href="#" type="button" value="박스오피스">
-        		</dt>        		
-        	</dl>
-        	
         	
         	
         	<dl>
         		<dt>
-        			<input class="btn" href="#" type="button" value="최신개봉작">
+        			<input class="btn"  type="button" onclick="fn_movieOpenList();" value="최신개봉작"/>
         		</dt>        		
         	</dl>
         	
@@ -206,75 +303,43 @@ li{
 
 			<dl>
         		<dt>
-        			<input class="btn" href="#" type="button" value="개봉예정">
+        			<input class="btn"  type="button" onclick="fn_moviePreList();" value="개봉예정"/>
         		</dt>
         		
         	</dl>    
         	
         	
+        		<c:if test="${empty sessionScope.LOGIN_USER}">
+        		<dl>
+        			<dt>
+        				<input class="btn" type="button" onclick="fn_reservation();"  value="영화추천"/>
+        			</dt> 
+        		</dl>
+        		</c:if>
+        		
+        		
+        		<c:if test="${not empty sessionScope.LOGIN_USER }">
+        		<dl>
+        			<dt>
+        				<input class="btn" type="button" onclick="fn_reservation();" value="맞춤영화추천"/>
+        			</dt> 
+        		</dl>
+        		</c:if>        
         	
-        	<dl>
-        		<dt>
-        			<input class="btn" href="#" type="button" value="맞춤영화추천">
-        		</dt>        		
-        	</dl>   
         	</div>
         	
         	
         	
         	<div id="secondMovie">
         		<ul class="list">
-        		
-        			<li >
-        				<div class="col-md-3">
-        					
-        					<img alt="" style="width:230px;height:336px;" src="${pageContext.request.contextPath}/img/snack/콜라(L).jpg"><br>
-        				<div style="padding-top: 10px;">
-        					<button class="btn btn-default" >상세정보</button>
-        					<button class="btn btn-default" >예매하기</button>
-        				</div>
+        			<li id="mList">
+        				
+        				
         				</div>
         			</li>
-        			
-        			
-        			
-        			<li>
-        				<div class="col-md-3">
-        					<img alt="" style="width:230px;height:336px;" src="${pageContext.request.contextPath}/img/snack/콜라(L).jpg"><br>
-        				<div style="padding-top: 10px;">
-        					<button class="btn btn-default" >상세정보</button>
-        					<button class="btn btn-default" >예매하기</button>
-        				</div>
-        				</div>
-        			</li>
-        			
-        			
-        			
-        			<li>
-        				<div class="col-md-3">
-        					<img alt="" style="width:230px;height:336px;" src="${pageContext.request.contextPath}/img/snack/콜라(L).jpg"><br>
-	        				<div style="padding-top: 10px;">
-	        					<button class="btn btn-default" >상세정보</button>
-        						<button class="btn btn-default" >예매하기</button>
-	        				</div>
-        				</div>
-        			</li>
-        			
-        			
-        			
-        			<li>
-        				<div class="col-md-3">
-        					<img alt="" style="width:230px;height:336px;" src="${pageContext.request.contextPath}/img/snack/콜라(L).jpg"><br>
-        					<div style="padding-top: 10px;">
-	        					<button class="btn btn-default" >상세정보</button>
-        						<button class="btn btn-default" >예매하기</button>
-        					</div>
-        				</div>
-        			</li>
-        			
-        			
-        			
         		</ul>
+        		
+        			
         	</div>
         	 	
         	

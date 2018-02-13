@@ -154,12 +154,6 @@ public class SnackController {
 		return "snack/snack_pay";
 	}
 	
-	@RequestMapping("/memberEnd")
-	public String memberEnd() {
-		
-		
-		return "snack/memberEnd";
-	}
 	
 	
 
