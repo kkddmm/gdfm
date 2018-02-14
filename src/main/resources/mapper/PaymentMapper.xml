@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.gdfm.payment.mapper.PaymentMapper">
+
+<insert id = "insertPayment" parameterType="map">
+INSERT INTO pay (
+    pay_id,
+    pay_type,
+    pay_amount,
+    pay_date,
+    card_code
+) VALUES (
+    #{imp_uid},
+    'card',
+    #{pay_amount},
+    SYSDATE,
+    0
+) 
+</insert>
+
+<update id="reservationPayUpdate" parameterType="map">
+update movie_reservation
+set pay_id = #{imp_uid}
+where reservation_id = #{reservation_id}
+</update>
+<update id="snackPayUpdate" parameterType="map">
+update snack_buy
+set pay_id = #{imp_uid}
+where snack_buy_id = #{snack_buy_id}
+</update>
+
+
+
+
+
+
+
+
+
+	
+
+</mapper>
