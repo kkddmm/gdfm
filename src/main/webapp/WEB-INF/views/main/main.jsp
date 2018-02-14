@@ -59,11 +59,11 @@ $(function(){
 		success : function(data, status){
 //  			console.log(data);
 //  			console.log(data.movienewList);
-  			for(var i = 0; i <= 15; i++){
+  			for(var i = 0; i < 6; i++){
 //  			console.log(data.movienewList[i]);
 //  			console.log(data.movienewList2[i]);
 //  			console.log(data.movienewList3[i]);
-  			$('<div>').html('<a href="http://movie.daum.net/magazine/'+data.movienewList4[i]+'"><img src="'+data.movienewList[i]+'"><br>'+data.movienewList2[i]+'<br>'+data.movienewList3[i]+'</a>').appendTo('.skill');	
+  			$('<div style="float: left; width: 33%; height:300px;" class="divNews">').html('<a style="color: black;" href="http://movie.daum.net/magazine/'+data.movienewList4[i]+'"><img class="newsImg" src="'+data.movienewList[i]+'"><br>'+data.movienewList2[i]+'<br>'+data.movienewList3[i]+'</a>').appendTo('.skill');	
   				
   			}	
 		},
@@ -73,6 +73,7 @@ $(function(){
 	});
 	
 	
+
 	
 });
 
@@ -280,6 +281,17 @@ li{
 .block ul,
 .block li {margin:0; padding:0; list-style:none;}
 .block li a {display:block; height:20px; line-height:20px; color:#555; text-decoration:none;}
+.divNews{
+	width:50px; padding:0 5px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
+}
+.newsImg{
+	margin-left: auto; margin-right: auto; display: block;
+}
+
+
+
+
+
 </style>
 
 
@@ -412,9 +424,9 @@ li{
   <section id="middle">
     <div class="container">
       <div class="row">
-        <div class="col-sm-6 wow fadeInDown">
+        <div class="col-sm-12 wow fadeInDown">
           <div class="skill">
-            <h2>기사 보여줄 부분</h2>
+            <h2>영화 뉴스</h2>
             
 
             
@@ -423,15 +435,15 @@ li{
         </div>
         <!--/.col-sm-6-->
 
-        <div class="col-sm-6 wow fadeInDown">
+        <!-- <div class="col-sm-6 wow fadeInDown">
           <div class="accordion">
             <h2>뭐 들어갈지 아직 미정</h2>
             <div class="panel-group" id="accordion1">
              
             </div>
-            <!--/#accordion1-->
+            /#accordion1
           </div>
-        </div>
+        </div> -->
 
       </div>
       <!--/.row-->
