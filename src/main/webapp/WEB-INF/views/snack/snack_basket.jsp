@@ -13,7 +13,7 @@ function fn_delSnackBasket(btn,snack_buy_id,mem_id){
 		data : "snack_buy_id="+snack_buy_id,  		
 		
 		success : function(data, status){
-			alert("물품을 장바구니에서 삭제했습니다.");
+// 			alert("물품을 장바구니에서 삭제했습니다.");
 			$btn.closest(".cart").remove();  						
 			console.log('스낵아이디'+snack_buy_id);
 		},		
