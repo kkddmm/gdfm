@@ -17,6 +17,8 @@ public interface MovieService {
 	
 	//상영예정작 
 	public List<Movie> selectMoviePreviewList() throws Exception;
+
+	
 	
 	
 	

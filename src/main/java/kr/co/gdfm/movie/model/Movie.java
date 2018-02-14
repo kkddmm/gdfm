@@ -1,6 +1,7 @@
 package kr.co.gdfm.movie.model;
 
 import java.util.Date;
+import java.util.List;
 
 //영화 
 public class Movie {
@@ -19,6 +20,19 @@ public class Movie {
 	private String movie_running_time;
 	private String movie_production_country;
 	private String movie_trailer;
+	private List<String> movie_genre_name;
+	
+	
+	
+	
+	
+
+	public List<String> getMovie_genre_name() {
+		return movie_genre_name;
+	}
+	public void setMovie_genre_name(List<String> movie_genre_name) {
+		this.movie_genre_name = movie_genre_name;
+	}
 	public int getMovie_id() {
 		return movie_id;
 	}

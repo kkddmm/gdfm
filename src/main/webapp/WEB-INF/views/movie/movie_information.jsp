@@ -163,7 +163,7 @@ ul, li {
  
 			<div class="center">
 				<h2 align="right" style="color: BLACK;"><a href="#">무비차트</a>
-				<a href="${pageContext.request.contextPath}/movie/movie_preview">상영예정직</a></h2>
+				<a href="${pageContext.request.contextPath}/movie/movie_preview">상영예정작</a></h2>
 
 			</div>
 
@@ -220,11 +220,51 @@ ul, li {
 		</c:forEach>
 	</c:if>
 	
+	<div class="moviePosterMoreList  col-md-12 ">
+		
+				<script>
+				/* 	function fn_posterAdd(startRow,endRow) {
+						
+						currentCnt = currentCnt+1;
+						
+						$.ajax({
+							url:'${pageContext.request.contextPath}/',
+							method: ,
+							type:'post',
+							data:"currentPage="+currentCnt,
+							success : function(data, status) {
+									
+								
+								
+							},
+							error : function(error){
+								alert("moviePosterMoreList 더보기 Error발생!");
+							}
+								
+							
+							
+						});
+						
+						
+					}
+				
+				 */
+				
+				</script>
 	
-	<input type="button" value="더보기" class="btn btn-primary" onclick="fn_posterAdd();">
+		
+		<input type="button" name="posterMoreList"  value="더보기" class="btn btn-primary" onclick="fn_posterAdd();" style="width: 100%">
+		
+		
+				<br>
+				<br>
+				<br>
+		
 	
-	
+	</div>
 
+	
+	
 
 
 </div>

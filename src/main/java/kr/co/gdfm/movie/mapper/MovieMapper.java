@@ -11,14 +11,20 @@ import kr.co.gdfm.movie.model.Movie;
 public interface MovieMapper {
 
 	
-	//상영중인 영화 리스트 조회
+		//상영중인 영화 리스트 조회
 		public List<Movie> selectShowMovie();
 		
 		//영화 상세보기 리스트
 		public Movie selectMovieDetail(int movie_id)throws Exception;
 
+		
 		public List<Movie> selectMovieList()throws Exception;
 		  
 		//상영예정작인 영화 리스트 조회 
 		public List<Movie> selectMoviePreviewList()throws Exception;
+		
+		//영화 장르  리스트 
+		public List<String> selectGenreList(int movie_id);
+		
+		
 }

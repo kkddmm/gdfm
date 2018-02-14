@@ -50,8 +50,24 @@ public class MovieSerivceImpl implements MovieService {
 	@Override
 	public Movie selectMovieDetail(int movie_id) throws Exception {
 		
-		return movieMapper.selectMovieDetail(movie_id);
+			//return type 이 남음 
+		Movie movie =	movieMapper.selectMovieDetail(movie_id);
+		movie.setMovie_genre_name(movieMapper.selectGenreList(movie_id));
+		
+		
+		
+		
+		
+		List<String> selectGenreList = new ArrayList<>();
+		selectGenreList = movieMapper.selectGenreList(movie_id);
+		
+		return movie;
 	}
+
+	
+	
+	
+	
 	
 	
 }

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="kr.co.gdfm.movie.mapper.MovieReviewMapper">
+
+	<select id="MovieReviewCount" resultType="int"> 
+		  select 
+		  		* 
+		  from movie_review
+	</select>
+	
+	<!-- 댓글 등록 -->
+	
+	<insert id="movieReviewInsert" parameterType="kr.co.gdfm.movie.model.MovieReview">
+	<selectKey keyProperty="movie_review_id" resultType="int" order="BEFORE">
+	select movie_review_seq.nextval from dual
+	</selectKey>
+		INSERT INTO 
+		movie_review 
+			(
+    movie_review_id,
+    movie_id,
+    mem_id,
+    movie_review_content,
+    movie_review_rate
+   
+			) 
+		VALUES (
+    #{movie_review_id},
+    #{movie_id},
+    #{mem_id},
+    #{movie_review_content},
+    #{movie_review_rate}
+    
+			)
+	</insert>
+		
+		<select id="selectReviewList" parameterType="int" resultType="kr.co.gdfm.movie.model.MovieReview">
+			SELECT
+    movie_review_id,
+    movie_id,
+    mem_id,
+    movie_review_content,
+    movie_review_rate,
+    to_char(review_reg_date,'YYYY-MM-DD hh:mi')as review_reg_date
+FROM
+    movie_review
+where 
+    movie_id = #{movie_id}
+		AND review_del_yn='N'
+		</select>
+
+		<update id="movieReviewDelete" parameterType="kr.co.gdfm.movie.model.MovieReview" >
+			update movie_review
+			set review_del_yn='Y'
+			where movie_review_id = #{movie_review_id}
+		</update>
+		
+		<update id="movieReviewUpdate" parameterType="kr.co.gdfm.movie.model.MovieReview">
+			update movie_review
+			set  movie_review_content = #{movie_review_content}
+			where movie_review_id = #{movie_review_id}
+		</update>
+		
+		
+
+
+
+
+
+</mapper>
+	
