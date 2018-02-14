@@ -22,7 +22,7 @@
 	href="${pageContext.request.contextPath}/css/component.css" />
 <script src="${pageContext.request.contextPath}/js/jquery-3.2.1.js"></script>
 <script src="${pageContext.request.contextPath}/js/modernizr-custom.js"></script>
-
+<script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <script>
 		//예매 인원을 정해줄 변수
 		var cnt = 0;
@@ -38,6 +38,15 @@
 			location.href='101';			
 		}
 		
+		function timecheck(){
+			
+// 			if()
+			
+		}
+		
+		
+		
+		
 		
 		function showSelectSit(){
 		var selectSitView = document.body.querySelector("#selectSitView");
@@ -48,9 +57,86 @@
 		}
 		function showPrice(){
 			$('#amountView').html('');
-			$('#amountView').html(price*selectCnt+'원');
+			$('#amountView').html(price*selectCnt);
 		}
+		
+		function fn_goPayment(){
+			
+			IMP.init('imp35163888')
+				IMP.request_pay({
+				    pg : 'inicis',
+				    pay_method : 'card',
+				    merchant_uid : 'merchant_' + new Date().getTime(),
+				    name : '영화 보기 좋은 날',
+				    amount :100,
+// 				    	$('#amountView').html(),
+				    buyer_email : '${LOGIN_USER.mem_email}',
+				    buyer_name : '${LOGIN_USER.mem_name}',
+				    buyer_tel : '${LOGIN_USER.mem_phone}',
+				    buyer_addr : '${LOGIN_USER.mem_addr}',
+				    buyer_postcode : '${LOGIN_USER.mem_zipcode}'
+				}, function(rsp) {
+				    if ( rsp.success ) {
+				    	//[1] 서버단에서 결제정보 조회를 위해 jQuery ajax로 imp_uid 전달하기
+				    	jQuery.ajax({
+				    		url: "/payments/complete", //cross-domain error가 발생하지 않도록 동일한 도메인으로 전송
+				    		type: 'POST',
+				    		dataType: 'json',
+				    		data: {
+					    		imp_uid : rsp.imp_uid
+					    		//기타 필요한 데이터가 있으면 추가 전달
+				    		}
+				    	}).done(function(data) {
+				    		//[2] 서버에서 REST API로 결제정보확인 및 서비스루틴이 정상적인 경우
+				    		if ( everythings_fine ) {
+				    			var msg = '결제가 완료되었습니다.';
+				    			msg += '\n고유ID : ' + rsp.imp_uid;
+				    			msg += '\n상점 거래ID : ' + rsp.merchant_uid;
+				    			msg += '\결제 금액 : ' + rsp.paid_amount;
+				    			msg += '카드 승인번호 : ' + rsp.apply_num;
+				    			alert(msg);
+				    			
+				    			
+				    			
+				    			
+				    			
+				    			
+				    			
+				    			
+				    			
+				    		} else {
+				    			//[3] 아직 제대로 결제가 되지 않았습니다.
+				    			//[4] 결제된 금액이 요청한 금액과 달라 결제를 자동취소처리하였습니다.
+				    		}
+				    	});
+				    } else {
+				        var msg = '결제에 실패하였습니다.';
+				        msg += '에러내용 : ' + rsp.error_msg;
+				        alert(msg);
+				    }
+				});
+			
+			
+			
+			
+			
+		}
+		
+		
+		
+		
+		
+		
 		$(function(){
+			
+			
+			
+			
+			$('.rows--large .row__seat:nth-of-type('+parseInt(${reserveMap.SCREEN_ROW}/2)+')').css('margin-right','160px');
+			$('.rows--mini .row__seat:nth-of-type('+parseInt(${reserveMap.SCREEN_ROW}/2)+')').css('margin-right','15px');
+			 
+			
+		
 			
 			$('#startSelect').on('click',function(){ 
 				if(cntFlag == false){
@@ -67,7 +153,6 @@
 			cnt = $(this).html();
 			cntFlag = true;
 			})
-        			
 			$('.plan').on('click','.row__seat--selected',function(){
 				 var selectSit = $(this).attr('data-tooltip');
 			var sitDelCon = confirm("선택한 좌석의 예약을 취소하시겠습니까?");
@@ -259,7 +344,7 @@
 			</h2>
 			<h2 style="color: white;">총 가격</h2>
 			<h2 id="amountView" style="color: white;"></h2>
-	<button class="action action--buy"><a href="https://pgweb.uplus.co.kr:8443/pg/wmp/Home2009/demo/xpaydemo/payreq_crossplatform.jsp">결제하기</a></button>
+	<button onclick="fn_goPayment();" class="action action--buy">결제하기</button>
 		<button onclick="fn_goBack();" class="action action--buy">이전
 			화면으로</button>
 	</div>

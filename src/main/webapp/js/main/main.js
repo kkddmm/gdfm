@@ -187,7 +187,7 @@
 	function init() {
 		// scale room to fit viewport
 		scaleRoom();
-		// initial view (zoomed screen)
+		// initial view (zoomed screen) P:"
 		applyRoomTransform({'translateX' : 0, 'translateY' : 0, 'translateZ' : 1300, 'rotateX' : 0, 'rotateY' : 0});
 		// bind events
 		initEvents();

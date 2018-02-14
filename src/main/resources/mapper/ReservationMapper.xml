@@ -5,7 +5,6 @@
 <mapper namespace="kr.co.gdfm.reservation.mapper.ReservationMapper">
 
 	<select id="getDateList" resultType="map">
-	
 	<![CDATA[
 	SELECT TO_CHAR(TO_DATE(BB.DAY, 'YYYYMMDD') + NUM-1,'YYYYMMDD') AS useday,
 	TO_CHAR(TO_DATE(BB.DAY, 'YYYYMMDD') + NUM-1, 'YYYY') AS year
@@ -23,125 +22,117 @@
               '4','수',
               '5','목',
               '6','금','토') as weekday
-  FROM (
-                SELECT ROWNUM AS NUM 
+  FROM ( SELECT ROWNUM AS NUM 
                   FROM dictionary A,(
                             SELECT B.DAY AS BDAY, C.DAY AS CDAY 
                               FROM
                             ( SELECT TO_CHAR(sysdate, 'YYYYMMDD') AS DAY FROM DUAL ) B,
-                            ( SELECT TO_CHAR(sysdate+7, 'YYYYMMDD') AS DAY FROM DUAL ) C
-                                                   ) B
+                            ( SELECT TO_CHAR(sysdate+7, 'YYYYMMDD') AS DAY FROM DUAL ) C  ) B
          WHERE ROWNUM <= TO_DATE(B.CDAY, 'YYYYMMDD') - TO_DATE(B.BDAY, 'YYYYMMDD')  + 1) AA,
 ( SELECT TO_CHAR(sysdate, 'YYYYMMDD') AS DAY FROM DUAL ) BB
 	]]>
-	
+	</select>
+	<select id="getShowInfo" resultType="kr.co.gdfm.reservation.model.MovieShowInfo">
+		select d.*, (d.좌석수-NVL(e.예매좌석수,0)) as sit
+		from
+		(
+		select a.show_id, b.ci_id, a.screen_id,
+		b.screen_name,(b.screen_row*b.screen_column) as
+		좌석수,a.start_time,a.end_time,c.dimension_name
+		from movie_show_info a, screen b ,movie_dimension_code c
+		where a.screen_id = b.screen_id
+		and a.dimension_code = c.dimension_code
+		and a.movie_id = #{movie_id} and b.ci_id = #{ci_id} and show_date =
+		to_date(#{show_date},'yyyy/mm/dd')
+		) d left outer join
+		(
+		select f.show_id, count(g.sit_num) as 예매좌석수
+		from movie_reservation f, reservation_sit g
+		where f.reservation_id = g.reservation_id
+		and(SYSDATE-f.reservation_reg_date <![CDATA[<]]>1/72
+		or f.pay_id is not null)
+		group by f.show_id
+		) e
+		on(d.show_id = e.show_id)
+		order by d.screen_name,d.start_time
 	</select>
 
-	<select id ="getShowInfo" resultType="kr.co.gdfm.reservation.model.MovieShowInfo">
-  select d.*, (d.좌석수-nvl(e.예매좌석수,0)) as sit
-    from
-    (
-    select a.show_id, b.ci_id, a.screen_id, b.screen_name,(b.screen_row*b.screen_column) as 좌석수,a.start_time,a.end_time,c.dimension_name
-    from movie_show_info a, screen b ,movie_dimension_code c
-    where a.screen_id = b.screen_id
-    and a.dimension_code = c.dimension_code
-    and a.movie_id = #{movie_id} and b.ci_id = #{ci_id} and show_date = to_date(#{show_date},'yyyy/mm/dd')
-    ) d left outer join 
-    (
-    select f.show_id, f.reservation_id, count(g.sit_num) as 예매좌석수
-    from movie_reservation f, reservation_sit g 
-    where f.reservation_id = g.reservation_id 
-  group by f.show_id, f.reservation_id
-    ) e
-    on(d.show_id = e.show_id)
-    order by d.screen_name,d.start_time
+	<select id="getReserveShowInfo" resultType="map">
+		select b.movie_trailer, b.movie_ko_name,a.* ,c.screen_row,
+		c.screen_column,d.ci_name
+		from
+		(
+		select e.show_id,
+		e.movie_id,e.screen_id,f.dimension_price,f.dimension_name,e.start_time,e.end_time,e.show_date
+		from movie_show_info e, movie_dimension_code f
+		where show_id = #{show_id}
+		and e.dimension_code = f.dimension_code
+		) a , movie b, screen c ,cinema d
+		where a.movie_id = b.movie_id
+		and a.screen_id = c.screen_id
+		and c.ci_id = d.ci_id
 	</select>
-	
-	<select id = "getReserveShowInfo" resultType ="map">
-select b.movie_trailer, b.movie_ko_name,a.* ,c.screen_row, c.screen_column,d.ci_name
-from
-    (
-    select e.show_id, e.movie_id,e.screen_id,f.dimension_price,f.dimension_name,e.start_time,e.end_time,e.show_date
-    from movie_show_info e, movie_dimension_code f
-    where show_id = #{show_id}
-    and e.dimension_code = f.dimension_code
-    ) a , movie b, screen c ,cinema d 
-    where a.movie_id = b.movie_id
-    and a.screen_id = c.screen_id
-    and c.ci_id = d.ci_id
-	</select>
-	
-	
+
 	<delete id="deleteOldReservation" parameterType="string">
-	delete from movie_reservation
-	where mem_id = #{mem_id}
-	and pay_id is null
+		delete from movie_reservation
+		where mem_id = #{mem_id}
+		and pay_id is null
 	</delete>
-	
+
 	<insert id="insertReservation" parameterType="kr.co.gdfm.reservation.model.Reservation">
-	
-<selectKey keyProperty="reservation_id" resultType="int" order="BEFORE" >
+
+		<selectKey keyProperty="reservation_id" resultType="int"
+			order="BEFORE">
 			select movie_reservation_seq.nextval from dual
 		</selectKey>
-		
-INSERT INTO movie_reservation (
-    reservation_id,
-    mem_id,
-    show_id,
-    reservation_reg_date,
-    pay_id
-) VALUES (
-    #{reservation_id},
-    #{mem_id},
-    #{show_id},
-    SYSDATE,
-    null
-)
-	
-	
+		<!-- <selectKey keyProperty="reservation_reg_date" resultType="java.sql.Date"
+			order="BEFORE">
+			select SYSDATE from dual
+		</selectKey> -->
+		INSERT INTO movie_reservation (
+		reservation_id,
+		mem_id,
+		show_id,
+		reservation_reg_date,
+		pay_id
+		) VALUES (
+		#{reservation_id},
+		#{mem_id},
+		#{show_id},
+		SYSDATE,
+		null
+		)
 	</insert>
-	
+
 	<select id="getReservedSit" resultType="map">
-select a.sit_num
-   from reservation_sit a, movie_reservation b
-   where a.reservation_id = b.reservation_id
-   and a.show_id = #{show_id}
-   and SYSDATE - b.reservation_reg_date<![CDATA[ <]]> 1/72
+		select a.sit_num
+		from reservation_sit a, movie_reservation b
+		where a.reservation_id = b.reservation_id
+		and a.show_id = #{show_id}
+		and (SYSDATE - b.reservation_reg_date<![CDATA[ <]]> 1/72 or b.pay_id is not null)
 	</select>
-	
-<!-- <select id="isReservedSit" parameterType="map" resultType="int">
-select count(*)
-from movie_reservation a, reservation_sit b, movie_show_info c
-where a.reservation_id = b.reservation_id
-and a.show_id = c.show_id
-and c.show_id = #{show_id} 
-and b.sit_num = #{selectSit} 
-</select>	 -->
 
-
-<delete id="deleteUncountedSit">
-delete from movie_reservation
-where SYSDATE-reservation_reg_date <![CDATA[ > 1/72]]>
-and pay_id is null
-</delete>
- 
-
+	<delete id="deleteUncountedSit">
+		delete from movie_reservation
+		where SYSDATE-reservation_reg_date <![CDATA[ > 1/72]]>
+		and pay_id is null
+	</delete>
 	<insert id="insertSit" parameterType="map">
-	INSERT INTO reservation_sit (
-    show_id,
-    sit_num,
-    reservation_id
-) VALUES (
-    #{show_id},
-    #{selectSit},
-    #{reservation_id}
-)
+		INSERT INTO reservation_sit (
+		show_id,
+		sit_num,
+		reservation_id
+		) VALUES (
+		#{show_id},
+		#{selectSit},
+		#{reservation_id}
+		)
 	</insert>
 	<delete id="deleteSit" parameterType="map">
-	delete from reservation_sit
-	where reservation_id = #{reservation_id} and sit_num = #{selectSit}
+		delete from reservation_sit
+		where reservation_id = #{reservation_id} and sit_num = #{selectSit}
 	</delete>
-	
-	
-	
+
+
+
 </mapper>

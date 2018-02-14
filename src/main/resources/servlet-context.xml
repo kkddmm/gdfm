@@ -20,7 +20,7 @@
 	<default-servlet-handler/>
 	
 	
-	<!-- 	컨트롤러 없이 사용하는 경우. -->
+	<!-- 	컨트롤러 파일 없이 사용하는 경우. -->
 	<view-controller path="/" view-name ="index" />
 
 

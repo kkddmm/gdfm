@@ -85,7 +85,13 @@ public class ReservationController {
 	@ResponseBody
 	public int insertReservation(Reservation reservation) {
 		reservationService.insertReservation(reservation);
+		//입력된 예약정보의 시간을 체크해서, 102 페이지에서 시간이 지난 후 어떤 액션을 취하던 뒤로 돌려보내야 함.		
+		
 		return reservation.getReservation_id();
+		
+		
+		
+		
 	}
 
 	@RequestMapping("/102")
@@ -102,6 +108,7 @@ public class ReservationController {
 		model.addAttribute("reserveMap", reserveMap);
 		model.addAttribute("reservedSit", reservedSit);
 		model.addAttribute("reservation_id", reservation_id);
+//		model.addAttribute("reservation_reg_date",)
 		return "reservation/102";
 		
 		
