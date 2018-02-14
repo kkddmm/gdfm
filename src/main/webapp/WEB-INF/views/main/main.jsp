@@ -12,7 +12,9 @@ function fn_movieReservation(){
 	location.href="${pageContext.request.contextPath}/reservation/101";
 }
 
-
+function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
 
 $(function(){
 	$.ajax({
@@ -26,7 +28,7 @@ $(function(){
  //			console.log(JSON.stringify(data));
  			for(var i = 0; i < data.dailyBoxOfficeList.length; i++){
  				var dboList = data.dailyBoxOfficeList[i];
-				$('<tr>').html('<td>'+dboList.rank+'</td><td align="left">'+dboList.movieNm+' ('+dboList.rankInten+') ('+dboList.salesShare+'%)</td><td align="right">'+dboList.audiAcc+'명</td>').appendTo('#movieTr');					
+				$('<tr>').html('<td>'+dboList.rank+'</td><td align="left">'+dboList.movieNm+' ('+dboList.rankInten+') ('+dboList.salesShare+'%)</td><td align="right">'+numberWithCommas(dboList.audiAcc)+'명</td>').appendTo('#movieTr');					
 			}
 				
 		},
@@ -43,7 +45,7 @@ $(function(){
 //  			console.log(data.weeklyBoxOfficeList);
  			for(var i = 0; i < data.weeklyBoxOfficeList.length; i++){
  				var wboList = data.weeklyBoxOfficeList[i];
-				$('<tr>').html('<td>'+wboList.rank+'</td><td align="left">'+wboList.movieNm+' ('+wboList.rankInten+') ('+wboList.salesShare+'%)</td><td align="right">'+wboList.audiAcc+'명</td>').appendTo('#movieweekTr');					
+				$('<tr>').html('<td>'+wboList.rank+'</td><td align="left">'+wboList.movieNm+' ('+wboList.rankInten+') ('+wboList.salesShare+'%)</td><td align="right">'+numberWithCommas(wboList.audiAcc)+'명</td>').appendTo('#movieweekTr');					
 			}
 				
 		},
@@ -99,7 +101,7 @@ function fn_movieOpenList(){
 				$('<div>').addClass('col-md-3').html(
 					'<img alt="" style="width:230px;height:336px;" src="${pageContext.request.contextPath}/movieposter/'+openMovieList[i].movie_name+'_poster.jpg"><br>'+
        			'<div style="padding-top: 10px;">'+
-       				'<button class="btn btn-default" onclick="fn_movieDetail('+openMovieList[i].movie_id+');">상세정보</button>'+
+       				'<button class="btn btn-default" onclick="fn_movieDetail('+openMovieList[i].movie_id+');">상세정보</button> '+
        				'<button class="btn btn-default" onclick="fn_movieReservation('+openMovieList[i].movie_id+');">예매하기</button>'+
        			'</div>'	 				
 					).appendTo('#mList');	
@@ -130,7 +132,7 @@ function fn_moviePreList(){
 						$('<div>').addClass('col-md-3').html(
 							'<img alt="" style="width:230px;height:336px;" src="${pageContext.request.contextPath}/movieposter/'+preMovieList[i].movie_name+'_poster.jpg"><br>'+
 		       			'<div style="padding-top: 10px;">'+
-		       				'<button class="btn btn-default" onclick="fn_movieDetail('+preMovieList[i].movie_id+');">상세정보</button>'+
+		       				'<button class="btn btn-default" onclick="fn_movieDetail('+preMovieList[i].movie_id+');">상세정보</button> '+
 		       				'<button class="btn btn-default" onclick="fn_movieReservation('+preMovieList[i].movie_id+');">예매하기</button>'+
 		       			'</div>'	 				
 							).appendTo('#mList');			
@@ -161,7 +163,7 @@ function fn_reservation(){
 						$('<div>').addClass('col-md-3').html(
 							'<img alt="" style="width:230px;height:336px;" src="${pageContext.request.contextPath}/movieposter/'+recommendList[i].movie_name+'_poster.jpg"><br>'+
 		       			'<div style="padding-top: 10px;">'+
-		       				'<button class="btn btn-default" onclick="fn_movieDetail('+recommendList[i].movie_id+');">상세정보</button>'+
+		       				'<button class="btn btn-default" onclick="fn_movieDetail('+recommendList[i].movie_id+');">상세정보</button> '+
 		       				'<button class="btn btn-default" onclick="fn_movieReservation('+recommendList[i].movie_id+');" >예매하기</button>'+
 		       			'</div>'	 				
 							).appendTo('#mList');			
@@ -296,8 +298,14 @@ li{
 	font-size: 12px;
 }
 
-
-
+/* tab-a */
+ul.tab-a { width: 100%; margin: 0; padding: 0; font-size: 110%; font-family: NanumGothic,'NanumGothicWeb', dotum, Sans-Serif;}
+ul.tab-a li { float: center; margin-right: 2px; list-style: none;}
+ul.tab-a li a { padding-left: 30px; color: #666; cursor:pointer;}
+ul.tab-a li a, ul.tab-a li a span { display: inline-block; height: 30px; line-height: 30px; background:url('${pageContext.request.contextPath}/img/tab_a_bg.gif') repeat-x left top; text-align: center;}
+ul.tab-a li a span { padding-right: 25px; background-position: right top; color: #666; font-weight: bold;}
+ul.tab-a li a:hover, ul.tab-a li.current a { background-position: left bottom; font-weight: bold; letter-spacing: -1px;} 
+ul.tab-a li a:hover span, ul.tab-a li.current a span { background-position: right bottom; color: #fff;}
 
 </style>
 
@@ -337,47 +345,23 @@ li{
       <!--/#about-slider-->
       
       
-      <section id="feature">
+      <section>
     <div id="con" class="container">
       <div class="center wow fadeInDown">
 			<p>
         <div>
+        	
         	<div style="padding-bottom: 10px;">
-        	
-        	
-        	<dl>
-        		<dt>
-        			<input class="btn"  type="button" onclick="fn_movieOpenList();" value="최신개봉작"/>
-        		</dt>        		
-        	</dl>
-        	
-
-
-			<dl>
-        		<dt>
-        			<input class="btn"  type="button" onclick="fn_moviePreList();" value="개봉예정"/>
-        		</dt>
-        		
-        	</dl>    
-        	
-        	
-        		<c:if test="${empty sessionScope.LOGIN_USER}">
-        		<dl>
-        			<dt>
-        				<input class="btn" type="button" onclick="fn_reservation();"  value="영화추천"/>
-        			</dt> 
-        		</dl>
-        		</c:if>
-        		
-        		
-        		<c:if test="${not empty sessionScope.LOGIN_USER }">
-        		<dl>
-        			<dt>
-        				<input class="btn" type="button" onclick="fn_reservation();" value="맞춤영화추천"/>
-        			</dt> 
-        		</dl>
-        		</c:if>        
-        	
+        	<ul class="tab-a">
+				<li><a onclick="fn_movieOpenList();"><span>최신개봉작</span></a></li>
+				<li><a onclick="fn_moviePreList();"><span>개봉예정</span></a></li>
+				<c:if test="${empty sessionScope.LOGIN_USER}">
+				<li><a onclick="fn_reservation();"><span>영화추천</span></a></li>
+				</c:if>
+				<c:if test="${not empty sessionScope.LOGIN_USER }">
+				<li><a onclick="fn_reservation();"><span>맞춤영화추천</span></a></li>
+				</c:if>
+			</ul>
         	</div>
         	
         	
@@ -434,11 +418,7 @@ li{
         <div class="col-sm-12 wow fadeInDown">
           <div class="skill">
             <h2>영화 뉴스</h2>
-            
-
-            
           </div>
-
         </div>
         <!--/.col-sm-6-->
 
@@ -487,22 +467,22 @@ li{
   <!--/#bottom-->
   <div style="border:1px solid #FFFF00;">
 	  <div style="float: left;">
-		<div style="padding-top: 5px;padding-bottom: 10px;"><span style="font-size: 20px; color:solid black;">일별박스오피스</span></div>
+		<center><h2>일별박스오피스</h2></center>
 	    <table border="0" class="table table-bordered table-striped table-hover text-center" id="movieTr">
 			<tr>
-				<th class="col-xs-1 text-center">순위</th>
-				<th class="text-center">영화명</td>
-				<th class="col-xs-2 text-center">누적관객수</th>
+				<th class="col-xs-1 text-center info">순위</th>
+				<th class="text-center info">영화명</th>
+				<th class="col-xs-3 text-center info">누적관객수</th>
 			</tr>
 		</table>
 	  </div>
 	  <div style="float: right;">  
-		<div style="padding-top: 5px;padding-bottom: 10px;"><span style="font-size: 20px; color:solid black;">주간/주말박스오피스</span></div>
+		<center><h2>주간/주말박스오피스</h2></center>
 	    <table border="0" class="table table-bordered table-striped table-hover text-center" id="movieweekTr">
 			<tr>
-				<th class="col-xs-1 text-center">순위</th>
-				<th class="text-center">영화명</td>
-				<th class="col-xs-2 text-center">누적관객수</th>
+				<th class="col-xs-1 text-center info">순위</th>
+				<th class="text-center info">영화명</th>
+				<th class="col-xs-3 text-center info">누적관객수</th>
 			</tr>
 		</table>  
 	  </div>
