@@ -65,7 +65,7 @@ $(function(){
 //  			console.log(data.movienewList[i]);
 //  			console.log(data.movienewList2[i]);
 //  			console.log(data.movienewList3[i]);
-  			$('<div style="float: left; width: 33%; height:300px;" class="divNews">').html('<a style="color: black;" href="http://movie.daum.net/magazine/'+data.movienewList4[i]+'"><img class="newsImg" src="'+data.movienewList[i]+'"><br><span id="title">'+data.movienewList2[i]+'</span><br><span id="subtitle">'+data.movienewList3[i]+'</span></a>').appendTo('.skill');	
+  			$('<div style="float: left; width: 32%; height:300px;border:1px solid #eeeeee;padding:10px;margin:3px;" class="divNews">').addClass('col-md-2').html('<a style="color: black;" target="_blank" href="http://movie.daum.net/magazine/'+data.movienewList4[i]+'"><img class="newsImg" src="'+data.movienewList[i]+'"><br><span id="title">'+data.movienewList2[i]+'</span><br><span id="subtitle">'+data.movienewList3[i]+'</span></a>').appendTo('.skill');	
   				
   			}	
 		},
@@ -100,7 +100,7 @@ function fn_movieOpenList(){
  		 	$('#mList').empty();
 			 for(var i in openMovieList){  				
 				
-				$('<div>').addClass('col-md-3').html(
+				$('<div style="border:1px solid #eeeeee;padding-top:5px;padding-bottom:5px;">').addClass('col-md-3').html(
 					'<img alt="" style="width:230px;height:336px;" src="${pageContext.request.contextPath}/movieposter/'+openMovieList[i].movie_name+'_poster.jpg"><br>'+
        			'<div style="padding-top: 10px;">'+
        				'<button class="btn btn-default" onclick="fn_movieDetail('+openMovieList[i].movie_id+');">상세정보</button> '+
@@ -131,7 +131,7 @@ function fn_moviePreList(){
 				$('#mList').empty();
 				 for(var i in preMovieList){  				
 						
-						$('<div>').addClass('col-md-3').html(
+						$('<div style="border:1px solid #eeeeee;padding-top:5px;padding-bottom:5px;">').addClass('col-md-3').html(
 							'<img alt="" style="width:230px;height:336px;" src="${pageContext.request.contextPath}/movieposter/'+preMovieList[i].movie_name+'_poster.jpg"><br>'+
 		       			'<div style="padding-top: 10px;">'+
 		       				'<button class="btn btn-default" onclick="fn_movieDetail('+preMovieList[i].movie_id+');">상세정보</button> '+
@@ -162,7 +162,7 @@ function fn_reservation(){
 				var recommendList=data.movieList;
 				$('#mList').empty();
 				 for(var i in recommendList){						
-						$('<div>').addClass('col-md-3').html(
+						$('<div style="border:1px solid #eeeeee;padding-top:5px;padding-bottom:5px;">').addClass('col-md-3').html(
 							'<img alt="" style="width:230px;height:336px;" src="${pageContext.request.contextPath}/movieposter/'+recommendList[i].movie_name+'_poster.jpg"><br>'+
 		       			'<div style="padding-top: 10px;">'+
 		       				'<button class="btn btn-default" onclick="fn_movieDetail('+recommendList[i].movie_id+');">상세정보</button> '+
@@ -369,24 +369,11 @@ ul.tab-a li a:hover span, ul.tab-a li.current a span { background-position: righ
         	
         	
         	<div id="secondMovie">
-        		<ul class="list">
-        			<li id="mList">
-        				
-        				
-        			</li>
-        		</ul>
+					<div id="mList">
+					</div>
         	</div>
-        		
-        			
         	</div>
-        	 	
-        	
         </div>
-
-
-    
-    
-    
   </section>
   <!--/#feature-->
 
