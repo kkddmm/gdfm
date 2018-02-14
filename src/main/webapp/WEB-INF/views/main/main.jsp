@@ -85,6 +85,8 @@ $(function(){
 })
 /* main 화면 최신개봉작 */
 function fn_movieOpenList(){
+	
+	
 		
 	$.ajax({
 		type: 'post',
@@ -346,7 +348,7 @@ ul.tab-a li a:hover span, ul.tab-a li.current a span { background-position: righ
       
       
       <section>
-    <div id="con" class="container">
+
       <div class="center wow fadeInDown">
 			<p>
         <div>
@@ -371,46 +373,23 @@ ul.tab-a li a:hover span, ul.tab-a li.current a span { background-position: righ
         			<li id="mList">
         				
         				
-        				</div>
         			</li>
         		</ul>
+        	</div>
         		
         			
         	</div>
         	 	
         	
         </div>
-      </div>
 
-      <div class="row">
-        <div class="features">
-         
-          
-        </div>
-        <!--/.services-->
-      </div>
-      <!--/.row-->
-    </div>
-    <!--/.container-->
+
+    
     
     
   </section>
   <!--/#feature-->
 
-  <section id="recent-works">
-    <div class="container">
-      <!-- <div class="center wow fadeInDown">
-      </div> -->
-
-      <div class="row">
-        
-        
-      </div>
-      <!--/.row-->
-    </div>
-    <!--/.container-->
-  </section>
-  <!--/#recent-works-->
 
   <section id="middle">
     <div class="container">
