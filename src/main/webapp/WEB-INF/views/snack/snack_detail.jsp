@@ -6,7 +6,7 @@
 
 <script>
 
-function fn_insertBasket(snack_id){
+function fn_insertBasket(snack_id,mem_id){
 	
 	var snackCnt = $('#snack_cnt').val(); 
 	
@@ -15,9 +15,12 @@ function fn_insertBasket(snack_id){
 	$.ajax({
 		type: 'post',
 		url : '${pageContext.request.contextPath}/snack/snack_insertBasket',
-		data : "snack_id="+snack_id+"&mem_id=test"+"&snack_cnt="+snackCnt,		
+		data : "snack_id="+snack_id+"&mem_id="+mem_id+"&snack_cnt="+snackCnt,		
 		success : function(data, status){
 			alert("장바구니에 담았습니다.");
+			console.log(snack_id);
+			console.log(snackCnt);
+			console.log(mem_id);
 // 			alert(data.status);
 // 			alert(data.message);
 		},
@@ -179,7 +182,7 @@ ul, li {
 		</div>
 		<div>
 		<c:if test="${not empty LOGIN_USER.mem_id}">
-			<input class="btn" type="button" id="BtnInsertBasket" onclick="fn_insertBasket(${snack.snack_id});" name="BtnInsertBasket" value="장바구니"/>
+			<input class="btn" type="button" id="BtnInsertBasket" onclick="fn_insertBasket(${snack.snack_id},'${LOGIN_USER.mem_id}');" name="BtnInsertBasket" value="장바구니"/>
 			<input class ="btn" type="button" value="구매하기"/>
 		</c:if>
 			<input class ="btn" onclick="location.href='${pageContext.request.contextPath}/snack/snack' " type="button" value="목록으로"/>

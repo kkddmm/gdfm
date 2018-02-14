@@ -109,10 +109,13 @@ public class SnackController {
 
 	@RequestMapping("/snack_insertBasket")
 	@ResponseBody
-	public void insertBasket(@RequestParam Map<String, Object> params, HttpSession session) throws Exception {
+	public void insertBasket(@RequestParam Map<String, Object> params, 
+//				@RequestParam (value="mem_id") String mem_id,
+			HttpSession session) throws Exception {
 
 		HashMap<String, Object> result = new HashMap<>();
-
+	
+		
 		try {
 			snackService.insertBasket(params);
 			result.put("status", true);
@@ -128,7 +131,7 @@ public class SnackController {
 	public String basketList(@PathVariable String mem_id, Model model) throws Exception {
 
 		List<Snack> basketList = snackService.getBasketList(mem_id);
-
+		
 		model.addAttribute("basketList", basketList);
 
 		return "snack/snack_basket";
@@ -147,8 +150,11 @@ public class SnackController {
 		return "snack/snack_pay";
 	}
 	
-	
-	
+	@RequestMapping("/pay")
+	public String payView() {
+		
+		return "snack/pay";
+	}
 
 }
 
