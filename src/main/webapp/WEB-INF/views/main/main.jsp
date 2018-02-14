@@ -63,7 +63,7 @@ $(function(){
 //  			console.log(data.movienewList[i]);
 //  			console.log(data.movienewList2[i]);
 //  			console.log(data.movienewList3[i]);
-  			$('<div style="float: left; width: 33%; height:300px;" class="divNews">').html('<a style="color: black;" href="http://movie.daum.net/magazine/'+data.movienewList4[i]+'"><img class="newsImg" src="'+data.movienewList[i]+'"><br>'+data.movienewList2[i]+'<br>'+data.movienewList3[i]+'</a>').appendTo('.skill');	
+  			$('<div style="float: left; width: 33%; height:300px;" class="divNews">').html('<a style="color: black;" href="http://movie.daum.net/magazine/'+data.movienewList4[i]+'"><img class="newsImg" src="'+data.movienewList[i]+'"><br><span id="title">'+data.movienewList2[i]+'</span><br><span id="subtitle">'+data.movienewList3[i]+'</span></a>').appendTo('.skill');	
   				
   			}	
 		},
@@ -287,7 +287,14 @@ li{
 .newsImg{
 	margin-left: auto; margin-right: auto; display: block;
 }
-
+#title{
+	color:black; 
+	font-size: 18px;
+}
+#subtitle{
+	color: grey;
+	font-size: 12px;
+}
 
 
 
@@ -480,7 +487,7 @@ li{
   <!--/#bottom-->
   <div style="border:1px solid #FFFF00;">
 	  <div style="float: left;">
-		일별박스오피스
+		<div style="padding-top: 5px;padding-bottom: 10px;"><span style="font-size: 20px; color:solid black;">일별박스오피스</span></div>
 	    <table border="0" class="table table-bordered table-striped table-hover text-center" id="movieTr">
 			<tr>
 				<th class="col-xs-1 text-center">순위</th>
@@ -490,7 +497,7 @@ li{
 		</table>
 	  </div>
 	  <div style="float: right;">  
-		주간/주말박스오피스
+		<div style="padding-top: 5px;padding-bottom: 10px;"><span style="font-size: 20px; color:solid black;">주간/주말박스오피스</span></div>
 	    <table border="0" class="table table-bordered table-striped table-hover text-center" id="movieweekTr">
 			<tr>
 				<th class="col-xs-1 text-center">순위</th>
