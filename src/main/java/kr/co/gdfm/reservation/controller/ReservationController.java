@@ -133,7 +133,19 @@ public class ReservationController {
 	@RequestMapping("/insertSit")
 	@ResponseBody
 	public Map<String, Object> insertSit(@RequestParam Map<String, Object> paramMap) {
-		int success = reservationService.insertSit(paramMap);
+		
+		int success = 0;
+		try {
+			
+			success = reservationService.insertSit(paramMap);
+			
+		}catch(RuntimeException e ) {
+			e.printStackTrace();
+		}
+		
+		
+		
+		
 		Map<String, Object> successMap = new HashMap<>();
 		successMap.put("success", success);
 		return successMap;

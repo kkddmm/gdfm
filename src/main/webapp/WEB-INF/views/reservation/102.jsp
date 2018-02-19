@@ -121,9 +121,9 @@
 			
 			
 			
-			$('.rows--large .row__seat:nth-of-type('+parseInt(${reserveMap.SCREEN_ROW}/2)+')').css('margin-right','160px');
-			$('.rows--mini .row__seat:nth-of-type('+parseInt(${reserveMap.SCREEN_ROW}/2)+')').css('margin-right','15px');
-			 
+			 $('.rows--large .row__seat:nth-of-type('+parseInt((${reserveMap.SCREEN_ROW}/2))+')').css('margin-right','160px');
+			$('.rows--mini .row__seat:nth-of-type('+parseInt((${reserveMap.SCREEN_ROW}/2))+')').css('margin-right','15px');
+			  
 			
 		
 			

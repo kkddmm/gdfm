@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import kr.co.gdfm.reservation.mapper.ReservationMapper;
 import kr.co.gdfm.reservation.model.MovieShowInfo;
@@ -41,22 +42,18 @@ public class ReservationServiceImpl implements ReservationService{
 	public void insertReservation(Reservation reservation) {
 		
 		reservationMapper.deleteOldReservation(reservation.getMem_id());
-		
 		reservationMapper.insertReservation(reservation);
 		
 	}
-	/*@Override
-	public int isReservedSit(Map<String, Object> paramMap) {
-		return reservationMapper.isReservedSit(paramMap);
-	}*/
+
 	@Override
+//	@Transactional
 	public int insertSit(Map<String, Object> paramMap) {
-		try {
-			reservationMapper.deleteUncountedSit();
-			return	reservationMapper.insertSit(paramMap);
-		}catch(RuntimeException e){
-			return 0;
-		}
+			int i;
+				reservationMapper.deleteUncountedSit();
+				reservationMapper.deleteSitByReservationDel();
+				i = reservationMapper.insertSit(paramMap);
+			return i;
 	}
 	@Override
 	public int deleteSit(Map<String, Object> paramMap) {

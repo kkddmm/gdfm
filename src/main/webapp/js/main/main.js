@@ -171,7 +171,7 @@
 		roomsize = {
 			x : seats_row * seat_width + side_margin + row_gap_amount * seat_width,
 			y : 1000, // SCSS $cube_y
-			z : 3000 // SCSS $cube_z
+			z : 3000 // SCSS $cube_z  
 		},
 		// the initial values for the room transform
 		initTransform = {
@@ -327,7 +327,7 @@
 			z = values[14],
 		
 			// seat´s center point (x-axis)
-			seatCenterX = seat.offsetLeft + side_margin/2 + seat.offsetWidth/2,
+			seatCenterX = (seat.offsetLeft-seats[0].offsetLeft) + side_margin/2 + seat.offsetWidth/2,
 
 			// translateX, translateY and translateZ values
 			tx = seatCenterX < roomsize.x/2 ? initTransform.translateX + (roomsize.x/2 - seatCenterX) : initTransform.translateX - (seatCenterX - roomsize.x/2),

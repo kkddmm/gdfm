@@ -39,8 +39,7 @@
 		<property name="maxTotal" value="10"></property>
 		<property name="maxIdle" value="6"></property>
 		<property name="minIdle" value="5"></property>
-		<property name="defaultAutoCommit" value="false"></property>
-
+<!-- 		<property name="defaultAutoCommit" value="false"></property> -->
 </bean>		
 
 
@@ -59,7 +58,7 @@
 		<aop:pointcut expression="execution(public * kr.co.gdfm..*Service.*(..))"
 			id="servicePointCut" />
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="servicePointCut" />
-	</aop:config>
+	</aop:config> 
 	
 	<!-- mybatis 설정 -->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">

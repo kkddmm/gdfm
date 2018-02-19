@@ -73,11 +73,7 @@
 		and c.ci_id = d.ci_id
 	</select>
 
-	<delete id="deleteOldReservation" parameterType="string">
-		delete from movie_reservation
-		where mem_id = #{mem_id}
-		and pay_id is null
-	</delete>
+
 
 	<insert id="insertReservation" parameterType="kr.co.gdfm.reservation.model.Reservation">
 
@@ -109,14 +105,36 @@
 		from reservation_sit a, movie_reservation b
 		where a.reservation_id = b.reservation_id
 		and a.show_id = #{show_id}
+		and b.reservation_del_yn = 'N'
 		and (SYSDATE - b.reservation_reg_date<![CDATA[ <]]> 1/72 or b.pay_id is not null)
 	</select>
 
-	<delete id="deleteUncountedSit">
-		delete from movie_reservation
+<delete id ="deleteSitByReservationDel">
+delete from reservation_sit a
+where exists (
+  select 'X' from movie_reservation b 
+  where b.reservation_del_yn = 'Y' 
+  and b.reservation_id = a.reservation_id 
+)      
+</delete>
+
+<!-- update로 바꿔야할 로직들... -->
+
+	<update id="deleteUncountedSit">
+	update movie_reservation
+		set reservation_del_yn = 'Y'
 		where SYSDATE-reservation_reg_date <![CDATA[ > 1/72]]>
 		and pay_id is null
-	</delete>
+	</update>
+	
+		<update id="deleteOldReservation" parameterType="string">
+		update movie_reservation
+		set reservation_del_yn = 'Y'
+		where mem_id = #{mem_id}
+		and pay_id is null
+      </update>
+	
+	
 	<insert id="insertSit" parameterType="map">
 		INSERT INTO reservation_sit (
 		show_id,
@@ -128,6 +146,7 @@
 		#{reservation_id}
 		)
 	</insert>
+	
 	<delete id="deleteSit" parameterType="map">
 		delete from reservation_sit
 		where reservation_id = #{reservation_id} and sit_num = #{selectSit}

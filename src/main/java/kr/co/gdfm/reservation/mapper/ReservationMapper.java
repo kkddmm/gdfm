@@ -32,4 +32,8 @@ public interface ReservationMapper {
 
 	public int deleteUncountedSit();
 
+	public int deleteSitByReservationDel();
+	
+	
+
 }

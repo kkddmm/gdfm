@@ -22,7 +22,6 @@ public interface ReservationService {
 	public void insertReservation(Reservation reservation);
 
 //	public int isReservedSit(Map<String, Object> paramMap);
-
 	public int insertSit(Map<String, Object> paramMap);
 
 	public int deleteSit(Map<String, Object> paramMap);
