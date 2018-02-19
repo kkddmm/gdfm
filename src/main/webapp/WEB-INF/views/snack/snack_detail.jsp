@@ -33,6 +33,15 @@ function fn_insertBasket(snack_id,mem_id){
 	});
 }
 
+function fn_snackBuy(snack_buy_id){
+	
+	if('${LOGIN_USER}'==''){
+		location.href="${pageContext.request.contextPath}/login/loginForm";	
+	}
+	
+	location.href="${pageContext.request.contextPath}/payment/801";
+	console.log('스낵아이디'+snack_buy_id);
+}
 
 
 
@@ -187,7 +196,7 @@ ul, li {
 <%-- 		<c:if test="${not empty LOGIN_USER.mem_id}"> --%>
 <%-- 		</c:if> --%>
 			<input class="btn" type="button" id="BtnInsertBasket" onclick="fn_insertBasket(${snack.snack_id},'${LOGIN_USER.mem_id}');" name="BtnInsertBasket" value="장바구니"/>
-			<input class ="btn" type="button" onclick="fn_snackBuy();" value="구매하기"/>
+			<input class ="btn" type="button" onclick="fn_snackBuy(${snack.snack_buy_id});" value="구매하기"/>
 			<input class ="btn" onclick="location.href='${pageContext.request.contextPath}/snack/snack' " type="button" value="목록으로"/>
 		</div>
 	</c:if>

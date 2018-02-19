@@ -71,7 +71,7 @@ tr{
 				<thead>
 					<tr>
 						<th class="info">영화정보</th>
-						<th class="cnt">자리수</th>
+						<th class="cnt">좌석번호</th>
 						<th class="price">가격</th>
 					</tr>
 				</thead>

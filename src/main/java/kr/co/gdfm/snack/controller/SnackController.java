@@ -45,14 +45,21 @@ public class SnackController {
 		totalCount = snackService.getSnackCount(params);
 
 		SnackPaging snackPaging = new SnackPaging(totalCount, pageSize, currentPage);
-
+		
+		/**/ Snack snack = new Snack();
+		
+		
 		params.put("startRow", snackPaging.getStartRow());
 		params.put("endRow", snackPaging.getEndRow());
+		params.put("snack",snack.getSnack_buy_id());
 
 		List<Snack> snackList = snackService.getSnackList(params);
 		model.addAttribute("snackList", snackList);
 		model.addAttribute("snackPaging", snackPaging);
-
+		
+		
+		/**/model.addAttribute("snack",snack);
+		
 		// return new ResponseEntity<Model>(model, HttpStatus.OK);
 
 		return "snack/snack";
@@ -90,19 +97,24 @@ public class SnackController {
 	}
 
 	@RequestMapping("/snack_detail/{snack_id}")
-	public String snackDetail(@PathVariable(value = "snack_id", required = true) int snack_id, HttpSession session,
-			Model model) throws Exception {
+	public String snackDetail(@PathVariable(value = "snack_id", required = true) int snack_id, 
+			 HttpSession session,
+			@RequestParam Map<String, Object> params, Model model) throws Exception {
 
 		Snack snack = null;
 		Member member = null;
 
 		if (snack_id != 0) {
 			snack = snackService.snackView(snack_id);
-		}
-
+			}
+		
+		
+		/**/ snackService.insertBasket(params);
+		
 		model.addAttribute("snack", snack);
 
 		System.out.println("스낵 아이디:" + snack_id);
+		
 
 		return "snack/snack_detail";
 	}
