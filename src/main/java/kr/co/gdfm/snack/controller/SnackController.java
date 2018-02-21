@@ -19,6 +19,7 @@ import kr.co.gdfm.member.model.Member;
 import kr.co.gdfm.member.service.MemberService;
 import kr.co.gdfm.snack.Page.SnackPaging;
 import kr.co.gdfm.snack.model.Snack;
+import kr.co.gdfm.snack.model.SnackBuy;
 import kr.co.gdfm.snack.service.SnackService;
 
 @RequestMapping("/snack")
@@ -97,7 +98,7 @@ public class SnackController {
 	}
 
 	@RequestMapping("/snack_detail/{snack_id}")
-	public String snackDetail(@PathVariable(value = "snack_id", required = true) int snack_id, 
+	public String snackDetail(@PathVariable(value = "snack_id", required = true) int snack_id, 			
 			 HttpSession session,
 			@RequestParam Map<String, Object> params, Model model) throws Exception {
 
@@ -108,28 +109,49 @@ public class SnackController {
 			snack = snackService.snackView(snack_id);
 			}
 		
-		
-		/**/ snackService.insertBasket(params);
-		
 		model.addAttribute("snack", snack);
 
 		System.out.println("스낵 아이디:" + snack_id);
-		
-
+	
 		return "snack/snack_detail";
 	}
+	
+	@RequestMapping("/snack_detail_ajax")
+	@ResponseBody
+	public Map<String, Object> basketClickBuy(SnackBuy snackBuy){			
+		
+		Member member=new Member();
+		//바로 구매(insert)
+			snackService.basketClickBuy(snackBuy);			
+	
+		
+		Map<String, Object>  paramMap = new HashMap<>();
+		
+		paramMap.put("snack_buy_id", snackBuy.getSnack_buy_id());		
+		paramMap.put("mem_id", member.getMem_id());		
+		
+		
+		return paramMap;
+	}
+	
+	
+	
+	
 
+	
+	
+
+	
 	@RequestMapping("/snack_insertBasket")
 	@ResponseBody
-	public void insertBasket(@RequestParam Map<String, Object> params, 
-//				@RequestParam (value="mem_id") String mem_id,
+	public void insertBasket(Snack snack,
 			HttpSession session) throws Exception {
 
 		HashMap<String, Object> result = new HashMap<>();
-	
+		
 		
 		try {
-			snackService.insertBasket(params);
+			snackService.insertBasket(snack);
 			result.put("status", true);
 			result.put("message", "정상적으로 처리가 완료 되었습니다.");
 		} catch (Exception e) {
@@ -141,7 +163,7 @@ public class SnackController {
 
 	@RequestMapping("/snack_basket/{mem_id}")
 	public String basketList(@PathVariable String mem_id, Model model) throws Exception {
-
+		
 		List<Snack> basketList = snackService.getBasketList(mem_id);
 		
 		model.addAttribute("basketList", basketList);
@@ -156,30 +178,8 @@ public class SnackController {
 		snackService.deleteBasket(snack_buy_id);
 	}
 
-	@RequestMapping("/snack_pay")
-	public String snackPay() {
-
-		return "snack/snack_pay";
-	}
-	
-	@RequestMapping("/pay")
-	public String payView() {
-		
-		return "snack/pay";
-	}
 
 }
-
-
-
-
-
-
-
-
-
-
-
 
 
 
