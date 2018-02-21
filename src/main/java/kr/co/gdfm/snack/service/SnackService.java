@@ -4,17 +4,18 @@ import java.util.List;
 import java.util.Map;
 
 import kr.co.gdfm.snack.model.Snack;
+import kr.co.gdfm.snack.model.SnackBuy;
 
 public interface SnackService {
 
 	//스낵메뉴 개수
-	public int getSnackCount(Map<String, Object> params) throws Exception;	
+	public int getSnackCount(Map<String, Object> params) ;	
 	
 	// 스낵메뉴보기
-	public List<Snack> getSnackList(Map<String, Object> params) throws Exception;
+	public List<Snack> getSnackList(Map<String, Object> params) ;
 
 	// 스낵 상세정보
-	public Snack snackView(int snack_id) throws Exception;
+	public Snack snackView(int snack_id) ;
 
 	/*
 	 * //스낵 정보입력 public int insertSnack(Snack snack) throws Exception;
@@ -26,23 +27,29 @@ public interface SnackService {
 	 */
 
 	// 스낵 장바구니에 추가
-	public void insertBasket(Map<String, Object> params) throws Exception;
+	public void insertBasket(Snack snack) ;
+	
+	
+	//스낵정보에서 구매하기 클릭했을 때
+	public void basketClickBuy(SnackBuy snackBuy);	
+	
 	
 	//스낵 장바구니 목록 보기
-	public List<Snack> getBasketList(String mem_id) throws Exception;
+	public List<Snack> getBasketList(String mem_id) ;
+		
 	
 	// 스낵 장바구니 삭제
-	public void deleteBasket(int snack_buy_id) throws Exception;
+	public void deleteBasket(int snack_buy_id);
 
-	// 스낵 결제
+	
+	//스낵 결제 상세 조회 (바로구매,1건)
+	public Map<String, Object> getSnackBuyDetail(int snack_buy_id);
 	
 	
-	
-	// 스낵 결제취소
-	
-	
-	
-	
+	//스낵 장바구니 결제화면 
+	public Map<String, Object> snackToPayment(String mem_id, int snack_buy_id);
 	
 
 }
+
+

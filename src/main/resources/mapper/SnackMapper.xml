@@ -4,16 +4,18 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.gdfm.snack.mapper.SnackMapper" >
 	
+	<!-- 스낵메뉴 개수  -->
 	<select id="selectSnackCount" parameterType="map" resultType="int">
 	SELECT
 		    count(*) as count
 		FROM snack	
 	</select>
 	
-	
+	<!-- 스낵 리스트 -->
 	<select id="selectSnackList" parameterType="map" resultType="kr.co.gdfm.snack.model.Snack">
 	
-	select a.*
+	select a.*,
+	rownum as rnum
 	from
 	(
 		SELECT
@@ -29,22 +31,20 @@
 		    snack_info,
 		    snack_exp,
 		    snack_change_info,
-		    snack_use_info, 
-		    rownum as rnum
+		    snack_use_info
+		    
 		FROM snack
 		<if test="snack_type !=null">
 		where snack_type=#{snack_type}		
-		</if> 
-		
+		</if> 		
 		) a
-		where 1=1
-		and a.rnum between #{startRow} and #{endRow}
+		where rownum between #{startRow} and #{endRow}
 	</select>
 	
 	
 	
 	
-	
+	<!-- 스낵 상세정보 -->
 	<select id="snackView" parameterType="int" resultType="kr.co.gdfm.snack.model.Snack">
 		SELECT
 		    snack_id,
@@ -126,21 +126,58 @@
 		WHERE snack_id =#{snack_id}
 	</delete>
 	
-	<insert id="insertBasket" parameterType="map">
+	<!-- 장바구니 담기 -->
+	<insert id="insertBasket" parameterType="kr.co.gdfm.snack.model.Snack">
 		INSERT INTO snack_buy (
 		    snack_buy_id,
 		    mem_id,
 		    snack_id,
 		    snack_cnt,
-		    pay_id
+		    pay_id,
+		    snack_isbasket_yn		      
 		) VALUES (
 		    snack_buy_seq.nextval,
 		    #{mem_id},
 		    #{snack_id},
 		    #{snack_cnt},
-		    null
+		    null,
+		    'Y'
+		 
+		    
 		)			
 	</insert>
+	
+	
+	<!-- 구매하기 버튼 눌렀을 때 ajax로 장바구니 담기-->	
+	<insert id="basketClickBuy" parameterType="kr.co.gdfm.snack.model.SnackBuy">
+		<selectKey keyProperty="snack_buy_id" resultType="int" order="BEFORE">
+			 SELECT 
+			 snack_buy_seq.nextval
+			from
+			dual
+		</selectKey>	
+		INSERT INTO snack_buy (
+			    snack_buy_id,
+			    mem_id,
+			    snack_id,
+			    snack_cnt,
+			    pay_id,
+			    snack_isbasket_yn		    
+			) VALUES (
+			    #{snack_buy_id},
+			    #{mem_id},
+			    #{snack_id},
+			    #{snack_cnt},
+			    null,
+			    'N'
+			)		
+	</insert>
+	
+	
+	
+	
+	
+	
 	
 	
 	<select id="getBasketList" parameterType="string" resultType="kr.co.gdfm.snack.model.Snack">
@@ -154,8 +191,10 @@
 			 b.snack_name,
 			 b.snack_price			 
 		FROM snack_buy a, snack b
-		where a.mem_id=#{mem_id} and  a.snack_id=b.snack_id				
-		and a.pay_id is null	
+		where a.mem_id=#{mem_id} 
+		and  a.snack_id=b.snack_id				
+		and a.pay_id is null 
+		and	a.SNACK_ISBASKET_YN='Y'
 	</select>
 	
 	
@@ -166,5 +205,52 @@
 	</delete>
 	
 	
+	
+<!-- 	결제화면에 상품정보 -->
+	<select id="getSnackBuyDetail" parameterType="int"  resultType="map" >
+		select  
+			a.snack_buy_id, 
+			a.snack_id, 
+			b.snack_name,
+			b.snack_subname ,
+			a.snack_cnt,
+			b.snack_price,
+			(b.snack_price*a.snack_cnt) as first_amount
+		from snack_buy a, snack b 
+		where a.snack_buy_id = #{snack_buy_id} 
+		and a.snack_id=b.snack_id 
+	</select>
+	
+	
+	
+	
+	<!-- 장바구니에서 결제화면으로 -->
+	
+	<!-- <select id="snackToPayment" parameterType="string"  resultType="map" >
+		select  
+			a.snack_buy_id, 
+			a.snack_id, 
+			b.snack_name,
+			b.snack_subname ,
+			a.snack_cnt,
+			(b.snack_price*a.snack_cnt) as first_amount
+		from snack_buy a, snack b 
+		where a.snack_buy_id = #{snack_buy_id} 
+		and a.mem_id=#{mem_id}
+		and a.snack_id=b.snack_id 
+	</select>
+ -->
+	
+	
+	
 </mapper>
+
+
+
+
+
+
+
+
+
 
