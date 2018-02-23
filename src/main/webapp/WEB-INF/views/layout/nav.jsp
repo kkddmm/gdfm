@@ -30,31 +30,33 @@
 								(<img alt="다이아" src="${pageContext.request.contextPath}/img/dia.png">)
 							</c:if> 
 					</b> 님
-				</span> |                
-				<a href="${pageContext.request.contextPath}/member/memberView?mem_id=${LOGIN_USER.mem_id}" style="color:#FFFFFF;font-size:11px;">마이페이지</a><span style="color:#FFFFFF;font-size:11px;">|</span>                
+				</span>  
+				<c:if test="${LOGIN_USER.class_code == 99}">  
+				<span style="color:#FFFFFF;font-size:11px;">|</span>
+				<a href="${pageContext.request.contextPath}/admin/loginForm" style="color:#FFFFFF;font-size:11px;">관리자페이지</a>    
+				</c:if>
+				<span style="color:#FFFFFF;font-size:11px;">|</span>             
 				<a href="${pageContext.request.contextPath}/login/logout" style="color:#FFFFFF;font-size:11px;">로그아웃</a>                
 		    </c:if>
 	    </div>
         <div class="collapse navbar-collapse navbar-right">
           <ul class="nav navbar-nav">
             	<li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">예매<b class="caret"></b></a>
-                       <ul class="dropdown-menu">
-                           <li><a href="${pageContext.request.contextPath}/reservation/101">예매 depth1</a></li>
-                           <li><a href="#">예매 depth2</a></li>                            
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="${pageContext.request.contextPath}/reservation/101">예매<b class="caret"></b></a>
+                      <ul class="dropdown-menu">
+                           <li><a href="${pageContext.request.contextPath}/reservation/101">빠른예매</a></li>             
                        </ul>
                   </li>
                         
                   <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">영화<b class="caret"></b></a>
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="${pageContext.request.contextPath}/movie/movie_information">영화<b class="caret"></b></a>
                        <ul class="dropdown-menu">
-                           <li><a href="${pageContext.request.contextPath}/movie/movie_information">영화 depth1</a></li>
-                           <li><a href="#">영화 depth1</a></li>                            
+                           <li><a href="${pageContext.request.contextPath}/movie/movie_information">영화무비차트</a></li>                   
                        </ul>
                   </li>
                   
                   <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">커뮤니티<b class="caret"></b></a>
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="${pageContext.request.contextPath}/board/3030101?bo_type_code=1">커뮤니티<b class="caret"></b></a>
                        <ul class="dropdown-menu">
                            <li><a href="${pageContext.request.contextPath}/board/3030101?bo_type_code=1">공지사항</a></li>
                            <li><a href="${pageContext.request.contextPath}/board/3030101?bo_type_code=2">질문답변</a></li>                            
@@ -68,11 +70,20 @@
                     </c:if></a>      
                     <c:if test="${not empty sessionScope.LOGIN_USER}">              
                        <ul class="dropdown-menu">
+                           <li><a href="${pageContext.request.contextPath}/snack/snack">스낵코너</a></li>                                                   
                            <li><a href="${pageContext.request.contextPath}/snack/snack_basket/${LOGIN_USER.mem_id}">스낵 장바구니</a></li>                                                   
                        </ul>      
-                    </c:if>  
-                        
-                  </li>                   
+                    </c:if> 
+                  </li> 
+                  <c:if test="${not empty sessionScope.LOGIN_USER}">   
+                  <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="${pageContext.request.contextPath}/admin/memberView?mem_id=${LOGIN_USER.mem_id}">마이페이지<b class="caret"></b></a>
+                       <ul class="dropdown-menu">
+                           <li><a href="${pageContext.request.contextPath}/member/memberView?mem_id=${LOGIN_USER.mem_id}">회원정보</a></li>
+                           <li><a href="${pageContext.request.contextPath}/member/memberView?mem_id=${LOGIN_USER.mem_id}">구매이력</a></li>                            
+                       </ul>
+                  </li>               
+                  </c:if>
            <!-- <li class="dropdown"><a href="index.html">예매</a></li>
             <li class="dropdown toggle"><a href="about-us.html">영화</a></li>
             <li class="dropdown"><a href="services.html">커뮤니티</a></li>

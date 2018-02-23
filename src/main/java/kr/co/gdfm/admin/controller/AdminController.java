@@ -1,5 +1,6 @@
 package kr.co.gdfm.admin.controller;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -36,6 +37,8 @@ import kr.co.gdfm.common.util.PagingUtil;
 import kr.co.gdfm.member.model.Member;
 import kr.co.gdfm.member.model.Memberclass;
 import kr.co.gdfm.member.service.MemberService;
+import kr.co.gdfm.movie.model.Movie;
+import kr.co.gdfm.movie.service.MovieService;
 import kr.co.gdfm.reservation.model.Reservation;
 import kr.co.gdfm.reservation.service.ReservationService;
 import kr.co.gdfm.snack.model.Snack;
@@ -64,6 +67,9 @@ public class AdminController {
 
 	@Autowired
 	ReservationService reservationService;
+	
+	@Autowired
+	MovieService movieService;
 	
 	@ModelAttribute("searchTypeMap") // 화면에쓸 데이터 model넣기. searchTypeMap바인딩
 	public Map<String, String> getSearchType() {
@@ -1044,5 +1050,14 @@ public class AdminController {
 		model.addAttribute("locationURL", locationURL);
 		
 		return viewPage;
+	}
+	@RequestMapping("/movieList")
+	public String movieList(
+			Model model
+			) throws Exception {
+			List<Movie> movieList = new ArrayList<>();
+			movieList = movieService.selectMovieList();
+			model.addAttribute("movieList", movieList);
+		return "admin/movieList";
 	}
 }

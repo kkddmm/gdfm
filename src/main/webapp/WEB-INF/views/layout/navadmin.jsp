@@ -20,8 +20,8 @@
 					<b>
 						${LOGIN_USER.mem_name}
 					</b> 님
-				</span> |                
-				<a href="${pageContext.request.contextPath}/admin/memberView?mem_id=${LOGIN_USER.mem_id}" style="color:#FFFFFF;font-size:11px;">마이페이지</a><span style="color:#FFFFFF;font-size:11px;">|</span>                
+				</span>               
+				<%-- <a href="${pageContext.request.contextPath}/admin/memberView?mem_id=${LOGIN_USER.mem_id}" style="color:#FFFFFF;font-size:11px;">마이페이지</a> --%><span style="color:#FFFFFF;font-size:11px;">|</span>                
 				<a href="${pageContext.request.contextPath}/admin/logout" style="color:#FFFFFF;font-size:11px;">로그아웃</a>                
 		    </c:if>
 	    </div>
@@ -63,9 +63,17 @@
                   <li class="dropdown">
                     <a  href="${pageContext.request.contextPath}/admin/movieList">영화정보<b class="caret"></b></a>
                      <ul class="dropdown-menu">
-                           <li><a href="${pageContext.request.contextPath}/admin/movleList">영화관리</a></li>                       
+                           <li><a href="${pageContext.request.contextPath}/admin/movieList">영화정보</a></li>                       
                      </ul>
-                  </li>                   
+                  </li>  
+                  <c:if test="${not empty sessionScope.LOGIN_USER}">   
+                  <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="${pageContext.request.contextPath}/admin/memberView?mem_id=${LOGIN_USER.mem_id}">마이페이지<b class="caret"></b></a>
+                       <ul class="dropdown-menu">
+                           <li><a href="${pageContext.request.contextPath}/admin/memberView?mem_id=${LOGIN_USER.mem_id}">회원정보</a></li>                          
+                       </ul>
+                  </li>               
+                  </c:if>                 
           </ul>
         </div>
       </div>
