@@ -8,13 +8,10 @@
 
 function fn_insertBasket(snack_id,mem_id){
 	
-	if('${LOGIN_USER}'==''){
-		location.href="${pageContext.request.contextPath}/login/loginForm";	
-	}
 	var snackCnt = $('#snack_cnt').val(); 
 	
 	console.log(snackCnt);
-	
+	if('${LOGIN_USER}'!=''){
 	$.ajax({
 		type: 'post',
 		url : '${pageContext.request.contextPath}/snack/snack_insertBasket',
@@ -26,24 +23,50 @@ function fn_insertBasket(snack_id,mem_id){
 			console.log(mem_id);
 // 			alert(data.status);
 // 			alert(data.message);
-		},
-		error : function(error){
-			console.log(error);
-		}
-	});
-}
-
-function fn_snackBuy(snack_buy_id){
-	
-	if('${LOGIN_USER}'==''){
+			},
+			error : function(error){
+				console.log(error);
+			}
+		});
+	}else{
 		location.href="${pageContext.request.contextPath}/login/loginForm";	
 	}
-	
-	location.href="${pageContext.request.contextPath}/payment/801";
-	console.log('스낵아이디'+snack_buy_id);
 }
 
+function fn_snackBuy(snack_id,mem_id,snack_buy_id){
+	
+	var snackCnt = $('#snack_cnt').val(); 
+	
+	
+	if('${LOGIN_USER}'!=''){
+		$.ajax({
+			type: 'post',
+			url : '${pageContext.request.contextPath}/snack/snack_detail_ajax',
+			data : "snack_id="+snack_id+"&mem_id="+mem_id+"&snack_cnt="+snackCnt,		
+			dataType: 'json',
+			success : function(data, status){				
+				console.log('snack_buy_id:'+data.snack_buy_id)
+				alert("")
+				location.href = '${pageContext.request.contextPath}/payment/801?snack_buy_id='+data.snack_buy_id+'&snackPage=Y';
+				},
+				error : function(error){
+					console.log(error);
+				}
+			});
+		}else{
+			location.href="${pageContext.request.contextPath}/login/loginForm";	
+		}
+	
+// 		location.href="${pageContext.request.contextPath}/payment/801";	
+} 
 
+/* function fn_snackBuy(){
+	
+	var frm = document.basketClickBuy;
+	
+	frm.action="${pageContext.request.contextPath}/payment/801";
+	frm.submit();
+} */
 
 
 
@@ -128,11 +151,12 @@ ul, li {
 
 			<!--/#portfolio-filter-->
 
+<!-- <form name="basketClickBuy" id="basketClickBuy" method="post"> -->
+<%-- <input type="hidden"  name="snack_id" value="${snack.snack_id}"> --%>
+<%-- <input type="hidden"  name="mem_id" value="${LOGIN_USER.mem_id}"> --%>
+
 
 <div>
-
-
-
 <%-- div>
 
 <img alt="" src="${pageContext.request.contextPath}/img/snack/${snack.snack_name}.jpg">
@@ -196,7 +220,7 @@ ul, li {
 <%-- 		<c:if test="${not empty LOGIN_USER.mem_id}"> --%>
 <%-- 		</c:if> --%>
 			<input class="btn" type="button" id="BtnInsertBasket" onclick="fn_insertBasket(${snack.snack_id},'${LOGIN_USER.mem_id}');" name="BtnInsertBasket" value="장바구니"/>
-			<input class ="btn" type="button" onclick="fn_snackBuy(${snack.snack_buy_id});" value="구매하기"/>
+			<input class ="btn" type="button" onclick="fn_snackBuy(${snack.snack_id},'${LOGIN_USER.mem_id}');" value="구매하기"/>
 			<input class ="btn" onclick="location.href='${pageContext.request.contextPath}/snack/snack' " type="button" value="목록으로"/>
 		</div>
 	</c:if>
@@ -208,7 +232,8 @@ ul, li {
 
 
 
-</div>
+<!-- </div> -->
+<!-- </form> -->
 <!-- End gallery list-->
 
 
@@ -291,7 +316,6 @@ ul, li {
 <br>
 <br>
 <br>
-
 
 
 

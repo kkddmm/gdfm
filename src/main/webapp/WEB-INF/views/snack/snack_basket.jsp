@@ -13,15 +13,55 @@ function fn_delSnackBasket(btn,snack_buy_id,mem_id){
 		data : "snack_buy_id="+snack_buy_id,  		
 		
 		success : function(data, status){
-// 			alert("물품을 장바구니에서 삭제했습니다.");
+			alert("물품을 장바구니에서 삭제했습니다.");
 			$btn.closest(".cart").remove();  						
 			console.log('스낵아이디'+snack_buy_id);
+			
+			calTotalPrice ();
+			
+// 			$('#totalPrice').val()
 		},		
 		error : function(error){
 			console.log(error);
 		}
 	});	
 }
+
+
+
+
+
+function fn_goPayment(){
+	
+	var totalPrice= $('#totalPrice').val();
+	
+	location.href="${pageContext.request.contextPath}/payment/801?basket=Y&first_amount="+totalPrice;
+	
+	
+}
+
+
+function calTotalPrice (){
+
+	var abcd=0;
+	for(var i=0;i<$('.subPrice').length;i++){
+	abcd +=  parseInt($('.subPrice').eq(i).val());		
+	}
+	
+  $('#totalPrice').val(abcd);	
+	
+}
+
+
+
+
+
+
+
+$(function(){
+	calTotalPrice ();
+});
+
 </script>
 
 
@@ -77,29 +117,37 @@ ul, li {
 							</div>
 							<div class="col-md-2">
 								<span align="right"><input type="button" id="BtnDelete" onclick="fn_delSnackBasket(this,${basket.snack_buy_id},'${LOGIN_USER.mem_id}');" value="삭제"></span>
+								<input type="hidden" class="subPrice" type="text" value="${basket.snack_cnt*basket.snack_price}">
 							</div>
 						</div>
 
 					<br>	
 																		
-				</div>						
+				</div>	
+									
 			</c:forEach>
 		<br/>		
 	</c:if>	
 	
-	<c:if test="${pay_id!=null}">
-		<span>장바구니가 비어있습니다.</span>
+	<c:if test="${pay_id!=''}">
+		<span></span>
 	</c:if>	
+	
 </div>
 		
 
 		<div align="right">			
-			<input class ="btn" type="button" value="결제하기"/>
+			<input class ="btn" type="button"  onclick="fn_goPayment('${LOGIN_USER.mem_id}');"  value="결제하기"/>
 			<input  class ="btn" onclick="location.href='${pageContext.request.contextPath}/snack/snack' " type="button" value="목록으로"/>			
 		</div>
 
-
-
+	
+	<c:if test="${basket.snack_buy_id!=''}">
+		<div>
+			<input id="totalPrice" type="text">
+		</div>
+	</c:if>	
+	
 		
 </section>
 
@@ -122,6 +170,5 @@ ul, li {
 <br>
 <br>
 <br>
-
 
 

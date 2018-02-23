@@ -10,13 +10,17 @@ INSERT INTO pay (
     pay_type,
     pay_amount,
     pay_date,
-    card_code
+    card_code,
+    pay_addpoint,
+    mem_id
 ) VALUES (
     #{imp_uid},
     'card',
     #{pay_amount},
     SYSDATE,
-    0
+    0,
+   #{pay_addpoint},
+    #{mem_id}    
 ) 
 </insert>
 
@@ -25,11 +29,31 @@ update movie_reservation
 set pay_id = #{imp_uid}
 where reservation_id = #{reservation_id}
 </update>
+
 <update id="snackPayUpdate" parameterType="map">
 update snack_buy
 set pay_id = #{imp_uid}
 where snack_buy_id = #{snack_buy_id}
+and pay_id is null
 </update>
+
+
+<update id="addPoint" parameterType="map">
+update member set
+	mem_point=mem_point+ #{pay_addpoint}
+where mem_id=#{mem_id}
+</update>
+
+<update id="minusPoint" parameterType="map">
+update member set
+	mem_point=mem_point- #{usedPoint}
+where mem_id=#{mem_id}
+</update>
+
+
+
+
+
 
 
 

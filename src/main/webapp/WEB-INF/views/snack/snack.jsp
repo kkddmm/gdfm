@@ -91,8 +91,7 @@ ul, li {
 		
  
 			<div class="center">
-				<h2 align="left">스낵메뉴</h2>
-	
+				<h2 align="left">스낵메뉴</h2>	
 			</div>
 
 			<div class="col-md-12">
@@ -193,6 +192,5 @@ ul, li {
 <br>
 <br>
 <br>
-
 
 
