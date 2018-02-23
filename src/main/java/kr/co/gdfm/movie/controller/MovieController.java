@@ -5,12 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -36,9 +33,9 @@ public class MovieController {
 	@RequestMapping("/movie_information")
 	public String selectMovieInfoList(Model model) throws Exception {
 
-		List<Movie> movieList = new ArrayList<>();
-		movieList = movieService.selectMovieList();
-		model.addAttribute("movieList", movieList);
+//		List<Movie> movieList = new ArrayList<>();
+//		movieList = movieService.selectMovieList();
+//		model.addAttribute("movieList", movieList);
 
 		return "movie/movie_information";
 	}
@@ -133,8 +130,70 @@ public class MovieController {
 	}
 		
 	
-	
+	@RequestMapping("/duplicationChk")
+	@ResponseBody
+	private Map<String, Object> duplicationChk(@RequestParam Map<String, Object> params) throws Exception {
 
+		
+
+		Map<String, Object> success = new HashMap<>();
+
+		int i = movieReviewService.duplicationChk(params);
+
+		success.put("success", i);
+
+	
+		return success;
+	}
+
+	@RequestMapping("/insertUpDown")
+	@ResponseBody
+	private Map<String, Object> insertUpDown(@RequestParam Map<String, Object> params) {
+		
+
+		Map<String, Object> success = new HashMap<>();
+
+		int i=0;
+		 
+		
+		try {
+			
+			i = movieReviewService.insertUpDown(params);
+		}catch(RuntimeException e) {
+			
+			i=0;
+		}
+		
+		
+		
+		
+		System.out.println("i에 들어간 값 "+i);
+		success.put("success", i);
+
+	
+		return success;
+	}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 	// 영화 리뷰 작성
 	@RequestMapping("/insertReview")
@@ -176,15 +235,22 @@ public class MovieController {
 		success.put("movieReviewList", movieReviewList);
 
 		return success;
+		
 	}
 
-	/*@RequestMapping("/moviePosterMore")
+
+	@RequestMapping("/selectMovieList")
 	@ResponseBody
-	
-	public List<Movie> moviePosterMore(@RequestParam Map<String, Object> params,
-			@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage,
-			@RequestParam(value = "pageSize", required= false, defaultValue = "6") int pageSize)
-			throws Exception	{
+	public List<Movie> moviePosterMore(@RequestParam Map<String, Object>params,
+			 @RequestParam(value = "currentPage" , required = false, defaultValue = "1" )int currentPage,
+			 @RequestParam(value = "pageSize", required = false, defaultValue = "6" ) int pageSize)
+				throws Exception {
+		
+		
+		System.out.println("파람스에 담긴 sortValue 값 : "+params.get("sortValue"));
+		System.out.println("파람스에 담긴 sortValue 값 : "+params.get("sortValue"));
+		System.out.println("파람스에 담긴 sortValue 값 : "+params.get("sortValue"));
+		
 		
 		int totalCount = 0;
 		
@@ -192,13 +258,38 @@ public class MovieController {
 		
 		MoviePaging moviePaging = new MoviePaging(totalCount, pageSize, currentPage);
 		
+		System.out.println(moviePaging.getStartRow());
+		System.out.println(moviePaging.getEndRow());
 		
+		params.put("startRow", moviePaging.getStartRow());
+		params.put("endRow", moviePaging.getEndRow());
+		
+		List<Movie> movieList = movieService.selectMovieListWithPaging(params);
+		
+		
+			return movieList;
+		
+		}
 	
+	//스틸컷 
+	/*@RequestMapping("/selectStillCutList/{movie_id}")
+	public String selectStillCutList(int movie_id , Model model) {
+		
+		List<Movie> stillcutList = new ArrayList<>();
+	
+		Movie movie = movieService.selectStillCutList(movie_id);
+		
+		model.addAttribute("stillcutList", stillcutList);
 		
 		
-		
-		return null;*/
+		return "movie/movie_detail";
 	}
+	*/
+	
+}
+
+	
+	
 	
 	
 	

@@ -3,7 +3,7 @@ package kr.co.gdfm.movie.model;
 import java.util.Date;
 import java.util.List;
 
-//영화 
+ 
 public class Movie {
 
 	private int  movie_id;
@@ -22,11 +22,18 @@ public class Movie {
 	private String movie_trailer;
 	private List<String> movie_genre_name;
 	
-	
-	
+	//스틸 컷 
+	private List<String> 	stillcut;
 	
 	
 
+	
+	public List<String> getStillcut() {
+		return stillcut;
+	}
+	public void setStillcut(List<String> stillcut) {
+		this.stillcut = stillcut;
+	}
 	public List<String> getMovie_genre_name() {
 		return movie_genre_name;
 	}

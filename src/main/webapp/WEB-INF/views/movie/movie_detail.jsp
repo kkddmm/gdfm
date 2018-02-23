@@ -13,33 +13,40 @@
 	<div class="container main-container">
 	
 		<div class="row">
+		
+		
 	
 		 <div class="moive_poster col-md-4">
 		 		
-		 			<br>
-		 			<br>
-		 			<br>
-		 			<br>
-		 				
-						<img src="${pageContext.request.contextPath}/movieposter/${movie.movie_name}_poster.jpg" alt="movie_poster">
-					 	<br>
+		 			 				
+						<img src="${pageContext.request.contextPath}/movieposter/${movie.movie_name}_poster.jpg" alt="movie_poster" style="padding-top: 30%">
+					 	
 					 	</div> 
 					 	
-					 	<br>
-					 	<br>
 					 	
 					 <div class="moive_poster col-md-8">
-					 		<p style="text-align: center;">${movie.movie_ko_name}</p>
-					 		<p>${movie.movie_name}</p>
-					 		<p>감독 : ${movie.movie_director} / 배우 : ${movie.movie_actor}</p>
-					 		
-					 		<p>장르 : <c:forEach varStatus="status" var="genre" items="${movie.movie_genre_name}">${genre}<c:if test="${!status.last}">,</c:if></c:forEach></p>
-					 		<p>기본 : ${movie.movie_grade} 이상 , ${movie.movie_running_time} , ${movie.movie_production_country}</p>
-					 		<p>개봉 : ${movie.movie_release_date}</p> 
+					 		<div class="poster"  style="padding: 10%">
+						 		<p style="text-align: center; ">${movie.movie_ko_name}</p>
+						 		<p style="font-weight: bolder;">${movie.movie_name}</p>
+						 		<p>감독 : ${movie.movie_director} / 배우 : ${movie.movie_actor}</p>
+						 		
+						 		<p>장르 : <c:forEach varStatus="status" var="genre" items="${movie.movie_genre_name}">${genre}<c:if test="${!status.last}">,</c:if></c:forEach></p>
+						 		<p>기본 :  <img src="${pageContext.request.contextPath}/img/${movie.movie_grade}.png" style="width:20px; height:20px;">
+						 		, ${movie.movie_running_time} , ${movie.movie_production_country}</p>
+						 		<p>개봉 : ${movie.movie_release_date}</p>
+						 		
+                     <!--같은 탭으로 열기 --> 
+                <p align="middle">
+           				<input style="color: white;" type="button" class="btn btn-danger" value="예매하기" 
+           						onClick="location.href='${pageContext.request.contextPath}/reservation/101'"> 
+                </p>
+						 		
+						 		
+					 		</div> 
 					 	</div>
 					 	
-		<div class="movie_story col-md-8">
-					 <p>${movie.movie_story}</p> 
+		<div class="movie_story col-md-12">
+					 <p style="padding: 2%;">${movie.movie_story}</p> 
 		</div>			
 		
 		
@@ -48,10 +55,6 @@
          
          		 <%-- <button type="button" class="btn btn-primary" a href="${pageContext.request.contextPath}/reservation/101"/>예매 하기 </a></button>      --%>     
                      
-                     <!--같은 탭으로 열기 --> 
-                   		<p align="middle">
-           <input style="al" type="button" class="btn btn-primary" value="예매하기" onClick="location.href='${pageContext.request.contextPath}/reservation/101'"> 
-                      </p>
                      		
         </div>    
                      <!--새로운 탭으로 열기--> 
@@ -63,18 +66,16 @@
 			<br>
 			<br>				
 				<div class="movie_trailer col-md-12">
-					<p align="middle">
+					<p align="middle" style="padding: 5%">
 					<iframe width="560" height="315" style="text-align: center;"
-						src="${movie.movie_trailer}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe></p>
+						src="${movie.movie_trailer}" frameborder="0"  encrypted-media" allowfullscreen></iframe></p>
 					
-						 <p>${movie.movie_ko_name}예고편</p>	 
+						<%--  <p>${movie.movie_ko_name}예고편</p>	  --%>
 						 	
 					
 				</div>
 				
-			<br>
-			<br>
-			<br>
+			
 			
 			
 				
@@ -82,89 +83,385 @@
 				<div class="movie_stillcut col-md-12">
 					
 						
-						<div id="about-slider">
-        <div id="carousel-slider" class="carousel slide" data-ride="carousel">
-          <!-- Indicators -->
-          <ol class="carousel-indicators visible-xs">
-            <li data-target="#carousel-slider" data-slide-to="0" class="active"></li>
-            <li data-target="#carousel-slider" data-slide-to="1"></li>
-            <li data-target="#carousel-slider" data-slide-to="2"></li>
-          </ol>
+						
+          				
+               <!-- <img src="${pageContext.request.contextPath}/stillcut/${movie.movie_name}_stillcut.jpg" class="img-responsive" alt="stillcut"> -->
+               		 	<div class="container">
+					  <h2>트레일러~</h2>  
+					  <div id="myCarousel" class="carousel slide" data-ride="carousel">
+					    <!-- Indicators -->
+					    <ol class="carousel-indicators">
+					    	
+					      <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+					      <li data-target="#myCarousel" data-slide-to="1"></li>
+					      <li data-target="#myCarousel" data-slide-to="2"></li>
+					      <li data-target="#myCarousel" data-slide-to="3"></li>
+					      <li data-target="#myCarousel" data-slide-to="4"></li>
+					      <li data-target="#myCarousel" data-slide-to="5"></li>
+					      <li data-target="#myCarousel" data-slide-to="6"></li>
+					      <li data-target="#myCarousel" data-slide-to="8"></li>
+					      <li data-target="#myCarousel" data-slide-to="9"></li>
+					      <li data-target="#myCarousel" data-slide-to="10"></li>
+					      
+					  
+					    </ol>
+					
+					    <!-- Wrapper for slides -->
+					    
+					    	 <div class="carousel-inner">
+							       
+							      
+							      
+							      <c:forEach var="stillcut" varStatus="status" items="${movie.stillcut}">
 
-          <div class="carousel-inner">
-          				
-          				
-          				
-            <div class="item active">                              
-              <%-- <img src="${pageContext.request.contextPath}/movieposter/${movie.movie_name}_stillcut<%%>.jpg"class="img-responsive" alt="movie_stillcut.jpg"> --%>
-            </div>
-            				
-            <%-- <div class="item">
-            				<c:forEach var="stillcut" items="${stillcutList}">
-               <img src="${pageContext.request.contextPath}/stillcut/${movie.movie_name}_stillcut${.stillcut}.jpg" class="img-responsive" alt="The Discloser_stillcut">
-               			</c:forEach>
-            </div> --%>
-            
-            
-            
-            			<%
-            			for(int i = 0 ; i<10;i++)
-            			{
-            			 %>
-             <div class="item">
-               <img src="${pageContext.request.contextPath}/stillcut/${movie.movie_name}_stillcut<%=i+1%>.jpg" class="img-responsive" alt="The Discloser_stillcut">
-            </div>
-            			<%
-            			}
-            			%> 
-            			
-            <%-- <div class="item">
-              <img src="${pageContext.request.contextPath}/movieposter/${movie.movie_name}_stillcut2.jpg" class="img-responsive" alt=""> 
-            </div> 
-            <div class="item">
-              <img src="${pageContext.request.contextPath}/movieposter/${movie.movie_name}_stillcut3.jpg" class="img-responsive" alt=""> 
-            </div> 
-            <div class="item">
-              <img src="${pageContext.request.contextPath}/movieposter/${movie.movie_name}_stillcut7.jpg" class="img-responsive" alt=""> 
-            </div> 
-            <div class="item">
-              <img src="${pageContext.request.contextPath}/movieposter/${movie.movie_name}_stillcut10.jpg" class="img-responsive" alt=""> 
-            </div>  --%>
-            						
-            
-          </div>
 
-          <a class="left carousel-control hidden-xs" href="#carousel-slider" data-slide="prev">
-						<i class="fa fa-angle-left"></i>
-					</a>
-          <a class=" right carousel-control hidden-xs" href="#carousel-slider" data-slide="next">
-						<i class="fa fa-angle-right"></i>
-					</a>
-        </div>
-        <!--/#carousel-slider-->
-      </div>
-      <!--/#about-slider-->
-    </div>
-  </div>
+<%-- 					      <div class="item <c:if test="${status.first}">active</c:if>" style="width:1500px; height:600px;"> --%>
+<%-- 					      <div class="item ${status.first?'active':''}" style="width:1500px; height:600px;"> --%>
+					      <div class="item ${status.first?'active':''}" style="height:600px;background-image: url('${pageContext.request.contextPath}/stillcut/${stillcut}.jpg');background-size: contain;background-repeat: no-repeat;background-position: center;">
+
+					      					
+												
+<%-- 					      				<img src="${pageContext.request.contextPath}/stillcut/${stillcut}.jpg" class="img-responsive" alt="stillcut" align="middle" width="100%" height="100%"> --%>
+					       						
+					    
+					      </div>
+									</c:forEach>
+							
+							     
+						
+							    </div>
+					    
+					  
+					    <!-- Left and right controls -->
+					    <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+					      <span class="glyphicon glyphicon-chevron-left"></span>
+					      <span class="sr-only">Previous</span>
+					    </a>
+					    <a class="right carousel-control" href="#myCarousel" data-slide="next">
+					      <span class="glyphicon glyphicon-chevron-right"></span>
+					      <span class="sr-only">Next</span>
+					    </a>
+					  </div>
+					</div>
+					               		 	
+               		 	
+               		 	
+               		 	
+               				
+            
+         
+  			</div>
 						
 						
-					<br>
-					<br>
+				
 					
-					<!-- movie_reviw +  -->
-					
-						<!-- <button type="button" class="btn btn-default btn-lg">
-									  <span class="glyphicon glyphicon-star" aria-hidden="true"></span> 
-									  <span class="glyphicon glyphicon-star" aria-hidden="true"></span> 
-						</button> -->
 					
 					
 			
 				
-							
+					
+						
 							
 	<script>
-		var movie_review_id='${movie_review.movie_review_id}'; //num
+
+	var movie_review_id='${movie_review.movie_review_id}'; //num
+	
+	
+	/* //댓글 목록
+	function movieReviewList(){
+$.ajax({
+    url : '${pageContext.request.contextPath}/movie/movie_detail',
+    type : 'get',
+    data : {'movie_review_id':movie_review_id},
+    success : function(data){
+        var a =''; 
+        $.each(data, function(key, value){ 
+            a += '<div class="MovieReviewArea" style="border-bottom:1px solid darkgray; margin-bottom: 15px;">';
+            a += '<div class="MovieReviewContent'+value.+movie_review_id'"> <p> 내용 : '+value.movie_co_content +'</p>';
+            a += '</div></div>';
+        				});
+        
+        $(".movieReviewList").html(a);
+			        }
+			    });
+			} */
+			
+			
+			
+	//리뷰 삭제 
+	
+	
+	  function deleteMovieReview(deleteData) {
+				
+			$.ajax({
+				url:'${pageContext.request.contextPath}/movie/deleteReview',
+				method:'post',
+				data:"movie_review_id="+deleteData,
+				dataType:'json',
+				success: function(data){
+					
+					if(data.del_success>0){
+						alert("제대로 성공 ");
+						movieReviewList(); //댓글을 삭제한 후에도 내 댓글을 제외한 댓글들의 목록이 나타나야 하므로.. 
+					}
+				
+					
+					
+					/* $('#review').empty(); */
+				},
+				error:function() {
+					alert("에러가 발생했습니다.");
+				}
+				
+			});
+		
+	} 
+			
+  //리뷰 수정 
+  		function updateMovieReview(updateData) {
+			
+	  			$.ajax({
+	  					url:'${pageContext.request.contextPath}/movie/updateReview',
+	  					method:'post',
+	  					data:updateData,
+	  					dataType:'json',
+	  					success:function(data){
+	  							
+	  							if(data.upd_success>0){
+	  									alert("updateMovieReview 성공");
+	  									 	
+	  											
+	  											
+	  										   
+	  									movieReviewList(); //댓글 수정한 후에 댓글 목록 
+	  							}	
+	  						
+	  					},
+	  				error:function() {
+	  					 alert("updateMovieReview 에러 발생 ");
+	  					}
+	  					
+	  				});
+	  			
+				}
+		
+//리뷰 등록 
+	function movieReviewInsert(insertData,rating) {
+		
+	
+	//겹치는지  확이
+		$.ajax({
+			url:'${pageContext.request.contextPath}/movie/duplicationChk',
+			method:'post',
+			data:"&movie_id=${movie.movie_id}&mem_id=${LOGIN_USER.mem_id}",
+			dataType:'json',
+			success: function(data){
+					
+				if(data.success==1){
+					alert("한 영화에 리뷰는 하나로 제한되어 있습니다.")
+return false;						
+				}
+if(data.success==0){
+//댓글 data에 Insert
+	$.ajax({
+	url:'${pageContext.request.contextPath}/movie/insertReview',
+	method:'post',
+	data:"movie_review_content="+insertData+"&movie_id=${movie.movie_id}"+"&movie_review_rate="+rating+"&mem_id=${LOGIN_USER.mem_id}",
+	dataType:'json',
+	success:function(data){
+				movieReviewList(); //댓글 작성 후 reload
+				$('#comment_content').val(''); //댓글 작성 후 비워줘야함  (): get / val(''):set->댓글 작성란을 다 비움 
+	},
+	error:function() {
+		alert("인써트에 문제 ? 에러가 발생했습니다.");
+	}
+	
+}); 
+
+}					
+			},error:function() {
+				alert("duplicationCheck !");
+			}
+		});
+	} 
+	
+	function fn_thumb(){
+
+	var movie_review_id =  $(this).attr('data-id');
+	var mem_id = $(this).attr('data-memId');
+	var upOrDown = $(this).attr('data-ud');
+		console.log(mem_id);
+	console.log(movie_review_id);
+		
+		if(mem_id!='${LOGIN_USER.mem_id}'){
+		$.ajax({
+			url:'${pageContext.request.contextPath}/movie/insertUpDown',
+			method:'post',
+			data:'movie_review_id='+movie_review_id+'&updown_info='+upOrDown+"&mem_id=${LOGIN_USER.mem_id}",
+			dataType:'json',
+			success: function(data) {
+					console.log(data.success)
+					
+				if(data.success==1){
+					alert("반영되었습니다");
+					movieReviewList();
+				}
+				if(data.success==0){
+					alert("추천은 1번만 가능합니다.");
+				}
+				
+			},error :function(data){
+				 alert("추천 에러 발생 ")
+			}
+		})
+		}
+		else{
+			alert("자신의 리뷰애 추천/비추천은 불가능합니다.");
+			return false;
+		}
+	}
+			function movieReviewList() {
+				  
+				   
+				   	
+					$.ajax({
+						url:'${pageContext.request.contextPath}/movie/selectListReview',
+						method:'get',
+						data:"movie_id=${movie.movie_id}",
+						dataType:'json',
+						success:function(data){
+						
+							
+							console.log(data);
+							data=data.movieReviewList;
+							console.log(data);
+							
+							
+							$('#review').empty();
+							for(var i in data){
+								
+								//별점
+								
+								
+								
+								
+								//댓글 
+								
+								/* $('<tr>').html('<td><strong>'+data[i].mem_id+'</strong> 등록 :  '
+								+data[i].review_reg_date+'</td>').appendTo('#review');
+								$('<tr>').html('<td id="td'
+							  +data[i].movie_review_id
+							  +'" style="white-space: pre-wrap">'
+							   +'<div class="viewDiv">'
+								+'<span class="movie_review_content">'+data[i].movie_review_content+'</span>'
+								+'<span data-id="'+data[i].movie_review_id
+								+'"  class="glyphicon glyphicon-ok" name="movieReviewUpdateBtn"></span>'
+								+'<span data-id="'+data[i].movie_review_id
+								+'" class="glyphicon glyphicon-remove" name="movieReviewDeleteBtn"></span>'
+								+'</div>'
+								+'</td>') .appendTo('#review');  */
+								var $tr1= $('<tr>');
+								$('<td>').append($('<strong>').html(data[i].mem_id)).append('등록 :  '+data[i].review_reg_date).appendTo($tr1);
+//						
+								var $tr2= $('<tr>');
+								var $newtd = $('<td>').attr('id','td' +data[i].movie_review_id).css('white-space','pre-wrap').appendTo($tr2);
+								var $newdiv = $('<div>').addClass('viewDiv').appendTo($newtd);
+								var $starclone = $('#starTemplate').clone().attr('id','').appendTo($newdiv);
+								$starclone.find('b.rating').html(data[i].movie_review_rate);
+								$starclone.find('[name="star-input"]').attr('name','star-input'+data[i].movie_review_id).attr('id',function(idx,val ){return val+'-'+data[i].movie_review_id;})
+								.filter('[value="'+(data[i].movie_review_rate*2)+'"]').prop('checked',true);
+								$starclone.find('label').attr('for',function(idx,val ){return val+data[i].movie_review_id;});
+								$('<span>').addClass('movie_review_content').text(data[i].movie_review_content).appendTo($newdiv);
+								var checkdata = '${LOGIN_USER.mem_id}';
+								if(checkdata == data[i].mem_id){
+								
+								$('<span>').addClass('glyphicon glyphicon-ok').attr('name','movieReviewUpdateBtn').appendTo($newdiv);
+								$('<span>').addClass('glyphicon glyphicon-remove').attr('name','movieReviewDeleteBtn').attr('data-id',data[i].movie_review_id).appendTo($newdiv);
+							
+								}
+								var $thumbUpBtn = $('<label>')
+								$thumbUpBtn.attr('data-id',data[i].movie_review_id).attr('data-memId',data[i].mem_id).attr('data-ud','U').on('click',fn_thumb);
+								$('<span>').addClass('glyphicon glyphicon-thumbs-up').attr('name','movieReviewThumbupBtn').appendTo($thumbUpBtn);
+								$thumbUpBtn.append('추천'+data[i].thumbUpCnt);
+								
+								var $thumbDownBtn = $('<label>')
+								$thumbDownBtn.attr('data-id',data[i].movie_review_id).attr('data-memId',data[i].mem_id).attr('data-ud','D').on('click',fn_thumb);
+								$('<span>').addClass('glyphicon glyphicon-thumbs-down').attr('name','movieReviewThumbdownBtn').attr('data-id',data[i].movie_review_id).appendTo($thumbDownBtn);
+								$thumbDownBtn.append('비추천'+data[i].thumbDownCnt);
+								
+								
+								$thumbUpBtn.appendTo($newdiv);
+								$thumbDownBtn.appendTo($newdiv);
+								
+								$('#review').append($tr1).append($tr2);
+								
+							}
+							
+								 /* <tr>
+									
+											<td id="td${review.movie_review_id}" style="white-space: pre-wrap">
+											${review.movie_review_content} 
+											<span id="commentUdt" onclick="fn_co_upt(,'<spring:escapeBody javaScriptEscape="true">
+											${review.movie_review_content}
+											</spring:escapeBody>');" class="glyphicon glyphicon-ok"></span>  
+											 <span id="commentDel()" onclick="fn_co_del();" class="glyphicon glyphicon-remove"></span>
+									</td>
+								</tr>	  
+*/
+						},
+						error:function(xhr, error) {
+							alert("1점  에러가 발생했습니다.");
+							console.log(xhr);
+							console.log(error);
+						}
+						
+					});
+				}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 		
 		
@@ -234,213 +531,18 @@
 			})
 			 
 			
-		});
-		
-	/* //댓글 목록
-		function movieReviewList(){
-    $.ajax({
-        url : '${pageContext.request.contextPath}/movie/movie_detail',
-        type : 'get',
-        data : {'movie_review_id':movie_review_id},
-        success : function(data){
-            var a =''; 
-            $.each(data, function(key, value){ 
-                a += '<div class="MovieReviewArea" style="border-bottom:1px solid darkgray; margin-bottom: 15px;">';
-                a += '<div class="MovieReviewContent'+value.+movie_review_id'"> <p> 내용 : '+value.movie_co_content +'</p>';
-                a += '</div></div>';
-            				});
-            
-            $(".movieReviewList").html(a);
-				        }
-				    });
-				} */
-				
-				
-				
-		//리뷰 삭제 
+		}); 
 		
 		
-		  function deleteMovieReview(deleteData) {
-					
-				$.ajax({
-					url:'${pageContext.request.contextPath}/movie/deleteReview',
-					method:'post',
-					data:"movie_review_id="+deleteData,
-					dataType:'json',
-					success: function(data){
-						
-						if(data.del_success>0){
-							alert("제대로 성공 ");
-							movieReviewList(); //댓글을 삭제한 후에도 내 댓글을 제외한 댓글들의 목록이 나타나야 하므로.. 
-						}
-					
-						
-						
-						/* $('#review').empty(); */
-					},
-					error:function() {
-						alert("에러가 발생했습니다.");
-					}
-					
-				});
-					
-			
-		} 
-				
-				
-	  //리뷰 수정 
-	  		function updateMovieReview(updateData) {
-				
-		  			$.ajax({
-		  					url:'${pageContext.request.contextPath}/movie/updateReview',
-		  					method:'post',
-		  					data:updateData,
-		  					dataType:'json',
-		  					success:function(data){
-		  							
-		  							if(data.upd_success>0){
-		  									alert("updateMovieReview 성공");
-		  									 	
-		  											
-		  											
-		  										   
-		  									movieReviewList(); //댓글 수정한 후에 댓글 목록 
-		  							}	
-		  						
-		  					},
-		  				error:function() {
-		  					 alert("updateMovieReview 에러 발생 ");
-		  					}
-		  					
-		  				});
-		  			
-					}
-				
-				
-				
-				
-	
-	
-			
-	//리뷰 등록 
-		function movieReviewInsert(insertData,rating) {
-		   
-		   	
-			$.ajax({
-				url:'${pageContext.request.contextPath}/movie/insertReview',
-				method:'post',
-				data:"movie_review_content="+insertData+"&movie_id=${movie.movie_id}"+"&movie_review_rate="+rating+"&mem_id=${LOGIN_USER.mem_id}",
-				dataType:'json',
-				success:function(data){
-							
-							movieReviewList(); //댓글 작성 후 reload
-							$('[name=movie_co_content]').val(''); //댓글 작성 후 비워줘야함  (): get / val(''):set->댓글 작성란을 다 비움 
-							
-						
-				},
-				error:function() {
-					alert("인써트에 문제 ? 에러가 발생했습니다.");
-				}
-				
-			});
-		}
-			
-				function movieReviewList() {
-					  
-					   
-					   	
-						$.ajax({
-							url:'${pageContext.request.contextPath}/movie/selectListReview',
-							method:'get',
-							data:"movie_id=${movie.movie_id}",
-							dataType:'json',
-							success:function(data){
-							
-								
-								console.log(data);
-								data=data.movieReviewList;
-								console.log(data);
-								
-								
-								$('#review').empty();
-								for(var i in data){
-									
-									//별점
-									
-									
-									
-									
-									//댓글 
-									
-									/* $('<tr>').html('<td><strong>'+data[i].mem_id+'</strong> 등록 :  '
-									+data[i].review_reg_date+'</td>').appendTo('#review');
-									$('<tr>').html('<td id="td'
-								  +data[i].movie_review_id
-								  +'" style="white-space: pre-wrap">'
-								   +'<div class="viewDiv">'
-									+'<span class="movie_review_content">'+data[i].movie_review_content+'</span>'
-									+'<span data-id="'+data[i].movie_review_id
-									+'"  class="glyphicon glyphicon-ok" name="movieReviewUpdateBtn"></span>'
-									+'<span data-id="'+data[i].movie_review_id
-									+'" class="glyphicon glyphicon-remove" name="movieReviewDeleteBtn"></span>'
-									+'</div>'
-									+'</td>') .appendTo('#review');  */
-									var $tr1= $('<tr>');
-									$('<td>').append($('<strong>').html(data[i].mem_id)).append('등록 :  '+data[i].review_reg_date).appendTo($tr1);
-// 						
-									var $tr2= $('<tr>');
-									var $newtd = $('<td>').attr('id','td' +data[i].movie_review_id).css('white-space','pre-wrap').appendTo($tr2);
-									var $newdiv = $('<div>').addClass('viewDiv').appendTo($newtd);
-									var $starclone = $('#starTemplate').clone().attr('id','').appendTo($newdiv);
-									$starclone.find('b.rating').html(data[i].movie_review_rate);
-									$starclone.find('[name="star-input"]').attr('name','star-input'+data[i].movie_review_id).attr('id',function(idx,val ){return val+'-'+data[i].movie_review_id;})
-									.filter('[value="'+(data[i].movie_review_rate*2)+'"]').prop('checked',true);
-									$starclone.find('label').attr('for',function(idx,val ){return val+data[i].movie_review_id;});
-									$('<span>').addClass('movie_review_content').text(data[i].movie_review_content).appendTo($newdiv);
-									var checkdata = '${LOGIN_USER.mem_id}';
-									if(checkdata == data[i].mem_id){
-									$('<span>').addClass('glyphicon glyphicon-ok').attr('name','movieReviewUpdateBtn').attr('data-id',data[i].movie_review_id).appendTo($newdiv);
-									$('<span>').addClass('glyphicon glyphicon-remove').attr('name','movieReviewDeleteBtn').attr('data-id',data[i].movie_review_id).appendTo($newdiv);
-									}
-									$('#review').append($tr1).append($tr2);
-									
-									
-								}
-									
-								
-									 /* <tr>
-										
-												<td id="td${review.movie_review_id}" style="white-space: pre-wrap">
-												${review.movie_review_content} 
-												<span id="commentUdt" onclick="fn_co_upt(,'<spring:escapeBody javaScriptEscape="true">
-												${review.movie_review_content}
-												</spring:escapeBody>');" class="glyphicon glyphicon-ok"></span>  
-												 <span id="commentDel()" onclick="fn_co_del();" class="glyphicon glyphicon-remove"></span>
-										</td>
-									</tr>	  
- */
-							
-				
-							},
-							error:function(xhr, error) {
-								alert("1점  에러가 발생했습니다.");
-								console.log(xhr);
-								console.log(error);
-							}
-							
-						});
-						
-						
-						
-						
-						
-					}
+		
+		
+
 		
 	</script>			
 		
 			
 
-			<p>리뷰 수 : </p>
+			
 			<div class="col-md-12">
 			<table class="table table-bordered col-md-12" style="width:1300px;" id="review" >
 				<%-- <c:forEach var="review" items="${movieReviewList}">
@@ -464,6 +566,10 @@
 	  <script type="text/javascript">
 	// star rating
 				
+	
+	
+	
+	
 			$( function () {
 				
 			
@@ -504,7 +610,11 @@
 	  
 	  </script>
 	  
+	 
 	  
+	  
+	  
+	  <!--  Rating Star Effect -->
 	  
 	  <style>
 	  		
@@ -643,7 +753,7 @@
 				
 				
 			
-							<!-- </div> -->
+							
 							 
 	
 						</div>
@@ -710,10 +820,10 @@
 						
 						
 						
+						</div>
 						
 						
-						
-								
+			</div>		
 		</div>
 	
 	</div>

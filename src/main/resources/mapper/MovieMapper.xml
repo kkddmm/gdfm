@@ -5,62 +5,136 @@
 <mapper namespace="kr.co.gdfm.movie.mapper.MovieMapper">
 
 
-<!-- 상영중인 영화 조회 -->
-<select id="selectShowMovie" resultType="kr.co.gdfm.movie.model.Movie">
-SELECT *
-FROM MOVIE
-WHERE MOVIE_SHOW_YN = 'Y'
-</select>
-
-<!-- 영화 상세 보기  -->
-<select id="selectMovieDetail" resultType="kr.co.gdfm.movie.model.Movie" parameterType="int">
-	 select movie_id,movie_name,movie_ko_name,movie_grade,movie_story,movie_trailer,movie_show_yn
-	,to_char(movie_release_date,'yyyy.mm.dd') as movie_release_date,movie_director,movie_actor,movie_running_time,movie_production_country
-   from movie
-	 where movie_id=#{xx} 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	<!--  select a.movie_id,a.movie_name,a.movie_ko_name,a.movie_grade,a.movie_story,a.movie_trailer,a.movie_show_yn
-	,to_char(a.movie_release_date,'yyyy.mm.dd') as movie_release_date,a.movie_director,a.movie_actor,a.movie_running_time,a.movie_production_country,b.movie_genre_code
-   from movie a,
-   			movie_genre b
-	 where a.movie_id=b.movie_id
-       -->
-	<!-- select *
-	from movie
-	where movie_id=#{xx} -->
-</select>
-
-<!-- 영화 장르 코드 Join 부분  -->
-	<select id="selectGenreList" resultType="string" parameterType="int">
-		<!-- select a.MOVIE_ID,b.MOVIE_GENRE_NAME
-		from movie_genre a, movie_genre_code b
-		where a.MOVIE_GENRE_CODE = b.MOVIE_GENRE_CODE -->
-		select b.MOVIE_GENRE_NAME
-			from movie_genre a, movie_genre_code b
-			where a.MOVIE_GENRE_CODE =  b.MOVIE_GENRE_CODE
-			AND MOVIE_ID = #{movie_id}
+	<!-- 상영중인 영화 조회 -->
+	<select id="selectShowMovie" resultType="kr.co.gdfm.movie.model.Movie">
+		SELECT *
+		FROM MOVIE
+		WHERE MOVIE_SHOW_YN = 'Y'
 	</select>
 
 
-<select id="selectMovieList" resultType="kr.co.gdfm.movie.model.Movie">
-	select *
-from movie
-order by  movie_release_date DESC
-</select>
+	<!-- 영화 스틸컷 조회  -->
+	 <select id="selectStillCutList" resultType="String" parameterType="int">
+			select stillcut_filename 
+				from movie_stillcut
+				where movie_id =#{movie_id}
+	</select> 
 
-<select id="selectMoviePreviewList" resultType="kr.co.gdfm.movie.model.Movie">
-	select * 
-	 from movie
-   where SYSDATE-movie_release_date <![CDATA[<]]>0
-</select>
-	 
+
+
+	<!-- 영화 더보기 -->
+	<select id="selectMovieListWithPaging" parameterType="map"
+		resultType="kr.co.gdfm.movie.model.Movie">
+		select b.*
+		from
+		(
+		select a.*,rownum as rnum
+		from
+		(
+
+
+		<if test="sortValue==1">
+			select *
+			from movie
+			order by movie_release_date DESC
+		</if>
+		<if test="sortValue==2">
+			select b.movie_name,b.movie_release_date,b.movie_ko_name,b.movie_id
+			from movie b ,
+			(
+			select a.movie_id, NVL(avg(b.movie_review_rate),0) as 별점
+			from movie a left outer join movie_review b
+			on (b.movie_id = a.movie_id)
+			group by a.movie_id
+			) a
+			where b.movie_id = a.movie_id
+			and b.movie_show_yn = 'Y'
+			order by a.별점 desc
+
+		</if>
+		<if test="sortValue==3">
+			 select h.movie_id,h.movie_name,h.movie_ko_name,h.movie_release_date
+     from 
+     (
+     select f.movie_id, NVL(sum(e.좌석소계),0) as 예매수
+     from movie f left join
+     (
+       select j.movie_id, count(c.sit_num)as 좌석소계
+     from 
+      reservation_sit c,movie_reservation d,movie_show_info j
+      where c.reservation_id = d.reservation_id
+      and j.show_id = c.show_id
+      and d.pay_id is not null
+      group by j.movie_id
+     ) e
+     on(f.movie_id= e.movie_id)
+     group by f.movie_id
+    ) g
+     ,movie h
+     where g.movie_id = h.movie_id
+      order by g.예매수 desc
+		</if>
+		
+		
+			
+		) a
+		)b
+		where rnum between #{startRow} and #{endRow}
+	</select>
+
+	<!-- 영화 포스터 개수 -->
+	<select id="getMovieCount" resultType="int">
+		select count(*)
+		from movie
+	</select>
+
+
+	<!-- 영화 상세 보기 -->
+	<select id="selectMovieDetail" resultType="kr.co.gdfm.movie.model.Movie"
+		parameterType="int">
+		select
+		movie_id,movie_name,movie_ko_name,movie_grade,movie_story,movie_trailer,movie_show_yn
+		,to_char(movie_release_date,'yyyy.mm.dd') as
+		movie_release_date,movie_director,movie_actor,movie_running_time,movie_production_country
+		from movie
+		where movie_id=#{xx}
+
+
+
+
+
+
+
+
+
+		<!-- select a.movie_id,a.movie_name,a.movie_ko_name,a.movie_grade,a.movie_story,a.movie_trailer,a.movie_show_yn 
+			,to_char(a.movie_release_date,'yyyy.mm.dd') as movie_release_date,a.movie_director,a.movie_actor,a.movie_running_time,a.movie_production_country,b.movie_genre_code 
+			from movie a, movie_genre b where a.movie_id=b.movie_id -->
+		<!-- select * from movie where movie_id=#{xx} -->
+	</select>
+
+	<!-- 영화 장르 코드 Join 부분 -->
+	<select id="selectGenreList" resultType="string" parameterType="int">
+		<!-- select a.MOVIE_ID,b.MOVIE_GENRE_NAME from movie_genre a, movie_genre_code 
+			b where a.MOVIE_GENRE_CODE = b.MOVIE_GENRE_CODE -->
+		select b.MOVIE_GENRE_NAME
+		from movie_genre a, movie_genre_code b
+		where a.MOVIE_GENRE_CODE = b.MOVIE_GENRE_CODE
+		AND MOVIE_ID = #{movie_id}
+	</select>
+
+	<!-- 영화 최신개봉순 조회 -->
+	<select id="selectMovieList" resultType="kr.co.gdfm.movie.model.Movie">
+		select *
+		from movie
+		order by movie_release_date DESC
+	</select>
+
+	<select id="selectMoviePreviewList" resultType="kr.co.gdfm.movie.model.Movie">
+		select *
+		from movie
+		where SYSDATE-movie_release_date <![CDATA[<]]>0
+	</select>
+
 
 </mapper>

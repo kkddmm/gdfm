@@ -15,7 +15,9 @@ public class MoviePaging {
     private StringBuffer page = new StringBuffer();
 
     
-    public MoviePaging() {
+   
+
+	public MoviePaging() {
     	this.currentPage = 1;
     	this.pageSize=6; 
     	
@@ -85,6 +87,15 @@ public class MoviePaging {
 			public void setEndRow(int endRow) {
 				this.endRow = endRow;
 			}
+			public StringBuffer getPage() {
+				return page;
+			}
+
+
+			public void setPage(StringBuffer page) {
+				this.page = page;
+			}
+
 			
 	
 	

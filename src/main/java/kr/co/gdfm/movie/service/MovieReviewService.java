@@ -31,6 +31,16 @@ public interface MovieReviewService {
 		
 		//영화 리뷰 삭제 
 		public int deleteMovieReview(MovieReview moviereview);
+
+
+		//영화 리뷰 중복 체크 
+		public int duplicationChk(Map<String, Object> params);
+
+
+
+
+
+		public int insertUpDown(Map<String, Object> params);
 	
 	
 	

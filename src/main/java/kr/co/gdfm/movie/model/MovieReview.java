@@ -10,6 +10,24 @@ public class MovieReview {
 	    private String review_reg_date;
 	    
 	    
+	    	private int thumbUpCnt;
+	    	private int thumbDownCnt;
+	    
+	    
+	    
+		
+		public int getThumbUpCnt() {
+				return thumbUpCnt;
+			}
+			public void setThumbUpCnt(int thumbUpCnt) {
+				this.thumbUpCnt = thumbUpCnt;
+			}
+			public int getThumbDownCnt() {
+				return thumbDownCnt;
+			}
+			public void setThumbDownCnt(int thumbDownCnt) {
+				this.thumbDownCnt = thumbDownCnt;
+			}
 		public int getMovie_review_id() {
 			return movie_review_id;
 		}

@@ -10,6 +10,32 @@
 		  from movie_review
 	</select>
 	
+	<!-- 중복 체크  -->
+	<select id="duplicationChk" parameterType="map" resultType="int">
+		select count(*)
+		from movie_review
+		where mem_id=#{mem_id}
+		and movie_id=#{movie_id}
+		AND review_del_yn='N'
+	</select>
+	
+	<insert id="insertUpDown" parameterType="map">
+	insert into movie_review_updown_history(
+		updown_id,
+		movie_review_id,
+		updown_info,
+		mem_id
+	)
+	values(
+		movie_review_updown_histor_seq.nextval,
+		#{movie_review_id},
+		#{updown_info},
+		#{mem_id}
+	)
+	</insert>
+	
+	
+	
 	<!-- 댓글 등록 -->
 	
 	<insert id="movieReviewInsert" parameterType="kr.co.gdfm.movie.model.MovieReview">
@@ -37,18 +63,29 @@
 	</insert>
 		
 		<select id="selectReviewList" parameterType="int" resultType="kr.co.gdfm.movie.model.MovieReview">
-			SELECT
-    movie_review_id,
-    movie_id,
-    mem_id,
-    movie_review_content,
-    movie_review_rate,
-    to_char(review_reg_date,'YYYY-MM-DD hh:mi')as review_reg_date
-FROM
-    movie_review
-where 
-    movie_id = #{movie_id}
-		AND review_del_yn='N'
+		   select c.*, nvl(d.추천수,0) as thumbUpCnt ,nvl(d.비추천수,0) as thumbDownCnt  
+			    from movie_review c left join 
+			    (
+			    select
+			    nvl(a.movie_review_id,b.movie_review_id) as movie_review_id,
+			    nvl(a.추천수,0)as 추천수, nvl(b.비추천수,0) as 비추천수 
+			    from   (
+			    select movie_review_id, count(*)as 추천수
+			    from movie_review_updown_history
+			    where updown_info ='U'
+			    group by movie_review_id
+			    ) a full outer join
+			    (   select movie_review_id, count(*) as 비추천수 
+			    from movie_review_updown_history
+			    where updown_info = 'D'
+			  group by movie_review_id
+			    ) b
+			    on(a.movie_review_id = b.movie_review_id)
+			    ) d    
+			on(c.movie_review_id = d.movie_review_id)
+			where c.movie_id = #{movie_id}
+			and c.review_del_yn = 'N'
+			order by c.review_reg_date asc
 		</select>
 
 		<update id="movieReviewDelete" parameterType="kr.co.gdfm.movie.model.MovieReview" >

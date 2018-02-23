@@ -66,6 +66,20 @@ public class MovieReviewServiceImpl implements MovieReviewService {
 				// TODO Auto-generated method stub
 				return movieReviewMapper.selectReviewList(movie_id);
 			}
+
+
+			@Override
+			public int duplicationChk(Map<String, Object> params) {
+				
+				return movieReviewMapper.duplicationChk(params);
+			}
+
+
+			@Override
+			public int insertUpDown(Map<String, Object> params) {
+				
+				return movieReviewMapper.insertUpDown(params);
+			}
 		
 		/*	@Override
 			public void updateMovieReview(MovieReview moviereview) throws Exception {

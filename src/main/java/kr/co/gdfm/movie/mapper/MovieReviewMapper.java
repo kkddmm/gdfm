@@ -31,6 +31,12 @@ public interface MovieReviewMapper {
 
 
 		public List<MovieReview> selectReviewList(int movie_id);
+
+
+		public int duplicationChk(Map<String, Object> params);
+
+
+		public int insertUpDown(Map<String, Object> params);
 	
 	
 	
