@@ -8,7 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
 import kr.co.gdfm.board.model.Board;
 import kr.co.gdfm.board.model.Boardcmtnotice;
 import kr.co.gdfm.board.model.Boardtype;
-import kr.co.gdfm.boardqna.model.Comment;
+import kr.co.gdfm.board.model.Comment;
 import kr.co.gdfm.cinema.model.Cinema;
 
 @Mapper
@@ -43,4 +43,14 @@ public interface BoardMapper {
 	public int commentUpdate(Map<String, Object> paramMap);
 
 	public List<Boardtype> selectBoardtypeList(Map<String, Object> paramMap);
+
+	public List<Boardtype> selectadminBoardtypeList(Map<String, Object> paramMap);
+
+	public Boardtype selectadminBoardtype(int bo_type_code);
+
+	public int insertadminBoardtype(Boardtype boardtype);
+
+	public int updateadminBoardtype(Boardtype boardtype);
+
+	public int deleteadminBoardtype(int bo_type_code);
 }

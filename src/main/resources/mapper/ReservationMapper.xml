@@ -152,6 +152,82 @@ where exists (
 		where reservation_id = #{reservation_id} and sit_num = #{selectSit}
 	</delete>
 
-
-
+	<select id="selectresrveList" parameterType="map"  resultType="kr.co.gdfm.reservation.model.Reservation" >
+	<include refid="CommonMapper.pageHeader"></include>
+		SELECT
+		    a.reservation_id,
+		    a.mem_id,
+		    b.mem_name as mem_name,
+		    a.show_id,
+		    c.movie_name as movie_name,
+		    c.movie_ko_name as movie_ko_name,
+		    a.reservation_reg_date,
+		    a.pay_id,
+            e.pay_addpoint as mem_point,
+            e.pay_cancel_yn as pay_canel_yn,
+            e.pay_amount as pay_amount,
+		    a.reservation_del_yn,
+		    (select count(*) from reservation_sit f where f.reservation_id = a.reservation_id) as reservationcount
+		FROM
+		     movie_reservation a, member b, movie c, movie_show_info d, pay e 
+		WHERE
+		    a.mem_id = b.mem_id
+		AND
+		    a.show_id = d.show_id
+		AND
+		    c.movie_id = d.movie_id  
+        AND
+            a.pay_id = e.pay_id  
+		AND
+		    a.pay_id is not null
+        AND
+            e.pay_cancel_yn = 'N'
+		<if test="searchWord != null and searchWord !=''">
+			<if test="searchType == 01">	
+				AND b.mem_name = #{searchWord}
+			</if>
+			<if test="searchType == 02">
+				AND(c.movie_name LIKE '%' || #{searchWord} || '%' OR c.movie_ko_name LIKE '%' || #{searchWord} || '%')
+			</if>
+		</if>
+		ORDER BY 
+			a.reservation_reg_date desc 
+	<include refid="CommonMapper.pageFooter"></include>
+	</select>
+	<select id="selectresrveCount" parameterType="map" resultType="int">
+		SELECT
+			count(*) as count
+		FROM
+		    movie_reservation a, member b, movie c, movie_show_info d, pay e 
+		WHERE
+		    a.mem_id = b.mem_id
+		AND
+		    a.show_id = d.show_id
+		AND
+		    c.movie_id = d.movie_id  
+        AND
+            a.pay_id = e.pay_id  
+		AND
+		    a.pay_id is not null
+        AND
+            e.pay_cancel_yn = 'N'
+		<if test="searchWord != null and searchWord !=''">
+			<if test="searchType == 01">	
+				AND b.mem_name = #{searchWord}
+			</if>
+			<if test="searchType == 02">
+				AND(c.movie_name LIKE '%' || #{searchWord} || '%' OR c.movie_ko_name LIKE '%' || #{searchWord} || '%')
+			</if>
+		</if>
+	</select>
+	<delete id="deleteResrve" parameterType="int">		
+		DELETE 	
+			FROM movie_reservation 
+		where snack_buy_id=#{snack_buy_id}			
+	</delete>
+	<update id="updateResrvePoint" parameterType="map">
+		UPDATE member SET			
+		    mem_point = mem_point + #{mem_point}
+		WHERE mem_id=#{mem_id}
+	</update>
 </mapper>

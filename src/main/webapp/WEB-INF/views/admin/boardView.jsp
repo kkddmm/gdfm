@@ -1,8 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<div style="display:inline-block;">
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <script type="text/javascript">
@@ -37,21 +39,20 @@ $(document).ready(function () {
 
 </script>
 <script type="text/javascript">
-	function fn_writeForm(seqNo) {
-		location.href = "${pageContext.request.contextPath}/board/3030203?bo_id=" + seqNo;
+	function fn_writeForm(seqNo,botypeCode) {
+		location.href = "${pageContext.request.contextPath}/admin/boardForm?bo_id=" + seqNo + "&bo_type_code=" + botypeCode;
 	}
-	function fn_delete(seqNo) {
+	function fn_delete(seqNo,botypeCode) {
 		if(confirm("삭제하시겠습니까?")){
-			location.href = "${pageContext.request.contextPath}/board/boardDelete?bo_id=" + seqNo;
+			location.href = "${pageContext.request.contextPath}/admin/boardDelete?bo_id=" + seqNo + "&bo_type_code=" + botypeCode;
 	
 		}
 	}
 	function fn_list() {
-		location.href = "${pageContext.request.contextPath}/board/3030201";
+		location.href = "${pageContext.request.contextPath}/admin/boardList?bo_type_code=${board.bo_type_code}";
 	}
 	
-
-	function fn_co_upt(bo_co_id, bo_id, co_content){
+	function fn_co_upt(bo_co_id, bo_id, bo_type_code, bo_co_content){
 
 		//기존의 댓글 표시창 html 제거 
 		$('#td'+bo_co_id).html('');
@@ -70,7 +71,7 @@ $(document).ready(function () {
 		var upt_confirm = confirm("정말로 댓글을 수정하시겠습니까?");
 		if(upt_confirm==true){
 			var updateForm = $('#updateform'+bo_co_id)[0];
-			updateForm.action = "commentUpdate";
+			updateForm.action = "${pageContext.request.contextPath}/admin/commentUpdate?bo_type_code="+bo_type_code;
 			updateForm.method = "post";
 			updateForm.submit();
 		}
@@ -84,28 +85,28 @@ $(document).ready(function () {
 			
 			if(uptconfirm2==true){
 				
-				location.href ="communityBoardView?bo_id="+bo_id;
+				location.href ="${pageContext.request.contextPath}/admin/boardView/"+bo_id+"/"+bo_type_code;
 			}else{
 				return false;
 			}
 		}).appendTo($('#td'+bo_co_id));
 	}
 			
-	function fn_co_del(bo_co_id, bo_id){
+	function fn_co_del(bo_co_id, bo_id, bo_type_code){
 				
 		var delCon = confirm("댓글을 삭제하시겠습니까?");
 				
 		if(delCon==true){
-			location.href = "commentDelete?bo_co_id="+bo_co_id+"&bo_id="+bo_id;
+			location.href = "${pageContext.request.contextPath}/admin/commentDelete?bo_co_id="+bo_co_id+"&bo_id="+bo_id+"&bo_type_code="+bo_type_code;
 		}else{
 			return false;
 		}
 	}
 	
-	function fn_commentInsert(){
+	function fn_commentInsert(botypeCode){
 		var commentFrm = document.commentForm;
 		if(commentFrm.bo_co_content.value!=''){
-			commentFrm.action ="commentInsert"
+			commentFrm.action ="${pageContext.request.contextPath}/admin/commentInsert?bo_type_code="+botypeCode;
 			commentFrm.submit();
 		}else{
 			alert("내용을 입력하세요");
@@ -113,33 +114,38 @@ $(document).ready(function () {
 		}
 				
 	}
+	
 </script>	
 <div class="slider">
-	<div class="container">
-	
+	<div class="container2">
+	<c:if test="${not empty boardtypeList}" >
+		<c:forEach var="boardtype" items="${boardtypeList}">
+			<h2>${boardtype.bo_type_name}</h2>		
+		</c:forEach>			
+	</c:if>
 	<table class="table">
 		<tr>
-			<th class="col-xs-2 text-center">제목</th>
+			<th class="col-xs-3 text-center warning">제목</th>
 			<td>
-				${boardqna.bo_title}
+				<b>${board.bo_title}</b>
 			</td>
 		</tr>	
 		<tr>
-			<th class="text-center">작성자</th>
+			<th class="text-center warning">작성자</th>
 			<td>
-				${boardqna.mem_id_name}
+				${board.mem_id_name}
 			</td>
 		</tr>	
 		<tr>
-			<th class="text-center">영화관</th>
+			<th class="text-center warning">영화관</th>
 			<td>
-				${boardqna.ci_id_name}
+				${board.ci_id_name}
 			</td>
 		</tr>	
 		<tr>
-			<th class="text-center">첨부파일</th>			
+			<th class="text-center warning">첨부파일</th>			
 			<td>
-				<c:forEach var="fileItem" items="${boardqna.fileItemList}">
+				<c:forEach var="fileItem" items="${board.fileItemList}">
 					<div>
 						<a href="${pageContext.request.contextPath}/common/download?file_id=${fileItem.file_id}">${fileItem.file_name}</a> ${fileItem.file_fancy_size}
 					</div>
@@ -147,20 +153,25 @@ $(document).ready(function () {
 			</td>
 		</tr>
 		<tr>
-			<td colspan="2" style="white-space: pre-wrap;">${boardqna.bo_content}</td>
+			<td colspan="2" style="white-space: pre-wrap;">${board.bo_content}</td>
 		</tr>			
 	</table>
 		
 		<p class="text-right">
-		
-<%-- 		<c:if test="${not empty LOGIN_USER and LOGIN_USER.mem_id == board.mem_id}">	 --%>
-			<input type="button" value="수정" class="btn btn-primary" onclick="fn_writeForm('${boardqna.bo_id}');">
-			<input type="button" value="삭제" class="btn btn" onclick="fn_delete('${boardqna.bo_id}');">
-<%-- 		</c:if>	 --%>
+		<c:if test="${LOGIN_USER.class_code == 99}">
+			<input type="button" value="수정" class="btn btn-warning" onclick="fn_writeForm('${board.bo_id}','${board.bo_type_code}');">
+			<input type="button" value="삭제" class="btn btn" onclick="fn_delete('${board.bo_id}','${board.bo_type_code}');">
+		</c:if>
+		<c:if test="${LOGIN_USER.class_code != 99}">
+			<c:if test="${not empty LOGIN_USER and LOGIN_USER.mem_id == board.mem_id}">	
+				<input type="button" value="수정" class="btn btn-warning" onclick="fn_writeForm('${board.bo_id}','${board.bo_type_code}');">
+				<input type="button" value="삭제" class="btn btn" onclick="fn_delete('${board.bo_id}','${board.bo_type_code}');">
+			</c:if>	
+		</c:if>
 			<input type="button" value="목록" class="btn btn-default" onclick="fn_list();">
 		</p>
-		
-		<p>댓글 수 : </p>
+		<c:if test="${board.bo_type_code == 2}">
+<!-- 		<p>댓글 수 : </p> -->
 			<table class="table table-bordered">
 				<c:forEach var="comment" items="${commentList}">
 					<tr>
@@ -168,8 +179,8 @@ $(document).ready(function () {
 					</tr>
 						<tr>
 							
-									<td id="td${comment.bo_co_id}" style="white-space: pre-wrap">${comment.bo_co_content}<%-- <c:if test="${LOGIN_USER.mem_id == comment.mem_id}"> --%> <span id="commentUdt" onclick="fn_co_upt(${comment.bo_co_id},${boardqna.bo_id},'<spring:escapeBody javaScriptEscape="true">${comment.bo_co_content}</spring:escapeBody>');" class="glyphicon glyphicon-ok"></span>  <span id="commentDel${comment.bo_co_id}" onclick="fn_co_del(${comment.bo_co_id},${boardqna.bo_id});" class="glyphicon glyphicon-remove"></span>
-<%-- 								</c:if> --%></td>
+									<td id="td${comment.bo_co_id}" style="white-space: pre-wrap">${comment.bo_co_content}<c:if test="${LOGIN_USER.mem_id == comment.mem_id}"><span id="commentUdt" onclick="fn_co_upt(${comment.bo_co_id},${board.bo_id},${board.bo_type_code},'<spring:escapeBody javaScriptEscape="true">${comment.bo_co_content}</spring:escapeBody>');" class="glyphicon glyphicon-ok"></span>  <span id="commentDel${comment.bo_co_id}" onclick="fn_co_del(${comment.bo_co_id},${board.bo_id},${board.bo_type_code});" class="glyphicon glyphicon-remove"></span>
+ 								</c:if></td>
 						</tr>	
 
 				</c:forEach>
@@ -184,15 +195,19 @@ $(document).ready(function () {
 
 				</div>
 			</c:if>
-<%-- 			<c:if test="${not empty LOGIN_USER}"> --%>
+			 <c:if test="${not empty LOGIN_USER}">
 				<h5>댓글 달기 - ${LOGIN_USER.mem_id}</h5>
 				<form method="post" name="commentForm">
-<%-- 					<input name="mem_id" type="text" style="display: none;" value="${LOGIN_USER.mem_id}" /> \ --%>
-					<input type="hidden" name="mem_id" value="test">
-					<input type="hidden" name="bo_id" value="${boardqna.bo_id}">
+				<input name="mem_id" type="text" style="display: none;" value="${LOGIN_USER.mem_id}" /> 
+<!-- 					<input type="hidden" name="mem_id" value="test"> -->
+					<input type="hidden" name="bo_id" value="${board.bo_id}">
 					<textarea placeholder="건강한 댓글은 작성자에게 힘이 됩니다." rows="8" class="form-control" name="bo_co_content"></textarea>
-					<a style="float: right;" class="button" onclick="fn_commentInsert();">댓글 등록</a>
+					<p>
+						<a style="float: right;" class="button" onclick="fn_commentInsert('${board.bo_type_code}');"><button>댓글등록</button></a>
+					</p>
 				</form>
-<%-- 		</c:if> --%>
+			</c:if>
+		</c:if>
+		
 	</div>
 </div>

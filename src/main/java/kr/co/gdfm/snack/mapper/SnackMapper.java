@@ -48,5 +48,16 @@ public interface SnackMapper {
 	//스낵 장바구니 결제화면 
 	public Map<String, Object> snackToPayment(String mem_id, int snack_buy_id);
 	
+	//스낵구매 리스트
+	public List<SnackBuy> selectSnackBuyList(Map<String, Object> paramMap);
+	
+	//스낵구매 개수
+	public int selectSnackBuyCount(Map<String, Object> paramMap);
+
+	//스낵구매 삭제
+	public int deleteSnackBuy(int snack_buy_id);
+
+	//스낵구매 삭제시 포인트 수정
+	public int updateSnackBuyPoint(Map<String, Object> paramMap);
 	
 }

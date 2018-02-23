@@ -26,15 +26,11 @@ public interface ReservationService {
 
 	public int deleteSit(Map<String, Object> paramMap);
 
+	public List<Reservation> getresrveList(Map<String, Object> paramMap);
+	
+	public int getresrveCount(Map<String, Object> paramMap);
+	
+	public int deleteReserve(int reservation_id);
 
-
-
-	
-	
-	
-	
-	
-	
-	
-	
+	public int updateReservePoint(Map<String, Object> paramMap);
 }

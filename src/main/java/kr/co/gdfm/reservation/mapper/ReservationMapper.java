@@ -34,6 +34,12 @@ public interface ReservationMapper {
 
 	public int deleteSitByReservationDel();
 	
+	public List<Reservation> selectresrveList(Map<String, Object> paramMap);
 	
+	public int selectresrveCount(Map<String, Object> paramMap);
+	
+	public int deleteReserve(int reservation_id);
+
+	public int updateReservePoint(Map<String, Object> paramMap);
 
 }

@@ -23,10 +23,10 @@
 			
 			if(${fn:startsWith(locationURL, 'http')}){
 				window.close();
-				opener.window.location.href = "${locationURL}";		
+				opener.window.location.href = "/admin/adminPage";		
 			}else{
 				window.close();
-				opener.window.location.href = "${pageContext.request.contextPath}${locationURL}";				
+				opener.window.location.href = "${pageContext.request.contextPath}/admin/adminPage";				
 			}
 		</script>
 	</c:if>

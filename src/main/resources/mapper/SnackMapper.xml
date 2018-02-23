@@ -241,8 +241,79 @@
 	</select>
  -->
 	
+	<!-- 스낵구매내역 정보 -->
+	<select id="selectSnackBuyList" parameterType="map"  resultType="kr.co.gdfm.snack.model.SnackBuy" >
+	<include refid="CommonMapper.pageHeader"></include>
+		SELECT
+			a.snack_buy_id,
+			a.snack_id,
+			a.mem_id,
+		    b.mem_name as mem_name,
+		    c.snack_name as snack_name,
+		    a.snack_cnt,
+		    a.pay_id,
+            d.pay_addpoint  as mem_point,
+            d.pay_cancel_yn as pay_canel_yn,
+            d.pay_amount as pay_amount
+		FROM
+		    snack_buy a, member b, snack c, pay d
+		WHERE
+		    a.mem_id = b.mem_id
+		AND
+		    a.snack_id = c.snack_id
+        AND
+		    a.pay_id = d.pay_id 
+        AND
+		    a.pay_id is not null
+        AND
+            d.pay_cancel_yn = 'N'
+		<if test="searchWord != null and searchWord !=''">
+			<if test="searchType == 01">	
+				AND b.mem_name = #{searchWord}
+			</if>
+			<if test="searchType == 02">
+				AND c.snack_name LIKE '%' || #{searchWord} || '%'
+			</if>
+		</if>
+		ORDER BY 
+			a.snack_buy_id desc 
+	<include refid="CommonMapper.pageFooter"></include>
+	</select>	
 	
-	
+	<select id="selectSnackBuyCount" parameterType="map" resultType="int">
+		SELECT
+			count(*) as count
+		FROM
+		    snack_buy a, member b, snack c, pay d
+		WHERE
+		    a.mem_id = b.mem_id
+		AND
+		    a.snack_id = c.snack_id
+        AND
+		    a.pay_id = d.pay_id 
+        AND
+		    a.pay_id is not null
+        AND
+            d.pay_cancel_yn = 'N'
+		<if test="searchWord != null and searchWord !=''">
+			<if test="searchType == 01">	
+				AND b.mem_name = #{searchWord}
+			</if>
+			<if test="searchType == 02">
+				AND c.snack_name LIKE '%' || #{searchWord} || '%'
+			</if>
+		</if>
+	</select>
+	<delete id="deleteSnackBuy" parameterType="int">		
+		DELETE 	
+			FROM snack_buy 
+		where snack_buy_id=#{snack_buy_id}			
+	</delete>
+	<update id="updateSnackBuyPoint" parameterType="map">
+		UPDATE member SET			
+		    mem_point = mem_point + #{mem_point}
+		WHERE mem_id=#{mem_id}
+	</update>
 </mapper>
 
 

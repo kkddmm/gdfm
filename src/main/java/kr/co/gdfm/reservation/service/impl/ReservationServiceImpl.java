@@ -60,8 +60,28 @@ public class ReservationServiceImpl implements ReservationService{
 	return	reservationMapper.deleteSit(paramMap);
 		
 	}
+	@Override
+	public List<Reservation> getresrveList(Map<String, Object> paramMap) {
+		
+		return reservationMapper.selectresrveList(paramMap);
+	}
+	@Override
+	public int getresrveCount(Map<String, Object> paramMap) {
 
+		return reservationMapper.selectresrveCount(paramMap);
+	}
+	@Override
+	public int deleteReserve(int reservation_id) {
 
+		return reservationMapper.deleteReserve(reservation_id);
+	}
+	@Override
+	public int updateReservePoint(Map<String, Object> paramMap) {
+	
+		return reservationMapper.updateReservePoint(paramMap);
+	}
+
+	
 	
 	
 	

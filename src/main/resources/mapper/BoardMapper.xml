@@ -129,7 +129,7 @@
 	AND a.bo_delete_yn = 'N'
 </select>
 
-<select id="getCommentList" parameterType="int" resultType="kr.co.gdfm.boardqna.model.Comment">
+<select id="getCommentList" parameterType="int" resultType="kr.co.gdfm.board.model.Comment">
 select
 	bo_co_id,
     mem_id,
@@ -144,7 +144,7 @@ where bo_id = #{bo_id}
 order by bo_co_reg_date
 </select>
 
-<insert id="commentInsert" parameterType="kr.co.gdfm.boardqna.model.Comment" >
+<insert id="commentInsert" parameterType="kr.co.gdfm.board.model.Comment" >
 <selectKey keyProperty="bo_co_id" resultType="int" order="BEFORE">
 	select bo_comment_seq.nextval from dual
 </selectKey>
@@ -249,6 +249,44 @@ where bo_co_id =#{bo_co_id}
 	    board_type
 	WHERE bo_type_code = #{bo_type_code}
 </select>
+<select id="selectadminBoardtypeList" resultType="kr.co.gdfm.board.model.Boardtype" parameterType="map"> 
+	SELECT
+	    bo_type_code,
+	    bo_type_name
+	FROM
+	    board_type
+</select>
+<select id="selectadminBoardtype" resultType="kr.co.gdfm.board.model.Boardtype" parameterType="int"> 
+	SELECT
+	    bo_type_code,
+	    bo_type_name
+	FROM
+	    board_type
+	WHERE bo_type_code = #{bo_type_code}
+</select>
+<update id="updateadminBoardtype" parameterType="kr.co.gdfm.board.model.Boardtype">
+	UPDATE board_type SET
+		bo_type_name    = #{bo_type_name}
+	WHERE bo_type_code = #{bo_type_code}
+</update>
+<insert id="insertadminBoardtype" parameterType="kr.co.gdfm.board.model.Boardtype">
+	<selectKey keyProperty="bo_type_code" resultType="int" order="BEFORE"><!-- BEFORE/AFTER -->
+		SELECT BOARD_TYPE_SEQ.NEXTVAL FROM DUAL
+	</selectKey>
+	 
+	INSERT INTO board_type (
+	    bo_type_code,
+		bo_type_name
+	) VALUES (
+	    #{bo_type_code},
+	    #{bo_type_name}
+	)
+</insert>
+
+<delete id="deleteadminBoardtype" parameterType="int">
+  	DELETE FROM board_type WHERE bo_type_code = #{bo_type_code}
+</delete>
+
 <select id="selectBoardcmtnoticeList" resultType="Board" parameterType="map"> 
 	SELECT
 	    a.bo_id,

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<div style="display:inline-block;">
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
@@ -37,7 +38,7 @@ $(document).ready(function () {
 </script>
 <script type="text/javascript">
 	function fn_writeForm() {
-		location.href = "${pageContext.request.contextPath}/board/3030203";
+		location.href = "${pageContext.request.contextPath}/admin/boardForm?bo_type_code=${param.bo_type_code}";
 	}
 	
 	
@@ -51,7 +52,7 @@ $(document).ready(function () {
 			return false;
 		}
 		
-		frm.action = "${pageContext.request.contextPath}/board/3030201";//절대경로
+		frm.action = "${pageContext.request.contextPath}/admin/boardList?bo_type_code=${param.bo_type_code}";//절대경로
 		//frm.action = "boardList";//상대경로
 		frm.submit();
 		
@@ -59,9 +60,23 @@ $(document).ready(function () {
 
 </script>
 <div class="slider">
-	<div class="container">
+	<div class="container2">
+		<c:if test="${not empty boardtypeList}" >
+			<c:forEach var="boardtype" items="${boardtypeList}">
+				<h2>${boardtype.bo_type_name}</h2>		
+			</c:forEach>			
+		</c:if>
 		<div align="right">
-				<input type="button" value="글쓰기" class="btn btn-primary" onclick="fn_writeForm();">
+				<c:if test="${param.bo_type_code == 1}">
+					<c:if test="${not empty sessionScope.LOGIN_USER && LOGIN_USER.class_code == 99}">
+						<input type="button" value="글쓰기" class="btn btn-warning" onclick="fn_writeForm();">
+					</c:if>
+				</c:if>
+				<c:if test="${param.bo_type_code != 1}">
+					<c:if test="${not empty sessionScope.LOGIN_USER}">
+						<input type="button" value="글쓰기" class="btn btn-warning" onclick="fn_writeForm();">
+					</c:if>
+				</c:if>
 		</div>
 		
 		
@@ -80,7 +95,7 @@ $(document).ready(function () {
 					</select>
 					
 					<input type="text" name="searchWord" value="${param.searchWord}" size="40" class="form-control">
-					<input type="button" value="검색" onclick="fn_search(1);" class="btn btn-primary">
+					<input type="button" value="검색" onclick="fn_search(1);" class="btn btn-warning">
 				</p>
 				<p>
 					<div class="form-group">
@@ -101,7 +116,7 @@ $(document).ready(function () {
 		
 		<table class="table table-bordered table-striped table-hover">
 			<thead>
-				<tr class="info">
+				<tr class="warning">
 					<th class="col-xs-1 text-center">번호</th>
 					<th class="col-xs-2 text-center">영화관</th>
 					<th class="text-center">제목</th>
@@ -112,23 +127,41 @@ $(document).ready(function () {
 			</thead>
 			
 			<tbody>
-				<c:if test="${not empty boardqnaList}" >
-					<c:forEach var="boardqna" items="${boardqnaList}" varStatus="i">
-						<fmt:parseDate value="${boardqna.bo_reg_date}" pattern="yyyy-MM-dd" var="reg_date2" />
-						<fmt:formatDate value="${reg_date2}" pattern="yyyy-MM-dd" var="reg_date3" />
+			<c:if test="${param.bo_type_code == 1}">
+				<c:if test="${not empty noticeList}" >
+					<c:forEach var="notice" items="${noticeList}">
+						<fmt:parseDate value="${notice.bo_reg_date}" pattern="yyyy-MM-dd" var="reg_notice_date2" />
+						<fmt:formatDate value="${reg_notice_date2}" pattern="yyyy-MM-dd" var="reg_notice_date3" />
 						<tr>
-							<td style="text-align:center;">${(pagingUtil.totalCount-(pagingUtil.currentPage-1)*pagingUtil.pageCount) - i.index - ((pagingUtil.currentPage-1)*5)}</td>
-							<td style="text-align:center;">${boardqna.ci_id_name}</td>
+							<td style="text-align:center;">공지</td>
+							<td style="text-align:center;">${notice.ci_id_name}</td>
 							
-							<td class="text-left"><a href="3030202/${boardqna.bo_id}">${boardqna.bo_title}</a></td>
+							<td class="text-left"><a href="boardView/${notice.bo_id}/${notice.bo_type_code}" style="color:#666666;"><b>${notice.bo_title}</b></a></td>
 							
-							<td style="text-align:center;">${boardqna.mem_id_name}</td>
-							<td style="text-align:center;">${reg_date3}</td>
-							<td style="text-align:center;">${boardqna.bo_hit_cnt}</td>
+							<td style="text-align:center;">${notice.mem_id_name}</td>
+							<td style="text-align:center;">${reg_notice_date3}</td>
+							<td style="text-align:center;"></td>
 						</tr>
 					</c:forEach>			
 				</c:if>
-				<c:if test="${empty boardqnaList}" >
+			</c:if>
+				<c:if test="${not empty boardList}" >
+					<c:forEach var="board" items="${boardList}" varStatus="i">
+						<fmt:parseDate value="${board.bo_reg_date}" pattern="yyyy-MM-dd" var="reg_date2" />
+						<fmt:formatDate value="${reg_date2}" pattern="yyyy-MM-dd" var="reg_date3" />
+						<tr>
+							<td style="text-align:center;">${(pagingUtil.totalCount-(pagingUtil.currentPage-1)*pagingUtil.pageCount) - i.index - ((pagingUtil.currentPage-1)*5)}</td>
+							<td style="text-align:center;">${board.ci_id_name}</td>
+							
+							<td class="text-left"><a href="boardView/${board.bo_id}/${board.bo_type_code}" style="color:#666666;">${board.bo_title}</a></td>
+							
+							<td style="text-align:center;">${board.mem_id_name}</td>
+							<td style="text-align:center;">${reg_date3}</td>
+							<td style="text-align:center;">${board.bo_hit_cnt}</td>
+						</tr>
+					</c:forEach>			
+				</c:if>
+				<c:if test="${empty boardList}" >
 					<tr>
 						<td colspan="6" align="center">게시글이 존재하지 않습니다.</td>
 					</tr>		
@@ -145,4 +178,5 @@ $(document).ready(function () {
 			</ul>
 		</div>
 	</div>
+</div>
 </div>

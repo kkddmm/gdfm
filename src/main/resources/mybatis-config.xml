@@ -11,10 +11,7 @@
   </settings>
   
   <typeAliases>
-
-<!--   <typeAlias type="kr.or.nextit.board.model.Board" alias="Board"/> -->
 	<typeAlias type="kr.co.gdfm.board.model.Board" alias="Board"/>
-	<typeAlias type="kr.co.gdfm.boardqna.model.Boardqna" alias="Boardqna"/>
 	<typeAlias type="kr.co.gdfm.common.file.model.FileItem" alias="FileItem"/>
   </typeAliases>
   

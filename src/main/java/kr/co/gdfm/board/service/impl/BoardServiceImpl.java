@@ -12,7 +12,7 @@ import kr.co.gdfm.board.model.Board;
 import kr.co.gdfm.board.model.Boardcmtnotice;
 import kr.co.gdfm.board.model.Boardtype;
 import kr.co.gdfm.board.service.BoardService;
-import kr.co.gdfm.boardqna.model.Comment;
+import kr.co.gdfm.board.model.Comment;
 import kr.co.gdfm.cinema.model.Cinema;
 import kr.co.gdfm.common.file.mapper.FileItemMapper;
 import kr.co.gdfm.common.file.model.FileItem;
@@ -142,7 +142,32 @@ public class BoardServiceImpl implements BoardService {
 	}
 	
 	@Override
+	public List<Boardtype> getadminBoardtypeList(Map<String, Object> paramMap) throws Exception {
+		return boardMapper.selectadminBoardtypeList(paramMap);
+	}
+	
+	@Override
 	public int commentInsertnotice(Boardcmtnotice boardcmtnotice) throws Exception {
 		return boardMapper.insertBoardcmtnotice(boardcmtnotice);
+	}
+
+	@Override
+	public int updateBoardtype(Boardtype boardtype) throws Exception {
+		return boardMapper.updateadminBoardtype(boardtype);
+	}
+
+	@Override
+	public Boardtype getBoardtype(int bo_type_code) throws Exception {
+		return boardMapper.selectadminBoardtype(bo_type_code);
+	}
+
+	@Override
+	public int insertBoardtype(Boardtype boardtype) throws Exception {
+		return boardMapper.insertadminBoardtype(boardtype);
+	}
+
+	@Override
+	public int deleteBoardtype(int bo_type_code) throws Exception {
+		return boardMapper.deleteadminBoardtype(bo_type_code);
 	}
 }

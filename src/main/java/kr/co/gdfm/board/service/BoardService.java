@@ -6,7 +6,7 @@ import java.util.Map;
 import kr.co.gdfm.board.model.Board;
 import kr.co.gdfm.board.model.Boardcmtnotice;
 import kr.co.gdfm.board.model.Boardtype;
-import kr.co.gdfm.boardqna.model.Comment;
+import kr.co.gdfm.board.model.Comment;
 import kr.co.gdfm.cinema.model.Cinema;
 
 public interface BoardService {
@@ -34,15 +34,31 @@ public interface BoardService {
 	// 영화관 목록
 	public List<Cinema> getCinemaList(Map<String, Object> paramMap) throws Exception;
 	
+	// 댓글 등록
 	public int commentInsert(Comment comment) throws Exception;
 
 	public int commentInsertnotice(Boardcmtnotice boardcmtnotice) throws Exception;
-	
+
+	// 댓글 삭제
 	public int commentDelete(int bo_co_id) throws Exception;
 	
+	// 댓글 수정
 	public int commentUpdate(Map<String, Object> paramMap) throws Exception;
 
+	// 댓글 목록
 	public List<Comment> getCommentList(int bo_id) throws Exception;
 	
+	// 게시판타입 목록
 	public List<Boardtype> getBoardtypeList(Map<String, Object> paramMap) throws Exception;
+	
+	public List<Boardtype> getadminBoardtypeList(Map<String, Object> paramMap) throws Exception;
+	
+	public Boardtype getBoardtype(int bo_type_code) throws Exception;
+
+	public int insertBoardtype(Boardtype boardtype) throws Exception;
+
+	public int updateBoardtype(Boardtype boardtype) throws Exception;
+
+	public int deleteBoardtype(int bo_type_code) throws Exception;
+
 }

@@ -20,7 +20,7 @@ import kr.co.gdfm.board.model.Board;
 import kr.co.gdfm.board.model.Boardcmtnotice;
 import kr.co.gdfm.board.model.Boardtype;
 import kr.co.gdfm.board.service.BoardService;
-import kr.co.gdfm.boardqna.model.Comment;
+import kr.co.gdfm.board.model.Comment;
 import kr.co.gdfm.cinema.model.Cinema;
 import kr.co.gdfm.common.cinemalist.mapper.CinemaListMapper;
 import kr.co.gdfm.common.file.model.FileItem;

@@ -215,10 +215,10 @@ public class MainController {
 				Element link3 = li.selectFirst("span.txt_magazine");
 				Element link4 = li.selectFirst("a.link_magazine");
 				
-				System.out.println( link.attr("style").split("[() ]")[1] );
-				System.out.println( link2.text() );
-				System.out.println( link3.text() );
-				System.out.println( link4.attr("herf") );
+				//System.out.println( link.attr("style").split("[() ]")[1] );
+				//System.out.println( link2.text() );
+				//System.out.println( link3.text() );
+				//System.out.println( link4.attr("herf") );
 				movienewList.add(link.attr("style").split("[() ]")[1]);
 				movienewList2.add(link2.text());
 				movienewList3.add(link3.text());

@@ -104,7 +104,31 @@ public class SnackServiceImpl implements SnackService {
 		return snackMapper.snackToPayment(mem_id,snack_buy_id);
 	}
 	
+	//스낵 구매리스트
+	@Override
+	public List<SnackBuy> getSnackBuyList(Map<String, Object> paramMap) {
 
+		return snackMapper.selectSnackBuyList(paramMap);
+	}
+
+	//스낵 구매개수
+	@Override
+	public int getSnackBuyCount(Map<String, Object> paramMap) {
+		
+		return snackMapper.selectSnackBuyCount(paramMap);
+	}
+	
+	@Override
+	public int deleteSnackBuy(int snack_buy_id) {
+		
+		return snackMapper.deleteSnackBuy(snack_buy_id);
+	}
+
+	@Override
+	public int updateSnackBuyPoint(Map<String, Object> paramMap) {
+
+		return snackMapper.updateSnackBuyPoint(paramMap);
+	}
 }
 
 
