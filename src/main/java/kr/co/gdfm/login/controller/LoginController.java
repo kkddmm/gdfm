@@ -67,11 +67,12 @@ public class LoginController {
 	
 	@RequestMapping("/loginForm")
 	public String loginForm(HttpServletRequest request, Model model) {
- String url = request.getHeader("referer");
+
+		String url = "";
+		url =request.getHeader("referer");
 url = url.substring(url.indexOf("GoodDayForMovie/")+"GoodDayForMovie/".length());
 model.addAttribute("url",url);
 		return "login/loginForm";
-		
 	}
 	
 	@RequestMapping("/logout")

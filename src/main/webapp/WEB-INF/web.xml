@@ -11,7 +11,8 @@
 		<param-value>classpath:application-context.xml</param-value>
 	</context-param>
 
-	<!-- Creates the Spring Container shared by all Servlets and Filters -->
+	<!-- Creates the Spring Container shared by all Servlets and Filters
+	자동생성, init리스너 톰켓이 처음 시작될때 < init()   -->
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>

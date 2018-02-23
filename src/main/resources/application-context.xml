@@ -16,7 +16,10 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
 	
-	<!-- Root Context: defines shared resources visible to all other web components -->
+	<!-- Root Context: defines shared resources visible to all other web components 
+	서비스/다오
+	모든 디스페쳐 서블릿이 같이 쓰는 빈을 등록하는 컨테이너에 전달할 설정파일  
+	-->
 		
 		<context:component-scan base-package="kr.co.gdfm">
 		
@@ -42,21 +45,29 @@
 <!-- 		<property name="defaultAutoCommit" value="false"></property> -->
 </bean>		
 
+	
+
+
+
+
 
 <!-- 트랜잭션 매니저 등록 -->
 	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource"></property>
 	</bean>
 	<!-- 트랜잭선 aop 적용 -->
+	
 	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+	
 		<tx:attributes>
 			<tx:method name="*" rollback-for="Exception" />
 		</tx:attributes>
+		
+		
 	</tx:advice>
 
 	<aop:config>
-		<aop:pointcut expression="execution(public * kr.co.gdfm..*Service.*(..))"
-			id="servicePointCut" />
+		<aop:pointcut expression="execution(public * kr.co.gdfm..*Service.*(..))" id="servicePointCut" />
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="servicePointCut" />
 	</aop:config> 
 	
@@ -77,16 +88,11 @@
 	
 
 	
-	
+
+
 <!-- 	mapper interface 등록 -->
 
-
-
 <mybatis-spring:scan base-package="kr.co.gdfm" annotation="org.apache.ibatis.annotations.Mapper" />		
+
+
 </beans>
-
-
-
-
-
-
