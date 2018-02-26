@@ -72,13 +72,16 @@ PaymentService paymentService;
 		
 		//영화예매에서 넘어옴
 		if (paramMap.containsKey("reservation_id")){
-			//좌석예매페이지에서 넘어온 파라미터 reservation_id, first_amount, 
-			//필요한 것, - 파라미터로 넘어온 예매번호로 예약된 좌석들 
-			//그 예매 번호로 알수 있는 정보들, 상영관, 영화관, 영화번호, 
-			
-			
+			//paramMap에 처음 들어있는데이터 - reservation_id , first_amount(포인트/할인 계산전 총금액)
 			Map<String, Object> resultMap = new HashMap<>();
 			
+			resultMap = paymentService.getReservationDetail(paramMap);
+			resultMap.put("first_amount", paramMap.get("first_amount"));
+				
+			
+			
+			
+			model.addAttribute("resultMap",resultMap);
 			model.addAttribute("pageType", "M");
 		}
 		

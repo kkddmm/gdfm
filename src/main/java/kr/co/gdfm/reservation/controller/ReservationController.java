@@ -160,5 +160,29 @@ public class ReservationController {
 		successMap.put("success", success);
 		return successMap;
 	}
+	
+	//20분이 지난 예매기록은 reservation_del_yn을 Y로 바꿔주고(삭제하고), 
+	//해당 예매와 연결된 좌석예매정보를 지운다.
+	@RequestMapping("/chkBeforePay")
+	@ResponseBody
+	public Map<String, Object> chkBeforePay(int reservation_id){
+		Map<String, Object> successMap = new HashMap<>();
+		
+		 String success = reservationService.chkBeforePay(reservation_id);
+		 System.out.println("success값 : "+success);
+		
+		 
+		if("N".equals(success)) {
+			successMap.put("success", 1);
+		}else {
+			successMap.put("success", 0);
+		}
+		return successMap;
+	}
+	
+	
+	
+	
+	
 
 }

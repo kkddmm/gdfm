@@ -3,18 +3,12 @@
 
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-
-
-
-
 <script src="${pageContext.request.contextPath}/js/moment.min.js"></script>
 <script type="text/javascript">
-
 
 	var movieSelect = false;
 	var cinemaSelect = false;
 	var dateSelect = false;
-	
 	 function getAgeFromBirthDay(birth_day) {
 		var birthday = moment(birth_day).toDate();
 		var today = new Date();

@@ -1,5 +1,6 @@
 package kr.co.gdfm.payment.service.impl;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -91,6 +92,21 @@ public class PaymentServiceImpl implements PaymentService {
 		
 		return insertPay+snackUpdate+reservationUpdate;  //정상적인 처리가 완료되었을때 항상 2가 반환되어야 한다.
 
+	}
+
+
+	@Override
+	public Map<String, Object> getReservationDetail(Map<String, Object> paramMap) {
+		
+		
+	Map<String, Object> resultMap = paymentMapper.getReservationDetail(paramMap);
+	// 지금 결제하려는 사람이 예약한 자리 
+	List<String> sitList = paymentMapper.reservationSitList(paramMap);
+	resultMap.put("sitList", sitList);
+		
+		return resultMap;
+				
+				
 	}
 
 

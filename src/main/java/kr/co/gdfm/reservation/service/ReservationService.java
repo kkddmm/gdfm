@@ -33,4 +33,6 @@ public interface ReservationService {
 	public int deleteReserve(int reservation_id);
 
 	public int updateReservePoint(Map<String, Object> paramMap);
+
+	public String chkBeforePay(int reservation_id);
 }

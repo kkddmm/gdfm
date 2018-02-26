@@ -230,4 +230,18 @@ where exists (
 		    mem_point = mem_point + #{mem_point}
 		WHERE mem_id=#{mem_id}
 	</update>
+	
+	<select id="chkBeforePay" parameterType="int" resultType="string">
+ select reservation_del_yn
+ from movie_reservation
+ where reservation_id = #{reservation_id}
+	</select>
+	
+	
+	
+	
+	
+	
+	
+	
 </mapper>

@@ -52,10 +52,22 @@ where mem_id=#{mem_id}
 
 
 
+<select id="getReservationDetail" parameterType="map" resultType="map">
+select c.movie_ko_name,d.dimension_name,e.ci_name,f.screen_name
+from movie_reservation a, movie_show_info b,movie c, movie_dimension_code d, cinema e, screen f
+where a.reservation_id = #{reservation_id}
+and a.show_id= b.show_id 
+and c.movie_id = b.movie_id
+and b.dimension_code = d.dimension_code
+and b.screen_id = f.screen_id
+and e.ci_id = f.ci_id
+</select>
 
 
-
-
+<select id="reservationSitList" resultType="string">
+select sit_num from reservation_sit
+where reservation_id =#{reservation_id}
+</select>
 
 
 

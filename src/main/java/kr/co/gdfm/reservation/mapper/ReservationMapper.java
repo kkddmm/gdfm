@@ -42,4 +42,6 @@ public interface ReservationMapper {
 
 	public int updateReservePoint(Map<String, Object> paramMap);
 
+	public String chkBeforePay(int reservation_id);
+
 }

@@ -61,15 +61,16 @@ function fn_goPayment(){
 		    			location.href ="${pageContext.request.contextPath}/payment/802";
 		    		},
 		    		error : function(){
+		    		
 		    			
-		    			jQuery.ajax({
+	/* 	    			jQuery.ajax({
 		    				url:"https://api.iamport.kr/payments/cancel",
 		    				type: 'POST',
 		    				dataType: 'json',
 		    				data: {
 					    		imp_uid : rsp.imp_uid,
 					    		merchant_uid : rsp.merchant_uid,
-					    		amount : 1001,
+					    		amount : rsp.paid_amount,
 					    		reason:'결제 중 에러발생'
 //						    	$('#span_orderPrice').val(),
 								
@@ -80,7 +81,14 @@ function fn_goPayment(){
 				    			
 				    		}
 		    					
-		    			})
+		    			}) */
+		    			
+		    			
+		    			
+		    			
+		    			
+		    			
+		    			
 		    			
 		    			
 		    			//[3] 아직 제대로 결제가 되지 않았습니다.
@@ -119,11 +127,23 @@ function fn_goPayment(){
 
 /* 포인트 적용 */
 function fn_pointUse(){
+	
 	var pointUse= $('.pointUse').val();
 	var hasPoint= $('#hasPoint').data('price');
 	var totalPrice =$('input[name="totalPrice"]').val(); 
 	
+	
+	if(pointUse>hasPoint){
+		alert("보유하신 포인트 이상으로 사용 불가능합니다");
+		return false;
+	}
 	// TODO : hasPoint 보다 큰 경우 경고 
+	
+	
+	
+	
+	
+	
 	
 	$('#pointApply > input[name="usePoint"]').val(pointUse);
 	$('#pointApply > #span_usePoint').text(pointUse);
@@ -278,15 +298,23 @@ tr{
 				
 				<tbody>
 					<tr>				
-			          <td class="info">영화정보 들어갈 곳</td>
-			          <td class="cnt">자리수 들어갈 곳</td>
-			          <td class="price">가격 들어갈 곳</td>
+			          <td class="info">영화보기 좋은 날&nbsp;${resultMap.CI_NAME}(${resultMap.SCREEN_NAME})&nbsp; ${resultMap.MOVIE_KO_NAME}(${resultMap.DIMENSION_NAME})   </td>
+			          <td class="cnt"><c:forEach var="sit"  items="${resultMap.sitList}">(${sit})</c:forEach></td>
+			          <td class="price">${resultMap.first_amount}</td>
 			        </tr>	        
 				</tbody>
 			</table><br>
 		</c:if>
+		
+		
+		
+		
+		
 				
-				
+	
+	
+	<c:if test ="${!pageType=='M'}">
+	
 				
 			<table id="snackInfo" class="myTable" style="width:100%;">
 			
@@ -323,8 +351,19 @@ tr{
 			     </c:forEach>
 		</c:if>
 		
+		
+		
+		
+		
+		
+		
+		
+		
 				</tbody>
 			</table><br>
+			</c:if>
+			
+			
 				
 		</div>
 		
@@ -369,6 +408,14 @@ tr{
 				</tbody>
 				</c:if>
 				
+				
+				
+				
+				
+				
+				
+				
+				
 				<!-- 장바구니 결제하기 버튼 눌렀을 때 -->
 				<c:if test="${pageType=='B'}">
 					<tbody>					
@@ -393,6 +440,28 @@ tr{
 						</tr>
 					</tbody>
 				</c:if>
+<!-- 				영화 -->
+
+${resultMap.first_amount} 
+${resultMap.first_amount}
+	<c:if test ="${pageType=='M'}">
+				<tbody>					
+					<tr>
+						<td id="total" class="goods">
+							<input type="text" name="totalPrice" value="${resultMap.first_amount}">
+							<span id="span_totalPrice" >${resultMap.first_amount}</span>
+						</td>  <!-- 상품가격 -->
+						<td id="pointApply" class="goods">
+							<input type="text" name="usePoint" value="0">
+							<span id="span_usePoint">0</span>
+						</td><!-- 적용 포인트 -->
+						<td id="finalPrice" data-price="${resultMap.first_amount}" class="goods">
+							<input type="text" name="orderPrice" value="${resultMap.first_amount}">
+							<span id="span_orderPrice">${resultMap.first_amount}</span>
+						</td><!-- 최종결제 금액 -->
+					</tr>
+				</tbody>
+				</c:if>  
 				
 				
 			</table>

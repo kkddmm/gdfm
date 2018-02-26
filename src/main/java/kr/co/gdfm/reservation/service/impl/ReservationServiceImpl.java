@@ -47,7 +47,6 @@ public class ReservationServiceImpl implements ReservationService{
 	}
 
 	@Override
-//	@Transactional
 	public int insertSit(Map<String, Object> paramMap) {
 			int i;
 				reservationMapper.deleteUncountedSit();
@@ -79,6 +78,21 @@ public class ReservationServiceImpl implements ReservationService{
 	public int updateReservePoint(Map<String, Object> paramMap) {
 	
 		return reservationMapper.updateReservePoint(paramMap);
+	}
+	@Override
+	public String chkBeforePay(int reservation_id) {
+	//20분이 안지났을경우 1을 리턴, 지난경우 0 
+		
+		
+		reservationMapper.deleteUncountedSit();
+		reservationMapper.deleteSitByReservationDel();
+		String timeChk = reservationMapper.chkBeforePay(reservation_id);
+		
+		
+		
+		
+		return timeChk;
+		
 	}
 
 	

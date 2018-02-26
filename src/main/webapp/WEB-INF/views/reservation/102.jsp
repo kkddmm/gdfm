@@ -37,14 +37,7 @@
 			}
 			location.href='101';			
 		}
-		
-		function timecheck(){
-			
-// 			if()
-			
-		}
-		
-		
+
 		
 		
 		
@@ -58,58 +51,48 @@
 		function showPrice(){
 			$('#amountView').html('');
 			$('#amountView').html(price*selectCnt);
+			$('[name=first_amount]').val('')
+			$('[name=first_amount]').val(price*selectCnt);
+			
 		}
 		
 		function fn_goPayment(){
 			
-			IMP.init('imp35163888')
-				IMP.request_pay({
-				    pg : 'inicis',
-				    pay_method : 'card',
-				    merchant_uid : 'merchant_' + new Date().getTime(),
-				    name : '영화 보기 좋은 날',
-				    amount :1001,
-// 				    	$('#amountView').html(),
-				    buyer_email : '${LOGIN_USER.mem_email}',
-				    buyer_name : '${LOGIN_USER.mem_name}',
-				    buyer_tel : '${LOGIN_USER.mem_phone}',
-				    buyer_addr : '${LOGIN_USER.mem_addr}',
-				    buyer_postcode : '${LOGIN_USER.mem_zipcode}'
-				}, function(rsp) {
-				    if ( rsp.success ) {
-				    	//[1] 서버단에서 결제정보 조회를 위해 jQuery ajax로 imp_uid 전달하기
-				    	jQuery.ajax({
-				    		url: "${pageContext.request.contextPath}/payment/complete", //cross-domain error가 발생하지 않도록 동일한 도메인으로 전송
-				    		type: 'POST',
-				    		dataType: 'json',
-				    		data: {
-					    		imp_uid : rsp.imp_uid,
-					    		reservation_id : ${reservation_id},
-					    		pay_amount : rsp.paid_amount
-					    		//기타 필요한 데이터가 있으면 추가 전달
-				    		},success : function(data,status){
-				    			console.log(status);
-				    			var msg = '결제가 완료되었습니다.';
-				    			msg += '\n고유ID : ' + rsp.imp_uid;
-				    			msg += '\n상점 거래ID : ' + rsp.merchant_uid;
-				    			msg += '\결제 금액 : ' + rsp.paid_amount;
-				    			msg += '카드 승인번호 : ' + rsp.apply_num;
-				    			alert(msg);
-				    			location.href ="${pageContext.request.contextPath}/payment/801";
-				    		},
-				    		error : function(){
-				    			//[3] 아직 제대로 결제가 되지 않았습니다.
-				    			//[4] 결제된 금액이 요청한 금액과 달라 결제를 자동취소처리하였습니다.
-				    			alert("결제 실패");
-				    		}
-				    	})
-				    } else {
-				        var msg = '결제에 실패하였습니다.';
-				        msg += '에러내용 : ' + rsp.error_msg;
-				        alert(msg);
-				    }
-				});
+		$.ajax({
+			url : '${pageContext.request.contextPath}/reservation/chkBeforePay' ,
+		    method : 'post',
+		    data : 'reservation_id=${reservation_id}',
+		    dataType :'json',
+		    success : function(data){
+		    	//예약 가능
+		    	if(data.success==1){
+		    		if($('#amountView').html()==''||$('#amountView').html()==0){
+						alert("좌석을 선택하세요");
+						return false;
+					}
+					var payFrm = document.paymentForm;
+					payFrm.method = 'post';
+					payFrm.action = '${pageContext.request.contextPath}/payment/801';
+					payFrm.submit();
+		    	}else{
+		    		//불가능
+		    		alert("시간이 초과되었습니다.")
+		    		location.replace = "101";
+		    		
+		    	}
+		    },  
+		    error : function(){
+		    	alert("체크중 에러 발생");
+		    	
+		    }
+			
+			
+		})	
+			
+// 				    			location.href ="${pageContext.request.contextPath}/payment/801?reservation_id=${reservation_id}";
+				    	
 		}
+		
 		
 		
 		
@@ -117,10 +100,6 @@
 		
 		
 		$(function(){
-			
-			
-			
-			
 			 $('.rows--large .row__seat:nth-of-type('+parseInt((${reserveMap.SCREEN_ROW}/2))+')').css('margin-right','160px');
 			$('.rows--mini .row__seat:nth-of-type('+parseInt((${reserveMap.SCREEN_ROW}/2))+')').css('margin-right','15px');
 			  
@@ -332,7 +311,11 @@
 		<h3 id="selectSitView" style="color: white;"> 
 			</h2>
 			<h2 style="color: white;">총 가격</h2>
-			<h2 id="amountView" style="color: white;"></h2>
+			<h2  id="amountView" name="amountView" style="color: white;"></h2>
+			<form id="paymentForm" name="paymentForm">
+			<input type="hidden" name="first_amount"/>
+			<input type="hidden" name="reservation_id" value="${reservation_id}"/>
+			</form>
 	<button onclick="fn_goPayment();" class="action action--buy">결제하기</button>
 		<button onclick="fn_goBack();" class="action action--buy">이전
 			화면으로</button>
