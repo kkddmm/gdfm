@@ -118,6 +118,11 @@ public class MovieController {
 	@ResponseBody
 	private Map<String, Object> movieReviewUpdate(MovieReview movieReview) {
 		
+		System.out.println("updateReview : " + movieReview.getMovie_review_content());
+		System.out.println("updateReview : " +movieReview.getMovie_review_id());
+		System.out.println("updateReview : " +movieReview.getMovie_review_rate());
+		
+		
 		Map<String, Object>  upd_success = new HashMap<>();
 		
 		int i= movieReviewService.updateMovieReview(movieReview);

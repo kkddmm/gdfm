@@ -166,26 +166,7 @@
 
 	var movie_review_id='${movie_review.movie_review_id}'; //num
 	
-	
-	/* //댓글 목록
-	function movieReviewList(){
-$.ajax({
-    url : '${pageContext.request.contextPath}/movie/movie_detail',
-    type : 'get',
-    data : {'movie_review_id':movie_review_id},
-    success : function(data){
-        var a =''; 
-        $.each(data, function(key, value){ 
-            a += '<div class="MovieReviewArea" style="border-bottom:1px solid darkgray; margin-bottom: 15px;">';
-            a += '<div class="MovieReviewContent'+value.+movie_review_id'"> <p> 내용 : '+value.movie_co_content +'</p>';
-            a += '</div></div>';
-        				});
-        
-        $(".movieReviewList").html(a);
-			        }
-			    });
-			} */
-			
+				
 			
 			
 	//리뷰 삭제 
@@ -220,12 +201,15 @@ $.ajax({
   //리뷰 수정 
   		function updateMovieReview(updateData) {
 			
+	  				console.log("updateData 받? : "+updateData);
+	  
 	  			$.ajax({
 	  					url:'${pageContext.request.contextPath}/movie/updateReview',
 	  					method:'post',
 	  					data:updateData,
 	  					dataType:'json',
 	  					success:function(data){
+	  							
 	  							
 	  							if(data.upd_success>0){
 	  									alert("updateMovieReview 성공");
@@ -355,31 +339,42 @@ if(data.success==0){
 							   +'<div class="viewDiv">'
 								+'<span class="movie_review_content">'+data[i].movie_review_content+'</span>'
 								+'<span data-id="'+data[i].movie_review_id
-								+'"  class="glyphicon glyphicon-ok" name="movieReviewUpdateBtn"></span>'
+								+'"  class="glyphicon glyphicon-ok" name="movieR
+								eviewUpdateBtn"></span>'
 								+'<span data-id="'+data[i].movie_review_id
 								+'" class="glyphicon glyphicon-remove" name="movieReviewDeleteBtn"></span>'
 								+'</div>'
 								+'</td>') .appendTo('#review');  */
+								
+								
+								
+								
+								
 								var $tr1= $('<tr>');
 								$('<td>').append($('<strong>').html(data[i].mem_id)).append('등록 :  '+data[i].review_reg_date).appendTo($tr1);
 //						
 								var $tr2= $('<tr>');
 								var $newtd = $('<td>').attr('id','td' +data[i].movie_review_id).css('white-space','pre-wrap').appendTo($tr2);
 								var $newdiv = $('<div>').addClass('viewDiv').appendTo($newtd);
+								
+								
 								var $starclone = $('#starTemplate').clone().attr('id','').appendTo($newdiv);
 								$starclone.find('b.rating').html(data[i].movie_review_rate);
 								$starclone.find('[name="star-input"]').attr('name','star-input'+data[i].movie_review_id).attr('id',function(idx,val ){return val+'-'+data[i].movie_review_id;})
 								.filter('[value="'+(data[i].movie_review_rate*2)+'"]').prop('checked',true);
-								$starclone.find('label').attr('for',function(idx,val ){return val+data[i].movie_review_id;});
+								$starclone.find('label').attr('for',function(idx,val){return val+data[i].movie_review_id;});
 								$('<span>').addClass('movie_review_content').text(data[i].movie_review_content).appendTo($newdiv);
 								var checkdata = '${LOGIN_USER.mem_id}';
 								if(checkdata == data[i].mem_id){
 								
-								$('<span>').addClass('glyphicon glyphicon-ok').attr('name','movieReviewUpdateBtn').appendTo($newdiv);
+								//수정 확인 , 삭제 버튼 
+								$('<span>').addClass('glyphicon glyphicon-ok').attr('name','movieReviewUpdateBtn').attr('data-id',data[i].movie_review_id).appendTo($newdiv);
 								$('<span>').addClass('glyphicon glyphicon-remove').attr('name','movieReviewDeleteBtn').attr('data-id',data[i].movie_review_id).appendTo($newdiv);
 							
 								}
-								var $thumbUpBtn = $('<label>')
+								
+								//추천 비추천 버튼 
+								 var $thumbUpBtn = $('<label>')
 								$thumbUpBtn.attr('data-id',data[i].movie_review_id).attr('data-memId',data[i].mem_id).attr('data-ud','U').on('click',fn_thumb);
 								$('<span>').addClass('glyphicon glyphicon-thumbs-up').attr('name','movieReviewThumbupBtn').appendTo($thumbUpBtn);
 								$thumbUpBtn.append('추천'+data[i].thumbUpCnt);
@@ -391,23 +386,13 @@ if(data.success==0){
 								
 								
 								$thumbUpBtn.appendTo($newdiv);
-								$thumbDownBtn.appendTo($newdiv);
+								$thumbDownBtn.appendTo($newdiv); 
 								
 								$('#review').append($tr1).append($tr2);
 								
 							}
 							
-								 /* <tr>
-									
-											<td id="td${review.movie_review_id}" style="white-space: pre-wrap">
-											${review.movie_review_content} 
-											<span id="commentUdt" onclick="fn_co_upt(,'<spring:escapeBody javaScriptEscape="true">
-											${review.movie_review_content}
-											</spring:escapeBody>');" class="glyphicon glyphicon-ok"></span>  
-											 <span id="commentDel()" onclick="fn_co_del();" class="glyphicon glyphicon-remove"></span>
-									</td>
-								</tr>	  
-*/
+								 
 						},
 						error:function(xhr, error) {
 							alert("1점  에러가 발생했습니다.");
@@ -494,6 +479,7 @@ if(data.success==0){
 		 	$(document).on('click','[name=movieReviewUpdateBtn]',function () { //댓글 수정 버튼 클릭시 
 				
 		 		var updateId = $(this).attr('data-id');// var updateData = 리뷰 번호 
+		 		console.log("updateId : "  + updateId);
 		 		var updateContent = $(this).siblings('.movie_review_content').html(); 
 		 		alert("수정버튼이 제대로 눌립니다.");
 		 		$(this).parent(".viewDiv").hide();
@@ -505,7 +491,7 @@ if(data.success==0){
 //					$('<input>').attr('type','hidden').attr('value',movie_id);
 					var $editForm = $('<form>').attr('class','editForm');
 					$('<input>').attr({'type':'hidden','name':'movie_review_id','value':updateId}).appendTo($editForm);
-					$('<textarea>').attr('name','movie_review_content').val(updateContent).css({
+					$('<textarea>').attr('name','movie_review_content').val(updateContent).css({ 
 						'width' : '800px'}).appendTo($editForm);/* .addClass('').appendTo(()); */
 						$('<span>').addClass('glyphicon glyphicon-share-alt').on('click',function(){
 							 var updateForm = confirm("수정중인 내용은 저장되지 않습니다. 글 내용화면으로 돌아가시겠습니까?");
@@ -522,7 +508,10 @@ if(data.success==0){
 						}).appendTo($editForm);
 						
 						$('<span>').addClass('glyphicon glyphicon-ok').on('click',function(){
+							
 							var updateData = $(this).closest('.editForm').serialize();
+							
+							console.log(updateData);
 						
 							updateMovieReview(updateData) //Update 함수 호출	 
 						}).appendTo($editForm);
