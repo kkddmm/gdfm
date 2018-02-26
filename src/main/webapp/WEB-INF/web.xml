@@ -62,7 +62,7 @@
 	</servlet-mapping>
 	
 	<!-- 에러 페이지 설정 시 주석 해제 (개발 완료시) -->
-<!-- 	<error-page>
+ 	<!-- <error-page>
 		<error-code>404</error-code>
 		<location>/WEB-INF/views/error/error404.jsp</location>
 	</error-page>
