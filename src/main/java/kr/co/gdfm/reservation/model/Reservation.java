@@ -15,6 +15,7 @@ public class Reservation {
 	private String pay_canel_yn;
 	private String pay_amount;
 	private String reservationcount;
+	private String show_date;
 	
 	public int getReservation_id() {
 		return reservation_id;
@@ -88,5 +89,10 @@ public class Reservation {
 	public void setReservationcount(String reservationcount) {
 		this.reservationcount = reservationcount;
 	}
-	
+	public String getShow_date() {
+		return show_date;
+	}
+	public void setShow_date(String show_date) {
+		this.show_date = show_date;
+	}
 }

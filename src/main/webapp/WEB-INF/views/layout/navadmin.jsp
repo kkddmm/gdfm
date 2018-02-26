@@ -20,8 +20,9 @@
 					<b>
 						${LOGIN_USER.mem_name}
 					</b> 님
-				</span>               
-				<%-- <a href="${pageContext.request.contextPath}/admin/memberView?mem_id=${LOGIN_USER.mem_id}" style="color:#FFFFFF;font-size:11px;">마이페이지</a> --%><span style="color:#FFFFFF;font-size:11px;">|</span>                
+				</span>
+				<span style="color:#FFFFFF;font-size:11px;">|</span>               
+				<a href="${pageContext.request.contextPath}/" style="color:#FFFFFF;font-size:11px;" target="_blank">홈페이지</a><span style="color:#FFFFFF;font-size:11px;">|</span>                
 				<a href="${pageContext.request.contextPath}/admin/logout" style="color:#FFFFFF;font-size:11px;">로그아웃</a>                
 		    </c:if>
 	    </div>

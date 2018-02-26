@@ -80,7 +80,8 @@
                     <a class="dropdown-toggle" data-toggle="dropdown" href="${pageContext.request.contextPath}/admin/memberView?mem_id=${LOGIN_USER.mem_id}">마이페이지<b class="caret"></b></a>
                        <ul class="dropdown-menu">
                            <li><a href="${pageContext.request.contextPath}/member/memberView?mem_id=${LOGIN_USER.mem_id}">회원정보</a></li>
-                           <li><a href="${pageContext.request.contextPath}/member/memberView?mem_id=${LOGIN_USER.mem_id}">구매이력</a></li>                            
+                           <li><a href="${pageContext.request.contextPath}/mypage/reserveList?mem_id=${LOGIN_USER.mem_id}">예매구매이력</a></li>                            
+                           <li><a href="${pageContext.request.contextPath}/mypage/snackBuy?mem_id=${LOGIN_USER.mem_id}">스낵구매이력</a></li>                            
                        </ul>
                   </li>               
                   </c:if>

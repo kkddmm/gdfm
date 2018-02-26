@@ -167,9 +167,10 @@ where exists (
             e.pay_cancel_yn as pay_canel_yn,
             e.pay_amount as pay_amount,
 		    a.reservation_del_yn,
-		    (select count(*) from reservation_sit f where f.reservation_id = a.reservation_id) as reservationcount
+		    f.show_date as show_date,
+		    (select count(*) from reservation_sit g where g.reservation_id = a.reservation_id) as reservationcount
 		FROM
-		     movie_reservation a, member b, movie c, movie_show_info d, pay e 
+		     movie_reservation a, member b, movie c, movie_show_info d, pay e, movie_show_info f
 		WHERE
 		    a.mem_id = b.mem_id
 		AND
@@ -182,6 +183,8 @@ where exists (
 		    a.pay_id is not null
         AND
             e.pay_cancel_yn = 'N'
+        AND
+            a.show_id = f.show_id
 		<if test="searchWord != null and searchWord !=''">
 			<if test="searchType == 01">	
 				AND b.mem_name = #{searchWord}
@@ -189,6 +192,9 @@ where exists (
 			<if test="searchType == 02">
 				AND(c.movie_name LIKE '%' || #{searchWord} || '%' OR c.movie_ko_name LIKE '%' || #{searchWord} || '%')
 			</if>
+		</if>
+		<if test="mem_id != null and mem_id !=''">
+			AND a.mem_id = #{mem_id}
 		</if>
 		ORDER BY 
 			a.reservation_reg_date desc 
@@ -198,7 +204,7 @@ where exists (
 		SELECT
 			count(*) as count
 		FROM
-		    movie_reservation a, member b, movie c, movie_show_info d, pay e 
+		    movie_reservation a, member b, movie c, movie_show_info d, pay e, movie_show_info f 
 		WHERE
 		    a.mem_id = b.mem_id
 		AND
@@ -211,6 +217,8 @@ where exists (
 		    a.pay_id is not null
         AND
             e.pay_cancel_yn = 'N'
+        AND
+            a.show_id = f.show_id
 		<if test="searchWord != null and searchWord !=''">
 			<if test="searchType == 01">	
 				AND b.mem_name = #{searchWord}
@@ -218,6 +226,9 @@ where exists (
 			<if test="searchType == 02">
 				AND(c.movie_name LIKE '%' || #{searchWord} || '%' OR c.movie_ko_name LIKE '%' || #{searchWord} || '%')
 			</if>
+		</if>
+		<if test="mem_id != null and mem_id !=''">
+			AND a.mem_id = #{mem_id}
 		</if>
 	</select>
 	<delete id="deleteResrve" parameterType="int">		

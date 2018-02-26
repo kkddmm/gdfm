@@ -275,6 +275,9 @@
 				AND c.snack_name LIKE '%' || #{searchWord} || '%'
 			</if>
 		</if>
+		<if test="mem_id != null and mem_id !=''">
+			AND a.mem_id = #{mem_id}
+		</if>
 		ORDER BY 
 			a.snack_buy_id desc 
 	<include refid="CommonMapper.pageFooter"></include>
@@ -302,6 +305,9 @@
 			<if test="searchType == 02">
 				AND c.snack_name LIKE '%' || #{searchWord} || '%'
 			</if>
+		</if>
+		<if test="mem_id != null and mem_id !=''">
+			AND a.mem_id = #{mem_id}
 		</if>
 	</select>
 	<delete id="deleteSnackBuy" parameterType="int">		
