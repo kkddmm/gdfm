@@ -17,6 +17,16 @@
 		if (today < birthday) years--;
 		return years;
 		}
+	 
+	 
+	 function fn_classCon(){
+		 var selectedMovie = $('#selectedMovie').val();
+		 console.log(selectedMovie);
+		  
+		 $('#movieView>li').removeClass('active');
+		 $('#movieView>#'+selectedMovie).addClass('active');
+		 
+	 }
 	
 	
 	function fn_changeCinemaByMovie(movie_id, movie_name, movie_ko_name,movie_grade) {
@@ -26,6 +36,9 @@
 		$("#imgView").children().remove();
 		$('<img>').attr("src","${pageContext.request.contextPath}/movieposter/"+movie_name+"_poster.jpg").appendTo('#imgView');
 		$('#selectMovieName').html(movie_ko_name);
+		fn_classCon();
+		
+		
 		$.ajax({
 			type : 'post',
 			url : '${pageContext.request.contextPath}/reservation/get/cinemaList',
@@ -42,6 +55,8 @@
  				$('<li>').html(data[i].ci_addr1).addClass("list-group-item").click(function(){
  				 var addr1 = $(this).html();
  				var movie_id = $('#selectedMovie').val();
+ 			
+ 				
  				 fn_loadAddr2(addr1,movie_id);
  				}).appendTo('#addr1View');
  				}
@@ -76,10 +91,11 @@
 															success : function(data,status) {
 																$('#movieView').html('');
 																for (k in data) {
-																	$('<li>').addClass("list-group-item").attr("id",data[k].MOVIE_ID).attr("name",data[k].MOVIE_NAME)
+																	$('<li>').addClass("list-group-item movieC").attr("id",data[k].MOVIE_ID).attr("name",data[k].MOVIE_NAME)
 																.attr("movie_ko_name",data[k].MOVIE_KO_NAME).attr("data-grade",data[k].MOVIE_GRADE).html('<img src="${pageContext.request.contextPath}/img/'+data[k].MOVIE_GRADE+'.png" />'
 																		+ data[k].MOVIE_KO_NAME).click(function(){
 																			$movie = $(this);
+																			
 																		var movie_id =$movie.attr("id");
 																		var movie_name=$movie.attr("name");
 																		var movie_ko_name=$movie.attr("movie_ko_name");
@@ -87,6 +103,7 @@
 																			fn_changeCinemaByMovie(movie_id, movie_name, movie_ko_name,movie_grade);
 																		}).appendTo('#movieView')
 																		}
+																fn_classCon(); 
 																if(movieSelect == true&&cinemaSelect==true&&dateSelect==true){
 																	fn_show_info ()
 																	}
@@ -244,8 +261,9 @@ height : 20px;
 <div class="slider">
 	<div class="container">
 	<a type="button" href="101" class="btn btn-default"><span class="glyphicon glyphicon-repeat"></span>다시예매하기</a>
+<!-- style="background-color : antiquewhite;" -->
 
-		<div  align="center" class="col-md-12 main row">
+		<div  align="center" class="col-md-12 main row" >   
 			<div align="center" class="col-md-2 list-group">
 				<h4 class="sessionTitle">영화</h4>
 				<hr />

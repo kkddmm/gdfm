@@ -77,7 +77,7 @@
 		    	}else{
 		    		//불가능
 		    		alert("시간이 초과되었습니다.")
-		    		location.replace = "101";
+		    		location.href = '101';
 		    		
 		    	}
 		    },  

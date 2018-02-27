@@ -51,6 +51,7 @@ PaymentService paymentService;
 			model.addAttribute("snackList",snackList);
 			model.addAttribute("pageType", "B");	
 			model.addAttribute("first_amount",paramMap.get("first_amount"));	
+			model.addAttribute("reservation_id",paramMap.get("reservation_id"));
 		}
 		
 		

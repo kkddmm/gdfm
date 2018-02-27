@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -70,14 +71,20 @@ public class LoginController {
 	}
 	
 	@RequestMapping("/loginForm")
-	public String loginForm(HttpServletRequest request, Model model) {
-
-		String url = "";
+	public String loginForm(HttpSession session,
+			HttpServletRequest request, Model model) {
+	if(session.getAttribute("LOGIN_USER")!=null) {
+		return "redirect:/"	;	
+	}
+		if(!StringUtils.isEmpty(request.getHeader("referer"))) {
+			String url = "";
 		url =request.getHeader("referer");
 url = url.substring(url.indexOf("GoodDayForMovie/")+"GoodDayForMovie/".length());
 model.addAttribute("url",url);
+		}
 		return "login/loginForm";
-	}
+
+		}
 	
 	@RequestMapping("/logout")
 	public String logout(HttpSession session) {
@@ -86,5 +93,11 @@ model.addAttribute("url",url);
 		
 		return "redirect:/";
 	}
+	
+	
+	
+	
+	
+	
 
 }
