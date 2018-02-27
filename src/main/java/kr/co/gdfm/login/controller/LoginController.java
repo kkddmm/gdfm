@@ -60,7 +60,11 @@ public class LoginController {
 		
 		model.addAttribute("isError",isError);
 		model.addAttribute("message",message);
+		if(member.getClass_code() == 99){
+			model.addAttribute("locationURL","/admin/adminPage");	
+		}else{
 		model.addAttribute("locationURL","/"+url);
+		}
 		model.addAttribute("login","login");
 		return "common/message";
 	}

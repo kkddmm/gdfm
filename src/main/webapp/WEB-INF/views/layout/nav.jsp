@@ -33,7 +33,7 @@
 				</span>  
 				<c:if test="${LOGIN_USER.class_code == 99}">  
 				<span style="color:#FFFFFF;font-size:11px;">|</span>
-				<a href="${pageContext.request.contextPath}/admin/loginForm" style="color:#FFFFFF;font-size:11px;">관리자페이지</a>    
+				<a href="${pageContext.request.contextPath}/admin/adminPage" style="color:#FFFFFF;font-size:11px;">관리자페이지</a>    
 				</c:if>
 				<span style="color:#FFFFFF;font-size:11px;">|</span>             
 				<a href="${pageContext.request.contextPath}/login/logout" style="color:#FFFFFF;font-size:11px;">로그아웃</a>                

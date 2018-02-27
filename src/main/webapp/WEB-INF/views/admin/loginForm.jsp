@@ -23,18 +23,6 @@
 	}
 </script>
 <div class="slider">
-<%-- <c:if test="${empty LOGIN_USER}">  
-		<script type="text/javascript">
-			location.href="${pageContext.request.contextPath}/admin/loginForm";
-		</script>
-</c:if> --%>
-<c:if test="${not empty LOGIN_USER}">
-	<c:if test="${LOGIN_USER.class_code == 99}">  
-		<script type="text/javascript">
-			location.href="${pageContext.request.contextPath}/admin/adminPage";
-		</script>
-	</c:if>
-</c:if>
 <div>
 	<div class="panel panel-success" style="width: 400px; margin: auto">
 		

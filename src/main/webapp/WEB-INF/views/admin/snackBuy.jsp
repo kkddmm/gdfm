@@ -26,6 +26,30 @@
 	
 		}
 	}
+	
+	function fn_useSnack(snack_buy_id){
+			$.ajax({
+				type: 'post',
+				url:'${pageContext.request.contextPath}/admin/useSnack',
+				data:"snack_buy_id="+snack_buy_id,
+				dataType: 'json',
+				success:function(data,status){
+					console.log(data);
+					if(data.result == "true"){
+						alert("정상적으로 수정되었습니다.");
+						location.href = "${pageContext.request.contextPath}/admin/snackBuy";
+					}else{
+						alert("수정이 실패하였습니다.");
+					}
+					
+				},
+				error: function(error){
+					console.log(error);
+				}
+				
+		});
+			
+	}
 </script>
 
 <div class="slider">
@@ -72,6 +96,8 @@
 					<th class="col-xs-1 text-center">금액</th>
 					<th class="col-xs-1 text-center">상태</th>
 					<th class="col-xs-1 text-center">삭제</th>
+					<th class="col-xs-1 text-center">사용여부</th>
+					<th class="col-xs-1 text-center">쿠폰사용</th>
 				</tr>
 			</thead>
 			
@@ -79,7 +105,9 @@
 				<c:if test="${not empty snackBuy}" >
 					<c:forEach var="snackb" items="${snackBuy}" varStatus="i">
 						<tr>
-							<td style="text-align:center;">${(pagingUtil.totalCount-(pagingUtil.currentPage-1)*pagingUtil.pageCount) - i.index - ((pagingUtil.currentPage-1)*5)}</td>			
+							<td style="text-align:center;">
+								${(pagingUtil.totalCount-(pagingUtil.currentPage-1)*pagingUtil.pageCount) - i.index - ((pagingUtil.currentPage-1)*5)}
+							</td>			
 							<td class="text-center">${snackb.mem_name}</td>
 							<td class="text-center">${snackb.mem_id}</td>
 							<td class="text-left">${snackb.snack_name}</td>
@@ -90,6 +118,8 @@
 							</td>
 							<td class="text-center">${snackb.pay_canel_yn == 'Y' ? '취소' : '완료'}</td>
 							<td class="text-center"><input type="button" value="삭제" class="btn btn-danger" onclick="fn_delete('${snackb.snack_buy_id}','${snackb.mem_point}','${snackb.mem_id}');"></td>
+							<td class="text-center">${snackb.snack_use_yn == 'Y' ? '사용' : '미사용'}</td>
+							<td class="text-center"><input onclick="fn_useSnack(${snackb.snack_buy_id})" type="button" value="사용"></td>
 						</tr>
 					</c:forEach>			
 				</c:if>

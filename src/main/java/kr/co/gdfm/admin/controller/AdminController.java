@@ -919,6 +919,25 @@ public class AdminController {
 		return "admin/snackBuy";
 	}
 	
+	@RequestMapping("/useSnack")
+	@ResponseBody
+	public Map<String, Object> useSnack( 
+		@RequestParam(value="snack_buy_id") int snack_buy_id
+		){	
+		
+		int cnt = snackService.useSnack(snack_buy_id);
+				
+		Map<String, Object> paramMap=new HashMap<>();
+		
+		if(cnt==0) {
+			paramMap.put("result", "false");			
+		}else {
+			
+			paramMap.put("result", "true");
+		}		
+		return paramMap;
+	}
+	
 	@RequestMapping("/snackBuyDelete")
 	public String snackBuyDelete(
 			HttpSession session,
