@@ -6,9 +6,18 @@
 <script src="${pageContext.request.contextPath}/js/moment.min.js"></script>
 <script type="text/javascript">
 
+
+$(document).ready(function(){
+$('#loading').show();   
+	
+})
+
 	var movieSelect = false;
 	var cinemaSelect = false;
 	var dateSelect = false;
+	
+	
+	//나이 구하는 함수(이용가에 따른 선택 불가능을 위함.)
 	 function getAgeFromBirthDay(birth_day) {
 		var birthday = moment(birth_day).toDate();
 		var today = new Date();
@@ -18,27 +27,38 @@
 		return years;
 		}
 	 
-	 
+	 //클래스(선택 스타일) 제어 함수 
 	 function fn_classCon(){
 		 var selectedMovie = $('#selectedMovie').val();
-		 console.log(selectedMovie);
-		  
+		 var selectedCinema = $('#selectedCinema').val();
+		 var selectedShow = $('#selectedShow').val();
+		 var selectedAddr1= $('#selectedAddr1').val();
+		  if(selectedMovie!=''){
 		 $('#movieView>li').removeClass('active');
 		 $('#movieView>#'+selectedMovie).addClass('active');
-		 
+		  }
+		 if(selectedCinema!=''){
+		 $('#addr2View>li').removeClass('active');
+		 $('#addr2View>li#'+selectedCinema).addClass('active');
 	 }
-	
-	
+		 if(selectedShow!=''){
+		 $('#infoView button').removeClass('active');
+		 $('#infoView button#'+selectedShow).addClass('active');
+	 }
+		 if(selectedAddr1!=''){
+			 $('#addr1View>li').removeClass('active'); 
+			 $('#addr1View>[data-addr1="'+selectedAddr1+'"]').addClass('active');
+		 }
+	 }
 	function fn_changeCinemaByMovie(movie_id, movie_name, movie_ko_name,movie_grade) {
+		$('#loading').show();
 		//영화를 눌렀을때 영화관 목록이 바뀌는 메소드
 		$('#selectedMovie').val(movie_id);
 		$('#selectedMovieGrade').val(movie_grade);
 		$("#imgView").children().remove();
 		$('<img>').attr("src","${pageContext.request.contextPath}/movieposter/"+movie_name+"_poster.jpg").appendTo('#imgView');
 		$('#selectMovieName').html(movie_ko_name);
-		fn_classCon();
-		
-		
+
 		$.ajax({
 			type : 'post',
 			url : '${pageContext.request.contextPath}/reservation/get/cinemaList',
@@ -50,25 +70,37 @@
 				if(cinemaSelect==false){
 				//영화관이 선택되어 있지 않을 때,
 			$('#addr2View').html('');
+				
 		}
 			for(var i in data){
- 				$('<li>').html(data[i].ci_addr1).addClass("list-group-item").click(function(){
+ 				$('<li>').html(data[i].ci_addr1).attr('data-addr1',data[i].ci_addr1).addClass("list-group-item").click(function(){
  				 var addr1 = $(this).html();
  				var movie_id = $('#selectedMovie').val();
- 			
- 				
  				 fn_loadAddr2(addr1,movie_id);
  				}).appendTo('#addr1View');
  				}
+			fn_classCon(); 
 			// 영화,상영관, 날짜가 전부 선택되었을때 상영정보를 출력하는 함수를 실행.
 			if(movieSelect == true&&cinemaSelect==true&&dateSelect==true){
 				fn_show_info ()
 				}
-			},error : function(){
+			},
+			complete : function(){
+				$('#loading').hide();
+				
+			},
+			error : function(){
 				alert("에러!");} 
+			
 			} )
+			
 		}
+	
 	function fn_loadAddr2(addr1, movie_id) {
+		$('#loading').show();
+		$('#selectedAddr1').val(addr1);
+	
+		
 		$.ajax({ type : 'post', 
 			url : '${pageContext.request.contextPath}/reservation/get/addr2',
 					data : "ci_addr1=" + addr1+"&movie_id="+movie_id,
@@ -78,41 +110,53 @@
 						$('#addr2View').html('');
 						for (var i in data) {
 							$('<li>').html(data[i].CI_ADDR2).attr("id",data[i].CI_ID).attr("name",data[i].CI_NAME).addClass("list-group-item").on('click',function() {
+								$('#loading').show();
 								var cineid = $(this).attr("id"); 
 								var cineName=$(this).attr("name");
 								$('#selectedCinema').val(cineid);
+								fn_classCon();
 								$('#selectCinemaName').html('영화보기 좋은날&nbsp;'+cineName);
 								var addr2 = $(this).html();
 								cinemaSelect = true;
-												$.ajax({type : 'post',
-															url : '${pageContext.request.contextPath}/reservation/get/movieName',
-															data : "ci_addr1="+ addr1+ "&ci_addr2="+ addr2,
-															dataType : "json",
-															success : function(data,status) {
-																$('#movieView').html('');
-																for (k in data) {
-																	$('<li>').addClass("list-group-item movieC").attr("id",data[k].MOVIE_ID).attr("name",data[k].MOVIE_NAME)
-																.attr("movie_ko_name",data[k].MOVIE_KO_NAME).attr("data-grade",data[k].MOVIE_GRADE).html('<img src="${pageContext.request.contextPath}/img/'+data[k].MOVIE_GRADE+'.png" />'
-																		+ data[k].MOVIE_KO_NAME).click(function(){
-																			$movie = $(this);
-																			
-																		var movie_id =$movie.attr("id");
-																		var movie_name=$movie.attr("name");
-																		var movie_ko_name=$movie.attr("movie_ko_name");
-																		var movie_grade = $movie.attr("data-grade");
-																			fn_changeCinemaByMovie(movie_id, movie_name, movie_ko_name,movie_grade);
-																		}).appendTo('#movieView')
-																		}
-																fn_classCon(); 
-																if(movieSelect == true&&cinemaSelect==true&&dateSelect==true){
-																	fn_show_info ()
-																	}
-																},
-															error : function() {
-															}})}).appendTo('#addr2View');}},
-															error : function() {
-																alert("에러났어요!");}
-															})}
+							$.ajax({type : 'post',
+							url : '${pageContext.request.contextPath}/reservation/get/movieName',
+							data : "ci_addr1="+ addr1+ "&ci_addr2="+ addr2,
+							dataType : "json",
+						success : function(data,status) {
+						$('#movieView').html('');
+					for (k in data) {
+					$('<li>').addClass("list-group-item movieC").attr("id",data[k].MOVIE_ID).attr("name",data[k].MOVIE_NAME)
+					.attr("movie_ko_name",data[k].MOVIE_KO_NAME).attr("data-grade",data[k].MOVIE_GRADE).html('<img src="${pageContext.request.contextPath}/img/'+data[k].MOVIE_GRADE+'.png" />'
+				   + data[k].MOVIE_KO_NAME).click(function(){
+				  $movie = $(this);
+					var movie_id =$movie.attr("id");
+					var movie_name=$movie.attr("name");
+					var movie_ko_name=$movie.attr("movie_ko_name");
+					var movie_grade = $movie.attr("data-grade");
+						fn_changeCinemaByMovie(movie_id, movie_name, movie_ko_name,movie_grade);
+					}).appendTo('#movieView')
+					}
+			fn_classCon(); 
+				if(movieSelect == true&&cinemaSelect==true&&dateSelect==true){
+				fn_show_info ();
+									}
+										},
+						complete : function(){
+						$('#loading').hide();
+								},
+						error : function() {
+						}})}).appendTo('#addr2View');
+						}
+						fn_classCon();
+					},
+					complete : function(){
+						$('#loading').hide();
+					},
+				error : function() {
+	          alert("에러났어요!");}
+			     })
+			fn_classCon();														
+	}
 	
 	function fn_selectedDate(date,year,month,day,weekday){
 		$('#dateView button').removeClass('active');
@@ -125,13 +169,7 @@
 			}
 	}
 	function fn_show_info (){
-	
-		
-	
-		
-		
-		
-		
+		$('#loading').show();
 	var movie_id = $('#selectedMovie').val();
 	var ci_id = $('#selectedCinema').val();
 	var show_date = $('#selectedDate').val();
@@ -148,28 +186,29 @@ if(data[0]!=null){
 				for(var j in data){
 					if(j!=0&&data[j].screen_name!=data[j-1].screen_name){
 						$('<h4>').html('<hr/>'+data[j].screen_name+'('+data[j].dimension_name+')').appendTo('#infoView');
-					}
-					$('<span>').html('<button id="'+data[j].show_id+'" type="button" onclick="fn_selectShowInfo('+data[j].show_id+',\''+data[j].dimension_name+'\',\''+data[j].start_time+'\',\''+data[j].end_time+'\',\''+data[j].screen_name+'\');" class="btn" > '+data[j].start_time+'</button>&nbsp;'+data[j].sit +'석&nbsp;' )
+					} 
+					$('<span>').html('<button type="button" class="btn btn-outline-primary" id="'+data[j].show_id+'"  onclick="fn_selectShowInfo('+data[j].show_id+',\''+data[j].dimension_name+'\',\''+data[j].start_time+'\',\''+data[j].end_time+'\',\''+data[j].screen_name+'\');" class="btn" > '+data[j].start_time+'</button>&nbsp;'+data[j].sit +'석&nbsp;' )
 					.appendTo('#infoView');
 				}
-				 
 				
 }	else{
 	$('#infoView').html('상영 정보가 없습니다');
 }
-
 $('#goSitDiv').html(''); 
-
+			},
+			complete : function(){
+				$('#loading').hide();
 			},
 			error : function(){
 				alert("에러가 발생했습니다.");
 			}
 		})
-	}
+	} 
 	
 	
 	function fn_selectShowInfo(show_id, dimension_name,start_time,end_time,screen_name){
 		$('#selectedShow').val(show_id);
+		fn_classCon();
 		console.log(show_id);
 		
 		$('#selectShowView').html(screen_name+'('+dimension_name+')&nbsp;'+start_time+'&nbsp;~&nbsp;'+end_time);
@@ -183,7 +222,7 @@ $('<img>').attr('src',"${pageContext.request.contextPath}/img/goSitBtn.png").on(
 	
 	
 	//작업중
-	else{
+	else{ 
 		console.log("로그인한 유저의 만 나이 " +getAgeFromBirthDay('${LOGIN_USER.mem_birth}')); 
 		//선택한 영화의 등급과 나이 대조 
 		if($('#selectedMovieGrade').val()=='rate12'){
@@ -202,14 +241,9 @@ $('<img>').attr('src',"${pageContext.request.contextPath}/img/goSitBtn.png").on(
 			return false;
 		}  
 		}
-		
-		
-		
-		
-		
 	var sel = confirm("선택하신 정보로 예매하시겠습니까?")
 	if(sel ==true){
-		$.ajax({
+		$.ajax({ 
 			method : 'post',
 			url : "${pageContext.request.contextPath}/reservation/put/movieReservation",
 			data : "show_id="+show_id+"&mem_id=${LOGIN_USER.mem_id}",
@@ -220,25 +254,41 @@ $('<img>').attr('src',"${pageContext.request.contextPath}/img/goSitBtn.png").on(
 				frm.method = "post";
 				frm.action = "102";
 				frm.submit();
-				
 			},
 			error : function(){
 				alert("예약정보 insert 에러")
-				
-			}
-		})
-		
-	}
-	}
-	
-	
+}})}}
 }).appendTo('#goSitDiv');
 	}
-	
-	
+	$(function(){
+		   $('#loading').hide();   
+	})
 	
 </script>
 <style>
+
+
+#loading {
+ width: 100%;  
+ height: 100%;  
+ top: 0px;
+ left: 0px;
+ position: fixed;  
+ display: block;  
+ opacity: 0.7;  
+ background-color: #fff;  
+ z-index: 99;  
+ text-align: center; } 
+  
+#loading-image {  
+ position: absolute;  
+ top: 50%;  
+ left: 50%; 
+ z-index: 100; }
+
+
+
+
 .row.main {
 	border: 1px solid black;
 }
@@ -258,6 +308,10 @@ height : 20px;
 
 
 </style>
+
+<div id="loading"><img id="loading-image" src="${pageContext.request.contextPath}/img/loading.gif" alt="Loading..." /></div>
+
+
 <div class="slider">
 	<div class="container">
 	<a type="button" href="101" class="btn btn-default"><span class="glyphicon glyphicon-repeat"></span>다시예매하기</a>
@@ -285,9 +339,11 @@ height : 20px;
 				<h4>영화관</h4>
 				<hr />
 				<ul  class="col-md-6" id="addr1View">
+				
+				
 					<c:if test="${not empty addr1List}">
 						<c:forEach items="${addr1List}" var="cinema">
-							<li class="list-group-item" onclick="fn_loadAddr2('${cinema.ci_addr1}');">${cinema.ci_addr1}</li>
+							<li class="list-group-item" data-addr1="${cinema.ci_addr1}" onclick="fn_loadAddr2('${cinema.ci_addr1}');">${cinema.ci_addr1}</li>
 						</c:forEach>
 					</c:if>
 				</ul>
@@ -303,7 +359,7 @@ height : 20px;
 				<c:if test="${date.MONTH!=dateList[status.index-1].MONTH}">
 				<h2>${date.MONTH}월</h5>
 				</c:if>
-           <li onclick="fn_selectedDate(${date.USEDAY},${date.YEAR},${date.MONTH},${date.DAY},'${date.WEEKDAY}')"><button id="${date.USEDAY}" type="button" class="btn btn-default">${date.WEEKDAY}&nbsp;${date.DAY}</button></li><br/>
+           <li onclick="fn_selectedDate(${date.USEDAY},${date.YEAR},${date.MONTH},${date.DAY},'${date.WEEKDAY}')"><button id="${date.USEDAY}" type="button" class="btn btn-default list-group-item">${date.WEEKDAY}&nbsp;${date.DAY}</button></li><br/>
 				</c:forEach>
 				</ul>
 				</div>
@@ -362,8 +418,13 @@ height : 20px;
 		</div>
 		<input type="hidden" name="selectedMovie" type="text" id="selectedMovie" />
 		<input type="hidden" name="selectedMovieGrade" type="text" id="selectedMovieGrade" /> 
+		<input type="hidden" name="selectedAddr1" type="text" id="selectedAddr1" /> 
 		<input type="hidden" name="selectedCinema" type="text" id="selectedCinema" />
 		<input type="hidden" name="selectedDate" type="text" id="selectedDate" />
+		
+		
+		
+		
 		 
 		<form name ="selectForm">
 		<input type="hidden" name="show_id" type="text" id="selectedShow" />
