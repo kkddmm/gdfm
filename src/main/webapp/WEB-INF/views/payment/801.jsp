@@ -137,7 +137,7 @@ function fn_pointUse(){
 		alert("보유하신 포인트 이상으로 사용 불가능합니다");
 		return false;
 	}
-	// TODO : hasPoint 보다 큰 경우 경고 
+	
 	
 	
 	
@@ -167,16 +167,24 @@ $(function(){
 	 var sumPrice=0; 
 	 
 	 /*총상품금액-포인트 차감한 최종결제금액*/
-	$('#snackInfo tbody td.price').each(function(){
+	if(${pageType!='M'}){
+	 $('#snackInfo tbody td.price').each(function(){
 		var price= $(this).attr('data-price');
 		sumPrice+=Number(price);		
 	});
-	// $('#total ').html(sumPrice);
-	$('#total > input[name="totalPrice"]').val(sumPrice);
-	$('#total > #span_totalPrice').text(sumPrice);
+	 
+	 
+	 	$('#total > input[name="totalPrice"]').val(sumPrice);
+		$('#total > #span_totalPrice').text(sumPrice);
+		
+		$('#finalPrice > input[name="orderPrice"]').val(sumPrice);
+		$('#finalPrice > #span_orderPrice').text(sumPrice);
+		
+	 
+	}
 	
-	$('#finalPrice > input[name="orderPrice"]').val(sumPrice);
-	$('#finalPrice > #span_orderPrice').text(sumPrice);
+	 
+	// $('#total ').html(sumPrice);
 	
 		
 	
@@ -285,7 +293,7 @@ tr{
 	
 		<div style="padding:10px;" class="divGoods">
 		
-		<c:if test="${pageType=='M'}">
+		 <c:if test="${pageType=='M'}">
 		
 			<table class="myTable" style="width:100%;">
 				<thead>
@@ -304,7 +312,7 @@ tr{
 			        </tr>	        
 				</tbody>
 			</table><br>
-		</c:if>
+		</c:if> 
 		
 		
 		
@@ -313,7 +321,7 @@ tr{
 				
 	
 	
-	<c:if test ="${!pageType=='M'}">
+ 	<c:if test ="${pageType!='M'}"> 
 	
 				
 			<table id="snackInfo" class="myTable" style="width:100%;">
@@ -361,7 +369,7 @@ tr{
 		
 				</tbody>
 			</table><br>
-			</c:if>
+			</c:if> 
 			
 			
 				
@@ -393,15 +401,15 @@ tr{
 				<tbody>					
 					<tr>
 						<td id="total" class="goods">
-							<input type="text" name="totalPrice" value="${resultMap.SNACK_PRICE}">
+							<input type="hidden" name="totalPrice" value="${resultMap.SNACK_PRICE}">
 							<span id="span_totalPrice" >${resultMap.SNACK_PRICE}</span>
 						</td>  <!-- 상품가격 -->
 						<td id="pointApply" class="goods">
-							<input type="text" name="usePoint" value="0">
+							<input type="hidden" name="usePoint" value="0">
 							<span id="span_usePoint">0</span>
 						</td><!-- 적용 포인트 -->
 						<td id="finalPrice" data-price="${resultMap.SNACK_PRICE}" class="goods">
-							<input type="text" name="orderPrice" value="${resultMap.SNACK_PRICE}">
+							<input type="hidden" name="orderPrice" value="${resultMap.SNACK_PRICE}">
 							<span id="span_orderPrice">${resultMap.SNACK_PRICE}</span>
 						</td><!-- 최종결제 금액 -->
 					</tr>
@@ -426,15 +434,15 @@ tr{
 	<%-- 				<c:set var="sum" value="${sum+snack.snack_price}" ></c:set> --%>
 	<%-- 				</c:forEach> --%>
 							<td id="total" class="goods">
-								<input type="text" name="totalPrice" value="" >
+								<input type="hidden" name="totalPrice" value="" >
 								<span id="span_totalPrice" ></span>
 							</td>  <!-- 상품가격 -->
 							<td id="pointApply" class="goods">
-								<input type="text" name="usePoint" value="0">
+								<input type="hidden" name="usePoint" value="0">
 								<span id="span_usePoint">0</span>
 							</td><!-- 적용 포인트 -->
 							<td id="finalPrice" data-price="" class="goods">
-								<input type="text" name="orderPrice" value="">
+								<input type="hidden" name="orderPrice" value="">
 								<span id="span_orderPrice"></span>
 							</td><!-- 최종결제 금액 -->
 						</tr>
@@ -442,8 +450,7 @@ tr{
 				</c:if>
 <!-- 				영화 -->
 
-${resultMap.first_amount} 
-${resultMap.first_amount}
+ 
 	<c:if test ="${pageType=='M'}">
 				<tbody>					
 					<tr>
@@ -461,8 +468,8 @@ ${resultMap.first_amount}
 						</td><!-- 최종결제 금액 -->
 					</tr>
 				</tbody>
-				</c:if>  
-				
+				</c:if>   
+			
 				
 			</table>
 		</div >

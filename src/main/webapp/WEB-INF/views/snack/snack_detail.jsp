@@ -46,7 +46,7 @@ function fn_snackBuy(snack_id,mem_id,snack_buy_id){
 			dataType: 'json',
 			success : function(data, status){				
 				console.log('snack_buy_id:'+data.snack_buy_id)
-				alert("")
+				
 				location.href = '${pageContext.request.contextPath}/payment/801?snack_buy_id='+data.snack_buy_id+'&snackPage=Y';
 				},
 				error : function(error){
