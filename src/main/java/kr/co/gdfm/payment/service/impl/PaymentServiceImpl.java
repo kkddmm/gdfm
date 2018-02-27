@@ -37,6 +37,12 @@ public class PaymentServiceImpl implements PaymentService {
 		
 		switch ((int)paramMap.get("class_code")){
 		
+		
+		case 1:
+			
+			pay_addpoint=(int)(payamount*0.01);
+			break;
+		
 		case 2:	
 			
 			pay_addpoint= (int) (payamount*0.1);						
