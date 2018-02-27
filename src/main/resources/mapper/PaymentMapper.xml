@@ -53,7 +53,7 @@ where mem_id=#{mem_id}
 
 
 <select id="getReservationDetail" parameterType="map" resultType="map">
-select c.movie_ko_name,d.dimension_name,e.ci_name,f.screen_name
+select c.movie_ko_name,d.dimension_name,e.ci_name,f.screen_name,b.start_time,b.end_time
 from movie_reservation a, movie_show_info b,movie c, movie_dimension_code d, cinema e, screen f
 where a.reservation_id = #{reservation_id}
 and a.show_id= b.show_id 

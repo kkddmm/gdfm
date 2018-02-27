@@ -306,7 +306,8 @@ tr{
 				
 				<tbody>
 					<tr>				
-			          <td class="info">영화보기 좋은 날&nbsp;${resultMap.CI_NAME}(${resultMap.SCREEN_NAME})&nbsp; ${resultMap.MOVIE_KO_NAME}(${resultMap.DIMENSION_NAME})   </td>
+			          <td class="info">영화보기 좋은 날&nbsp;${resultMap.CI_NAME}(${resultMap.SCREEN_NAME})&nbsp;
+			           ${resultMap.MOVIE_KO_NAME}(${resultMap.DIMENSION_NAME})&nbsp;${resultMap.START_TIME}~${resultMap.END_TIME}   </td>
 			          <td class="cnt"><c:forEach var="sit"  items="${resultMap.sitList}">(${sit})</c:forEach></td>
 			          <td class="price">${resultMap.first_amount}</td>
 			        </tr>	        
