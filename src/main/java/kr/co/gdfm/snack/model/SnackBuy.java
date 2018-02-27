@@ -12,10 +12,14 @@ public class SnackBuy {
 	private String snack_isbasket_yn;
 	private int snack_price;
 	
+	private String snack_use_yn;
+	private String snack_use_date;
+	
 	private String mem_name;
 	private int mem_point;
 	private String pay_canel_yn;
 	private String pay_amount;
+	
 	
 	public int getSnack_id() {
 		return snack_id;
@@ -92,6 +96,19 @@ public class SnackBuy {
 	public void setPay_amount(String pay_amount) {
 		this.pay_amount = pay_amount;
 	}
+	public String getSnack_use_yn() {
+		return snack_use_yn;
+	}
+	public void setSnack_use_yn(String snack_use_yn) {
+		this.snack_use_yn = snack_use_yn;
+	}
+	public String getSnack_use_date() {
+		return snack_use_date;
+	}
+	public void setSnack_use_date(String snack_use_date) {
+		this.snack_use_date = snack_use_date;
+	}
+	
 	
 }
 

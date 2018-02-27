@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.gdfm.common.util.PagingUtil;
 import kr.co.gdfm.member.model.Member;
@@ -72,8 +73,29 @@ public class MypageController {
 			
 			model.addAttribute("snackBuy", snackBuy);
 			model.addAttribute("pagingUtil", pagingUtil);
+			
+			
 		
 		return "mypage/snackBuy";
+	}
+	
+	@RequestMapping("/useSnack")
+	@ResponseBody
+	public Map<String, Object> useSnack( 
+		@RequestParam(value="snack_buy_id") int snack_buy_id
+		){	
+		
+		int cnt = snackService.useSnack(snack_buy_id);
+				
+		Map<String, Object> paramMap=new HashMap<>();
+		
+		if(cnt==0) {
+			paramMap.put("result", "false");			
+		}else {
+			
+			paramMap.put("result", "true");
+		}		
+		return paramMap;
 	}
 	
 	@RequestMapping("/snackBuyDelete")

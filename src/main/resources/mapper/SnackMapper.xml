@@ -320,6 +320,18 @@
 		    mem_point = mem_point + #{mem_point}
 		WHERE mem_id=#{mem_id}
 	</update>
+	
+	
+	<!-- 스낵 사용 업데이트 -->
+	<update id="useSnack" parameterType="int">
+		UPDATE snack_buy SET			
+		   snack_use_yn = 'Y',
+		   snack_use_date=SYSDATE
+		WHERE snack_buy_id=#{snack_buy_id}
+	</update>
+	
+	
+	
 </mapper>
 
 

@@ -26,6 +26,30 @@
 	
 		}
 	}
+	
+	
+	function fn_useSnack(snack_buy_id){
+		
+		
+		$.ajax({
+			type: 'post',
+			url:'${pageContext.request.contextPath}/mypage/useSnack',
+			data:"snack_buy_id="+snack_buy_id,
+			dataType: 'json',
+			success:function(data,status){
+				console.log(data);	
+				
+			},
+			error: function(error){
+				console.log(error);
+			}
+			
+		});
+		
+	}
+	
+	
+	
 </script>
 
 <div class="slider">
@@ -72,6 +96,7 @@
 					<th class="col-xs-1 text-center">금액</th>
 					<th class="col-xs-1 text-center">상태</th>
 					<th class="col-xs-1 text-center">취소</th>
+					<th class="col-xs-1 text-center">스낵 사용하기</th>
 				</tr>
 			</thead>
 			
@@ -89,7 +114,8 @@
 								${pay_amount}원
 							</td>
 							<td class="text-center">${snackb.pay_canel_yn == 'Y' ? '취소' : '완료'}</td>
-							<td class="text-center"><input type="button" value="취소" class="btn btn-danger" onclick="fn_delete('${snackb.snack_buy_id}','${snackb.mem_point}','${snackb.mem_id}');"></td>
+							<td class="text-center"><input  type="button" value="취소" class="btn btn-danger" onclick="fn_delete('${snackb.snack_buy_id}','${snackb.mem_point}','${snackb.mem_id}');"></td>
+							<td class="text-center"><input type="text" name="snack_buy_id"> <input  onclick="fn_useSnack(${snackb.snack_buy_id})" type="button" value="사용"></td>
 						</tr>
 					</c:forEach>			
 				</c:if>
