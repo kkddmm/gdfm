@@ -19,7 +19,7 @@ public class SnackBuy {
 	private int mem_point;
 	private String pay_canel_yn;
 	private String pay_amount;
-	
+	private String pay_date;
 	
 	public int getSnack_id() {
 		return snack_id;
@@ -108,6 +108,14 @@ public class SnackBuy {
 	public void setSnack_use_date(String snack_use_date) {
 		this.snack_use_date = snack_use_date;
 	}
+	public String getPay_date() {
+		return pay_date;
+	}	
+	
+	public void setPay_date(String pay_date) {
+		this.pay_date = pay_date;
+	}
+	
 	
 	
 }

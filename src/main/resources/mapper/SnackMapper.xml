@@ -255,7 +255,8 @@
             d.pay_addpoint  as mem_point,
             d.pay_cancel_yn as pay_canel_yn,
             d.pay_amount as pay_amount,
-            a.snack_use_yn
+            a.snack_use_yn,
+            d.pay_date as pay_date
 		FROM
 		    snack_buy a, member b, snack c, pay d
 		WHERE

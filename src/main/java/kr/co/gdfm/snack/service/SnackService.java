@@ -61,10 +61,11 @@ public interface SnackService {
 	//스낵구매 삭제시 포인트 수정
 	public int updateSnackBuyPoint(Map<String, Object> paramMap);
 	
-	
-	
+		
 	//스낵 사용(사용일, 사용여부 업데이트)
 	public int useSnack(int snack_buy_id);
+	
+	//스낵 구매내역 취소(
 	
 	
 	

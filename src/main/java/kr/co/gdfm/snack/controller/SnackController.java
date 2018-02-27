@@ -129,8 +129,7 @@ public class SnackController {
 		
 		paramMap.put("snack_buy_id", snackBuy.getSnack_buy_id());		
 		paramMap.put("mem_id", member.getMem_id());		
-		
-		
+				
 		return paramMap;
 	}
 	
