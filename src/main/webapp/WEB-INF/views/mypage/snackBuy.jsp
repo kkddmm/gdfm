@@ -71,7 +71,7 @@
 					<th class="col-xs-1 text-center">수량</th>
 					<th class="col-xs-1 text-center">금액</th>
 					<th class="col-xs-1 text-center">상태</th>
-					<th class="col-xs-1 text-center">삭제</th>
+					<th class="col-xs-1 text-center">취소</th>
 				</tr>
 			</thead>
 			
@@ -89,7 +89,7 @@
 								${pay_amount}원
 							</td>
 							<td class="text-center">${snackb.pay_canel_yn == 'Y' ? '취소' : '완료'}</td>
-							<td class="text-center"><input type="button" value="삭제" class="btn btn-danger" onclick="fn_delete('${snackb.snack_buy_id}','${snackb.mem_point}','${snackb.mem_id}');"></td>
+							<td class="text-center"><input type="button" value="취소" class="btn btn-danger" onclick="fn_delete('${snackb.snack_buy_id}','${snackb.mem_point}','${snackb.mem_id}');"></td>
 						</tr>
 					</c:forEach>			
 				</c:if>
