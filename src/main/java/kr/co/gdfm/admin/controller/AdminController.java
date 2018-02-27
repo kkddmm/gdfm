@@ -887,6 +887,7 @@ public class AdminController {
 			@RequestParam(value="searchWord", required=false, defaultValue="") String searchWord,
 			@RequestParam(value="currentPage", required=false, defaultValue="1") int currentPage,
 			@RequestParam(value="pageSize", required=false, defaultValue="10") int pageSize,
+			@ModelAttribute("now") Date now,
 			Model model
 			) throws Exception {
 			
@@ -915,6 +916,7 @@ public class AdminController {
 			
 			model.addAttribute("snackBuy", snackBuy);
 			model.addAttribute("pagingUtil", pagingUtil);
+			model.addAttribute("now", now);
 		
 		return "admin/snackBuy";
 	}

@@ -74,7 +74,9 @@ public class MypageController {
 			
 			
 			
-			String curTime=new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
+			String curTime=new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+			
+			
 			
 			model.addAttribute("snackBuy", snackBuy);
 			model.addAttribute("pagingUtil", pagingUtil);

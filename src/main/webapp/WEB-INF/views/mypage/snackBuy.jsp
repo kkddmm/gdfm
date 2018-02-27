@@ -56,6 +56,7 @@
 <h2>스낵구매정보</h2>
 	<!-- 검색기능 -->
 		<div>
+		
 			<form name="searchForm" method="post" class="form-inline">
 				<p>
 					<input type="hidden" name="currentPage" value="${param.currentPage}">	<!-- 현재페이지 -->
@@ -116,7 +117,15 @@
 							
 							<td class="text-center">${snackb.pay_canel_yn == 'Y' ? '취소' : '완료'}</td>
 							
-							<td class="text-center"><c:if test="${curTime<=snackb.pay_date+30}"><input  type="button" value="취소" class="btn btn-danger" onclick="fn_delete('${snackb.snack_buy_id}','${snackb.mem_point}','${snackb.mem_id}');"></c:if></td>
+							<fmt:parseDate value="${curTime}" pattern="yyyy-MM-dd" var="curDate"/>
+							<fmt:parseNumber value="${curDate.time}" integerOnly="true" var="curDate2" />
+							
+							<fmt:parseDate value="${snackb.pay_date}" pattern="yyyy-MM-dd" var="payDate"/>
+							<fmt:parseNumber value="${payDate.time+2592000}" integerOnly="true" var="payDate2" /> 
+							
+							
+							
+							<td class="text-center"><c:if test="${curDate2<=payDate2}"><input type="button" value="취소" class="btn btn-danger" onclick="fn_delete('${snackb.snack_buy_id}','${snackb.mem_point}','${snackb.mem_id}');"></c:if></td>
 						</tr>
 					</c:forEach>			
 				</c:if>

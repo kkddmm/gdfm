@@ -119,7 +119,16 @@
 							<td class="text-center">${snackb.pay_canel_yn == 'Y' ? '취소' : '완료'}</td>
 							<td class="text-center"><input type="button" value="삭제" class="btn btn-danger" onclick="fn_delete('${snackb.snack_buy_id}','${snackb.mem_point}','${snackb.mem_id}');"></td>
 							<td class="text-center">${snackb.snack_use_yn == 'Y' ? '사용' : '미사용'}</td>
-							<td class="text-center"><input onclick="fn_useSnack(${snackb.snack_buy_id})" type="button" value="사용"></td>
+							<td class="text-center">
+							<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="nowDate" />
+							<fmt:parseDate value="${nowDate}" pattern="yyyy-MM-dd" var="use_now" />
+							<fmt:parseNumber value="${use_now.time}" integerOnly="true" var="use_now2" />
+							<fmt:parseDate value="${snackb.pay_date}" pattern="yyyy-MM-dd" var="use_date2" />
+							<fmt:parseNumber value="${use_date2.time+2592000}" integerOnly="true" var="use_date3" />
+							<c:if test="${snackb.snack_use_yn != 'Y' && use_date3 > use_now2}">
+								<input onclick="fn_useSnack(${snackb.snack_buy_id})" type="button" value="사용" class="btn btn-info">
+							</c:if>
+							</td>
 						</tr>
 					</c:forEach>			
 				</c:if>
