@@ -37,13 +37,15 @@ public class LoginController {
 		
 		boolean isError = true;
 		String message = "";
-		
 		if(member != null) {
 			if(mem_pwd.equals(member.getMem_pwd())) {
 				// 로그인 성공
 					session.setAttribute("LOGIN_USER", member);
 					message = member.getMem_name() + "님 환영합니다.";
 					isError = false;
+					if(member.getClass_code() == 99){
+						url = "admin/adminPage";
+					}
 				// 쿠키 관련 처리
 				if ("Y".equals(remember_me)) {
 					response.addCookie(CookieBox.createCookie("USER_ID", member.getMem_id(), "/", 60 * 60 * 24 * 30));
@@ -53,19 +55,17 @@ public class LoginController {
 					response.addCookie(CookieBox.createCookie("REMEMBER_ME", "", "/", 0)); // 쿠키삭제
 				}
 			}else {
+				
 				message = "비밀번호가 일치하지 않습니다.";
 			}
 		}else {
-			message = "해당 아이디가 존재하지 않습니다.";
+			
+			message = "해당 아이디가 존재하지 않습니다.";	
 		}
 		
 		model.addAttribute("isError",isError);
 		model.addAttribute("message",message);
-		if(member.getClass_code() == 99){
-			model.addAttribute("locationURL","/admin/adminPage");	
-		}else{
 		model.addAttribute("locationURL","/"+url);
-		}
 		model.addAttribute("login","login");
 		return "common/message";
 	}

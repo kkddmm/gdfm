@@ -54,7 +54,25 @@
 	<mapping path="/reservation/102"/>
 	<mapping path="/payment/*"/>
 	<mapping path="/admin/*"/>
+	<mapping path="/member/*"/>
+	<mapping path="/board/*"/>
+	<exclude-mapping path="/login/*"/>
+	<exclude-mapping path="/member/memberView"/>
+	<exclude-mapping path="/member/memberInsert"/>
+	<exclude-mapping path="/member/memberUpdate"/>
+	<exclude-mapping path="/member/memberDelete"/>
+	<exclude-mapping path="/member/memberForm"/>
+	<exclude-mapping path="/member/memberFormId"/>
+	<exclude-mapping path="/member/memberFormPwd"/>
+	<exclude-mapping path="/member/memberAgree"/>
+	<exclude-mapping path="/member/memberEnd"/>
+	<exclude-mapping path="/board/3030101"/>
+	<exclude-mapping path="/board/3030102"/>
 	<beans:bean class="kr.co.gdfm.web.interceptor.LoginCheckInterCeptor"></beans:bean>
+	</interceptor>
+	<interceptor>
+	<mapping path="/admin/*"/>
+	<beans:bean class="kr.co.gdfm.web.interceptor.AdminLoginCheckInterCeptor"></beans:bean>
 	</interceptor>
 </interceptors>	
 	
