@@ -121,7 +121,7 @@
 							<fmt:parseNumber value="${curDate.time}" integerOnly="true" var="curDate2" />
 							
 							<fmt:parseDate value="${snackb.pay_date}" pattern="yyyy-MM-dd" var="payDate"/>
-							<fmt:parseNumber value="${payDate.time+2592000}" integerOnly="true" var="payDate2" /> 
+							<fmt:parseNumber value="${payDate.time+2592000000}" integerOnly="true" var="payDate2" /> 
 							
 							
 							
