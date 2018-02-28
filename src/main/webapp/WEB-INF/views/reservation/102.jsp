@@ -57,6 +57,16 @@
 		}
 		
 		function fn_goPayment(){
+			var payCon = confirm("결제화면으로 이동하시겠습니까?");
+			if(!payCon){
+				return false;
+			}
+			
+			
+			
+			
+			
+			
 			
 		$.ajax({
 			url : '${pageContext.request.contextPath}/reservation/chkBeforePay' ,
@@ -92,10 +102,6 @@
 // 				    			location.href ="${pageContext.request.contextPath}/payment/801?reservation_id=${reservation_id}";
 				    	
 		}
-		
-		
-		
-		
 		
 		
 		
@@ -236,8 +242,7 @@
 				<div class="screen">
 					<div class="video">
 						<iframe width="100%" height="100%"
-							src="${reserveMap.MOVIE_TRAILER}?&amp;autoplay=1&amp;loop=1"
-							frameborder="0"encrypted-media"></iframe>
+							src="${reserveMap.MOVIE_TRAILER}?&amp;autoplay=1&amp;loop=1" frameborder="0"encrypted-media"></iframe>
 						<p>Sorry, but your browser does not support this video format.</p>
 						<button style="display: none;"
 							class="action action--play action--shown" aria-label="Play Video"></button>

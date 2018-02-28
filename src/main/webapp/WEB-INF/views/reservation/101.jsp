@@ -82,12 +82,11 @@ $('#loading').show();
 			fn_classCon(); 
 			// 영화,상영관, 날짜가 전부 선택되었을때 상영정보를 출력하는 함수를 실행.
 			if(movieSelect == true&&cinemaSelect==true&&dateSelect==true){
-				fn_show_info ()
+				fn_show_info ();
 				}
 			},
 			complete : function(){
 				$('#loading').hide();
-				
 			},
 			error : function(){
 				alert("에러!");} 
@@ -99,7 +98,6 @@ $('#loading').show();
 	function fn_loadAddr2(addr1, movie_id) {
 		$('#loading').show();
 		$('#selectedAddr1').val(addr1);
-	
 		
 		$.ajax({ type : 'post', 
 			url : '${pageContext.request.contextPath}/reservation/get/addr2',
@@ -229,7 +227,7 @@ $('<img>').attr('src',"${pageContext.request.contextPath}/img/goSitBtn.png").on(
 		if( getAgeFromBirthDay('${LOGIN_USER.mem_birth}')<12){
 			alert("해당 영화는 12세 미만 관람불가입니다.")
 			return false;
-		}}
+		}} 
 		if($('#selectedMovieGrade').val()=='rate15'){
 		if( getAgeFromBirthDay('${LOGIN_USER.mem_birth}')<15){
 			alert("해당 영화는 15세 미만 관람불가입니다.")
@@ -322,7 +320,7 @@ height : 20px;
 				<h4 class="sessionTitle">영화</h4>
 				<hr />
 				<div align="left">
-				<ul style="height:500px; overflow:scroll;" id="movieView">
+				<ul style="height:500px; overflow:auto;" id="movieView">
 					<c:if test="${not empty movieList}">
 						<c:forEach items="${movieList}" var="movie">
 							<li id="${movie.movie_id}" class="list-group-item" onclick="fn_changeCinemaByMovie(${movie.movie_id},'${movie.movie_name}','${movie.movie_ko_name}','${movie.movie_grade}');"><img
