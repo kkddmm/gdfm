@@ -916,7 +916,7 @@ public class AdminController {
 			
 			model.addAttribute("snackBuy", snackBuy);
 			model.addAttribute("pagingUtil", pagingUtil);
-			model.addAttribute("now", now);
+			
 		
 		return "admin/snackBuy";
 	}

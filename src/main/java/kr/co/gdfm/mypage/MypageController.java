@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.gdfm.common.util.PagingUtil;
+import kr.co.gdfm.common.util.PagingUtil2;
 import kr.co.gdfm.member.model.Member;
 import kr.co.gdfm.reservation.model.Reservation;
 import kr.co.gdfm.reservation.service.ReservationService;
@@ -63,7 +64,7 @@ public class MypageController {
 			totalCount = snackService.getSnackBuyCount(paramMap);
 			
 			// 페이징 처리
-			PagingUtil pagingUtil = new PagingUtil(currentPage, totalCount, pageSize, pageCount);
+			PagingUtil2 pagingUtil = new PagingUtil2(currentPage, totalCount, pageSize, pageCount, mem_id);
 			
 			
 			
@@ -182,7 +183,7 @@ public class MypageController {
 			totalCount = reservationService.getresrveCount(paramMap);
 			
 			// 페이징 처리
-			PagingUtil pagingUtil = new PagingUtil(currentPage, totalCount, pageSize, pageCount);
+			PagingUtil2 pagingUtil = new PagingUtil2(currentPage, totalCount, pageSize, pageCount, mem_id);
 			
 			paramMap.put("startRow", pagingUtil.getStartRow());
 			paramMap.put("endRow", pagingUtil.getEndRow());

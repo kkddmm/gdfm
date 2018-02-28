@@ -124,9 +124,11 @@
 							<fmt:parseDate value="${nowDate}" pattern="yyyy-MM-dd" var="use_now" />
 							<fmt:parseNumber value="${use_now.time}" integerOnly="true" var="use_now2" />
 							<fmt:parseDate value="${snackb.pay_date}" pattern="yyyy-MM-dd" var="use_date2" />
-							<fmt:parseNumber value="${use_date2.time+2592000}" integerOnly="true" var="use_date3" />
-							<c:if test="${snackb.snack_use_yn != 'Y' && use_date3 > use_now2}">
-								<input onclick="fn_useSnack(${snackb.snack_buy_id})" type="button" value="사용" class="btn btn-info">
+							<fmt:parseNumber value="${use_date2.time+2592000000}" integerOnly="true" var="use_date3" />
+							<c:if test="${snackb.snack_use_yn != 'Y'}">
+								<c:if test="${use_date3 > use_now2}">
+								<input onclick="fn_useSnack(${snackb.snack_buy_id})" type="button" value="사용" class="btn btn-info" />
+								</c:if>
 							</c:if>
 							</td>
 						</tr>
