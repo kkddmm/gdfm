@@ -88,9 +88,11 @@ public class AdminController {
 	
 	@RequestMapping("/adminPage")
 	public String adminPage(
+			HttpServletRequest request,
 			Model model
 			) throws Exception {
-		
+		String myip = request.getRemoteAddr();
+		model.addAttribute("myip", myip);
 		return "admin/adminPage";
 	}
 	
