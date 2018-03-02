@@ -43,9 +43,10 @@
 										                 <!-- 
 											            파일 업로드는 input type="file"로 지정한다.
 								        			         -->
-								       
+								       	
 											        파일명  : <input type="file" name="poster_file" /> </br>
 											         <input type="hidden" name="movie_id" value="${movie.movie_id}" /> </br>
+											         		 <p>JPG파일만 가능 합니다.</p>
 											        <input type="submit" value="전송" />  
 											        <input type="reset" value="취소" />
 											    </form>

@@ -78,7 +78,9 @@
 	
 <!-- 	<context:component-scan base-package="kr.co.gdfm" /> -->
 	
+	<!-- 	<context:component-scan base-package="kr.co.gdfm" /> -->
 	
+		<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
 	
 	
 	

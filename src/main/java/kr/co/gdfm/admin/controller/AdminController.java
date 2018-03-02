@@ -1137,7 +1137,7 @@ public class AdminController {
 		System.out.println("Movie_File : "+poster_file.getOriginalFilename());
 		
 		//Movie file에 저장 할 곳
-		File targetFile = new File("/uploadFiles/Movie/"+movie.getMovie_id()+".png");
+		File targetFile = new File("/uploadFiles/Movie/"+movie.getMovie_id()+"_poster.jpg");
 		try {
 			poster_file.transferTo(targetFile);
 		} catch (IllegalStateException | IOException e) {
@@ -1174,7 +1174,7 @@ public class AdminController {
 	public void file_addr(Movie movie, HttpServletResponse response) {
 		
 		int movie_id = movie.getMovie_id();
-		File posterFile = new File("/uploadFiles/Movie/"+movie_id+".png");
+		File posterFile = new File("/uploadFiles/Movie/"+movie_id+".jpg");
 		 
 		try {
 			ServletOutputStream out = response.getOutputStream();

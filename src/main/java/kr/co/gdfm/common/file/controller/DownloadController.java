@@ -84,7 +84,7 @@ public class DownloadController {
 	@RequestMapping("/loadImg")
 	public void loadImage(int movie_id , HttpServletResponse resp) {
 		
-		File file = new File("/uploadFile/Movie/"+movie_id+"_poster.jpg");
+		File file = new File("/uploadFiles/Movie/"+movie_id+"_poster.jpg");
 		try {
 		FileUtils.copyFile(file, resp.getOutputStream());
 			resp.getOutputStream().close();
