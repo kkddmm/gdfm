@@ -438,9 +438,9 @@ ul.tab-a li a:hover span, ul.tab-a li.current a span { background-position: righ
   </section>
   <!--/#bottom-->
   	<p>
-		<div style="float: right;">
+		<div style="float: left;">
 			<select onchange="window.open(value,'iframe_a')" class="form-control">
-			<option value="http://map.daum.net/?q=영화관">선택해주세요</option>
+			<option value="http://map.daum.net/?q=영화관">영화관위치선택</option>
 				<c:if test="${not empty mainList}" >
 					<c:forEach var="cinema" items="${cinemaList}">
 						<option value="http://map.daum.net/?q=${cinema.ci_addr3}">${cinema.ci_name}</option>
