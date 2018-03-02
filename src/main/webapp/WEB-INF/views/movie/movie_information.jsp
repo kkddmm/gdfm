@@ -80,7 +80,7 @@
 							
 					    +'<div class="moive_poster">'
 							+'<a href="${pageContext.request.contextPath}/movie/movie_detail/'+data[i].movie_id+'">'
-							+	'<img src="${pageContext.request.contextPath}/movieposter/'+data[i].movie_name+'_poster.jpg" alt="movie_poster">'
+							+	'<img src="${pageContext.request.contextPath}/movieposter/'+data[i].movie_id+'_poster.jpg" alt="movie_poster">'
 							
 							+'</a> <br> </div> </div> </div> </div>'
 								
@@ -265,44 +265,6 @@ ul, li {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-	<!--  poster output  -->
-
-<%-- 	<c:if test="${not empty movieList}">
-		<c:forEach var="movie" items="${movieList}">
-
-			<div class="col-md-4">
-				<!-- Gallery Item 1 -->
-				<div style="height: 400px; border: 10px; border-color: 3f3f3f;">
-
-					<!-- <li align="center">			 -->					
-		                        
-		                 <div class="moive_poster">
-					<a href="${pageContext.request.contextPath}/movie/movie_detail/${movie.movie_id}">
-						
-						<img class="moviePostser" src="${pageContext.request.contextPath}/movieposter/${movie.movie_name}_poster.jpg" alt="movie_poster">
-					</a> <br>
-					
-					</div> 
-					 
-				</div>
-				
-				
-				
-			</div>
-		</c:forEach>
-	</c:if> --%>
 
 			
 			</div>

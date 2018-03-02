@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -28,7 +29,9 @@ public class MovieController {
 
 	@Autowired
 	MovieReviewService movieReviewService;
-
+	
+	
+	
 	// 무비차트 화면
 	@RequestMapping("/movie_information")
 	public String selectMovieInfoList(Model model) throws Exception {
@@ -290,6 +293,31 @@ public class MovieController {
 		return "movie/movie_detail";
 	}
 	*/
+	
+	@RequestMapping("/fileUploadForm")
+	public String fileUploadForm() {
+		
+		
+		return "movie/fileUploadForm";
+	}
+	
+	@RequestMapping("/fileUpload")
+	public String fileUpload() {
+		
+		
+		return "movie/fileUpload";
+	}
+	
+	@RequestMapping("/fileCheck")
+	public String fileCheck() {
+		
+		
+		return "movie/fileCheck";
+	}
+	
+	
+	
+	
 	
 }
 

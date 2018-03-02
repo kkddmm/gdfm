@@ -5,6 +5,16 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <div class="slider">
 <h2>영화정보</h2>
+	<!-- <input type="button" class="btn btn-warning" value="영화정보입력" /> -->
+	
+	
+	 <p align="right">
+           				<input style="color: white;" type="button" class="btn btn-warning" value="영화정보입력" 
+           						onClick="location.href='${pageContext.request.contextPath}/admin/movieForm'"> 
+           						 
+           				<input style="color: white;" type="button" class="btn btn-warning" value="영화 파일 업로드" 
+           						onClick="location.href='${pageContext.request.contextPath}/admin/fileUploadForm'"> 
+                </p>
 	<table class="table table-bordered table-striped table-hover">
 			<thead>
 				<tr class="warning">
@@ -13,6 +23,7 @@
 					<th class="col-xs-3 text-center">기본</th>
 					<th class="col-xs-1 text-center">개봉</th>
 					<th class="col-xs-1 text-center">상영여부</th>
+					<th class="col-xs-1 text-center">포스터</th>
 				</tr>
 			</thead>
 			
@@ -27,6 +38,7 @@
 							<td class="text-left">${fn:substring(movie_grade,4,7)} 세이상 , ${movie.movie_running_time} , ${movie.movie_production_country}</td>
 							<td class="text-center">${fn:substring(movie_release_date, 0, 10)}</td>
 							<td class="text-center">${movie.movie_show_yn == 'Y' ? '상영중' : '미상영'}</td>
+							<td class="text-center"><a href="fileUploadForm?movie_id=${movie.movie_id}&movie_name=${movie.movie_name}">이미지삽입</a></td>
 						</tr>
 					</c:forEach>			
 				</c:if>

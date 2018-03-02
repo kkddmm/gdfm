@@ -24,7 +24,25 @@ public interface MovieService {
 	
 	//상영예정작 
 	public List<Movie> selectMoviePreviewList();
+	
+	//영화 무비 포스터 등록 
+	public int  insertMovie(Movie movie);
 
+	//영화 무비 포스터 수정
+	public int updateMovie(Movie movie);
+
+	//영화 장르 전체 가져오기 
+	public List<Map<String,Object>> getMovieGenreList();
+	
+	//영화 차원 전체 가져오기
+	public List<Map<String,Object>> getMovieDimensionList();
+	
+	
+	
+	
+	//영화 무비 포스터 삭제 
+	/*public int deleteMovie(int movie_id);*/
+	
 
 	
 	

@@ -81,18 +81,6 @@ public class MovieReviewServiceImpl implements MovieReviewService {
 				return movieReviewMapper.insertUpDown(params);
 			}
 		
-		/*	@Override
-			public void updateMovieReview(MovieReview moviereview) throws Exception {
-				// TODO Auto-generated method stub
-				return 0;
-			}
-		
-			@Override
-			public void deleteMovieReview(Map<String, Object> paramMap) throws Exception {
-				// TODO Auto-generated method stub
-				return 0;
-			}
-*/
 	
 	
 	
@@ -103,38 +91,6 @@ public class MovieReviewServiceImpl implements MovieReviewService {
 
 	
 	
-	
-	/*@Override
-	public int MovieReviewCount(Map<String, Object> paramMap) throws Exception {
-		
-		
-		return 0;
-	}
-
-	@Override
-	public MovieReview SelectMovieReview(int movie_id) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public int InsertMovieReview(MovieReview moviereview) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int UpdateMovieReview(MovieReview moviereview) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int DeleteMovieReview(Map<String, Object> paramMap) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
-	}*/
-
 	
 	
 }

@@ -1,5 +1,7 @@
 package kr.co.gdfm.admin.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -7,6 +9,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -22,6 +25,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.google.common.io.Files;
 
 import kr.co.gdfm.board.model.Board;
 import kr.co.gdfm.board.model.Boardcmtnotice;
@@ -37,6 +43,7 @@ import kr.co.gdfm.common.util.PagingUtil;
 import kr.co.gdfm.member.model.Member;
 import kr.co.gdfm.member.model.Memberclass;
 import kr.co.gdfm.member.service.MemberService;
+import kr.co.gdfm.movie.mapper.MovieMapper;
 import kr.co.gdfm.movie.model.Movie;
 import kr.co.gdfm.movie.service.MovieService;
 import kr.co.gdfm.reservation.model.Reservation;
@@ -887,7 +894,6 @@ public class AdminController {
 			@RequestParam(value="searchWord", required=false, defaultValue="") String searchWord,
 			@RequestParam(value="currentPage", required=false, defaultValue="1") int currentPage,
 			@RequestParam(value="pageSize", required=false, defaultValue="10") int pageSize,
-			@ModelAttribute("now") Date now,
 			Model model
 			) throws Exception {
 			
@@ -916,28 +922,8 @@ public class AdminController {
 			
 			model.addAttribute("snackBuy", snackBuy);
 			model.addAttribute("pagingUtil", pagingUtil);
-			
 		
 		return "admin/snackBuy";
-	}
-	
-	@RequestMapping("/useSnack")
-	@ResponseBody
-	public Map<String, Object> useSnack( 
-		@RequestParam(value="snack_buy_id") int snack_buy_id
-		){	
-		
-		int cnt = snackService.useSnack(snack_buy_id);
-				
-		Map<String, Object> paramMap=new HashMap<>();
-		
-		if(cnt==0) {
-			paramMap.put("result", "false");			
-		}else {
-			
-			paramMap.put("result", "true");
-		}		
-		return paramMap;
 	}
 	
 	@RequestMapping("/snackBuyDelete")
@@ -1072,6 +1058,8 @@ public class AdminController {
 		
 		return viewPage;
 	}
+	
+	//영화정보 입력 화면에 뿌려주는 부분 
 	@RequestMapping("/movieList")
 	public String movieList(
 			Model model
@@ -1081,4 +1069,136 @@ public class AdminController {
 			model.addAttribute("movieList", movieList);
 		return "admin/movieList";
 	}
+	
+	//영화정보 입력 한걸  movieList 화면에 전달 
+	@RequestMapping(value="/insertMovie" , method=RequestMethod.POST)
+	public String insertMovieList(Movie movie, HttpServletRequest request,Model model) {
+
+		
+	System.out.println("insertMovie : "+movie);	
+		
+		    movieService.insertMovie(movie);
+		       
+		    	
+		    
+			
+		return "redirect:/admin/movieList";
+	}
+	
+	//영화 입력 폼 화면으로 이동
+	/*public String updateMovieList(Movie movie) {
+		
+		int updateMovieList = movieService.updateMovie(movie);
+		
+		return "admin/movieUpdate";
+	}*/
+	
+	
+	
+	@RequestMapping("/movieForm")
+	public String insertMovie(Movie movie ,Model model) {
+		
+			ArrayList<String> list = new ArrayList<String>();
+			
+			
+		
+			List<Map<String, Object>> getMovieGenreList = movieService.getMovieGenreList();
+			
+			model.addAttribute("genreList",getMovieGenreList);
+			
+			//List<Map<String,Object>> getMovieDimensionList = new ArrayList<>();
+			List<Map<String,Object>> getMovieDimensionList = movieService.getMovieDimensionList();
+			
+			model.addAttribute("dimensionList", getMovieDimensionList);
+			
+		 
+		return "admin/movieInsert";
+	}
+	
+	@RequestMapping("/fileUploadForm")
+	public String fileUploadForm(Movie movie,Model model) {
+		
+	
+		
+//		model.addAttribute("movie", movie);
+			
+		
+		return "admin/fileUploadForm";
+	}
+	
+	@RequestMapping("/fileUpload")
+	public String fileUpload(Movie movie) {
+		
+		System.out.println("Movie_id : "+movie.getMovie_id());
+		//사용자가 보내 준 파일이 poster_file에 담김 
+		MultipartFile poster_file = movie.getPoster_file();
+		System.out.println("Movie_File : "+poster_file.getOriginalFilename());
+		
+		//Movie file에 저장 할 곳
+		File targetFile = new File("/uploadFiles/Movie/"+movie.getMovie_id()+".png");
+		try {
+			poster_file.transferTo(targetFile);
+		} catch (IllegalStateException | IOException e) {
+			e.printStackTrace();
+		}
+		
+		
+		return "redirect:/admin/movieList";
+	}
+	
+	@RequestMapping("/fileCheck")
+	public String fileCheck() {
+		
+		
+		return "movie/fileCheck";
+	}
+	
+	@RequestMapping("/fileTest")
+	public String fileTest(File fileTest) {
+		
+		
+		System.out.println("아무거나  ");
+		System.out.println("File Test: " + fileTest.getName());
+		
+		
+		
+		
+		return null;
+		
+	}
+	
+	//poster_image 를 받아올 주소
+	@RequestMapping("/movieposter")
+	public void file_addr(Movie movie, HttpServletResponse response) {
+		
+		int movie_id = movie.getMovie_id();
+		File posterFile = new File("/uploadFiles/Movie/"+movie_id+".png");
+		 
+		try {
+			ServletOutputStream out = response.getOutputStream();
+			//File.copy(from,to) =>File.copy(posterFile, out)=>posterFile  
+			Files.copy(posterFile, out);
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		
+		
+		
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

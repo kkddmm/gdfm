@@ -5,6 +5,71 @@
 <mapper namespace="kr.co.gdfm.movie.mapper.MovieMapper">
 
 
+	<!-- 영화 정보 삽입  -->
+	<insert id="insertMovie" parameterType="kr.co.gdfm.movie.model.Movie">
+		<!--  <selectKey keyProperty="movie_seq" resultType="int" order="BEFORE">
+  	SELECT MOVIE_SEQ.NEXTVAL FROM DUAL
+  </selectKey> -->
+	INSERT INTO movie (
+    movie_id,
+    movie_name,
+    movie_ko_name,
+    movie_grade,
+    movie_story,
+    movie_trailer,
+    movie_show_yn,
+    movie_release_date,
+    movie_director,
+    movie_actor,
+    movie_running_time,
+    movie_production_country
+) VALUES (
+    movie_seq.nextval,
+    #{movie_name},
+    #{movie_ko_name},
+    #{movie_grade},
+    #{movie_story},
+    #{movie_trailer},
+    #{movie_show_yn},
+    #{movie_release_date},
+    #{movie_director},
+    #{movie_actor},
+    #{movie_running_time},
+    #{movie_production_country}
+)
+	</insert>
+	
+	<!--  영화 정보 수정  -->
+	 <!-- <update id="updateMovie" parameterType="kr.co.gdfm.movie.model.Movie">
+		UPDATE movie SET
+        movie_name = #{movie_name}
+    AND
+        movie_ko_name = #{movie_ko_name}
+    AND
+        movie_grade = #{movie_grade}
+    AND
+        movie_story = #{movie_story}
+    AND
+        movie_trailer = #{movie_trailer}
+    AND
+        movie_show_yn = #{movie_show_yn}
+    AND
+        movie_release_date = #{movie_release_date}
+    AND
+        movie_director = #{movie_director}
+    AND
+        movie_actor = #{movie_actor}
+    AND
+        movie_running_time = #{movie_running_time}
+    AND
+        movie_production_country = #{movie_production_country}
+    WHERE
+        movie_id = #{movie_id}
+	</update> 
+	 -->
+	<!--  영화 정보 삭제  -->
+	
+	
 	<!-- 상영중인 영화 조회 -->
 	<select id="selectShowMovie" resultType="kr.co.gdfm.movie.model.Movie">
 		SELECT *
@@ -135,6 +200,21 @@
 		from movie
 		where SYSDATE-movie_release_date <![CDATA[<]]>0
 	</select>
+	
+	<!-- 영화 장르 전체 가져오기  -->
+	<select id="getMovieGenreList" resultType="Map">
+		select * 
+		from
+		movie_genre_code
+	</select>
+	
+	<!-- 영화 차원 전체 가져오기  -->
+	<select id="getMovieDimensionList" resultType="Map">
+		select * 
+		from 
+		movie_dimension_code
+	</select>
+	
 
 
 </mapper>

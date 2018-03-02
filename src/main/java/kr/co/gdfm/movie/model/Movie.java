@@ -3,6 +3,8 @@ package kr.co.gdfm.movie.model;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
+
  
 public class Movie {
 
@@ -21,12 +23,30 @@ public class Movie {
 	private String movie_production_country;
 	private String movie_trailer;
 	private List<String> movie_genre_name;
+	private String dimension_name;
+	private MultipartFile poster_file;
 	
+	
+	
+	
+	public MultipartFile getPoster_file() {
+		return poster_file;
+	}
+	public void setPoster_file(MultipartFile poster_file) {
+		this.poster_file = poster_file;
+	}
 	//스틸 컷 
 	private List<String> 	stillcut;
 	
 	
 
+	public String getDimension_name() {
+		return dimension_name;
+	}
+	public void setDimension_name(String dimension_name) {
+		this.dimension_name = dimension_name;
+	}
+	
 	
 	public List<String> getStillcut() {
 		return stillcut;

@@ -19,7 +19,7 @@
 		 <div class="moive_poster col-md-4">
 		 		
 		 			 				
-						<img src="${pageContext.request.contextPath}/movieposter/${movie.movie_name}_poster.jpg" alt="movie_poster" style="padding-top: 30%">
+						<img src="${pageContext.request.contextPath}/admin/movieposter?movie_id=${movie.movie_id}" alt="movie_poster" style="padding-top: 30%">
 					 	
 					 	</div> 
 					 	
