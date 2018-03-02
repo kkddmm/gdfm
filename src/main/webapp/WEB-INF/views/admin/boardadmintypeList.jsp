@@ -17,11 +17,8 @@
 	}
 </script>
 	<div class="slider">
-		<div align="right">
-			<input type="button" value="글쓰기" class="btn btn-warning" onclick="fn_writeForm();">
-		</div>
-		<br />
-		<table class="table table-bordered table-striped table-hover">
+		
+		<table class="table table-striped table-hover">
 			<thead>
 				<tr class="warning">
 					<th class="col-xs-2 text-center">번호</th>
@@ -45,4 +42,8 @@
 				</c:if>
 			</tbody>
 		</table>
+		<br />
+		<div align="right">
+			<input type="button" value="글쓰기" class="btn btn-warning" onclick="fn_writeForm();">
+		</div>
 	</div>

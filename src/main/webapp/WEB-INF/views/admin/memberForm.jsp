@@ -251,7 +251,7 @@ function fn_list() {
 		</c:if>
 		
 		<form name="memberForm" method="post">
-		<table class="table table-bordered">
+		<table class="table table-bordered table-striped">
 			<tr>
 				<th class="warning col-xs-2 text-center">회원아이디</th>
 				<td>

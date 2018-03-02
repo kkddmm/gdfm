@@ -31,9 +31,6 @@ function fn_search(currentPage) {
 		
 		<h2>회원목록</h2>
 		<!-- 검색폼 -->
-		<div align="right">
-			<input type="button" value="회원가입" class="btn btn-warning" onclick="fn_form()">
-		</div>
 		<form class="form-inline" name="searchForm" method="post">
 			<p>
 			<input type="hidden" name="currentPage" value="${param.currentPage}">	<!-- 현재페이지 -->
@@ -64,7 +61,7 @@ function fn_search(currentPage) {
 		
 		
 		
-		<table class="table table-bordered table-striped table-hover text-center">
+		<table class="table table-striped table-hover text-center">
 			<thead>
 				<tr class="warning">
 					<th class="col-xs-2 text-center">아이디</th>
@@ -100,7 +97,9 @@ function fn_search(currentPage) {
 			</c:if>
 			</tbody>
 		</table>
-		
+		<div align="right">
+			<input type="button" value="회원가입" class="btn btn-warning" onclick="fn_form()">
+		</div>
 		<!-- 페이지 네이게이션 -->
 		<div style="text-align:center;">
 			<ul class="pagination">

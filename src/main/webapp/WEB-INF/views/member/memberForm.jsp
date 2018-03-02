@@ -251,9 +251,9 @@ function fn_list() {
 		</c:if>
 		
 		<form name="memberForm" method="post">
-		<table class="table table-bordered">
+		<table class="table table-bordered table-striped">
 			<tr>
-				<th class="info col-xs-2 text-center">회원아이디</th>
+				<th class="info col-xs-2" style="padding-left:20px;font-size:18px;">회원아이디</th>
 				<td>
 					<input type="hidden" id="idChk" value="N" />
 					<input type="text" name="mem_id" value="${member.mem_id}" maxlength="20"> 
@@ -263,15 +263,15 @@ function fn_list() {
 				</td>
 			</tr>
 			<tr>
-				<th class="info text-center">회원명</th>
+				<th class="info" style="padding-left:20px;font-size:18px;">회원명</th>
 				<td><input type="text" name="mem_name" size="20" value="${member.mem_name}" maxlength="10"> 실명을 입력하세요</td>
 			</tr>
 			<tr>
-				<th class="info text-center">회원비밀번호</th>
+				<th class="info" style="padding-left:20px;font-size:18px;">회원비밀번호</th>
 				<td><input type="password" name="mem_pwd" size="20" value="${member.mem_pwd}" maxlength="20"> 8~20자 내의 영문,숫자 조합</td>
 			</tr>
 			<tr>
-				<th class="info text-center">회원비밀번호확인</th>
+				<th class="info" style="padding-left:20px;font-size:18px;">회원비밀번호확인</th>
 				<td><input type="password" name="mem_pwd_confirm" size="20" value="${member.mem_pwd}" maxlength="20"> 8~20자 내의 영문,숫자 조합</td>
 			</tr>
 			<%-- <tr>
@@ -288,8 +288,11 @@ function fn_list() {
 					세
 				</td>
 			</tr> --%>
+		</table>
+		<h2>상세정보</h2>
+		<table class="table table-bordered table-striped">
 			<tr>
-				<th class="info text-center">회원생년월일</th>
+				<th class="info col-xs-2" style="padding-left:20px;font-size:18px;">회원생년월일</th>
 				<td>
 					<fmt:formatDate value="${now}" pattern="yyyy" var="nowDate" />
 					
@@ -342,7 +345,7 @@ function fn_list() {
 				</td>
 			</tr>
 			<tr>
-				<th class="info text-center">회원성별</th>
+				<th class="info" style="padding-left:20px;font-size:18px;">회원성별</th>
 				<td>
 					<c:if test="${param.type == 'I'}">
 						<input type="radio" name="mem_gender" id="mem_gender1" value="M" checked/><label for="mem_gender1">남자</label>
@@ -355,15 +358,15 @@ function fn_list() {
 				</td>
 			</tr>
 			<tr>
-				<th class="info text-center">회원이메일</th>
+				<th class="info" style="padding-left:20px;font-size:18px;">회원이메일</th>
 				<td><input type="text" name="mem_email" size="20" value="${member.mem_email}" maxlength="100"> (예:test@naver.com)</td>
 			</tr>
 			<tr>
-				<th class="info text-center">전화번호</th>
+				<th class="info" style="padding-left:20px;font-size:18px;">전화번호</th>
 				<td><input type="text" name="mem_phone" size="20" value="${member.mem_phone}" maxlength="12" onKeyPress="return numkeyCheck(event)"> '-' 없이 입력</td>
 			</tr>
 			<tr>
-				<th class="info text-center">회원주소</th>
+				<th class="info" style="padding-left:20px;font-size:18px;">회원주소</th>
 				<td>
 					<p><input type="text" name="mem_zipcode" size="6" value="${member.mem_zipcode}" id="sample6_postcode" placeholder="우편번호" maxlength="6">
 					<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기" class="btn btn-warning"></p>
@@ -373,7 +376,7 @@ function fn_list() {
 			</tr>
 			<c:if test="${LOGIN_USER.class_code == 99}">
 			<tr>
-				<th class="info text-center">회원등급</th>
+				<th class="info" style="padding-left:20px;font-size:18px;">회원등급</th>
 				<td>
 					<div class="col-xs-2">
 						<select name="class_code" class="form-control">
@@ -387,10 +390,33 @@ function fn_list() {
 				</td>
 			</tr>
 			<tr>
-				<th class="info text-center">회원포인트</th>
+				<th class="info" style="padding-left:20px;font-size:18px;">회원포인트</th>
 				<td><input type="text" name="mem_point" size="20" value="${member.mem_point}"></td>
 			</tr>
 			</c:if>
+		<tr>
+			<td colspan="4">
+				<table width="100%">
+					<tr>
+						<td align="center">
+							<img alt="실버" src="${pageContext.request.contextPath}/img/silver4.png">
+							<p style="text-align: center;font-size:18px;"><b>일반회원</b></p>
+							<p style="text-align: center;font-size:14px;color:#666666;"><b>포인트 1%적립</b></p>
+						</td>
+						<td align="center">
+							<img alt="골드" src="${pageContext.request.contextPath}/img/gold4.png">
+							<p style="text-align: center;font-size:18px;"><b>15만원이상</b></p>
+							<p style="text-align: center;font-size:14px;color:#666666;"><b>포인트 10%적립</b></p>
+						</td>
+						<td align="center">
+							<img alt="다이아" src="${pageContext.request.contextPath}/img/dia4.png">
+							<p style="text-align: center;font-size:18px;"><b>30만원이상</b>
+							<p style="text-align: center;font-size:14px;color:#666666;"><b>포인트 20%적립</b></p>	
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
 		</table>
 			<p align="right">
 					<c:if test="${param.type == 'I'}">

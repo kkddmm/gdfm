@@ -66,20 +66,6 @@ $(document).ready(function () {
 				<h2>${boardtype.bo_type_name}</h2>		
 			</c:forEach>			
 		</c:if>
-		<div align="right">
-				<c:if test="${param.bo_type_code == 1}">
-					<c:if test="${not empty sessionScope.LOGIN_USER && LOGIN_USER.class_code == 99}">
-						<input type="button" value="글쓰기" class="btn btn-warning" onclick="fn_writeForm();">
-					</c:if>
-				</c:if>
-				<c:if test="${param.bo_type_code != 1}">
-					<c:if test="${not empty sessionScope.LOGIN_USER}">
-						<input type="button" value="글쓰기" class="btn btn-warning" onclick="fn_writeForm();">
-					</c:if>
-				</c:if>
-		</div>
-		
-		
 		<!-- 검색기능 -->
 		<div>
 			<form name="searchForm" method="post" class="form-inline">
@@ -114,7 +100,7 @@ $(document).ready(function () {
 		</div>
 		
 		
-		<table class="table table-bordered table-striped table-hover">
+		<table class="table table-striped table-hover">
 			<thead>
 				<tr class="warning">
 					<th class="col-xs-1 text-center">번호</th>
@@ -170,7 +156,18 @@ $(document).ready(function () {
 				
 			</tbody>
 		</table>
-		
+		<div align="right">
+				<c:if test="${param.bo_type_code == 1}">
+					<c:if test="${not empty sessionScope.LOGIN_USER && LOGIN_USER.class_code == 99}">
+						<input type="button" value="글쓰기" class="btn btn-warning" onclick="fn_writeForm();">
+					</c:if>
+				</c:if>
+				<c:if test="${param.bo_type_code != 1}">
+					<c:if test="${not empty sessionScope.LOGIN_USER}">
+						<input type="button" value="글쓰기" class="btn btn-warning" onclick="fn_writeForm();">
+					</c:if>
+				</c:if>
+		</div>
 		<!-- 페이지 네이게이션 -->
 		<div style="text-align:center;">
 			<ul class="pagination">

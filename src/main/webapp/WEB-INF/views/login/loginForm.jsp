@@ -20,35 +20,36 @@
 		
 		frm.submit();
 	}
+	
 </script>
 <div class="slider">
-<div>
-	<div class="panel panel-success" style="width: 400px; margin: auto">
+<div class="container">
+	<div class="panel-default" style="width: 40%; margin: auto;border: 1px solid #BDBDBD;">
 		
-		<div class="panel-heading">
-			<span style="font-size:24px;"><b>로그인</b></span> <div style="text-align:right;"><a href="${pageContext.request.contextPath}/" style="color:#666666;">Home</a></div>
+		<div class="panel-body">
+			<span><img src="${pageContext.request.contextPath}/img/movielogo.png"/></span> <div style="text-align:right;"><a href="${pageContext.request.contextPath}/" style="color:#666666;">Home</a></div>
 		</div>
 		
 		<div class="panel-body">
 			<form class="form-horizontal" name="loginForm" method="post">
 				<div class="form-group">
 					<div class="col-xs-12">
-						<input type="text" name="mem_id" value="${empty cookie.REMEMBER_ME ? '' : cookie.USER_ID.value}" class="form-control" placeholder="아이디">
+						<input type="text" name="mem_id" value="${empty cookie.REMEMBER_ME ? '' : cookie.USER_ID.value}" class="form-control" placeholder="ID">
 					</div>
 				</div>
 				<div class="form-group">
 					<div class="col-xs-12">
-						<input type="password" name="mem_pwd" value="" class="form-control" placeholder="비밀번호" onkeypress="if( event.keyCode==13 ){fn_login();}">
+						<input type="password" name="mem_pwd" value="" class="form-control" placeholder="PASSWORD" onkeypress="if( event.keyCode==13 ){fn_login();}">
 					</div>
 				</div>
 				<div class="form-group">
-					<div class="col-xs-12">
+					<div class="col-xs-12" style="text-align:left;">
 						<label><input type="checkbox" name="remember_me" value="Y" ${empty cookie.REMEMBER_ME ? '' : 'checked'} >아이디 저장</label>
 					</div>
 				</div>
 				<div class="form-group">
 					<div class="col-xs-12">
-						<input type="button" value="login" class="btn btn-warning btn-block" onclick="fn_login();">
+						<button class="btn btn-default btn-block" onclick="fn_login();"><b>LOGIN</b></button>
 					</div>
 				</div>
 				<input type="hidden" name="url" value="${url}"/>
@@ -66,3 +67,4 @@
 	</div>
 </div>
 </div>
+<p>
