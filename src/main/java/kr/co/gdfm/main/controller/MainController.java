@@ -96,12 +96,11 @@ public class MainController {
 		Member member = null;
 		member=(Member)session.getAttribute("LOGIN_USER");
 		
-		
-		Movie movie = null;
+			
 		
 		
 		List<Movie> movieList = null;
-		Map<String, Object> recommendList= new HashMap<>();
+		Map<String, Object> recommend= new HashMap<>();
 		
 				//&&StringUtils.isNotBlank(member.getMem_id())
 		if( member!=null) {
@@ -112,9 +111,9 @@ public class MainController {
 		
 //		movieList=mainService.getMainMovieChartWithNoLogin(); 
 		
-		recommendList.put("movieList", movieList);
+		recommend.put("movieList", movieList);
 		
-		return recommendList;		
+		return recommend;		
 	}
 	
 	@RequestMapping("/mainOpenMovieChart")

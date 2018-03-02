@@ -80,16 +80,23 @@ ul, li {
 .div{
 	 display: inline;
 }
+.center{
+	line-height:114px;
+	width:1140px;
+	height:114px;
+	font-size: 70px;	
+	text-align: left;	
+}
 
 </style>
 
 <section id="portfolio">
 		
  
-			<div class="center">
-				<h2 align="left">스낵 장바구니</h2>
-
+			<div  class="center">
+				스낵 장바구니
 			</div>
+			<hr>
 
 			<div class="col-md-12">
 
@@ -111,10 +118,12 @@ ul, li {
 				<div class="col-md-12 cart">
 					<!-- Gallery Item 1 -->
 						<div class="row" style="height: 400px; border: 10px; border-color: 3f3f3f;">														
-							<div class="col-md-4""><img src="${pageContext.request.contextPath}/img/snack/${basket.snack_name}.jpg" alt="Gallery"></div>											
+							<div class="col-md-4"><img style="width: 50%;height:50%;"src="${pageContext.request.contextPath}/img/snack/${basket.snack_name}.jpg" alt="Gallery"></div>	
+																	
 							<div class="col-md-6">
-								<span>제품명: ${basket.snack_name}<br>가격: ${basket.snack_price}원<br>수량: ${basket.snack_cnt}개</span>				
+								<span>제품명: ${basket.snack_name}<br><hr>가격: ${basket.snack_price}원<br><hr>수량: ${basket.snack_cnt}개</span>				
 							</div>
+							
 							<div class="col-md-2">
 								<span align="right"><input type="button" id="BtnDelete" onclick="fn_delSnackBasket(this,${basket.snack_buy_id},'${LOGIN_USER.mem_id}');" value="삭제"></span>
 								<input type="hidden" class="subPrice" type="text" value="${basket.snack_cnt*basket.snack_price}">
@@ -150,8 +159,8 @@ ul, li {
 		 
 
 		<div align="right">			
-			<input class ="btn" type="button"  onclick="fn_goPayment('${LOGIN_USER.mem_id}');"  value="결제하기"/>
-			<input  class ="btn" onclick="location.href='${pageContext.request.contextPath}/snack/snack' " type="button" value="목록으로"/>			
+			<input class ="btn btn-success" type="button"  onclick="fn_goPayment('${LOGIN_USER.mem_id}');"  value="결제하기"/>
+			<input  class ="btn btn-default" onclick="location.href='${pageContext.request.contextPath}/snack/snack' " type="button" value="목록으로"/>			
 		</div>
 
 	

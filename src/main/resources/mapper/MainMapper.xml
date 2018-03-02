@@ -11,15 +11,15 @@
   	<![CDATA[
   		SELECT e.* FROM
 			(
-			SELECT  c.영화id, d.movie_name, d.movie_grade, d.movie_ko_name,c.cnt
+			SELECT  c.movie_id, d.movie_name, d.movie_grade, d.movie_ko_name,c.cnt
 			FROM
 				(
-					SELECT a.movie_id  as 영화id, count(b.pay_id)  as cnt
+					SELECT a.movie_id, count(b.pay_id)  as cnt
 					FROM movie_show_info a, movie_reservation b
 					WHERE a.show_id=b.show_id(+)
 					GROUP by a.movie_id 
 				) c,  movie d
-			WHERE c.영화id=d.movie_id 
+			WHERE c.movie_id=d.movie_id 
 			ORDER BY c.cnt desc
 			) e
 		WHERE ROWNUM<=4		  	

@@ -158,15 +158,15 @@ function fn_reservation(){
 			type: 'post',
 			url : '${pageContext.request.contextPath}/main/recommendMovieChart',
 			success : function(data, status){	
-				
-				var recommendList=data.movieList;
+				console.log(data.movieList);
+				var movieList=data.movieList;
 				$('#mList').empty();
-				 for(var i in recommendList){						
+				 for(var i in movieList){						
 						$('<div style="border:1px solid #eeeeee;padding-top:5px;padding-bottom:5px;">').addClass('col-md-3').html(
-							'<img alt="" style="width:230px;height:336px;" src="${pageContext.request.contextPath}/movieposter/'+recommendList[i].movie_id+'_poster.jpg"><br>'+
+							'<img alt="" style="width:230px;height:336px;" src="${pageContext.request.contextPath}/movieposter/'+movieList[i].movie_id+'_poster.jpg"><br>'+
 		       			'<div style="padding-top: 10px;">'+
-		       				'<button class="btn btn-default" onclick="fn_movieDetail('+recommendList[i].movie_id+');">상세정보</button> '+
-		       				'<button class="btn btn-default" onclick="fn_movieReservation('+recommendList[i].movie_id+');" >예매하기</button>'+
+		       				'<button class="btn btn-default" onclick="fn_movieDetail('+movieList[i].movie_id+');">상세정보</button> '+
+		       				'<button class="btn btn-default" onclick="fn_movieReservation('+movieList[i].movie_id+');" >예매하기</button>'+
 		       			'</div>'	 				
 							).appendTo('#mList');			
 						} 
