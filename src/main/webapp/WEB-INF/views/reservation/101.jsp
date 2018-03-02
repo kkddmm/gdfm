@@ -177,7 +177,6 @@ $('#loading').show();
 			data : 'movie_id='+movie_id+'&ci_id='+ci_id+'&show_date='+show_date,
 			dataType : "json",
 			success : function(data, status){
-		console.log("상영정보 가져오는 함수 실행......");
 				$('#infoView').html('');
 if(data[0]!=null){
 				$('<h4>').html(data[0].screen_name+'('+data[0].dimension_name+')').appendTo('#infoView');
@@ -185,6 +184,11 @@ if(data[0]!=null){
 					if(j!=0&&data[j].screen_name!=data[j-1].screen_name){
 						$('<h4>').html('<hr/>'+data[j].screen_name+'('+data[j].dimension_name+')').appendTo('#infoView');
 					} 
+					if(j!=0&&j%4==0){
+						$('<br>').appendTo('#infoView');
+						$('<br>').appendTo('#infoView');
+					}
+					
 					$('<span>').html('<button type="button" class="btn btn-outline-primary" id="'+data[j].show_id+'"  onclick="fn_selectShowInfo('+data[j].show_id+',\''+data[j].dimension_name+'\',\''+data[j].start_time+'\',\''+data[j].end_time+'\',\''+data[j].screen_name+'\');" class="btn" > '+data[j].start_time+'</button>&nbsp;'+data[j].sit +'석&nbsp;' )
 					.appendTo('#infoView');
 				}
@@ -207,8 +211,7 @@ $('#goSitDiv').html('');
 	function fn_selectShowInfo(show_id, dimension_name,start_time,end_time,screen_name){
 		$('#selectedShow').val(show_id);
 		fn_classCon();
-		console.log(show_id);
-		
+		console.log("상영정보 가져오는 함수 실행됨...");
 		$('#selectShowView').html(screen_name+'('+dimension_name+')&nbsp;'+start_time+'&nbsp;~&nbsp;'+end_time);
 		$('#goSitDiv').html(''); 	
 $('<img>').attr('src',"${pageContext.request.contextPath}/img/goSitBtn.png").on('click',function(){
@@ -221,7 +224,6 @@ $('<img>').attr('src',"${pageContext.request.contextPath}/img/goSitBtn.png").on(
 	
 	//작업중
 	else{ 
-		console.log("로그인한 유저의 만 나이 " +getAgeFromBirthDay('${LOGIN_USER.mem_birth}')); 
 		//선택한 영화의 등급과 나이 대조 
 		if($('#selectedMovieGrade').val()=='rate12'){
 		if( getAgeFromBirthDay('${LOGIN_USER.mem_birth}')<12){
@@ -285,7 +287,9 @@ $('<img>').attr('src',"${pageContext.request.contextPath}/img/goSitBtn.png").on(
  z-index: 100; }
 
 
-
+hr{
+border : 1px solid black;
+}
 
 .row.main {
 	border: 1px solid black;
@@ -303,24 +307,41 @@ height: 150px;
 width : 20px;
 height : 20px;
 }
+ 
+#dateView .btn{
+margin-left : 5px; 
+} 
+#addr1View {
+margin-left : 10px;
+
+}
+
+li:hover{
+background-color : cornflowerblue;
+}
+
+.btn:hover{
+background-color : cornflowerblue;
+}
+
 
 
 </style>
 
 <div id="loading"><img id="loading-image" src="${pageContext.request.contextPath}/img/loading.gif" alt="Loading..." /></div>
 
-
+ 
 <div class="slider">
 	<div class="container">
 	<a type="button" href="101" class="btn btn-default"><span class="glyphicon glyphicon-repeat"></span>다시예매하기</a>
 <!-- style="background-color : antiquewhite;" -->
 
-		<div  align="center" class="col-md-12 main row" >   
-			<div align="center" class="col-md-2 list-group">
+		<div   align="center" class="col-md-12 main row" >   
+			<div style="border-right : 1px solid black;" align="center" class="col-md-2 list-group">
 				<h4 class="sessionTitle">영화</h4>
 				<hr />
 				<div align="left">
-				<ul style="height:500px; overflow:auto;" id="movieView">
+				<ul style="height:650px; overflow:auto;" id="movieView">
 					<c:if test="${not empty movieList}">
 						<c:forEach items="${movieList}" var="movie">
 							<li id="${movie.movie_id}" class="list-group-item" onclick="fn_changeCinemaByMovie(${movie.movie_id},'${movie.movie_name}','${movie.movie_ko_name}','${movie.movie_grade}');"><img
@@ -333,48 +354,48 @@ height : 20px;
 
 			</div>
 			
-			<div  class="col-md-3 row list-group">
+			<div style="border-right : 1px solid black;" class="col-md-3 row list-group">
 				<h4>영화관</h4>
 				<hr />
-				<ul  class="col-md-6" id="addr1View">
+				<ul  style="height:650px; " class="col-md-6" id="addr1View">
 				
-				
+				 
 					<c:if test="${not empty addr1List}">
 						<c:forEach items="${addr1List}" var="cinema">
 							<li class="list-group-item" data-addr1="${cinema.ci_addr1}" onclick="fn_loadAddr2('${cinema.ci_addr1}');">${cinema.ci_addr1}</li>
 						</c:forEach>
 					</c:if>
 				</ul>
-				<ul class="col-md-6" id="addr2View">
+				<ul class="col-md-5" id="addr2View">
 				</ul>
 			</div>
-			<div  class="col-md-1">
+			<div style="padding :0px;"  class="col-md-1">
 				<h4>날짜</h4>
 				<hr />
 				<div>
-				<ul  class="col-md-12" id="dateView">
+				<ul class="col-md-12" id="dateView">
 				<c:forEach items="${dateList}" varStatus="status" var="date">
 				<c:if test="${date.MONTH!=dateList[status.index-1].MONTH}">
 				<h2>${date.MONTH}월</h5>
 				</c:if>
-           <li onclick="fn_selectedDate(${date.USEDAY},${date.YEAR},${date.MONTH},${date.DAY},'${date.WEEKDAY}')"><button id="${date.USEDAY}" type="button" class="btn btn-default list-group-item">${date.WEEKDAY}&nbsp;${date.DAY}</button></li><br/>
+           <button onclick="fn_selectedDate(${date.USEDAY},${date.YEAR},${date.MONTH},${date.DAY},'${date.WEEKDAY}')" id="${date.USEDAY}" type="button" class="btn btn-default list-group-item">${date.WEEKDAY}&nbsp;${date.DAY}</button><br/>
 				</c:forEach>
 				</ul>
 				</div>
 			</div>
-			<div   class="col-md-6"> 
+			<div  style="padding :0px; border-left : 1px solid black;"  class="col-md-6"> 
 				<h4>상영정보</h4><hr/>
 				<div align="left" class="row">
 				<div class="col-md-1">
 			
 				</div>
-			<ul style=" height:500px; overflow:auto;" class="col-md-11" id="infoView"> 
+			<ul style=" height:650px; overflow:auto;" class="col-md-11" id="infoView"> 
 			<p>예매할 사항을 선택해주세요</p>
 			</ul>
 			
 				</div>
 			</div>
-		</div>
+		</div> 
 		
 		<br/>
 		<br/>
