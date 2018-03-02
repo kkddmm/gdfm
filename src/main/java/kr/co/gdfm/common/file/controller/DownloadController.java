@@ -1,6 +1,7 @@
 package kr.co.gdfm.common.file.controller;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
@@ -78,5 +79,31 @@ public class DownloadController {
 
 		return;
 	}
+	
+	
+	@RequestMapping("/loadImg")
+	public void loadImage(int movie_id , HttpServletResponse resp) {
+		
+		File file = new File("/uploadFile/Movie/"+movie_id+"_poster.jpg");
+		try {
+		FileUtils.copyFile(file, resp.getOutputStream());
+			resp.getOutputStream().close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		
+	}
+	
+	
+	
+
+	
+	
+	
+	
+	
+	
+	
 
 }

@@ -56,7 +56,7 @@ $('#loading').show();
 		$('#selectedMovie').val(movie_id);
 		$('#selectedMovieGrade').val(movie_grade);
 		$("#imgView").children().remove();
-		$('<img>').attr("src","${pageContext.request.contextPath}/movieposter/"+movie_name+"_poster.jpg").appendTo('#imgView');
+		$('<img>').attr("src","${pageContext.request.contextPath}/loadImg/?movie_id="+movie_id).appendTo('#imgView');
 		$('#selectMovieName').html(movie_ko_name);
 
 		$.ajax({
@@ -318,6 +318,7 @@ margin-left : 10px;
 
 li:hover{
 background-color : cornflowerblue;
+cursor : pointer;
 }
 
 .btn:hover{
@@ -367,7 +368,7 @@ background-color : cornflowerblue;
 					</c:if>
 				</ul>
 				<ul class="col-md-5" id="addr2View">
-				</ul>
+				</ul> 
 			</div>
 			<div style="padding :0px;"  class="col-md-1">
 				<h4>날짜</h4>
