@@ -20,6 +20,7 @@ public class Snack {
 	private int snack_buy_id;
 	private int snack_cnt;	
 	private int pay_id;
+	private String snack_isbasket_yn;
 	
 	
 	
@@ -126,6 +127,14 @@ public class Snack {
 	public void setPay_id(int pay_id) {
 		this.pay_id = pay_id;
 	}
+	public String getSnack_isbasket_yn() {
+		return snack_isbasket_yn;
+	}
+	public void setSnack_isbasket_yn(String snack_isbasket_yn) {
+		this.snack_isbasket_yn = snack_isbasket_yn;
+	}
+	
+	
 	
 	
 	

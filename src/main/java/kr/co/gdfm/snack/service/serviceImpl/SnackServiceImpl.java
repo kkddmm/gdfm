@@ -129,7 +129,7 @@ public class SnackServiceImpl implements SnackService {
 
 		return snackMapper.updateSnackBuyPoint(paramMap);
 	}
-
+	
 	@Override
 	public int useSnack(int snack_buy_id) {
 		

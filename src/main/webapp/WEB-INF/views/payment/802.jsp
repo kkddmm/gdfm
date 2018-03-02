@@ -5,8 +5,13 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 <script>
-function fn_goMyPage(){
+function fn_goMyPage(pageType){
 	
+	if(pageType=='M'){
+		location.href="${pageContext.request.contextPath}/mypage/reserveList?mem_id=${LOGIN_USER.mem_id}";		
+	}else{		
+			location.href="${pageContext.request.contextPath}/mypage/snackBuy?mem_id=${LOGIN_USER.mem_id}";		
+	}
 }
 
 </script>
@@ -28,7 +33,7 @@ function fn_goMyPage(){
 				결제가 완료되었습니다
 			</div>	
 			<div   id="payCheck">
-				<input type="button" value="결제내역 확인" onclick="fn_goMyPage();">
+				<input type="button" value="결제내역 확인" onclick="fn_goMyPage('${param.pageType}');">
 			</div>		
 		</div>
 	

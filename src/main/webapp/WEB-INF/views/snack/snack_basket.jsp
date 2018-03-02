@@ -105,7 +105,7 @@ ul, li {
 
 
 <div>
-	<c:if test="${pay_id==null}">
+			
 			<c:forEach var="basket" items="${basketList}">
 			
 				<div class="col-md-12 cart">
@@ -120,21 +120,34 @@ ul, li {
 								<input type="hidden" class="subPrice" type="text" value="${basket.snack_cnt*basket.snack_price}">
 							</div>
 						</div>
-
-					<br>	
-																		
-				</div>	
-									
+					<br>																		
+				</div>			
 			</c:forEach>
+
+			
+			
+			<c:if test="${empty basketList}">
+				<span>장바구니가 비었습니다.</span>
+			</c:if>	
+			
 		<br/>		
-	</c:if>	
 	
-	<c:if test="${pay_id!=''}">
-		<span></span>
-	</c:if>	
+	
+	
+		
+	
+	
+	
 	
 </div>
+
 		
+	<c:if test="${basket.snack_buy_id!=''}">
+		<div align="center">
+			<!-- <span>총 결제금액:</span>  --><input style="margin-right: 10%; margin-bottom: 5%;" type="hidden" id="totalPrice"  type="text">
+		</div>
+	</c:if>
+		 
 
 		<div align="right">			
 			<input class ="btn" type="button"  onclick="fn_goPayment('${LOGIN_USER.mem_id}');"  value="결제하기"/>
@@ -142,11 +155,7 @@ ul, li {
 		</div>
 
 	
-	<c:if test="${basket.snack_buy_id!=''}">
-		<div>
-			<input id="totalPrice" type="text">
-		</div>
-	</c:if>	
+	
 	
 		
 </section>
@@ -170,5 +179,4 @@ ul, li {
 <br>
 <br>
 <br>
-
 

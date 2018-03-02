@@ -30,12 +30,24 @@ set pay_id = #{imp_uid}
 where reservation_id = #{reservation_id}
 </update>
 
+<!-- 직접결제 업데이트 -->
 <update id="snackPayUpdate" parameterType="map">
 update snack_buy
-set pay_id = #{imp_uid}
+set pay_id = #{imp_uid}	
 where snack_buy_id = #{snack_buy_id}
-and pay_id is null
+and pay_id is null 
 </update>
+
+<!-- 장바구니 결제 업데이트 -->
+<update id="snackBasketPayUpdate" parameterType="map">
+update snack_buy
+set pay_id = #{imp_uid},
+	snack_isbasket_yn='N'
+where mem_id=#{mem_id}
+and pay_id is null
+and snack_isbasket_yn='Y'
+</update>
+
 
 
 <update id="addPoint" parameterType="map">

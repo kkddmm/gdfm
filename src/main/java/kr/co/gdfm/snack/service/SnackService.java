@@ -35,7 +35,7 @@ public interface SnackService {
 	
 	
 	//스낵 장바구니 목록 보기
-	public List<Snack> getBasketList(String mem_id) ;
+	public List<Snack> getBasketList(String mem_id);
 		
 	
 	// 스낵 장바구니 삭제

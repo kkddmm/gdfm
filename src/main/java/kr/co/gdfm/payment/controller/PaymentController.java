@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.gdfm.member.model.Member;
+import kr.co.gdfm.member.service.MemberService;
 import kr.co.gdfm.payment.service.PaymentService;
 import kr.co.gdfm.snack.model.Snack;
 import kr.co.gdfm.snack.service.SnackService;
@@ -28,12 +29,16 @@ PaymentService paymentService;
 	@Autowired
 	SnackService snackService;
 	
+	@Autowired
+	MemberService memberService;
+	
 
 	@RequestMapping("/801")
-	public String goPaymentPage(@RequestParam(required = false) Map<String, Object> paramMap,Model model,				
+	public String goPaymentPage(@RequestParam(required = false) Map<String, Object> paramMap,  Model model,				
 			HttpSession session) {
 		
 		Member member =(Member)session.getAttribute("LOGIN_USER");
+		
 		
 		
 		
@@ -41,13 +46,25 @@ PaymentService paymentService;
 		paramMap.put("class_code",member.getClass_code());		
 		
 		
+		String mem_id = member.getMem_id();
+		Member memberInfo=null;
+		
 		if (paramMap.containsKey("basket")){
 		
 		//장바구니 결제
-			String mem_id = member.getMem_id();
 	
 			List<Snack> snackList= snackService.getBasketList(mem_id);
 			
+	
+			try {
+				memberInfo = memberService.getMember(mem_id);
+			} catch (Exception e) {				
+				e.printStackTrace();
+			}
+			
+			
+			
+			model.addAttribute("memberInfo",memberInfo);
 			model.addAttribute("snackList",snackList);
 			model.addAttribute("pageType", "B");	
 			model.addAttribute("first_amount",paramMap.get("first_amount"));	
@@ -58,15 +75,26 @@ PaymentService paymentService;
 		//직접구매(장바구니X)
 		if (paramMap.containsKey("snackPage")) {
 
+			
+			
+			try {
+				memberInfo = memberService.getMember(mem_id);
+			} catch (Exception e) {			
+				e.printStackTrace();
+			}
+			
+			
+			
+			
 			String sbid= (String) paramMap.get("snack_buy_id");
 			int snack_buy_id = Integer.parseInt(sbid);
 			
 			
 			Map<String, Object> resultMap = new HashMap<>();
-		resultMap = snackService.getSnackBuyDetail(snack_buy_id);
+			resultMap = snackService.getSnackBuyDetail(snack_buy_id);
 		
-			//스낵관련 파라미터 들어왔을 때 작업. 주나누나가 하세요
-			//포인트/등급할인 적용 되기전에 보낼 가격 파라미터 이름  =first_amount 근데 직접계산해도됨 
+		
+		model.addAttribute("memberInfo",memberInfo);
 		model.addAttribute("resultMap", resultMap);
 		model.addAttribute("pageType", "S");			
 		}
@@ -97,9 +125,6 @@ PaymentService paymentService;
 		
 		
 		
-		
-		
-		
 		return "/payment/802";
 	}
 	
@@ -117,7 +142,13 @@ PaymentService paymentService;
 		
 		
 		paramMap.put("mem_id",member.getMem_id());
-		paramMap.put("class_code",member.getClass_code());		
+		paramMap.put("class_code",member.getClass_code());	
+		
+		
+		
+	
+		
+		
 		
 		System.out.println("controller에서 넣어줄  mem_id"+paramMap.get("mem_id"));
 		
@@ -132,6 +163,8 @@ PaymentService paymentService;
 		int insertPay = paymentService.insertPayment(paramMap);
 		
 		
+		
+		
 		//결제 완료한 스낵 정보 마이페이지로 보냄
 		mem_id=member.getMem_id();
 		
@@ -144,7 +177,9 @@ PaymentService paymentService;
 		System.out.println(paramMap);
 				
 		
+		
 		return success;
+		
 	}
 
 	/*

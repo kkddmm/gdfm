@@ -178,7 +178,7 @@
 	
 	
 	
-	
+	<!-- 장바구니 리스트 -->
 	
 	<select id="getBasketList" parameterType="string" resultType="kr.co.gdfm.snack.model.Snack">
 		SELECT
@@ -187,9 +187,11 @@
 			 a.snack_id,
 			 a.snack_cnt,
 			 a.pay_id,
-			 
+			 a.snack_isbasket_yn,
 			 b.snack_name,
-			 b.snack_price			 
+			 b.snack_subname,
+			 b.snack_price,
+			 b.snack_combo_yn		 
 		FROM snack_buy a, snack b
 		where a.mem_id=#{mem_id} 
 		and  a.snack_id=b.snack_id				
@@ -212,7 +214,7 @@
 			a.snack_buy_id, 
 			a.snack_id, 
 			b.snack_name,
-			b.snack_subname ,
+			b.snack_subname,
 			a.snack_cnt,
 			b.snack_price,
 			(b.snack_price*a.snack_cnt) as first_amount

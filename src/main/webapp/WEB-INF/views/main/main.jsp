@@ -101,7 +101,7 @@ function fn_movieOpenList(){
 			 for(var i in openMovieList){  				
 				
 				$('<div style="border:1px solid #eeeeee;padding-top:5px;padding-bottom:5px;">').addClass('col-md-3').html(
-					'<img alt="" style="width:230px;height:336px;" src="${pageContext.request.contextPath}/movieposter/'+openMovieList[i].movie_name+'_poster.jpg"><br>'+
+					'<img alt="" style="width:230px;height:336px;" src="${pageContext.request.contextPath}/movieposter/'+openMovieList[i].movie_id+'_poster.jpg"><br>'+
        			'<div style="padding-top: 10px;">'+
        				'<button class="btn btn-default" onclick="fn_movieDetail('+openMovieList[i].movie_id+');">상세정보</button> '+
        				'<button class="btn btn-default" onclick="fn_movieReservation('+openMovieList[i].movie_id+');">예매하기</button>'+
@@ -132,7 +132,7 @@ function fn_moviePreList(){
 				 for(var i in preMovieList){  				
 						
 						$('<div style="border:1px solid #eeeeee;padding-top:5px;padding-bottom:5px;">').addClass('col-md-3').html(
-							'<img alt="" style="width:230px;height:336px;" src="${pageContext.request.contextPath}/movieposter/'+preMovieList[i].movie_name+'_poster.jpg"><br>'+
+							'<img alt="" style="width:230px;height:336px;" src="${pageContext.request.contextPath}/movieposter/'+preMovieList[i].movie_id+'_poster.jpg"><br>'+
 		       			'<div style="padding-top: 10px;">'+
 		       				'<button class="btn btn-default" onclick="fn_movieDetail('+preMovieList[i].movie_id+');">상세정보</button> '+
 		       				'<button class="btn btn-default" onclick="fn_movieReservation('+preMovieList[i].movie_id+');">예매하기</button>'+
@@ -163,7 +163,7 @@ function fn_reservation(){
 				$('#mList').empty();
 				 for(var i in recommendList){						
 						$('<div style="border:1px solid #eeeeee;padding-top:5px;padding-bottom:5px;">').addClass('col-md-3').html(
-							'<img alt="" style="width:230px;height:336px;" src="${pageContext.request.contextPath}/movieposter/'+recommendList[i].movie_name+'_poster.jpg"><br>'+
+							'<img alt="" style="width:230px;height:336px;" src="${pageContext.request.contextPath}/movieposter/'+recommendList[i].movie_id+'_poster.jpg"><br>'+
 		       			'<div style="padding-top: 10px;">'+
 		       				'<button class="btn btn-default" onclick="fn_movieDetail('+recommendList[i].movie_id+');">상세정보</button> '+
 		       				'<button class="btn btn-default" onclick="fn_movieReservation('+recommendList[i].movie_id+');" >예매하기</button>'+

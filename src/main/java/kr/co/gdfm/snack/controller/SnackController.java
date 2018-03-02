@@ -165,6 +165,7 @@ public class SnackController {
 		
 		List<Snack> basketList = snackService.getBasketList(mem_id);
 		
+	
 		model.addAttribute("basketList", basketList);
 
 		return "snack/snack_basket";

@@ -57,7 +57,7 @@ function fn_goPayment(){
 		    			msg += '\n상점 거래ID : ' + rsp.merchant_uid;
 		    			msg += '\결제 금액 : ' + rsp.paid_amount;
 		    			msg += '카드 승인번호 : ' + rsp.apply_num;
-		    			alert(msg);
+		    			//alert(msg);
 		    			location.href ="${pageContext.request.contextPath}/payment/802";
 		    		},
 		    		error : function(){
@@ -274,15 +274,27 @@ $(function(){
 .cnt,.price{
 	width:20%;
 }
-td, tr, th{
-	border:1px solid black; 
-}
+
 .goods{
 	width: 33.3%;
 }
 tr{
 	height:50px;
 }
+th{
+	text-align: center;
+	background-color:rgb(255, 255, 102);
+}
+#movie td{
+	padding-left: 50%;
+}
+div .myTable2{
+	margin-left: auto; margin-right: auto;
+	}
+p{
+	text-align: center;
+}
+
 </style>
 
 
@@ -305,7 +317,7 @@ tr{
 				</thead>
 				
 				<tbody>
-					<tr>				
+					<tr id="movie">				
 			          <td class="info">영화보기 좋은 날&nbsp;${resultMap.CI_NAME}(${resultMap.SCREEN_NAME})&nbsp;
 			           ${resultMap.MOVIE_KO_NAME}(${resultMap.DIMENSION_NAME})&nbsp;${resultMap.START_TIME}~${resultMap.END_TIME}   </td>
 			          <td class="cnt"><c:forEach var="sit"  items="${resultMap.sitList}">(${sit})</c:forEach></td>
@@ -353,74 +365,57 @@ tr{
 			<!--스낵정보-->				
 				<c:forEach items="${snackList}" var="snack">
 					<tr>				
-			          <td class="info">(${snack.snack_name})${snack.snack_subname}</td>
+			          <td class="info">${snack.snack_name} 			          
+				         <c:if test="${snack.snack_combo_yn=='Y'}">
+				          	${snack.snack_subname}
+						  </c:if>	
+			         </td>
+			        	
 			          <td class="cnt">${snack.snack_cnt}</td>
 			          <td class="price" data-price="${snack.snack_price}">${snack.snack_price}</td>
 			        </tr>
 			     </c:forEach>
 		</c:if>
-		
-		
-		
-		
-		
-		
-		
-		
-		
 				</tbody>
 			</table><br>
 			</c:if> 
 			
-			
-				
 		</div>
-		
-		
-		
-		
-		
-
-
 		<br>
-		
 		
 		<div style="padding:10px;" class="divGoodsInfo">
 		
 			<table id="money" class="myTable" style="width:100%;">
 				<thead>
 					<tr>
-						<td class="goods">총상품금액</td>
-						<td class="goods">포인트 사용</td>
-						<td class="goods">최종 결제금액</td>
+						<th class="goods">총상품금액</th>
+						<th style="width:20px;" class="goods"></th>
+						<th class="goods">포인트 사용</th>
+						<th class="goods">최종 결제금액</th>
 					</tr>
 				</thead>
-				
-				
 				<!-- 구매하기 버튼 눌렀을 때 -->
 				<c:if test="${pageType=='S'}">				
 				<tbody>					
 					<tr>
 						<td id="total" class="goods">
 							<input type="hidden" name="totalPrice" value="${resultMap.SNACK_PRICE}">
-							<span id="span_totalPrice" >${resultMap.SNACK_PRICE}</span>
+							<p style="text-align: center;" id="span_totalPrice" >${resultMap.SNACK_PRICE}</p>
+							
 						</td>  <!-- 상품가격 -->
+						
+						<td><img style="width:20px;height:20px;" alt="" src="${pageContext.request.contextPath}/img/snack/minus.png"></td>
 						<td id="pointApply" class="goods">
 							<input type="hidden" name="usePoint" value="0">
-							<span id="span_usePoint">0</span>
+							<p id="span_usePoint">0</p>
 						</td><!-- 적용 포인트 -->
 						<td id="finalPrice" data-price="${resultMap.SNACK_PRICE}" class="goods">
 							<input type="hidden" name="orderPrice" value="${resultMap.SNACK_PRICE}">
-							<span id="span_orderPrice">${resultMap.SNACK_PRICE}</span>
+							<p id="span_orderPrice">${resultMap.SNACK_PRICE}</p>
 						</td><!-- 최종결제 금액 -->
 					</tr>
 				</tbody>
 				</c:if>
-				
-				
-				
-				
-				
 				
 				
 				
@@ -436,15 +431,16 @@ tr{
 	<%-- 				</c:forEach> --%>
 							<td id="total" class="goods">
 								<input type="hidden" name="totalPrice" value="" >
-								<span id="span_totalPrice" ></span>
+								<p style="text-align: center;" id="span_totalPrice" ></p>								
 							</td>  <!-- 상품가격 -->
+							<td><img style="width:20px;height:20px;" alt="" src="${pageContext.request.contextPath}/img/snack/minus.png"></td>
 							<td id="pointApply" class="goods">
 								<input type="hidden" name="usePoint" value="0">
-								<span id="span_usePoint">0</span>
+								<p id="span_usePoint">0</p>
 							</td><!-- 적용 포인트 -->
 							<td id="finalPrice" data-price="" class="goods">
 								<input type="hidden" name="orderPrice" value="">
-								<span id="span_orderPrice"></span>
+								<p id="span_orderPrice"></p>
 							</td><!-- 최종결제 금액 -->
 						</tr>
 					</tbody>
@@ -457,15 +453,17 @@ tr{
 					<tr>
 						<td id="total" class="goods">
 							<input type="text" name="totalPrice" value="${resultMap.first_amount}">
-							<span id="span_totalPrice" >${resultMap.first_amount}</span>
+							<p style="text-align: center;" id="span_totalPrice" >${resultMap.first_amount}</p>
+							
 						</td>  <!-- 상품가격 -->
+						<td><img style="width:20px;height:20px;" alt="" src="${pageContext.request.contextPath}/img/snack/minus.png"></td>
 						<td id="pointApply" class="goods">
 							<input type="text" name="usePoint" value="0">
-							<span id="span_usePoint">0</span>
+							<p id="span_usePoint">0</p>
 						</td><!-- 적용 포인트 -->
 						<td id="finalPrice" data-price="${resultMap.first_amount}" class="goods">
 							<input type="text" name="orderPrice" value="${resultMap.first_amount}">
-							<span id="span_orderPrice">${resultMap.first_amount}</span>
+							<p id="span_orderPrice">${resultMap.first_amount}</p>
 						</td><!-- 최종결제 금액 -->
 					</tr>
 				</tbody>
@@ -475,13 +473,17 @@ tr{
 			</table>
 		</div >
 		
-		<div style="padding:10px;">
-			<table class="myTable" style="width:100%;">
-				<tr>
-					<td>*포인트
-					<input class="pointUse" type="text" > <label> <input id="allPointUse"  type="checkbox">전액사용</label> 
-					<input onclick="fn_pointUse();" type="button" value="적용"/>
-					<td>보유 포인트 <input id="hasPoint" type="text" readonly="readonly" data-price="${LOGIN_USER.mem_point}" value="${LOGIN_USER.mem_point}"> 점</td>
+		<div style="padding:10px;align-content: right;">
+			<table class="myTable2" style="width:40%;">
+				<tr >
+					<td>*포인트&nbsp&nbsp&nbsp&nbsp&nbsp
+						<input class="pointUse" type="text" > <label> <input id="allPointUse"  type="checkbox">전액사용</label> 
+						<input onclick="fn_pointUse();" type="button" value="적용"/>
+					</td>
+					
+				</tr>
+				<tr >
+					<td>보유 포인트 <input id="hasPoint" type="text" readonly="readonly" data-price="${memberInfo.mem_point}" value="${memberInfo.mem_point}"> 점</td>
 				</tr>		
 			</table>
 		</div>	
