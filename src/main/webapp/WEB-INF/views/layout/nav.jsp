@@ -21,13 +21,13 @@
 					<b>
 						${LOGIN_USER.mem_name}
 							<c:if test="${LOGIN_USER.class_code == 1}">
-								(<img alt="실버" src="${pageContext.request.contextPath}/img/silver.png">)
+								(<img alt="실버" src="${pageContext.request.contextPath}/img/silver3.png">)
 							</c:if> 
 							<c:if test="${LOGIN_USER.class_code == 2}">
-								(<img alt="골드" src="${pageContext.request.contextPath}/img/gold.png">)
+								(<img alt="골드" src="${pageContext.request.contextPath}/img/gold3.png">)
 							</c:if> 
 							<c:if test="${LOGIN_USER.class_code == 3}">
-								(<img alt="다이아" src="${pageContext.request.contextPath}/img/dia.png">)
+								(<img alt="다이아" src="${pageContext.request.contextPath}/img/dia3.png">)
 							</c:if> 
 					</b> 님
 				</span>  

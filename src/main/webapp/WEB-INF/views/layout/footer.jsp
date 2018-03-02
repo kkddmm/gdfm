@@ -4,11 +4,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-sm-12">
-				&copy; Gp Theme. All Rights Reserved.
-				<div class="credits">
-					<a href="https://bootstrapmade.com/">Bootstrap Templates</a> by <a
-						href="https://bootstrapmade.com/">BootstrapMade.com</a>
-				</div>
+				&copy; GoodDayForMovie. All Rights Reserved.
 			</div>
 		</div>
 	</div>

@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import kr.co.gdfm.cinema.model.Cinema;
 import kr.co.gdfm.main.mapper.MainMapper;
 import kr.co.gdfm.main.service.MainService;
 import kr.co.gdfm.member.model.Member;
@@ -44,10 +45,4 @@ public class MainServiceImpl implements MainService{
 		return mainMapper.mainPreMovieList();
 	}
 
-
-
-
-	
-	
-	
 }

@@ -125,8 +125,8 @@ $(document).ready(function () {
 	</c:if>
 	<table class="table">
 		<tr>
-			<th class="col-xs-3 text-center warning">제목</th>
-			<td>
+			<th class="col-xs-2 text-center warning">제목</th>
+			<td colspan="3">
 				<b>${board.bo_title}</b>
 			</td>
 		</tr>	
@@ -135,16 +135,14 @@ $(document).ready(function () {
 			<td>
 				${board.mem_id_name}
 			</td>
-		</tr>	
-		<tr>
-			<th class="text-center warning">영화관</th>
+			<th class="col-xs-2 text-center warning">영화관</th>
 			<td>
 				${board.ci_id_name}
 			</td>
 		</tr>	
 		<tr>
 			<th class="text-center warning">첨부파일</th>			
-			<td>
+			<td colspan="3">
 				<c:forEach var="fileItem" items="${board.fileItemList}">
 					<div>
 						<a href="${pageContext.request.contextPath}/common/download?file_id=${fileItem.file_id}">${fileItem.file_name}</a> ${fileItem.file_fancy_size}
@@ -153,7 +151,7 @@ $(document).ready(function () {
 			</td>
 		</tr>
 		<tr>
-			<td colspan="2" style="white-space: pre-wrap;">${board.bo_content}</td>
+			<td colspan="4" style="white-space: pre-wrap;">${board.bo_content}</td>
 		</tr>			
 	</table>
 		

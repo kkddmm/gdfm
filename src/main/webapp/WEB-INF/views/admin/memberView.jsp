@@ -23,46 +23,67 @@
 		<tr>
 			<th class="warning col-xs-2 text-center">회원아이디</th>
 			<td>${member.mem_id}</td>
-		</tr>
-		<tr>
-			<th class="warning text-center">회원명</th>
+			<th class="warning col-xs-2 text-center">회원명</th>
 			<td>${member.mem_name}</td>
 		</tr>
-<!-- 		<tr> -->
-<!-- 			<th class="warning text-center">회원연령</th> -->
-<%-- 			<td>${member.mem_age} 세</td> --%>
-<!-- 		</tr> -->
 		<tr>
 			<th class="warning text-center">회원생년월일</th>
 			<td>${member.mem_birth}</td>
-		</tr>
-		<tr>
 			<th class="warning text-center">회원성별</th>
 			<td>${member.mem_gender == 'M' ? '남자' : '여자'}</td>
 		</tr>
 		<tr>
 			<th class="warning text-center">회원이메일</th>
 			<td>${member.mem_email}</td>
-		</tr>
-		<tr>
 			<th class="warning text-center">전화번호</th>
 			<td>${member.mem_phone}</td>
 		</tr>
 		<tr>
 			<th class="warning text-center">회원주소</th>
-			<td>
-			<p>${member.mem_zipcode}</p>
-			<p>${member.mem_addr}</p>
-			<p>${member.mem_addr_detail}</p>
+			<td colspan="3">
+			<p>우편번호 : ${member.mem_zipcode}</p>
+			<p>${member.mem_addr} ${member.mem_addr_detail}</p>
 			</td>
 		</tr>
 		<tr>
 			<th class="warning text-center">회원등급</th>
-			<td>${member.class_code_name}</td>
-		</tr>
-		<tr>
+			<td>
+				${member.class_code_name}
+				<c:if test="${LOGIN_USER.class_code == 1}">
+					(<img alt="실버" src="${pageContext.request.contextPath}/img/silver3.png">)
+				</c:if> 
+				<c:if test="${LOGIN_USER.class_code == 2}">
+					(<img alt="골드" src="${pageContext.request.contextPath}/img/gold3.png">)
+				</c:if> 
+				<c:if test="${LOGIN_USER.class_code == 3}">
+					(<img alt="다이아" src="${pageContext.request.contextPath}/img/dia3.png">)
+				</c:if> 
+			</td>
 			<th class="warning text-center">회원포인트</th>
 			<td>${member.mem_point}</td>
+		</tr>
+		<tr>
+			<td colspan="4">
+				<table width="100%">
+					<tr>
+						<td align="center">
+							<img alt="실버" src="${pageContext.request.contextPath}/img/silver4.png">
+							<p style="text-align: center;font-size:18px;"><b>일반회원</b></p>
+							<p style="text-align: center;font-size:14px;color:#666666;"><b>포인트 1%적립</b></p>
+						</td>
+						<td align="center">
+							<img alt="골드" src="${pageContext.request.contextPath}/img/gold4.png">
+							<p style="text-align: center;font-size:18px;"><b>15만원이상</b></p>
+							<p style="text-align: center;font-size:14px;color:#666666;"><b>포인트 10%적립</b></p>
+						</td>
+						<td align="center">
+							<img alt="다이아" src="${pageContext.request.contextPath}/img/dia4.png">
+							<p style="text-align: center;font-size:18px;"><b>30만원이상</b></p>
+							<p style="text-align: center;font-size:14px;color:#666666;"><b>포인트 20%적립</b></p>	
+						</td>
+					</tr>
+				</table>
+			</td>
 		</tr>
 		</table>
 		<p align="right">

@@ -2,20 +2,16 @@ package kr.co.gdfm.main.controller;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.lang3.StringUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -31,6 +27,8 @@ import com.google.gson.Gson;
 
 import kr.co.gdfm.board.model.Board;
 import kr.co.gdfm.board.service.BoardService;
+import kr.co.gdfm.cinema.model.Cinema;
+import kr.co.gdfm.common.cinemalist.mapper.CinemaListMapper;
 import kr.co.gdfm.common.util.PagingUtil;
 import kr.co.gdfm.main.service.MainService;
 import kr.co.gdfm.member.model.Member;
@@ -45,6 +43,9 @@ public class MainController {
 	@Autowired
 	MainService mainService;
 	
+	@Autowired
+	CinemaListMapper cinamaListMapper;
+	
 	@RequestMapping("/main")
 	public String goMain(
 			//@RequestParam(value="searchType", required=false, defaultValue="") String searchType,
@@ -56,6 +57,7 @@ public class MainController {
 		int pageCount = 5;	//기본값
 		int totalCount = 0;
 		Map<String, Object> paramMap = new HashMap<>();
+		Map<String, Object> paramMap2 = new HashMap<>();
 		// 총 게시글 수
 		paramMap.put("bo_type_code", 1);
 		totalCount = boardService.getBoardCount(paramMap);
@@ -74,11 +76,11 @@ public class MainController {
 		paramMap.put("endRow", pagingUtil.getEndRow());
 		
 		List<Board> mainList = boardService.getBoardList(paramMap); 
-		
+		List<Cinema> cinemaList = cinamaListMapper.selectCinemaList(paramMap2);
 
 			
 		model.addAttribute("mainList", mainList);
-		
+		model.addAttribute("cinemaList", cinemaList);
 		
 		return "main/main";
 	}

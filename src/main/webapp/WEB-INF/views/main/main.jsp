@@ -366,8 +366,6 @@ ul.tab-a li a:hover span, ul.tab-a li.current a span { background-position: righ
 			</ul>
         	</div>
         	
-        	
-        	
         	<div id="secondMovie">
 					<div id="mList">
 					</div>
@@ -386,28 +384,36 @@ ul.tab-a li a:hover span, ul.tab-a li.current a span { background-position: righ
             <h2>영화 뉴스</h2>
           </div>
         </div>
-        <!--/.col-sm-6-->
-
-        <!-- <div class="col-sm-6 wow fadeInDown">
-          <div class="accordion">
-            <h2>뭐 들어갈지 아직 미정</h2>
-            <div class="panel-group" id="accordion1">
-             
-            </div>
-            /#accordion1
-          </div>
-        </div> -->
-
       </div>
       <!--/.row-->
+      <div class="row">
+      <div style="width:97.5%">
+	  <div style="float: left;">
+		<center><h2>일별박스오피스</h2></center>
+	    <table border="0" class="table table-bordered table-striped table-hover text-center" id="movieTr">
+			<tr>
+				<th class="col-xs-1 text-center info">순위</th>
+				<th class="text-center info">영화명</th>
+				<th class="col-xs-3 text-center info">누적관객수</th>
+			</tr>
+		</table>
+	  </div>
+	  <div style="float: right;">  
+		<center><h2>주간/주말박스오피스</h2></center>
+	    <table border="0" class="table table-bordered table-striped table-hover text-center" id="movieweekTr">
+			<tr>
+				<th class="col-xs-1 text-center info">순위</th>
+				<th class="text-center info">영화명</th>
+				<th class="col-xs-3 text-center info">누적관객수</th>
+			</tr>
+		</table>  
+	  </div>
+	</div>
+  	</div>
     </div>
     <!--/.container-->
   </section>
   <!--/#middle-->
-  
-  
-  
-
   <section id="bottom">
     <div class="container wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
       <div class="row">
@@ -431,36 +437,21 @@ ul.tab-a li a:hover span, ul.tab-a li.current a span { background-position: righ
     </div>
   </section>
   <!--/#bottom-->
-  <div style="border:1px solid #FFFF00;">
-	  <div style="float: left;">
-		<center><h2>일별박스오피스</h2></center>
-	    <table border="0" class="table table-bordered table-striped table-hover text-center" id="movieTr">
-			<tr>
-				<th class="col-xs-1 text-center info">순위</th>
-				<th class="text-center info">영화명</th>
-				<th class="col-xs-3 text-center info">누적관객수</th>
-			</tr>
-		</table>
-	  </div>
-	  <div style="float: right;">  
-		<center><h2>주간/주말박스오피스</h2></center>
-	    <table border="0" class="table table-bordered table-striped table-hover text-center" id="movieweekTr">
-			<tr>
-				<th class="col-xs-1 text-center info">순위</th>
-				<th class="text-center info">영화명</th>
-				<th class="col-xs-3 text-center info">누적관객수</th>
-			</tr>
-		</table>  
-	  </div>
-	</div>   
-      
-    </div>
-  </div>
-  
-  
-  
-  
-  
-
-  
+  	<p>
+		<div style="float: right;">
+			<select onchange="window.open(value,'iframe_a')" class="form-control">
+			<option value="http://map.daum.net/?q=영화관">선택해주세요</option>
+				<c:if test="${not empty mainList}" >
+					<c:forEach var="cinema" items="${cinemaList}">
+						<option value="http://map.daum.net/?q=${cinema.ci_addr3}">${cinema.ci_name}</option>
+					</c:forEach>
+				</c:if>
+			</select>
+		</div>
+	</p>
+	<p>
+		<div>
+	    	<iframe src="http://map.daum.net/?q=영화관" name="iframe_a" width="100%" height="500" frameborder=0></iframe>
+		</div>
+	</p>
 <script src="${pageContext.request.contextPath}/js/main1.js"></script>
