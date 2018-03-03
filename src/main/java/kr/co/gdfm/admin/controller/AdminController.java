@@ -1174,7 +1174,7 @@ public class AdminController {
 	public void file_addr(Movie movie, HttpServletResponse response) {
 		
 		int movie_id = movie.getMovie_id();
-		File posterFile = new File("/uploadFiles/Movie/"+movie_id+".jpg");
+		File posterFile = new File("/uploadFiles/Movie/"+movie_id+"_poster.jpg");
 		 
 		try {
 			ServletOutputStream out = response.getOutputStream();
@@ -1185,14 +1185,54 @@ public class AdminController {
 			e.printStackTrace();
 		}
 		
+	}	
+	//스틸컷 업로드 폼
+	@RequestMapping("/stillCutfileUploadForm")
+	public String stillCutfileUpload(Movie movie) {
 		
 		
 		
-		
+		return "admin/stillCutfileUploadForm";
 	}
 	
-	
-	
+	//스틸컷 파일 업로드
+	@RequestMapping("/stillcutfileUpload")
+	public String stillcutfileUpload(@ModelAttribute("movie") Movie movie ) throws Exception {
+
+		System.out.println("Movie_id : "+movie.getMovie_id());
+		
+		//사용자가 보내 준 파일이 poster_file에 담김 
+		MultipartFile[] stillcut_files = movie.getStillcut_file();
+		
+		
+		// StillCut_File에 저장 할 곳
+		for (int i = 1; i <= stillcut_files.length; i++) {
+			System.out.println("StillCut_File : " + stillcut_files[i - 1].getOriginalFilename());
+			File targetFile2 = new File("/uploadFiles/StillCut/" + movie.getMovie_name() + "_stillcut"+i+".jpg");
+
+			try {
+				stillcut_files[i - 1].transferTo(targetFile2);
+			} catch (IllegalStateException | IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		
+		/*
+		MultipartFile poster_file = movie.getPoster_file();
+		System.out.println("Movie_File : "+poster_file.getOriginalFilename());
+		
+		//Movie file에 저장 할 곳
+		File targetFile = new File("/uploadFiles/Movie/"+movie.getMovie_id()+"_poster.jpg");
+		try {
+			poster_file.transferTo(targetFile);
+		} catch (IllegalStateException | IOException e) {
+			e.printStackTrace();
+		}
+		*/
+		
+		return "redirect:/admin/movieList";
+	}
 	
 	
 	

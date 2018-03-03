@@ -25,18 +25,26 @@ public class Movie {
 	private List<String> movie_genre_name;
 	private String dimension_name;
 	private MultipartFile poster_file;
+	//스틸 컷 
+	private List<String> 	stillcut;
+	private MultipartFile[] stillcut_file;
+		
 	
 	
 	
 	
+	public MultipartFile[] getStillcut_file() {
+		return stillcut_file;
+	}
+	public void setStillcut_file(MultipartFile[] stillcut_file) {
+		this.stillcut_file = stillcut_file;
+	}
 	public MultipartFile getPoster_file() {
 		return poster_file;
 	}
 	public void setPoster_file(MultipartFile poster_file) {
 		this.poster_file = poster_file;
 	}
-	//스틸 컷 
-	private List<String> 	stillcut;
 	
 	
 

@@ -4,10 +4,10 @@
  
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>포스터 파일 업로드 폼</title>
+<title>파일 업로드 폼</title>
 </head>
  
-<h3>파일 업로드 폼</h3>
+<h3>스틸컷 파일 업로드 폼</h3>
 <center>
     <!-- 
         파일업로드를 위해선 반드시 method="post" enctype="Multipart/form-data"여야함!
@@ -19,7 +19,7 @@
      <br>
      <br>
      
-    <form action="fileUpload" method="post" enctype="multipart/form-data">
+    <form action="stillcutfileUpload" method="post" enctype="multipart/form-data">
        
        
        
@@ -35,23 +35,24 @@
         
         
         	<tr>
-				                <th>영화 포스터  :  </th>
+				                <th>영화 스틸컷  :  </th>
 					                <td>
-						                <input type="text" placeholder="포스터를 등록하세요 " name="movie_name" value="${movie.movie_name}"/></td><br>
+						                <input type="text" placeholder="스틸컷을 등록하세요 " name="movie_name" value="${movie.movie_name}"/></td><br>
 						                
 										         <!-- <input type="button" value="전송" onclick=""/> -->
 										                 <!-- 
 											            파일 업로드는 input type="file"로 지정한다.
 								        			         -->
 								       		
-											        파일명  : <input type="file" name="poster_file" /> 
-											         <input type="hidden" name="movie_id" value="${movie.movie_id}" /> </br>
+											        파일명  : <input type="file" name="stillcut_file" /> 
+											         <input type="file" name="stillcut_file" /> 
+											          <input type="file" name="stillcut_file" /> 
+											         <input type="hidden" name="movie_id" value="${movie.movie_id}" /> <br>
 											         		 <p>JPG파일만 가능 합니다.</p>
 											        <input type="submit" value="전송" />  
 											        <input type="reset" value="취소" />
-											    </form>
-					               </td>
-												
+											    
+					            			
 	  			          </tr>
   			          
   			        <!--   <tr>

@@ -8,6 +8,14 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>Piccolo Theme</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<style type="text/css">
+		#movieBorder {
+				border-bottom: thick solid red;
+			}
+	
+	
+	</style>
+
 </head>
 <body>
 	<div class="container main-container">
@@ -15,7 +23,7 @@
 		<div class="row">
 		
 		
-	
+		<div class="movieBorder" id="movieBorder">
 		 <div class="moive_poster col-md-4">
 		 		
 		 			 				
@@ -33,7 +41,7 @@
 						 		<p>장르 : <c:forEach varStatus="status" var="genre" items="${movie.movie_genre_name}">${genre}<c:if test="${!status.last}">,</c:if></c:forEach></p>
 						 		<p>기본 :  <img src="${pageContext.request.contextPath}/img/${movie.movie_grade}.png" style="width:20px; height:20px;">
 						 		, ${movie.movie_running_time} , ${movie.movie_production_country}</p>
-						 		<p>개봉 : ${movie.movie_release_date}</p>
+						 		<p>개봉일 : ${movie.movie_release_date}</p>
 						 		
                      <!--같은 탭으로 열기 --> 
                 <p align="middle">
@@ -44,7 +52,7 @@
 						 		
 					 		</div> 
 					 	</div>
-					 	
+					 </div>
 		<div class="movie_story col-md-12">
 					 <p style="padding: 2%;">${movie.movie_story}</p> 
 		</div>			
