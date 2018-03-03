@@ -21,11 +21,13 @@ public interface SnackMapper {
 	//스낵 상세정보
 	public Snack snackView(int snack_id);
 	
-	/*public int insertSnack(Snack snack);
+	//스낵정보 입력(관리자)
+	public int insertSnack(Snack snack);
 	
-	public int updateSnack(Snack snack) ;
+	//public int updateSnack(Snack snack) ;
 	
-	public int deleteSnack(Map<String, Object> params);*/
+	//스낵정보 삭제(관리자) 
+	public int deleteSnack(int snack_id);
 	
 	//장바구니
 	public void insertBasket(Snack snack) ;

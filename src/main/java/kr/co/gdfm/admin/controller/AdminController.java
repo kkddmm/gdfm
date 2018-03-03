@@ -1236,6 +1236,124 @@ public class AdminController {
 	
 	
 	
+	@RequestMapping("/snackForm")
+	public String snackForm(
+			) {		
+//		snack=snackService.snackView(snack_id);
+//		
+//		model.addAttribute("snack",snack);
+		
+		return "/admin/snackForm";
+	}
+	
+	
+	
+	@RequestMapping(value="/insertSnack", method=RequestMethod.POST)
+	public String insertSnack(Snack snack, HttpServletRequest request, Model model) {
+		
+		String viewPage = "common/message";
+
+		boolean isError = false;
+		String message = "정상 등록되었습니다.";
+		String locationURL = "/admin/snack";
+		
+		try {
+		int insertCnt= snackService.insertSnack(snack);		
+		
+		if(insertCnt==0) {
+			isError=true;
+			message="스낵 등록 실패";
+			}
+		}catch(Exception e) {
+			isError=true;
+			message="스낵 등록 실패";
+			throw e;
+		}
+		
+		model.addAttribute("isError", isError);
+		model.addAttribute("message", message);
+		model.addAttribute("locationURL", locationURL);
+		
+		return viewPage;
+	}
+	
+	
+	//스낵 정보 삭제(관리자)
+	@RequestMapping("/snackDel")
+	public String deleteSnack(@RequestParam(value="snack_id")int snack_id, Model model) {
+		
+		boolean isError = false;
+		String viewPage = "common/message";
+		String message = "정상적으로 삭제 되었습니다.";
+		
+		try {
+			int delCnt= snackService.deleteSnack(snack_id);
+			if(delCnt==0) {
+				isError=true;
+				message="스낵 삭제에 실패하였습니다.";
+				
+			}
+		}catch(Exception e) {
+			isError=true;
+			message="스낵 삭제에 실패하였습니다.";
+		}	
+		
+		model.addAttribute("isError",isError);
+		model.addAttribute("message",message);
+		model.addAttribute("locationURL","/admin/snack");
+		
+		
+		return viewPage;
+	}
+	
+	
+	@RequestMapping("/snackFileUploadForm")
+	public String fileUploadForm(Snack snack,Model model) {
+		
+		
+		return "admin/snackFileUploadForm";
+	}
+	
+	
+	
+	@RequestMapping("/snackFileUpload")
+	public String snackFileUpload(Snack snack) {
+		
+		System.out.println("snack_name : "+snack.getSnack_name());
+		//사용자가 보내 준 파일이 poster_file에 담김 
+		MultipartFile snackPoster_file = snack.getPoster_file();
+		System.out.println("Snack_File : "+snackPoster_file.getOriginalFilename());
+		
+		//Movie file에 저장 할 곳
+		File targetFile = new File("/uploadFiles/Snack/"+snack.getSnack_name()+".jpg");
+		try {
+			snackPoster_file.transferTo(targetFile);
+		} catch (IllegalStateException | IOException e) {
+			e.printStackTrace();
+		}
+		
+		
+		return "redirect:/admin/snack";
+	}
+	
+	
+	
+	//poster_image 를 받아올 주소
+	@RequestMapping("/snackPoster")
+	public void snackFile_addr(Snack snack, HttpServletResponse response) {
+		
+		String snackName = snack.getSnack_name();
+		File posterFile = new File("/uploadFiles/Snack/"+snackName+".jpg");
+		 
+		try {
+			ServletOutputStream out = response.getOutputStream();
+			//File.copy(from,to) =>File.copy(posterFile, out)=>posterFile  
+			Files.copy(posterFile, out);
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 	
 	
 	

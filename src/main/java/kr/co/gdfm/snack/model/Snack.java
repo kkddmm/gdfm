@@ -1,5 +1,7 @@
 package kr.co.gdfm.snack.model;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class Snack {
 
 	private int snack_id;
@@ -22,7 +24,7 @@ public class Snack {
 	private int pay_id;
 	private String snack_isbasket_yn;
 	
-	
+	private MultipartFile poster_file;
 	
 	public int getSnack_id() {
 		return snack_id;
@@ -132,6 +134,12 @@ public class Snack {
 	}
 	public void setSnack_isbasket_yn(String snack_isbasket_yn) {
 		this.snack_isbasket_yn = snack_isbasket_yn;
+	}
+	public MultipartFile getPoster_file() {
+		return poster_file;
+	}
+	public void setPoster_file(MultipartFile poster_file) {
+		this.poster_file = poster_file;
 	}
 	
 	

@@ -38,20 +38,8 @@ public class SnackServiceImpl implements SnackService {
 		return snackMapper.snackView(snack_id);
 	}
 
-	/*
-	 * @Override public int insertSnack(Snack snack) throws Exception {
-	 * 
-	 * return snackMapper.insertSnack(snack); }
-	 * 
-	 * @Override public int deleteSnack(Map<String, Object> params) throws Exception
-	 * {
-	 * 
-	 * return snackMapper.deleteSnack(params); }
-	 * 
-	 * @Override public int updateSnack(Snack snack) throws Exception {
-	 * 
-	 * return snackMapper.updateSnack(snack); }
-	 */
+	
+	 
 	//장바구니 담기
 	@Override
 	public void insertBasket(Snack snack) {
@@ -68,10 +56,6 @@ public class SnackServiceImpl implements SnackService {
 		snackMapper.basketClickBuy(snackBuy);
 	}
 
-	
-
-	
-	
 	
 	
 	
@@ -118,23 +102,42 @@ public class SnackServiceImpl implements SnackService {
 		return snackMapper.selectSnackBuyCount(paramMap);
 	}
 	
+	//스낵 구매한거 삭제
 	@Override
 	public int deleteSnackBuy(int snack_buy_id) {
 		
 		return snackMapper.deleteSnackBuy(snack_buy_id);
 	}
 
+	
 	@Override
 	public int updateSnackBuyPoint(Map<String, Object> paramMap) {
 
 		return snackMapper.updateSnackBuyPoint(paramMap);
 	}
 	
+	//스낵 사용확인(관리자가)
 	@Override
 	public int useSnack(int snack_buy_id) {
 		
 		return snackMapper.useSnack(snack_buy_id);
 	}
+	
+	//스낵정보 입력(관리자)
+	@Override
+	public int insertSnack(Snack snack) {
+		
+		return snackMapper.insertSnack(snack);
+	}
+
+	//스낵정보 삭제(관리자)
+	@Override
+	public int deleteSnack(int snack_id) {
+		
+		return snackMapper.deleteSnack(snack_id);
+	}
+
+	
 	
 	
 	
@@ -142,7 +145,6 @@ public class SnackServiceImpl implements SnackService {
 	
 	
 }
-
 
 
 

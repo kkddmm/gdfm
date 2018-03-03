@@ -17,14 +17,16 @@ public interface SnackService {
 	// 스낵 상세정보
 	public Snack snackView(int snack_id) ;
 
-	/*
-	 * //스낵 정보입력 public int insertSnack(Snack snack) throws Exception;
-	 * 
-	 * //스낵 정보 삭제 public int deleteSnack(Map<String, Object> params) throws
-	 * Exception;
-	 * 
-	 * //스낵 정보 수정 public int updateSnack(Snack snack) throws Exception;
-	 */
+	
+	 //스낵 정보입력 
+	public int insertSnack(Snack snack) ;
+	 
+	 //스낵 정보 삭제 
+	public int deleteSnack(int snack_id);
+	
+	 //스낵 정보 수정 
+	//public int updateSnack(Snack snack);
+	
 
 	// 스낵 장바구니에 추가
 	public void insertBasket(Snack snack) ;
@@ -65,11 +67,10 @@ public interface SnackService {
 	//스낵 사용(사용일, 사용여부 업데이트)
 	public int useSnack(int snack_buy_id);
 	
-	//스낵 구매내역 취소(
+	
 	
 	
 	
 	
 }
-
 
