@@ -9,15 +9,35 @@
 		location.href = "${pageContext.request.contextPath}/admin/snack?snack_type="
 				+ snack_type;
 	}
+	
+	function fn_snackUpload(S){
+		location.href="${pageContext.request.contextPath}/admin/snackFileUploadForm";
+	}
+// 	function fn_snackDel(snack_id){
+// 		location.href="${pageContext.request.contextPath}/admin/snackDel";
+// 	}
+	
 </script>
 <div class="slider">
 <h2>스낵정보</h2>
+
+
+				<p align="right">
+           				<input style="color: white;" type="button" class="btn btn-warning" value="스낵 정보입력" 
+           						onClick="location.href='${pageContext.request.contextPath}/admin/snackForm'"> 
+           						 
+           				<input style="color: white;" type="button" class="btn btn-warning" value="스낵 파일 업로드" 
+           						onClick="fn_snackUpload('S');"> 
+                </p>
+
 	<table class="table table-bordered table-striped table-hover">
 			<thead>
 				<tr class="warning">
 					<th class="col-xs-1 text-center">번호</th>
 					<th class="col-xs-3 text-center">제품명</th>
 					<th class="text-center">콤보구성</th>
+					<th class="col-xs-1 text-center">포스터</th>
+<!-- 					<th class="col-xs-1 text-center">삭제</th> -->
 				</tr>
 			</thead>
 			
@@ -34,6 +54,8 @@
 								</c:when>
 							</c:choose>
 							</td>
+							<td class="text-center"><a href="fileUploadForm?movie_id=${movie.movie_id}&movie_name=${movie.movie_name}">이미지</a></td>
+<%-- 							<td class="text-center"><input class="btn btn-warning" type="button" value="삭제" onclick="fn_snackDel(${snack.snack_id});"></td> --%>
 						</tr>
 					</c:forEach>			
 				</c:if>

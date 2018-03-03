@@ -6,6 +6,11 @@
 	function fn_list() {
 		location.href = "${pageContext.request.contextPath}/admin/snack";
 	}
+	
+	function fn_delSnack(snack_id){
+		location.href="${pageContext.request.contextPath}/admin/snackDel?snack_id="+snack_id;
+	}
+	
 </script>
 <div class="slider">
 <h2>스낵정보</h2>
@@ -49,6 +54,7 @@
 	</table>
   <p class="text-right">
   	<input type="button" value="목록" class="btn btn-default" onclick="fn_list();">
+  	<input type="button" value="삭제" class="btn btn-default" onclick="fn_delSnack(${snack.snack_id});">
   </p>
   	<!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -82,6 +88,5 @@
   </div>
   </div>
 </div>
-
 
 
