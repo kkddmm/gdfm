@@ -243,11 +243,11 @@ function fn_list() {
 	<div>
 		<!-- name bean 프로퍼티와 같게 -->
 		<c:if test="${param.type == 'I'}">
-			<h2>회원가입</h2>
+			<h2 style="font-size:40px;">회원가입</h2>
 		</c:if>
 		
 		<c:if test="${param.type != 'I'}">
-			<h2>회원수정</h2>
+			<h2 style="font-size:40px;">회원수정</h2>
 		</c:if>
 		
 		<form name="memberForm" method="post">
@@ -289,7 +289,7 @@ function fn_list() {
 				</td>
 			</tr> --%>
 		</table>
-		<h2>상세정보</h2>
+		<h2 style="font-size:40px;">상세정보</h2>
 		<table class="table table-bordered table-striped">
 			<tr>
 				<th class="info col-xs-2" style="padding-left:20px;font-size:18px;">회원생년월일</th>
@@ -399,17 +399,17 @@ function fn_list() {
 				<table width="100%">
 					<tr>
 						<td align="center">
-							<img alt="실버" src="${pageContext.request.contextPath}/img/silver4.png">
+							<img alt="실버" src="${pageContext.request.contextPath}/img/silver4.png" width="35%" hight="35%">
 							<p style="text-align: center;font-size:18px;"><b>일반회원</b></p>
 							<p style="text-align: center;font-size:14px;color:#666666;"><b>포인트 1%적립</b></p>
 						</td>
 						<td align="center">
-							<img alt="골드" src="${pageContext.request.contextPath}/img/gold4.png">
+							<img alt="골드" src="${pageContext.request.contextPath}/img/gold4.png" width="35%" hight="35%">
 							<p style="text-align: center;font-size:18px;"><b>15만원이상</b></p>
 							<p style="text-align: center;font-size:14px;color:#666666;"><b>포인트 10%적립</b></p>
 						</td>
 						<td align="center">
-							<img alt="다이아" src="${pageContext.request.contextPath}/img/dia4.png">
+							<img alt="다이아" src="${pageContext.request.contextPath}/img/dia4.png" width="35%" hight="35%">
 							<p style="text-align: center;font-size:18px;"><b>30만원이상</b>
 							<p style="text-align: center;font-size:14px;color:#666666;"><b>포인트 20%적립</b></p>	
 						</td>

@@ -46,7 +46,7 @@ dt, dd{
 	<div class="col-md-2">
 						
 	</div>
-	<div class="col-md-8">	
+	<div class="col-md-12" style="background-color:#eeeeee">	
 	<hgroup>
 	<h2 style="font-size:40px;">회원가입</h2><br>
 		<!-- <div class="divRight">
@@ -67,7 +67,7 @@ dt, dd{
 	</article>
 	<h5>[이용약관] 약관을 읽으신 후 동의 여부를 체크해 주세요.</h5>
 	<div>
-		<div class="divBorder" style="overflow:scroll; width:100%; height:400px; padding-left: 10px; padding-right: 10px;">  
+		<div class="divBorder" style="overflow:scroll; width:100%; height:400px; padding-left: 10px; padding-right: 10px;background-color:#ffffff">  
 					제 1장 총칙
 		<h5>제 1조 (목적)</h5>
 		<p>이 약관은 영화보기 좋은 날에서 제공하는 대표홈페이지 및 주요사업 홈페이지에서 (이하 "당 홈페이지"라 함) 제공하는 모든 서비스(이하 "서비스")의 이용조건 및 절차, 이용자와 당 홈페이지의 권리, 의무, 책임사항과 기타 필요한 사항을 규정함을 목적으로 합니다.</p>
@@ -206,20 +206,40 @@ dt, dd{
 		<p>
 	
 	<form name="memberAgree" method="post" action="memberForm?type=I">
+	<div align="right">	
 		<input type="checkbox" name='acc1'>
 			<label>회원약관에 동의합니다.</label>
 		</input>
-	<div align="center">
+	</div>
+	<div align="right">
 		<input class="btn btn-success" type="button" value="확인" onclick="agree_check()">
 		<input class="btn" type="button" value="취소">
 	</div>
 	</form>
 	<br>
-	<br>
-	
-	</div>
-	<div class="col-md-2">	
-	</div>
+	<br>	
 
+	</div>
+	
+				<table width="100%" class="table table-bordered">
+					<tr>
+						<td align="center">
+							<img alt="실버" src="${pageContext.request.contextPath}/img/silver4.png" width="35%" hight="35%">
+							<p style="text-align: center;font-size:18px;"><b>일반회원</b></p>
+							<p style="text-align: center;font-size:14px;color:#666666;"><b>포인트 1%적립</b></p>
+						</td>
+						<td align="center">
+							<img alt="골드" src="${pageContext.request.contextPath}/img/gold4.png" width="35%" hight="35%">
+							<p style="text-align: center;font-size:18px;"><b>15만원이상</b></p>
+							<p style="text-align: center;font-size:14px;color:#666666;"><b>포인트 10%적립</b></p>
+						</td>
+						<td align="center">
+							<img alt="다이아" src="${pageContext.request.contextPath}/img/dia4.png" width="35%" hight="35%">
+							<p style="text-align: center;font-size:18px;"><b>30만원이상</b>
+							<p style="text-align: center;font-size:14px;color:#666666;"><b>포인트 20%적립</b></p>	
+						</td>
+					</tr>
+				</table>
+			
 
 </section>
