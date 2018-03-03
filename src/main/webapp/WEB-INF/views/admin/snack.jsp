@@ -54,7 +54,7 @@
 								</c:when>
 							</c:choose>
 							</td>
-							<td class="text-center"><a href="fileUploadForm?movie_id=${movie.movie_id}&movie_name=${movie.movie_name}">이미지</a></td>
+							<td class="text-center"><a href="snackFileUploadForm?snack_id=${snack.snack_id}&snack_name=${snack.snack_name}">이미지</a></td>
 <%-- 							<td class="text-center"><input class="btn btn-warning" type="button" value="삭제" onclick="fn_snackDel(${snack.snack_id});"></td> --%>
 						</tr>
 					</c:forEach>			

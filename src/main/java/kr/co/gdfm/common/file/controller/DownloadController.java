@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -96,7 +97,20 @@ public class DownloadController {
 	}
 	
 	
-	
+	@RequestMapping("/uploadImg/{path}/{imagename:.+}")
+	public void loadImage(@PathVariable("path")String path ,@PathVariable( "imagename" )String imagename, HttpServletResponse resp) {
+		
+		
+		File file = new File("/uploadFiles/"+path+"/" +imagename);
+		try {
+		FileUtils.copyFile(file, resp.getOutputStream());
+			resp.getOutputStream().close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		
+	}
 
 	
 	

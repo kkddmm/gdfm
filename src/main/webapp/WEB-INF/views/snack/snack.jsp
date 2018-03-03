@@ -14,7 +14,8 @@ var currentCnt= 1;
 	}
 	
 	
-	function fn_more(startRow,endRow){		
+	function fn_more(startRow,endRow){
+		console.log('fn_more');
 		currentCnt=currentCnt+1;
 // 		alert(startRow);
 // 		alert(endRow);
@@ -23,7 +24,8 @@ var currentCnt= 1;
 			type: 'post',
 			url : '${pageContext.request.contextPath}/snack/snackjson',
 			data : "currentPage="+currentCnt,		
-			success : function(data, status){			
+			success : function(data, status){	
+				console.log('data=',data);
 // 				alert(data);				
 // 				alert(data.snackPaging.totalPage);
 				for(var i in data){
@@ -129,7 +131,7 @@ ul, li {
 					<li class="image" align="center">								
 		                        
 					<a href="${pageContext.request.contextPath}/snack/snack_detail/${snack.snack_id}">
-						<img src="${pageContext.request.contextPath}/img/snack/${snack.snack_name}.jpg" alt="Gallery">
+						<img src="${pageContext.request.contextPath}/uploadImg/snack/${snack.snack_name}.jpg" alt="Gallery">
 					</a> <br> 
 					 	<span>${snack.snack_name}</span><br> 
 					 <c:choose>

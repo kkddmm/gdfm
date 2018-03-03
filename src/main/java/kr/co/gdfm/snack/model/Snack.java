@@ -24,8 +24,14 @@ public class Snack {
 	private int pay_id;
 	private String snack_isbasket_yn;
 	
-	private MultipartFile poster_file;
+	private MultipartFile snackPoster_file;
 	
+	public MultipartFile getSnackPoster_file() {
+		return snackPoster_file;
+	}
+	public void setSnackPoster_file(MultipartFile snackPoster_file) {
+		this.snackPoster_file = snackPoster_file;
+	}
 	public int getSnack_id() {
 		return snack_id;
 	}
@@ -136,10 +142,10 @@ public class Snack {
 		this.snack_isbasket_yn = snack_isbasket_yn;
 	}
 	public MultipartFile getPoster_file() {
-		return poster_file;
+		return snackPoster_file;
 	}
-	public void setPoster_file(MultipartFile poster_file) {
-		this.poster_file = poster_file;
+	public void setPoster_file(MultipartFile snackPoster_file) {
+		this.snackPoster_file = snackPoster_file;
 	}
 	
 	

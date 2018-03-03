@@ -13,12 +13,9 @@
 	
 	<!-- 스낵 리스트 -->
 	<select id="selectSnackList" parameterType="map" resultType="kr.co.gdfm.snack.model.Snack">
+	<include refid="CommonMapper.pageHeader" />
 	
-	select a.*,
-	rownum as rnum
-	from
-	(
-		SELECT
+	SELECT
 		    snack_id,
 		    snack_type,
 		    snack_combo_yn,
@@ -36,9 +33,9 @@
 		FROM snack
 		<if test="snack_type!=null">
 		where snack_type=#{snack_type}		
-		</if> 		
-		) a
-		where rownum between #{startRow} and #{endRow}
+		</if> 
+		order by 	snack_id desc	
+		<include refid="CommonMapper.pageFooter" />	
 	</select>
 	
 	

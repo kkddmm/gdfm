@@ -27,11 +27,13 @@
 				    						<th>스낵 콤보여부 : </th>
 				    						 <td>
 				    						   		 <label>
-													    <input type="radio" value="" name="snack_combo_yn">													   				Y
+													    <input type="radio" value="" name="snack_combo_yn">													   				
+													    Y
 													  </label>
 													  
 													  <label>
-													    <input type="radio" value="" name="snack_combo_yn">													   				N
+													    <input type="radio" value="" name="snack_combo_yn">													   				
+													    N
 													  </label>
 											</td>
 				    			</tr>

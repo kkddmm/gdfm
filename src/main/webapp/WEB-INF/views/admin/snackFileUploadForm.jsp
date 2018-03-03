@@ -19,8 +19,8 @@
      <br>
      <br>
      <br>
-     
-    <form action="fileUpload" method="post" enctype="multipart/form-data">
+          
+    <form action="snackFileUpload" method="post" enctype="multipart/form-data">
        
        
        
@@ -41,7 +41,7 @@
 				                <th>스낵 포스터  :  </th>
         						
 					                <td>
-						                <input type="text" placeholder="포스터를 등록하세요 " name="snack_name" value=""/><br>
+						                <input type="text" placeholder="포스터를 등록하세요 " name="snack_name" value="${snack.snack_name}"/><br>
 						                
 										         <!-- <input type="button" value="전송" onclick=""/> -->
 										                 <!-- 
@@ -49,8 +49,8 @@
 								        			         -->
 								       
 											        파일명  : <input type="file" name="snackPoster_file" /> </br>
-											         <input type="hidden" name="snack_id" value="" /> </br>
-											         <input type="hidden" name="snack_name" value="" /> </br>
+											         <input type="hidden" name="snack_id" value="${snack.snack_id}" /> </br>
+<%-- 											         <input type="hidden" name="snack_name" value="${snack.snack_name}" /> </br> --%>
 											        <input type="submit" value="전송" />  
 											        <input type="reset" value="취소" />
 											    </form>
