@@ -67,8 +67,7 @@ PaymentService paymentService;
 			model.addAttribute("memberInfo",memberInfo);
 			model.addAttribute("snackList",snackList);
 			model.addAttribute("pageType", "B");	
-			model.addAttribute("first_amount",paramMap.get("first_amount"));	
-			model.addAttribute("reservation_id",paramMap.get("reservation_id"));
+			model.addAttribute("first_amount",paramMap.get("first_amount"));				
 		}
 		
 		
@@ -108,8 +107,15 @@ PaymentService paymentService;
 			resultMap.put("first_amount", paramMap.get("first_amount"));
 				
 			
+			try {
+				memberInfo = memberService.getMember(mem_id);
+			} catch (Exception e) {				
+				e.printStackTrace();
+			}
 			
 			
+			model.addAttribute("reservation_id",paramMap.get("reservation_id"));
+			model.addAttribute("memberInfo",memberInfo);
 			model.addAttribute("resultMap",resultMap);
 			model.addAttribute("pageType", "M");
 		}

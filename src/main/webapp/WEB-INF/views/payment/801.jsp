@@ -19,7 +19,10 @@ function fn_goPayment(){
 	 if(${!empty resultMap.SNACK_BUY_ID}){			
 		snack_buy_id_val='${resultMap.SNACK_BUY_ID}';
 	}
-
+	
+	 if(${!empty reservation_id}){
+		 reservation_id_val=${reservation_id};
+	 }
 	 
 	IMP.init('imp35163888')
 		IMP.request_pay({

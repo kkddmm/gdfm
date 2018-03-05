@@ -84,8 +84,11 @@ ul, li {
 	line-height:114px;
 	width:1140px;
 	height:114px;
-	font-size: 70px;	
+	font-size: 40px;	
 	text-align: left;	
+}
+.name{
+	font-size: 25px;
 }
 
 </style>
@@ -94,7 +97,7 @@ ul, li {
 		
  
 			<div  class="center">
-				스낵 장바구니
+				장바구니
 			</div>
 			<hr>
 
@@ -118,14 +121,14 @@ ul, li {
 				<div class="col-md-12 cart">
 					<!-- Gallery Item 1 -->
 						<div class="row" style="height: 200px; border: 1px solid #bdbdbd; border-color: 3f3f3f;margin: 5px; border-radius: 10px;">														
-							<div class="col-md-4"><img style="width: 50%;height:50%;"src="${pageContext.request.contextPath}/img/snack/${basket.snack_name}.jpg" alt="Gallery"></div>	
+							<div align="center" style="padding-top: 20px;" class="col-md-3"><img style="border: 1px solid #eeeeee;border-radius: 20px; width: 160px;height:50%;"src="${pageContext.request.contextPath}/img/snack/${basket.snack_name}.jpg" alt="Gallery"></div>	
 																	
-							<div class="col-md-6">
-								<span>제품명: ${basket.snack_name}<br><hr>가격: ${basket.snack_price}원<br><hr>수량: ${basket.snack_cnt}개</span>				
+							<div class="col-md-6" style=" margin-top:9px;">
+								<span class="name">제품명:</span><span>${basket.snack_name}</span><br><hr><span class="name">가격:</span> <span> ${basket.snack_price}원</span><br><hr><span class="name">수량:</span> <span>${basket.snack_cnt}개</span>				
 							</div>
 							
-							<div class="col-md-2">
-								<span align="right"><input type="button" id="BtnDelete" onclick="fn_delSnackBasket(this,${basket.snack_buy_id},'${LOGIN_USER.mem_id}');" value="삭제"></span>
+							<div style="height:160px;" class="col-md-3">
+								<div style="padding-top: 40px;" align="center"><input class="btn btn-warning" style="height:100px;width:100px;" type="button" id="BtnDelete" onclick="fn_delSnackBasket(this,${basket.snack_buy_id},'${LOGIN_USER.mem_id}');" value="삭제"></div>
 								<input type="hidden" class="subPrice" type="text" value="${basket.snack_cnt*basket.snack_price}">
 							</div>
 						</div>
