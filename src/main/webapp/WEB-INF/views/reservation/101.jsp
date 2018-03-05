@@ -56,7 +56,7 @@ $('#loading').show();
 		$('#selectedMovie').val(movie_id);
 		$('#selectedMovieGrade').val(movie_grade);
 		$("#imgView").children().remove();
-		$('<img>').attr("src","${pageContext.request.contextPath}/loadImg/?movie_id="+movie_id).appendTo('#imgView');
+		$('<img>').attr("src","${pageContext.request.contextPath}/uploadMovieImg/movie/"+movie_id).appendTo('#imgView');
 		$('#selectMovieName').html(movie_ko_name);
 
 		$.ajax({
