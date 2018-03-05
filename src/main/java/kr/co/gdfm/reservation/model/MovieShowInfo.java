@@ -3,11 +3,14 @@ package kr.co.gdfm.reservation.model;
 public class MovieShowInfo {
 
 	private int show_id;
+	private int movie_id;
 	private int ci_id;
 	private int screen_id;
 	private String screen_name;
 	private String start_time;
 	private String end_time;
+	private String show_date;
+	private int dimension_code;
 	private String dimension_name;
 	private int sit;//남은좌석
 	
@@ -59,6 +62,24 @@ public class MovieShowInfo {
 	}
 	public void setSit(int sit) {
 		this.sit = sit;
+	}
+	public int getDimension_code() {
+		return dimension_code;
+	}
+	public void setDimension_code(int dimension_code) {
+		this.dimension_code = dimension_code;
+	}
+	public int getMovie_id() {
+		return movie_id;
+	}
+	public void setMovie_id(int movie_id) {
+		this.movie_id = movie_id;
+	}
+	public String getShow_date() {
+		return show_date;
+	}
+	public void setShow_date(String show_date) {
+		this.show_date = show_date;
 	}
 	
 	

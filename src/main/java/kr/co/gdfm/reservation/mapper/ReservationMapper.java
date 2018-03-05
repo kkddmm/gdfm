@@ -2,10 +2,13 @@ package kr.co.gdfm.reservation.mapper;
 
 import java.util.List;
 
+
+
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import kr.co.gdfm.movie.model.Movie;
 import kr.co.gdfm.reservation.model.MovieShowInfo;
 import kr.co.gdfm.reservation.model.Reservation;
 
@@ -43,5 +46,15 @@ public interface ReservationMapper {
 	public int updateReservePoint(Map<String, Object> paramMap);
 
 	public String chkBeforePay(int reservation_id);
+
+	public List<Movie> getMovieList();
+
+	public List<Map<String, Object>> getCinemaList();
+
+	public List<Map<String, Object>> getScreenList(int ci_id);
+
+	public List<Map<String, Object>> getDimension(int movie_id);
+
+	public int insertShowInfo(MovieShowInfo movieShowInfo);
 
 }

@@ -183,6 +183,94 @@ public class ReservationController {
 	
 	
 	
+	//여기서부터 운영컨트롤러로 옮길 예정 
+	
+	@RequestMapping("/showInfoForm")
+	public String showInfoForm(){
+		
+		return "admin/showInfoForm";
+	}
+	
+	
+	
+	
+	
+	@RequestMapping("/getMovie")
+	@ResponseBody
+	public Map<String, Object> getMovie(){
+		Map<String, Object> successMap = new HashMap<>();
+	List<Movie> MovieList = new ArrayList<>();
+	MovieList = reservationService.getMovieList();
+	successMap.put("MovieList", MovieList);
+	
+	
+	return successMap;
+		
+	}
+	@RequestMapping("/getCinema")
+	@ResponseBody
+	public Map<String, Object> getCinema(){
+		Map<String, Object> successMap = new HashMap<>();
+		List<Map<String, Object>> CinemaList = new ArrayList<>();
+		CinemaList = reservationService.getCinemaList();
+		successMap.put("CinemaList", CinemaList);
+		
+		
+		return successMap;
+		
+	}
+	@RequestMapping("/getScreen")
+	@ResponseBody
+	public Map<String, Object> getScreen(int ci_id){
+		Map<String, Object> successMap = new HashMap<>();
+		List<Map<String, Object>> ScreenList = new ArrayList<>();
+		ScreenList = reservationService.getScreenList(ci_id);
+		successMap.put("ScreenList", ScreenList);
+		
+		
+		return successMap;
+		
+	}
+	
+	
+	@RequestMapping("/getDimension")
+	@ResponseBody 
+	public Map<String, Object> getDimension(int movie_id){  
+		Map<String, Object> successMap = new HashMap<>(); 
+		List<Map<String, Object>> DimensionList = new ArrayList<>();
+		DimensionList = reservationService.getDimension(movie_id);
+		successMap.put("DimensionList", DimensionList);
+		return successMap;
+		
+	}
+
+	@RequestMapping("/insertShowInfo")
+	@ResponseBody
+	public Map<String, Object> insertShowInfo(MovieShowInfo movieShowInfo){  
+		Map<String, Object> successMap = new HashMap<>(); 
+		int i = 0;
+		try {
+			 i = reservationService.insertShowInfo(movieShowInfo);
+		}catch(RuntimeException e) {
+			 i = 0;
+		}
+		
+		
+		successMap.put("i", i);
+		
+		
+		
+		return successMap;
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 	
 
 }

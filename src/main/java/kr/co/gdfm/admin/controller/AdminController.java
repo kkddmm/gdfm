@@ -43,7 +43,6 @@ import kr.co.gdfm.common.util.PagingUtil;
 import kr.co.gdfm.member.model.Member;
 import kr.co.gdfm.member.model.Memberclass;
 import kr.co.gdfm.member.service.MemberService;
-import kr.co.gdfm.movie.mapper.MovieMapper;
 import kr.co.gdfm.movie.model.Movie;
 import kr.co.gdfm.movie.service.MovieService;
 import kr.co.gdfm.reservation.model.Reservation;

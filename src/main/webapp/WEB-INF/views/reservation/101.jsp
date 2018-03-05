@@ -268,6 +268,192 @@ $('<img>').attr('src',"${pageContext.request.contextPath}/img/goSitBtn.png").on(
 <style>
 
 
+.btn-outline-primary {
+  color: #0275d8;
+  background-image: none;
+  background-color: transparent;
+  border-color: #0275d8;
+}
+
+.btn-outline-primary:hover {
+  color: #fff;
+  background-color: #0275d8;
+  border-color: #0275d8;
+}
+
+.btn-outline-primary:focus, .btn-outline-primary.focus {
+  -webkit-box-shadow: 0 0 0 2px rgba(2, 117, 216, 0.5);
+          box-shadow: 0 0 0 2px rgba(2, 117, 216, 0.5);
+}
+
+.btn-outline-primary.disabled, .btn-outline-primary:disabled {
+  color: #0275d8;
+  background-color: transparent;
+}
+
+.btn-outline-primary:active, .btn-outline-primary.active,
+.show > .btn-outline-primary.dropdown-toggle {
+  color: #fff;
+  background-color: #0275d8;
+  border-color: #0275d8;
+}
+
+.btn-outline-secondary {
+  color: #ccc;
+  background-image: none;
+  background-color: transparent;
+  border-color: #ccc;
+}
+
+.btn-outline-secondary:hover {
+  color: #fff;
+  background-color: #ccc;
+  border-color: #ccc;
+}
+
+.btn-outline-secondary:focus, .btn-outline-secondary.focus {
+  -webkit-box-shadow: 0 0 0 2px rgba(204, 204, 204, 0.5);
+          box-shadow: 0 0 0 2px rgba(204, 204, 204, 0.5);
+}
+
+.btn-outline-secondary.disabled, .btn-outline-secondary:disabled {
+  color: #ccc;
+  background-color: transparent;
+}
+
+.btn-outline-secondary:active, .btn-outline-secondary.active,
+.show > .btn-outline-secondary.dropdown-toggle {
+  color: #fff;
+  background-color: #ccc;
+  border-color: #ccc;
+}
+
+.btn-outline-info {
+  color: #5bc0de;
+  background-image: none;
+  background-color: transparent;
+  border-color: #5bc0de;
+}
+
+.btn-outline-info:hover {
+  color: #fff;
+  background-color: #5bc0de;
+  border-color: #5bc0de;
+}
+
+.btn-outline-info:focus, .btn-outline-info.focus {
+  -webkit-box-shadow: 0 0 0 2px rgba(91, 192, 222, 0.5);
+          box-shadow: 0 0 0 2px rgba(91, 192, 222, 0.5);
+}
+
+.btn-outline-info.disabled, .btn-outline-info:disabled {
+  color: #5bc0de;
+  background-color: transparent;
+}
+
+.btn-outline-info:active, .btn-outline-info.active,
+.show > .btn-outline-info.dropdown-toggle {
+  color: #fff;
+  background-color: #5bc0de;
+  border-color: #5bc0de;
+}
+
+.btn-outline-success {
+  color: #5cb85c;
+  background-image: none;
+  background-color: transparent;
+  border-color: #5cb85c;
+}
+
+.btn-outline-success:hover {
+  color: #fff;
+  background-color: #5cb85c;
+  border-color: #5cb85c;
+}
+
+.btn-outline-success:focus, .btn-outline-success.focus {
+  -webkit-box-shadow: 0 0 0 2px rgba(92, 184, 92, 0.5);
+          box-shadow: 0 0 0 2px rgba(92, 184, 92, 0.5);
+}
+
+.btn-outline-success.disabled, .btn-outline-success:disabled {
+  color: #5cb85c;
+  background-color: transparent;
+}
+
+.btn-outline-success:active, .btn-outline-success.active,
+.show > .btn-outline-success.dropdown-toggle {
+  color: #fff;
+  background-color: #5cb85c;
+  border-color: #5cb85c;
+}
+
+.btn-outline-warning {
+  color: #f0ad4e;
+  background-image: none;
+  background-color: transparent;
+  border-color: #f0ad4e;
+}
+
+.btn-outline-warning:hover {
+  color: #fff;
+  background-color: #f0ad4e;
+  border-color: #f0ad4e;
+}
+
+.btn-outline-warning:focus, .btn-outline-warning.focus {
+  -webkit-box-shadow: 0 0 0 2px rgba(240, 173, 78, 0.5);
+          box-shadow: 0 0 0 2px rgba(240, 173, 78, 0.5);
+}
+
+.btn-outline-warning.disabled, .btn-outline-warning:disabled {
+  color: #f0ad4e;
+  background-color: transparent;
+}
+
+.btn-outline-warning:active, .btn-outline-warning.active,
+.show > .btn-outline-warning.dropdown-toggle {
+  color: #fff;
+  background-color: #f0ad4e;
+  border-color: #f0ad4e;
+}
+
+.btn-outline-danger {
+  color: #d9534f;
+  background-image: none;
+  background-color: transparent;
+  border-color: #d9534f;
+}
+
+.btn-outline-danger:hover {
+  color: #fff;
+  background-color: #d9534f;
+  border-color: #d9534f;
+}
+
+.btn-outline-danger:focus, .btn-outline-danger.focus {
+  -webkit-box-shadow: 0 0 0 2px rgba(217, 83, 79, 0.5);
+          box-shadow: 0 0 0 2px rgba(217, 83, 79, 0.5);
+}
+
+.btn-outline-danger.disabled, .btn-outline-danger:disabled {
+  color: #d9534f;
+  background-color: transparent;
+}
+
+.btn-outline-danger:active, .btn-outline-danger.active,
+.show > .btn-outline-danger.dropdown-toggle {
+  color: #fff;
+  background-color: #d9534f;
+  border-color: #d9534f;
+}
+
+
+
+
+
+
+
 #loading {
  width: 100%;  
  height: 100%;  
@@ -316,12 +502,17 @@ margin-left : 10px;
 
 }
 
-li:hover{
+#movieView li:hover{
 background-color : cornflowerblue;
 cursor : pointer;
 }
-
-.btn:hover{
+#addr1View li:hover{
+background-color : cornflowerblue;
+}
+#addr2View li:hover{
+background-color : cornflowerblue;
+}
+#dateView .btn:hover{
 background-color : cornflowerblue;
 }
 
@@ -330,19 +521,17 @@ background-color : cornflowerblue;
 </style>
 
 <div id="loading"><img id="loading-image" src="${pageContext.request.contextPath}/img/loading.gif" alt="Loading..." /></div>
-
- 
 <div class="slider">
 	<div class="container">
 	<a type="button" href="101" class="btn btn-default"><span class="glyphicon glyphicon-repeat"></span>다시예매하기</a>
 <!-- style="background-color : antiquewhite;" -->
 
 		<div   align="center" class="col-md-12 main row" >   
-			<div style="border-right : 1px solid black;" align="center" class="col-md-2 list-group">
+			<div style="min-height : 640px; border-right : 1px solid black;" align="center" class="col-md-2 list-group">
 				<h4 class="sessionTitle">영화</h4>
 				<hr />
 				<div align="left">
-				<ul style="height:650px; overflow:auto;" id="movieView">
+				<ul style="height:500px; overflow:auto;" id="movieView">
 					<c:if test="${not empty movieList}">
 						<c:forEach items="${movieList}" var="movie">
 							<li id="${movie.movie_id}" class="list-group-item" onclick="fn_changeCinemaByMovie(${movie.movie_id},'${movie.movie_name}','${movie.movie_ko_name}','${movie.movie_grade}');"><img
@@ -355,10 +544,10 @@ background-color : cornflowerblue;
 
 			</div>
 			
-			<div style="border-right : 1px solid black;" class="col-md-3 row list-group">
+			<div style="min-height : 640px; border-right : 1px solid black;" class="col-md-3 row list-group">
 				<h4>영화관</h4>
 				<hr />
-				<ul  style="height:650px; " class="col-md-6" id="addr1View">
+				<ul  style="height:500px; " class="col-md-6" id="addr1View">
 				
 				 
 					<c:if test="${not empty addr1List}">
@@ -370,11 +559,11 @@ background-color : cornflowerblue;
 				<ul class="col-md-5" id="addr2View">
 				</ul> 
 			</div>
-			<div style="padding :0px;"  class="col-md-1">
+			<div style="min-height : 640px; padding :0px;"  class="col-md-1">
 				<h4>날짜</h4>
 				<hr />
 				<div>
-				<ul class="col-md-12" id="dateView">
+				<ul style="overflow : auto;" class="col-md-12" id="dateView">
 				<c:forEach items="${dateList}" varStatus="status" var="date">
 				<c:if test="${date.MONTH!=dateList[status.index-1].MONTH}">
 				<h2>${date.MONTH}월</h5>
@@ -384,13 +573,14 @@ background-color : cornflowerblue;
 				</ul>
 				</div>
 			</div>
-			<div  style="padding :0px; border-left : 1px solid black;"  class="col-md-6"> 
+			<div  style="min-height : 640px; padding :0px; border-left : 1px solid black;"  class="col-md-6"> 
 				<h4>상영정보</h4><hr/>
 				<div align="left" class="row">
 				<div class="col-md-1">
+				
 			
 				</div>
-			<ul style=" height:650px; overflow:auto;" class="col-md-11" id="infoView"> 
+			<ul style="  height:500px; overflow:auto;" class="col-md-11" id="infoView"> 
 			<p>예매할 사항을 선택해주세요</p>
 			</ul>
 			

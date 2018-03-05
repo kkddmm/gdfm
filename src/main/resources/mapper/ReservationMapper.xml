@@ -248,6 +248,57 @@ where exists (
  where reservation_id = #{reservation_id}
 	</select>
 	
+	<select id="getMovieList" resultType="kr.co.gdfm.movie.model.Movie">
+	select movie_id, movie_ko_name
+	from movie
+	where movie_show_yn = 'Y'
+	</select>
+	
+	
+	
+	
+	<select id="getCinemaList" resultType="map">
+	select ci_id, ci_name
+from cinema
+	</select>
+	
+	<select id="getScreenList" parameterType="int" resultType="map">
+	select screen_id, screen_name
+from screen
+where ci_id = #{ci_id}
+	</select>
+	
+	
+	
+	<select id="getDimension" parameterType="int" resultType="map">
+	 select a.dimension_code,b.dimension_name
+    from movie_dimension a, movie_dimension_code b
+    where movie_id = #{movie_id}
+    and a.dimension_code= b.dimension_code
+	</select>
+	
+	<insert id ="insertShowInfo" parameterType="kr.co.gdfm.reservation.model.MovieShowInfo">
+	INSERT INTO movie_show_info (
+    show_id,
+    movie_id,
+    screen_id,
+    start_time,
+    end_time,
+    show_date,
+    sale_code,
+    dimension_code
+) VALUES (
+    movie_show_info_seq.nextval,
+    #{movie_id},
+    #{screen_id},
+    #{start_time},
+    #{end_time},
+    to_date(#{show_date},'yyyy/mm/dd'),
+       0,
+    #{dimension_code}
+)
+	</insert>
+	
 	
 	
 	

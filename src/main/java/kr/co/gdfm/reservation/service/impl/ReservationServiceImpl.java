@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import kr.co.gdfm.movie.model.Movie;
 import kr.co.gdfm.reservation.mapper.ReservationMapper;
 import kr.co.gdfm.reservation.model.MovieShowInfo;
 import kr.co.gdfm.reservation.model.Reservation;
@@ -89,10 +90,33 @@ public class ReservationServiceImpl implements ReservationService{
 		String timeChk = reservationMapper.chkBeforePay(reservation_id);
 		
 		
-		
-		
 		return timeChk;
 		
+	}
+	@Override
+	public List<Movie> getMovieList() {
+		// TODO Auto-generated method stub
+		return reservationMapper.getMovieList();
+	}
+	@Override
+	public List<Map<String, Object>> getCinemaList() {
+		// TODO Auto-generated method stub
+		return reservationMapper.getCinemaList();
+	}
+	@Override
+	public List<Map<String, Object>> getScreenList(int ci_id) {
+		// TODO Auto-generated method stub
+		return reservationMapper.getScreenList(ci_id);
+	}
+	@Override
+	public List<Map<String, Object>> getDimension(int movie_id) {
+		// TODO Auto-generated method stub
+		return reservationMapper.getDimension(movie_id);
+	}
+	@Override
+	public int insertShowInfo(MovieShowInfo movieShowInfo) {
+		// TODO Auto-generated method stub
+		return reservationMapper.insertShowInfo(movieShowInfo);
 	}
 
 	
