@@ -40,11 +40,69 @@
 			}
 		});
 	});
+	 
+	
+	  function statusChangeCallback(response) {
+	    console.log('statusChangeCallback');
+	    console.log(response);
+	   
+	    if (response.status === 'connected') {
+	    
+	      testAPI();
+	      
+	    }
+	  }
+
+	  
+	  function checkLoginState() {
+	    FB.getLoginStatus(function(response) {
+	      statusChangeCallback(response);
+	    });
+	  }
+
+	  window.fbAsyncInit = function() {
+	    FB.init({
+	      appId      : '2083834071827983',
+	      cookie     : true,  // enable cookies to allow the server to access 
+	                          // the session
+	      xfbml      : true,  // parse social plugins on this page
+	      version    : 'v2.8' // use graph api version 2.8
+	    });
+
+	   
+
+	    FB.getLoginStatus(function(response) {
+	      statusChangeCallback(response);
+	    });
+
+	  };
+
+	 
+	  (function(d, s, id) {
+	    var js, fjs = d.getElementsByTagName(s)[0];
+	    if (d.getElementById(id)) return;
+	    js = d.createElement(s); js.id = id;
+	    js.src = "https://connect.facebook.net/en_US/sdk.js";
+	    fjs.parentNode.insertBefore(js, fjs);
+	  }(document, 'script', 'facebook-jssdk'));
+
+	 
+	  function testAPI() {
+	    console.log('Welcome!  Fetching your information.... ');
+	    FB.api('/me', function(response) {
+	      console.log('Successful login for: ' + response.name);
+	      document.getElementById('status').innerHTML =
+	        "<form name='fbook'><input type='text' name='name' value='Y'><input type='text' name='name' value='"+ response.name + "'></form>";
+	    });
+	  }
 </script>
 <div class="slider">
 	<div style="margin-left: 150px; margin-right: 150px;">
 		<div class="panel-default" style="width: 35%; margin: auto;border: 1px solid #BDBDBD;border-radius: 20px;float: left;">
-			
+			<fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
+			</fb:login-button>
+			<div id="status">
+			</div>
 			<div class="panel-body">
 				<span><img src="${pageContext.request.contextPath}/img/movielogo.png"/></span>
 			</div>
