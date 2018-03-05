@@ -130,17 +130,20 @@ ul, li {
 
 					<li class="image" align="center">								
 		                        
-					<a href="${pageContext.request.contextPath}/snack/snack_detail/${snack.snack_id}">
-						<img src="${pageContext.request.contextPath}/uploadImg/snack/${snack.snack_name}.jpg" alt="Gallery">
+					<a  href="${pageContext.request.contextPath}/snack/snack_detail/${snack.snack_id}">
+						<img style="padding-top: 10px;" src="${pageContext.request.contextPath}/uploadImg/snack/${snack.snack_name}.jpg" alt="Gallery">
 					</a> <br> 
-					 	<span>${snack.snack_name}</span><br> 
+					 	
 					 <c:choose>
 							<c:when test="${snack.snack_combo_yn=='Y'}">
-								<span>${snack.snack_subname}</span>
+								<span style="color: #666666;">${snack.snack_subname}</span>
 							</c:when>
 					</c:choose>
 					</li>
+					<br>
+					<div style="font-size: 18px; text-align:center;  font-weight: bold;">${snack.snack_name}</div><br> 
 				</div>
+				
 				
 			</div>
 			
