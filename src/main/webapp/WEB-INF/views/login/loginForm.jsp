@@ -99,10 +99,10 @@
 <div class="slider">
 	<div style="margin-left: 150px; margin-right: 150px;">
 		<div class="panel-default" style="width: 35%; margin: auto;border: 1px solid #BDBDBD;border-radius: 20px;float: left;">
-			<fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
+			<!-- <fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
 			</fb:login-button>
 			<div id="status">
-			</div>
+			</div> -->
 			<div class="panel-body">
 				<span><img src="${pageContext.request.contextPath}/img/movielogo.png"/></span>
 			</div>
