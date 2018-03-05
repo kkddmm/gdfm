@@ -41,7 +41,7 @@ public interface MovieService {
 	
 	
 	//영화 무비 포스터 삭제 
-	/*public int deleteMovie(int movie_id);*/
+	public int deleteMovie(int movie_id);
 	
 
 	

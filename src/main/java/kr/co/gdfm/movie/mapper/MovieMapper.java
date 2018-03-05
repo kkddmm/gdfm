@@ -46,14 +46,10 @@ public interface MovieMapper {
 
 		//영화 차원 전체 가져오기 
 		public List<Map<String, Object>> getMovieDimensionList();
-		
-			
-		//영화 포스터 정보 삭제 
-		/*public int deleteMovie(int movie_id);*/
 
-		
-		
-		
+		//영화 포스터 정보 삭제 
+		public int deleteMovie(int movie_id);
+			
 		
 		
 }

@@ -12,7 +12,7 @@
 		#movieBorder {
 				border-bottom: thick solid red;
 			}
-	
+		.moive_poster img {width: 186px}
 	
 	</style>
 
@@ -27,7 +27,7 @@
 		 <div class="moive_poster col-md-4">
 		 		
 		 			 				
-						<img src="${pageContext.request.contextPath}/admin/movieposter?movie_id=${movie.movie_id}" alt="movie_poster" style="padding-top: 30%">
+						<img src="${pageContext.request.contextPath}/uploadMovieImg/movie/${movie.movie_id}" alt="movie_poster" style="padding-top: 30%">
 					 	
 					 	</div> 
 					 	

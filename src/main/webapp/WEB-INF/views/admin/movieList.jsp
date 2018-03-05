@@ -3,6 +3,15 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>  
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<script type="text/javascript">
+
+	function fn_delete(movie_id) {
+		if(confirm("삭제하시겠습니까?")) {
+			location.href="${pageContext.request.contextPath}/admin/deleteMovie?movie_id="+movie_id;
+		}
+	}
+
+</script>
 <div class="slider">
 <h2>영화정보</h2>
 	<!-- <input type="button" class="btn btn-warning" value="영화정보입력" /> -->
@@ -25,6 +34,8 @@
 					<th class="col-xs-1 text-center">상영여부</th>
 					<th class="col-xs-1 text-center">포스터</th>
 					<th class="col-xs-1 text-center">스틸컷</th>
+					<th class="col-xs-1 text-center">수 정</th>
+					<th class="col-xs-1 text-center">삭 제</th>
 				</tr>
 			</thead>
 			
@@ -41,6 +52,9 @@
 							<td class="text-center">${movie.movie_show_yn == 'Y' ? '상영중' : '미상영'}</td>
 							<td class="text-center"><a href="fileUploadForm?movie_id=${movie.movie_id}&movie_name=${movie.movie_name}">이미지삽입</a></td>
 							<td class="text-center"><a href="stillCutfileUploadForm?movie_id=${movie.movie_id}&movie_name=${movie.movie_name}">스틸컷삽입</a></td>
+							<%-- <td class="text-center"><a href="fileUploadForm?movie_id=${movie.movie_id}&movie_name=${movie.movie_name}">이미지삽입</a></td> --%>
+							<%-- <input type="button" value="수정" class="btn btn-info" onclick="fn_writeForm2('${}');"> --%>
+							<td class="text-center"><input type="button" value="삭제" class="btn btn-danger" onclick="fn_delete('${movie.movie_id}');" ></td>
 						</tr>
 					</c:forEach>			
 				</c:if>

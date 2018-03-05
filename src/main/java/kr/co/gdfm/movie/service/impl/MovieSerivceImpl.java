@@ -124,17 +124,19 @@ public class MovieSerivceImpl implements MovieService {
 
 
 
-	
-
-
-
-	/*@Override
+	@Override
 	public int deleteMovie(int movie_id) {
-	
 		
 		return movieMapper.deleteMovie(movie_id);
 	}
-*/
+
+
+
+	
+
+
+
+	
 
 
 

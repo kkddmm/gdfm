@@ -82,7 +82,7 @@ public class DownloadController {
 	}
 	
 	
-	@RequestMapping("/loadImg")
+	/*@RequestMapping("/loadImg")
 	public void loadImage(int movie_id , HttpServletResponse resp) {
 		
 		File file = new File("/uploadFiles/Movie/"+movie_id+"_poster.jpg");
@@ -94,7 +94,7 @@ public class DownloadController {
 		}
 		
 		
-	}
+	}*/
 	
 	
 	@RequestMapping("/uploadImg/{path}/{imagename:.+}")
@@ -107,17 +107,52 @@ public class DownloadController {
 			resp.getOutputStream().close();
 		} catch (IOException e) {
 			e.printStackTrace();
+			}
+		
 		}
+	
+	
+	@RequestMapping("/uploadMovieImg/{path}/{movie_file_name}")
+	public void loadMovieImage(@PathVariable("path")String path ,@PathVariable("movie_file_name")String movie_file_name, HttpServletResponse resp) {
 		
 		
+		System.out.println(path);
+		System.out.println(movie_file_name);
+		
+	String ffff=String.format("/uploadFiles/%s/%s_poster.jpg",path,movie_file_name );
+		
+		
+		
+		
+		File file = new File(ffff);
+
+	
+		try {
+		FileUtils.copyFile(file, resp.getOutputStream());
+		
+		resp.setContentType("application/x-msdownload");            
+		resp.setHeader("Content-disposition", "attachment; filename="+ "jkkkkkkkkkkkkkkkkkk.jpg");
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			
+			try {
+				resp.getOutputStream().close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+//				e.printStackTrace();
+			}
+		}
 	}
-
-	
-	
-	
-	
-	
-	
-	
-
 }
+		
+	
+	
+	
+	
+	
+	
+	
+
+

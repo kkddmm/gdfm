@@ -1136,7 +1136,7 @@ public class AdminController {
 		System.out.println("Movie_File : "+poster_file.getOriginalFilename());
 		
 		//Movie file에 저장 할 곳
-		File targetFile = new File("/uploadFiles/Movie/"+movie.getMovie_id()+"_poster.jpg");
+		File targetFile = new File("/uploadFiles/movie/"+movie.getMovie_id()+"_poster.jpg");
 		try {
 			poster_file.transferTo(targetFile);
 		} catch (IllegalStateException | IOException e) {

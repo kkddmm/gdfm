@@ -111,12 +111,12 @@
 				    								
 				    							<td>
 													  <label>
-													    <input type="radio" value="${movie.movie_show_yn}" name="movie_show_yn">
+													    <input type="radio" value="Y" name="movie_show_yn" ${movie.movie_show_yn != 'N' ? 'checked="checked"' : ''} >
 													   				Y
 													  </label>
 													  
 													  <label>
-													    <input type="radio" value="${movie.movie_show_yn}" name="movie_show_yn">
+													    <input type="radio" value="N" name="movie_show_yn" ${movie.movie_show_yn == 'N' ? 'checked="checked"' : ''} >
 													   				N
 													  </label>
 													

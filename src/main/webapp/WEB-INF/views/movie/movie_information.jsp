@@ -2,10 +2,13 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-
-
-
-
+	<style type="text/css">
+		#movieBorder {
+				border-bottom: thick solid red;
+			}
+		.moive_poster img {width: 186px}
+	
+	</style>
 <script>
 
 	
@@ -80,7 +83,7 @@
 							
 					    +'<div class="moive_poster">'
 							+'<a href="${pageContext.request.contextPath}/movie/movie_detail/'+data[i].movie_id+'">'
-							+	'<img src="${pageContext.request.contextPath}/movieposter/'+data[i].movie_id+'_poster.jpg" alt="movie_poster">'
+							+	'<img src="${pageContext.request.contextPath}/uploadMovieImg/movie/'+data[i].movie_id+'" alt="movie_poster" style="width: 200px;">'
 							
 							+'</a> <br> </div> </div> </div> </div>'
 								

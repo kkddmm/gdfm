@@ -67,7 +67,15 @@
         movie_id = #{movie_id}
 	</update> 
 	 -->
+	 
+	 
 	<!--  영화 정보 삭제  -->
+	<delete id="deleteMovie" parameterType="int">
+	 delete 
+			from movie
+		where movie_id=#{movie_id}
+	</delete> 
+	
 	
 	
 	<!-- 상영중인 영화 조회 -->
