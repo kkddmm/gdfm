@@ -79,13 +79,13 @@
 						
 							 '<div class="col-md-4">'
 							+ '<div class="hovereffect">'
-							+'<div style="height: 400px; border: 10px; border-color: 3f3f3f;">' 
+							+'<div style="height: 450px; border: 1px solid #bdbdbd; border-color: 3f3f3f;margin: 5px; border-radius: 10px;">' 
 							
 					    +'<div class="moive_poster">'
 							+'<a href="${pageContext.request.contextPath}/movie/movie_detail/'+data[i].movie_id+'">'
 							+	'<img src="${pageContext.request.contextPath}/uploadMovieImg/movie/'+data[i].movie_id+'" alt="movie_poster" style="width: 200px;">'
 							
-							+'</a> <br> </div> </div> </div> </div>'
+							+'</a> <br><span style="font-size:14px;font-weight: bold;">'+data[i].movie_name+'</span></div> </div> </div> </div>'
 								
 										
 						).appendTo('#moviePoster');
@@ -227,11 +227,11 @@ ul, li {
 		<section id="portfolio">
 		
  			
-			<div class="center">
+			<%-- <div class="center">
 				<h2 align="right" style="color: BLACK;"><a href="#">무비차트</a>
 				<a href="${pageContext.request.contextPath}/movie/movie_preview">상영예정작</a></h2>
 
-			</div>
+			</div> --%>
 	
 	
 			<div class="col-md-12">
