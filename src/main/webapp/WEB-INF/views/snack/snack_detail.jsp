@@ -173,9 +173,9 @@ ul, li {
 
 					<li class="image" align="center">								
 		                        
-					
+							<div style="border: 1px solid #bdbdbd;margin: 10px;border-radius: 10px;">
 							<img src="${pageContext.request.contextPath}/img/snack/${snack.snack_name}.jpg" alt="Gallery">
-							
+							</div>
 					</li>
 					
 					
@@ -184,8 +184,10 @@ ul, li {
 					
 			
 					
-							<div>
-								<span>제품명: ${snack.snack_name}</span><br>
+							<div style="margin: 10px;padding-top:10px;">
+								<hr>
+								<span style="font-weight: bold;font-size: 18px;">제품명: ${snack.snack_name}</span><br>
+								<hr>
 								<span>가격: ${snack.snack_price} 원</span><br> 
 								<span>원산지 ${snack.snack_mat}: ${snack.snack_origin}</span><br> 
 								 
@@ -214,14 +216,14 @@ ul, li {
 		
 		<div>
 		<hr>
-			${snack.snack_use_info} 
+			<p>${snack.snack_use_info} </p>
 		</div>
 		<div>
 <%-- 		<c:if test="${not empty LOGIN_USER.mem_id}"> --%>
 <%-- 		</c:if> --%>
-			<input class="btn" type="button" id="BtnInsertBasket" onclick="fn_insertBasket(${snack.snack_id},'${LOGIN_USER.mem_id}');" name="BtnInsertBasket" value="장바구니"/>
-			<input class ="btn" type="button" onclick="fn_snackBuy(${snack.snack_id},'${LOGIN_USER.mem_id}');" value="구매하기"/>
-			<input class ="btn" onclick="location.href='${pageContext.request.contextPath}/snack/snack' " type="button" value="목록으로"/>
+			<input class="btn btn-warning" type="button" id="BtnInsertBasket" onclick="fn_insertBasket(${snack.snack_id},'${LOGIN_USER.mem_id}');" name="BtnInsertBasket" value="장바구니"/>
+			<input class ="btn btn-info" type="button" onclick="fn_snackBuy(${snack.snack_id},'${LOGIN_USER.mem_id}');" value="구매하기"/>
+			<input class ="btn btn-default" onclick="location.href='${pageContext.request.contextPath}/snack/snack' " type="button" value="목록으로"/>
 		</div>
 	</c:if>
 	
@@ -263,7 +265,25 @@ ul, li {
       </div>
 </div> --%>
 
-
+				<table width="100%" class="table table-bordered">
+					<tr>
+						<td align="center">
+							<img alt="실버" src="${pageContext.request.contextPath}/img/silver4.png" width="10%" hight="10%">
+							<p style="text-align: center;font-size:18px;"><b>일반회원</b></p>
+							<p style="text-align: center;font-size:14px;color:#666666;"><b>포인트 1%적립</b></p>
+						</td>
+						<td align="center">
+							<img alt="골드" src="${pageContext.request.contextPath}/img/gold4.png" width="10%" hight="10%">
+							<p style="text-align: center;font-size:18px;"><b>15만원이상</b></p>
+							<p style="text-align: center;font-size:14px;color:#666666;"><b>포인트 10%적립</b></p>
+						</td>
+						<td align="center">
+							<img alt="다이아" src="${pageContext.request.contextPath}/img/dia4.png" width="10%" hight="10%">
+							<p style="text-align: center;font-size:18px;"><b>30만원이상</b>
+							<p style="text-align: center;font-size:14px;color:#666666;"><b>포인트 20%적립</b></p>	
+						</td>
+					</tr>
+				</table>
 
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">

@@ -117,7 +117,7 @@ ul, li {
 			
 				<div class="col-md-12 cart">
 					<!-- Gallery Item 1 -->
-						<div class="row" style="height: 400px; border: 10px; border-color: 3f3f3f;">														
+						<div class="row" style="height: 200px; border: 1px solid #bdbdbd; border-color: 3f3f3f;margin: 5px; border-radius: 10px;">														
 							<div class="col-md-4"><img style="width: 50%;height:50%;"src="${pageContext.request.contextPath}/img/snack/${basket.snack_name}.jpg" alt="Gallery"></div>	
 																	
 							<div class="col-md-6">

@@ -33,7 +33,7 @@ var currentCnt= 1;
 					
 			$('<div>').addClass('col-md-4').html(
 				
-				'<div style="height: 400px; border: 10px; border-color: 3f3f3f;">'+
+				'<div style="height: 400px; border: 1px solid #bdbdbd; border-color: 3f3f3f;margin: 5px; border-radius: 10px;">'+
 				'<li class="image" align="center">'+								
 							'<a href="${pageContext.request.contextPath}/snack/snack_detail/'+data[i].snack_id+'">'+
 								'<img src="${pageContext.request.contextPath}/img/snack/'+data[i].snack_name+'.jpg" alt="Gallery">'+
@@ -126,7 +126,7 @@ ul, li {
 
 			<div class="col-md-4">
 				<!-- Gallery Item 1 -->
-				<div style="height: 400px; border: 10px; border-color: 3f3f3f;">
+				<div style="height: 400px; border: 1px solid #bdbdbd; border-color: 3f3f3f;margin: 5px; border-radius: 10px;">
 
 					<li class="image" align="center">								
 		                        
