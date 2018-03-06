@@ -21,7 +21,7 @@ function fn_goPayment(){
 	}
 	
 	 if(${!empty reservation_id}){
-		 reservation_id_val=${reservation_id};
+		 reservation_id_val='${reservation_id}';
 	 }
 	 
 	IMP.init('imp35163888')
