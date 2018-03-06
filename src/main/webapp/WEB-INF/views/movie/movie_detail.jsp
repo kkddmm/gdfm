@@ -12,8 +12,7 @@
 		#movieBorder {
 				border-bottom: thick solid red;
 			}
-		.moive_poster img {width: 186px}
-	
+		.moive_poster img {width: 186px}	    
 	</style>
 
 </head>
@@ -27,15 +26,16 @@
 		 <div class="moive_poster col-md-4">
 		 		
 		 			 				
-						<img src="${pageContext.request.contextPath}/uploadMovieImg/movie/${movie.movie_id}" alt="movie_poster" style="padding-top: 30%">
+						<img src="${pageContext.request.contextPath}/uploadMovieImg/movie/${movie.movie_id}" alt="movie_poster" style="padding-top: 30%;margin-left: 70px;">
 					 	
 					 	</div> 
 					 	
 					 	
 					 <div class="moive_poster col-md-8">
 					 		<div class="poster"  style="padding: 10%">
-						 		<p style="text-align: center; ">${movie.movie_ko_name}</p>
+						 		<p >${movie.movie_ko_name}</p>
 						 		<p style="font-weight: bolder;">${movie.movie_name}</p>
+						 		<hr>
 						 		<p>감독 : ${movie.movie_director} / 배우 : ${movie.movie_actor}</p>
 						 		
 						 		<p>장르 : <c:forEach varStatus="status" var="genre" items="${movie.movie_genre_name}">${genre}<c:if test="${!status.last}">,</c:if></c:forEach></p>
@@ -49,12 +49,15 @@
            						onClick="location.href='${pageContext.request.contextPath}/reservation/101'"> 
                 </p>
 						 		
-						 		
+						 		<hr>
 					 		</div> 
+					 		
 					 	</div>
+					 
 					 </div>
 		<div class="movie_story col-md-12">
 					 <p style="padding: 2%;">${movie.movie_story}</p> 
+					 <hr>
 		</div>			
 		
 		

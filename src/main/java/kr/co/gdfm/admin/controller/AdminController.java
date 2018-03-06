@@ -1116,6 +1116,49 @@ public class AdminController {
 		return "admin/movieInsert";
 	}
 	
+	//영화 수정 페이지 뜨게 함 
+	//@RequestMapping("/updateMovie")
+	@RequestMapping("/updateMovie")
+	public String updateMovieForm(Movie movie) {
+		
+		return "admin/movieUpdate";
+	}
+	
+	
+	//영화 수정 페이지 뜨게 함 
+	@RequestMapping("/updateMovieForm")
+	public String updateMovieForm(@RequestParam(value="movie_id")int movie_id,Movie movie,Model model) {
+		
+	/*	List<Movie> movieInfoList = new ArrayList<>();
+		movieInfoList = movieService.selectMovieList();
+		model.addAttribute("movieInfoList", movieInfoList); 
+		*/
+		boolean isError = false;
+		String message = "영화 정보 정상 수정 되었습니다.";
+		
+		try {
+		int updcnt = movieService.updateMovie(movie_id);
+		if(updcnt == 0) {
+				isError = true;
+				message= "영화 정보 수정 실패하였습니다.";
+						}
+		}catch(Exception e) {
+			isError = true;
+			message= "영화 정보 수정 실패하였습니다.";
+		}
+		
+		model.addAttribute("isError", isError);
+		model.addAttribute("message", message);
+//		model.addAttribute("locationURL", "/member/memberView?mem_id=" + movie.getMovie_id());
+		model.addAttribute("locationURL", "/admin/movieList?movie_id=" + movie.getMovie_id());
+	
+		return "admin/movieUpdate";
+	}
+	
+	
+	
+	
+	
 	@RequestMapping("/fileUploadForm")
 	public String fileUploadForm(Movie movie,Model model) {
 		
@@ -1173,7 +1216,7 @@ public class AdminController {
 	public void file_addr(Movie movie, HttpServletResponse response) {
 		
 		int movie_id = movie.getMovie_id();
-		File posterFile = new File("/uploadFiles/Movie/"+movie_id+"_poster.jpg");
+		File posterFile = new File("/uploadFiles/movie/"+movie_id+"_poster.jpg");
 		 
 		try {
 			ServletOutputStream out = response.getOutputStream();
@@ -1207,7 +1250,7 @@ public class AdminController {
 		// StillCut_File에 저장 할 곳
 		for (int i = 1; i <= stillcut_files.length; i++) {
 			System.out.println("StillCut_File : " + stillcut_files[i - 1].getOriginalFilename());
-			File targetFile2 = new File("/uploadFiles/StillCut/" + movie.getMovie_name() + "_stillcut"+i+".jpg");
+			File targetFile2 = new File("/uploadFiles/stillcut/" + movie.getMovie_name() + "_stillcut"+i+".jpg");
 
 			try {
 				stillcut_files[i - 1].transferTo(targetFile2);
@@ -1232,6 +1275,43 @@ public class AdminController {
 		
 		return "redirect:/admin/movieList";
 	}
+	
+	
+	
+	
+	
+
+	
+	//영화 정보 삭제(관리자)
+		@RequestMapping("/deleteMovie")
+		public String deleteMovie(@RequestParam(value="movie_id")int movie_id, Model model) {
+			
+			boolean isError = false;
+			String viewPage = "common/message";
+			String message = "정상적으로 삭제 되었습니다.";
+			
+			try {
+				int delCnt= movieService.deleteMovie(movie_id);
+				if(delCnt==0) {
+					isError=true;
+					message="영화 삭제에 실패하였습니다.";
+					
+				}
+			}catch(Exception e) {
+				isError=true;
+				message="영화 삭제에 실패하였습니다.";
+			}	
+			
+			model.addAttribute("isError",isError);
+			model.addAttribute("message",message);
+			model.addAttribute("locationURL","/admin/movieList");
+			
+			
+			return viewPage;
+		}
+	
+	
+	
 	
 	
 	

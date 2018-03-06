@@ -28,11 +28,17 @@ public class Movie {
 	//스틸 컷 
 	private List<String> 	stillcut;
 	private MultipartFile[] stillcut_file;
-		
+	private int rnum;	
 	
 	
 	
 	
+	public int getRnum() {
+		return rnum;
+	}
+	public void setRnum(int rnum) {
+		this.rnum = rnum;
+	}
 	public MultipartFile[] getStillcut_file() {
 		return stillcut_file;
 	}

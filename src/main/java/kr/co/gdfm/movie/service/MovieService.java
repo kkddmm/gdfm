@@ -37,6 +37,8 @@ public interface MovieService {
 	//영화 차원 전체 가져오기
 	public List<Map<String,Object>> getMovieDimensionList();
 	
+	//영화 무비 포스터 수정  
+		public int updateMovie(int movie_id);
 	
 	
 	

@@ -7,7 +7,30 @@
 				border-bottom: thick solid red;
 			}
 		.moive_poster img {width: 186px}
-	
+	.devrimcss{
+  width: 320px;
+  height:30px;
+  margin:5px;
+  border-radius:5px;
+  transition-property: box-shadow;
+  transition-duration:0.5s;
+  border-bottom: 4px solid #35404f;
+  border-top: solid 4px #35404f;
+  border-left: solid 4px #35404f;
+ border-right: solid 4px #35404f;
+     Transition: 500ms;
+}
+.devrimcssyazi{
+  text-align:center;
+  color:#fff;
+  margin-left: 5px;
+  padding-top: 0px;
+  font-size : 20px;
+  font-family: 'Courgette', cursive;
+  text-shadow: 0 0 5px #fff;
+  
+
+}
 	</style>
 <script>
 
@@ -78,16 +101,21 @@
 					$('<div>').addClass('col-md-4').html(
 						
 							 '<div class="col-md-4">'
+							 +'<div class="devrimcss" style="background-color:#f44336"><div class="devrimcssyazi">No.'+data[i].rnum+'</div></div>'
 							+ '<div class="hovereffect">'
 							+'<div style="height: 450px; border: 1px solid #bdbdbd; border-color: 3f3f3f;margin: 5px; border-radius: 10px;">' 
 							
 					    +'<div class="moive_poster">'
 							+'<a href="${pageContext.request.contextPath}/movie/movie_detail/'+data[i].movie_id+'">'
-							+	'<img src="${pageContext.request.contextPath}/uploadMovieImg/movie/'+data[i].movie_id+'" alt="movie_poster" style="width: 200px;">'
+							+	'<img src="${pageContext.request.contextPath}/uploadMovieImg/movie/'+data[i].movie_id+'" alt="movie_poster">'
 							
-							+'</a> <br><span style="font-size:14px;font-weight: bold;">'+data[i].movie_name+'</span></div> </div> </div> </div>'
-								
-										
+							+'</a> <br><span style="font-size:14px;font-weight: bold;">'+data[i].movie_name+'</span><br>'
+							+'<a href="${pageContext.request.contextPath}/movie/movie_detail/'+data[i].movie_id+'"><button class="btn btn-default" >상세 정보</button></a>'
+							+'<a href="${pageContext.request.contextPath}/reservation/101'+data[i].movie_id+'"><button class="btn btn-default" >영화 예매</button></a>'
+							//+'<a href="${pageContext.request.contextPath}/reservation/101><button class="btn btn-default">영화 예매</button></a>'
+							+'</div> </div> </div> </div>'
+
+							
 						).appendTo('#moviePoster');
 					}
 					

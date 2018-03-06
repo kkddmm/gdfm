@@ -10,8 +10,16 @@
 			location.href="${pageContext.request.contextPath}/admin/deleteMovie?movie_id="+movie_id;
 		}
 	}
+	
+	function fn_update(movie_id) {
+		if(confirm("수정하시겠습니까?")) {
+			location.href="${pageContext.request.contextPath}/admin/updateMovie?movie_id="+movie_id; 
+		}	
+	}
+	
+	
 
-</script>
+</script>s
 <div class="slider">
 <h2>영화정보</h2>
 	<!-- <input type="button" class="btn btn-warning" value="영화정보입력" /> -->
@@ -52,8 +60,19 @@
 							<td class="text-center">${movie.movie_show_yn == 'Y' ? '상영중' : '미상영'}</td>
 							<td class="text-center"><a href="fileUploadForm?movie_id=${movie.movie_id}&movie_name=${movie.movie_name}">이미지삽입</a></td>
 							<td class="text-center"><a href="stillCutfileUploadForm?movie_id=${movie.movie_id}&movie_name=${movie.movie_name}">스틸컷삽입</a></td>
-							<%-- <td class="text-center"><a href="fileUploadForm?movie_id=${movie.movie_id}&movie_name=${movie.movie_name}">이미지삽입</a></td> --%>
-							<%-- <input type="button" value="수정" class="btn btn-info" onclick="fn_writeForm2('${}');"> --%>
+							<td class="text-center"><a href="updateMovieForm?movie_id=${movie.movie_id}&movie_ko_name=${movie.movie_ko_name}
+																			&movie_name=${movie.movie_name}
+																			&movie_ko_name=${movie.movie_ko_name}
+																			&movie_director=${movie.movie_director}
+																			&movie_actor=${movie.movie_actor}
+																			&movie_story=${movie.movie_story}
+																			$movie_grade=${movie.movie_grade}
+																			$movie_show_yn=${movie.movie_show_yn}
+																			$movie_release_date=${movie.movie_release_date}
+																			$movie_running_time=${movie.movie_running_time}
+																			$movie_production_country=${movie.movie_production_country}">수정</a></td>
+							
+							 <%-- <td class="text-center"><input type="button" value="수정" class="btn btn-info" onclick="fn_update('${movie.movie_id}');" ></td> --%>
 							<td class="text-center"><input type="button" value="삭제" class="btn btn-danger" onclick="fn_delete('${movie.movie_id}');" ></td>
 						</tr>
 					</c:forEach>			

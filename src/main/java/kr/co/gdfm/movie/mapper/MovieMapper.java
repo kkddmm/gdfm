@@ -49,6 +49,11 @@ public interface MovieMapper {
 
 		//영화 포스터 정보 삭제 
 		public int deleteMovie(int movie_id);
+		
+		//영화 포스터 정보 수정
+		public int updateMovie(int movie_id);
+		
+		
 			
 		
 		

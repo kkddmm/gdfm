@@ -40,33 +40,23 @@
 	</insert>
 	
 	<!--  영화 정보 수정  -->
-	 <!-- <update id="updateMovie" parameterType="kr.co.gdfm.movie.model.Movie">
+	  <update id="updateMovie" parameterType="kr.co.gdfm.movie.model.Movie">
 		UPDATE movie SET
-        movie_name = #{movie_name}
-    AND
-        movie_ko_name = #{movie_ko_name}
-    AND
-        movie_grade = #{movie_grade}
-    AND
-        movie_story = #{movie_story}
-    AND
-        movie_trailer = #{movie_trailer}
-    AND
-        movie_show_yn = #{movie_show_yn}
-    AND
-        movie_release_date = #{movie_release_date}
-    AND
-        movie_director = #{movie_director}
-    AND
-        movie_actor = #{movie_actor}
-    AND
-        movie_running_time = #{movie_running_time}
-    AND
+        movie_name = #{movie_name},
+        movie_ko_name = #{movie_ko_name},
+        movie_grade = #{movie_grade},
+        movie_story = #{movie_story},
+        movie_trailer = #{movie_trailer},
+        movie_show_yn = #{movie_show_yn},
+        movie_release_date = #{movie_release_date},
+        movie_director = #{movie_director},
+        movie_actor = #{movie_actor},
+        movie_running_time = #{movie_running_time},
         movie_production_country = #{movie_production_country}
     WHERE
-        movie_id = #{movie_id}
+        movie_id=#{movie_id}
 	</update> 
-	 -->
+	 
 	 
 	 
 	<!--  영화 정보 삭제  -->

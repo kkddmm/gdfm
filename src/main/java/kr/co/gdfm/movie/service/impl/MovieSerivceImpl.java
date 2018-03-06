@@ -123,6 +123,12 @@ public class MovieSerivceImpl implements MovieService {
 	}
 
 
+	@Override
+	public int updateMovie(int movie_id) {
+		
+		return movieMapper.updateMovie(movie_id);
+	}
+	
 
 	@Override
 	public int deleteMovie(int movie_id) {
@@ -130,6 +136,9 @@ public class MovieSerivceImpl implements MovieService {
 		return movieMapper.deleteMovie(movie_id);
 	}
 
+
+
+	
 
 
 	
