@@ -323,13 +323,13 @@ ul.tab-a li a:hover span, ul.tab-a li.current a span { background-position: righ
 
           <div class="carousel-inner">
             <div class="item active">
-             <img src="${pageContext.request.contextPath}/img/인터스텔라.jpg" class="img-responsive" alt=""> 
+             <img src="${pageContext.request.contextPath}/img/리틀포레스트.jpg" class="img-responsive" alt="" style="width:1140px;height:487px;"> 
             </div>
             <div class="item">
-              <img src="${pageContext.request.contextPath}/img/인터스텔라.jpg" class="img-responsive" alt=""> 
+              <img src="${pageContext.request.contextPath}/img/월요일이사라졌다.jpg" class="img-responsive" alt="" style="width:1140px;height:487px;"> 
             </div>
             <div class="item">
-             <img src="${pageContext.request.contextPath}/img/인터스텔라.jpg" class="img-responsive" alt=""> 
+             <img src="${pageContext.request.contextPath}/img/게이트.jpg" class="img-responsive" alt="" style="width:1140px;height:487px;"> 
             </div>
           </div>
 
