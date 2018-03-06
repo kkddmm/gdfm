@@ -28,11 +28,11 @@ function fn_goMyPage(pageType){
 	<div class="col-md-3">		
 	</div>
 	
-		<div class="col-md-6">		
-			<div class="col-md-12" id="divBox">
-				결제가 완료되었습니다
+		<div  class="col-md-6">		
+			<div style="text-align: center;padding-top: 50px;" class="col-md-12" id="divBox">
+				<span style="font-size: 20px;">결제가 완료되었습니다!</span>
 			</div>	
-			<div   id="payCheck">
+			<div style="text-align: center;"  id="payCheck">
 				<input type="button" value="결제내역 확인" onclick="fn_goMyPage('${param.pageType}');">
 			</div>		
 		</div>

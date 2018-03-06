@@ -124,7 +124,7 @@ ul, li {
 							<div align="center" style="padding-top: 20px;" class="col-md-3"><img style="border: 1px solid #eeeeee;border-radius: 20px; width: 160px;height:50%;"src="${pageContext.request.contextPath}/img/snack/${basket.snack_name}.jpg" alt="Gallery"></div>	
 																	
 							<div class="col-md-6" style=" margin-top:9px;">
-								<span class="name">제품명:</span><span>${basket.snack_name}</span><br><hr><span class="name">가격:</span> <span> ${basket.snack_price}원</span><br><hr><span class="name">수량:</span> <span>${basket.snack_cnt}개</span>				
+								<span class="name">제품명:</span><span style="font-size: 20px;">${basket.snack_name}</span><br><hr><span class="name">가격:</span> <span style="font-size: 20px;"> ${basket.snack_price}원</span><br><hr><span class="name">수량:</span> <span style="font-size: 20px;">${basket.snack_cnt}개</span>				
 							</div>
 							
 							<div style="height:160px;" class="col-md-3">

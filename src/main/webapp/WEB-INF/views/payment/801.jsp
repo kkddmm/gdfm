@@ -298,8 +298,12 @@ p,.cine{
 .snck{
 	text-align: center;
 	}
-.pointTb{
-	
+.myTable2{
+	border: 0.5px solid #eeeeee;
+	bor
+}
+.font15{
+	font-size: 20px;
 }
 
 
@@ -350,9 +354,9 @@ p,.cine{
 			
 				<thead>
 					<tr>
-						<th class="info snack">스낵 정보</th>
-						<th class="cnt snack">수량</th>                                   
-						<th class="price snack">가격</th>                      
+						<th style="font-size: 20px;" class="info snack">스낵 정보</th>
+						<th style="font-size: 20px;" class="cnt snack">수량</th>                                   
+						<th style="font-size: 20px;" class="price snack">가격</th>                      
 					</tr>
 				</thead>
 				
@@ -364,9 +368,9 @@ p,.cine{
 				<!-- 직접구매일때 -->
 			<!--스낵정보-->				
 					<tr>				
-			          <td class="info snck">${resultMap.SNACK_NAME}
+			          <td  class="info snck">${resultMap.SNACK_NAME}
 			          <c:if test="${snack.snack_combo_yn=='Y'}">
-			         	 ${resultMap.SNACK_SUBNAME}
+			         	<span>${resultMap.SNACK_SUBNAME}</span> 
 			          </c:if>
 			          </td>
 			          <td class="cnt snck">${resultMap.SNACK_CNT}</td>
@@ -378,14 +382,14 @@ p,.cine{
 			<!--스낵정보-->				
 				<c:forEach items="${snackList}" var="snack">
 					<tr>				
-			          <td class="info snck">${snack.snack_name} 			          
+			          <td style="font-size: 15px;" class="info snck">${snack.snack_name} 			          
 				         <c:if test="${snack.snack_combo_yn=='Y'}">
-				          	${snack.snack_subname}
+				          	<span style="font-size: 15px;">${snack.snack_subname}</span>
 						  </c:if>	
 			         </td>
 			        	
-			          <td class="cnt snck">${snack.snack_cnt}</td>
-			          <td class="price snck" data-price="${snack.snack_price}">${snack.snack_price}</td>
+			          <td style="font-size: 15px;" class="cnt snck">${snack.snack_cnt}</td>
+			          <td style="font-size: 15px;" class="price snck" data-price="${snack.snack_price}">${snack.snack_price}</td>
 			        </tr>
 			     </c:forEach>
 		</c:if>
@@ -401,30 +405,30 @@ p,.cine{
 			<table id="money" class="myTable" style="width:100%;">
 				<thead>
 					<tr>
-						<th class="goods">총상품금액</th>
-						<th style="width:20px;" class="goods"></th>
-						<th class="goods">포인트 사용</th>
-						<th class="goods">최종 결제금액</th>
+						<th style="font-size: 20px;" class="goods">총상품금액</th>
+						<th style="width:20px;font-size: 20px;" class="goods"></th>
+						<th style="font-size: 20px;" class="goods">포인트 사용</th>
+						<th style="font-size: 20px;" class="goods">최종 결제금액</th>
 					</tr>
 				</thead>
 				<!-- 구매하기 버튼 눌렀을 때 -->
 				<c:if test="${pageType=='S'}">				
 				<tbody>					
 					<tr>
-						<td id="total" class="goods">
-							<input type="hidden" name="totalPrice" value="${resultMap.SNACK_PRICE}">
-							<p style="text-align: center;" id="span_totalPrice" >${resultMap.SNACK_PRICE}</p>
+						<td  id="total" class="goods">
+							<input class="font15" type="hidden" name="totalPrice" value="${resultMap.SNACK_PRICE}">
+							<p class="font15" style="text-align: center;" id="span_totalPrice" >${resultMap.SNACK_PRICE}</p>
 							
 						</td>  <!-- 상품가격 -->
 						
 						<td><img style="width:20px;height:20px;" alt="" src="${pageContext.request.contextPath}/img/snack/minus.png"></td>
 						<td id="pointApply" class="goods">
-							<input type="hidden" name="usePoint" value="0">
-							<p id="span_usePoint">0</p>
+							<input class="font15" type="hidden" name="usePoint" value="0">
+							<p class="font15" style="font-size: 15px;" id="span_usePoint">0</p>
 						</td><!-- 적용 포인트 -->
 						<td id="finalPrice" data-price="${resultMap.SNACK_PRICE}" class="goods">
-							<input type="hidden" name="orderPrice" value="${resultMap.SNACK_PRICE}">
-							<p id="span_orderPrice">${resultMap.SNACK_PRICE}</p>
+							<input class="font15" type="hidden" name="orderPrice" value="${resultMap.SNACK_PRICE}">
+							<p class="font15" id="span_orderPrice">${resultMap.SNACK_PRICE}</p>
 						</td><!-- 최종결제 금액 -->
 					</tr>
 				</tbody>
@@ -442,18 +446,18 @@ p,.cine{
 	<%-- 				<c:forEach items="${snackList}" var="snack"> --%>
 	<%-- 				<c:set var="sum" value="${sum+snack.snack_price}" ></c:set> --%>
 	<%-- 				</c:forEach> --%>
-							<td id="total" class="goods">
-								<input type="hidden" name="totalPrice" value="" >
-								<p style="text-align: center;" id="span_totalPrice" ></p>								
+							<td  id="total" class="goods">
+								<input class="font15" type="hidden" name="totalPrice" value="" >
+								<p class="font15" style="text-align: center;" id="span_totalPrice" ></p>								
 							</td>  <!-- 상품가격 -->
 							<td><img style="width:20px;height:20px;" alt="" src="${pageContext.request.contextPath}/img/snack/minus.png"></td>
-							<td id="pointApply" class="goods">
-								<input type="hidden" name="usePoint" value="0">
-								<p id="span_usePoint">0</p>
+							<td class="font15" id="pointApply" class="goods">
+								<input class="font15" type="hidden" name="usePoint" value="0">
+								<p class="font15" id="span_usePoint">0</p>
 							</td><!-- 적용 포인트 -->
 							<td id="finalPrice" data-price="" class="goods">
 								<input type="hidden" name="orderPrice" value="">
-								<p id="span_orderPrice"></p>
+								<p class="font15" id="span_orderPrice"></p>
 							</td><!-- 최종결제 금액 -->
 						</tr>
 					</tbody>
@@ -466,17 +470,17 @@ p,.cine{
 					<tr>
 						<td id="total" class="goods">
 							<input type="hidden" name="totalPrice" value="${resultMap.first_amount}">
-							<p style="text-align: center;" id="span_totalPrice" >${resultMap.first_amount}</p>
+							<p class="font15" style="text-align: center;" id="span_totalPrice" >${resultMap.first_amount}</p>
 							
 						</td>  <!-- 상품가격 -->
 						<td><img style="width:20px;height:20px;" alt="" src="${pageContext.request.contextPath}/img/snack/minus.png"></td>
 						<td id="pointApply" class="goods">
 							<input type="hidden" name="usePoint" value="0">
-							<p id="span_usePoint">0</p>
+							<p class="font15" id="span_usePoint">0</p>
 						</td><!-- 적용 포인트 -->
-						<td id="finalPrice" data-price="${resultMap.first_amount}" class="goods">
+						<td class="font15" id="finalPrice" data-price="${resultMap.first_amount}" class="goods">
 							<input type="hidden" name="orderPrice" value="${resultMap.first_amount}">
-							<p id="span_orderPrice">${resultMap.first_amount}</p>
+							<p class="font15" id="span_orderPrice">${resultMap.first_amount}</p>
 						</td><!-- 최종결제 금액 -->
 					</tr>
 				</tbody>
@@ -490,14 +494,14 @@ p,.cine{
 			<table class="myTable2" style="width:40%;">
 				
 				<tr class="pointTb">
-					<td>*포인트&nbsp&nbsp&nbsp&nbsp&nbsp
+					<td ><span style="padding-left: 10px;">*포인트&nbsp&nbsp&nbsp&nbsp&nbsp</span>
 						<input class="pointUse" type="text" > <label> <input id="allPointUse"  type="checkbox">전액사용</label> 
 						<input onclick="fn_pointUse();" type="button" value="적용"/>
 					</td>
 					
 				</tr>
 				<tr class="pointTb"> 
-					<td>보유 포인트 <input id="hasPoint" type="text" readonly="readonly" data-price="${memberInfo.mem_point}" value="${memberInfo.mem_point}"> 점</td>
+					<td><span style="padding-left: 10px;">보유 포인트</span> <input id="hasPoint" type="text" readonly="readonly" data-price="${memberInfo.mem_point}" value="${memberInfo.mem_point}"> 점</td>
 				</tr>	
 				
 			</table>
@@ -514,9 +518,6 @@ p,.cine{
 	</div>
 	
 	</section>
-
-
-
 
 
 
