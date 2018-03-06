@@ -248,7 +248,7 @@ function fn_list() {
 					<input type="hidden" id="idChk" value="N" />
 					<input type="text" name="mem_id" value="${member.mem_id}" maxlength="20"> 
 					<button type="button" class="btn btn-warning" id="btnIdCheck">중복체크</button>
-					8~20자 내의 영문,숫자 조합
+					8~20자내
 					<label id="resultMsg"></label>
 					</c:if>
 					<c:if test="${param.type != 'I'}">
