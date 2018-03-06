@@ -9,7 +9,6 @@
 <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <script>
 
-
 var snack_buy_id_val=0;
 var reservation_id_val=0;
 

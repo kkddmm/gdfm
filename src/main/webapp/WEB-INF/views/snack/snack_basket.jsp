@@ -30,7 +30,6 @@ function fn_delSnackBasket(btn,snack_buy_id,mem_id){
 
 
 
-
 function fn_goPayment(){
 	
 	var totalPrice= $('#totalPrice').val();

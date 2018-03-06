@@ -12,6 +12,7 @@ function fn_goMyPage(pageType){
 	}else{		
 			location.href="${pageContext.request.contextPath}/mypage/snackBuy?mem_id=${LOGIN_USER.mem_id}";		
 	}
+	
 }
 
 </script>
@@ -25,15 +26,19 @@ function fn_goMyPage(pageType){
 
 
 <section id="portfolio">
-	<div class="col-md-3">		
+	<div style="padding-top: 50px;font-size: 50px;" class="col-md-3">	
+		<span>결제 완료</span>	
 	</div>
+	<br>
 	
 		<div  class="col-md-6">		
 			<div style="text-align: center;padding-top: 50px;" class="col-md-12" id="divBox">
-				<span style="font-size: 20px;">결제가 완료되었습니다!</span>
+			<br>
+			<span><img style="text-align: center;" alt="" src="${pageContext.request.contextPath}/img/bag.jpg"></span>
+				<p style="font-size: 20px;">결제가 완료되었습니다!</p>
 			</div>	
-			<div style="text-align: center;"  id="payCheck">
-				<input type="button" value="결제내역 확인" onclick="fn_goMyPage('${param.pageType}');">
+			<div style="text-align: center;padding-bottom: 50px;"  id="payCheck">
+				<input type="button" class="btn btn-success" value="결제내역 확인" onclick="fn_goMyPage('${param.pageType}');">
 			</div>		
 		</div>
 	
