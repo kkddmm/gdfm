@@ -232,6 +232,17 @@ public class MainController {
 			}
 			return movienewMap;
 	}
+	@RequestMapping("/mainMap")
+	@ResponseBody
+	public Map<String, Object> mainMap(
+			@RequestParam(value="mapid", required=false, defaultValue="") String mapid
+			) throws Exception {
+		
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("mapid", mapid);	
+		
+		return paramMap;		
+	}
 	
 	
 }

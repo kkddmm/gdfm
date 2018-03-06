@@ -73,8 +73,6 @@ $(function(){
 			console.log(error);
 		}
 	});
-	
-	
 
 	
 });
@@ -439,19 +437,100 @@ ul.tab-a li a:hover span, ul.tab-a li.current a span { background-position: righ
   <!--/#bottom-->
   	<p>
 		<div style="float: left;">
-			<select onchange="window.open(value,'iframe_a')" class="form-control">
+<!-- 			<select onchange="window.open(value,'iframe_a')" class="form-control" id="selectBox"> -->
+			<select class="form-control" id="selectBox">
 			<option value="http://map.daum.net/?q=영화관">영화관위치선택</option>
 				<c:if test="${not empty mainList}" >
 					<c:forEach var="cinema" items="${cinemaList}">
-						<option value="http://map.daum.net/?q=${cinema.ci_addr3}">${cinema.ci_name}</option>
+						<option value="${cinema.ci_addr3}">${cinema.ci_name}</option>
 					</c:forEach>
 				</c:if>
 			</select>
 		</div>
 	</p>
-	<p>
+	<!-- <p>
 		<div>
 	    	<iframe src="http://map.daum.net/?q=영화관" name="iframe_a" width="100%" height="500" frameborder=0></iframe>
 		</div>
-	</p>
+	</p> -->
+	<br>
+	<br>
+	<div id="mapaddr"></div>
+	<div id="map" style="width:100%;height:400px;"></div>
+	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1207c3336371139e4a40f0c59176d5cb&libraries=services"></script>
+	<script>
+	// 마커를 클릭하면 장소명을 표출할 인포윈도우 입니다
+	var infowindow = new daum.maps.InfoWindow({zIndex:1});
+	
+	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+	    mapOption = {
+	        center: new daum.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
+	        level: 3 // 지도의 확대 레벨
+	    };  
+	
+	// 지도를 생성합니다    
+	var map = new daum.maps.Map(mapContainer, mapOption); 
+	
+	// 장소 검색 객체를 생성합니다
+	var ps = new daum.maps.services.Places(); 
+	
+	// 키워드로 장소를 검색합니다
+	$("#selectBox").on("change", function(){
+		var mapid = $("#selectBox").val();
+		if(mapid==null){
+			mapid = '대전';
+		}
+		$.ajax({
+			type: 'post',
+			url : '${pageContext.request.contextPath}/main/mainMap',
+			data : "mapid="+mapid,
+			dataType: 'json',
+			success : function(data, status){
+			$('#mapaddr').empty();
+			$('<div>').html(data.mapid).appendTo('#mapaddr');		
+				ps.keywordSearch(data.mapid, placesSearchCB); 
+			},
+			error : function(){
+				console.log(error);
+			}
+		});
+	});
+	
+	// 키워드 검색 완료 시 호출되는 콜백함수 입니다
+	function placesSearchCB (data, status, pagination) {
+	    if (status === daum.maps.services.Status.OK) {
+	
+	        // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
+	        // LatLngBounds 객체에 좌표를 추가합니다
+	        var bounds = new daum.maps.LatLngBounds();
+	
+	        for (var i=0; i<data.length; i++) {
+	            displayMarker(data[i]);    
+	            bounds.extend(new daum.maps.LatLng(data[i].y, data[i].x));
+	        }       
+	
+	        // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
+	        map.setBounds(bounds);
+	    } 
+	}
+	
+	// 지도에 마커를 표시하는 함수입니다
+	function displayMarker(place) {
+	    
+	    // 마커를 생성하고 지도에 표시합니다
+	    var marker = new daum.maps.Marker({
+	        map: map,
+	        position: new daum.maps.LatLng(place.y, place.x) 
+	    });
+	
+	    // 마커에 클릭이벤트를 등록합니다
+	    daum.maps.event.addListener(marker, 'click', function() {
+	        // 마커를 클릭하면 장소명이 인포윈도우에 표출됩니다
+	        infowindow.setContent('<div style="padding:5px;font-size:12px;">' + place.place_name + '</div>');
+	        infowindow.open(map, marker);
+	    });
+	}
+	</script>
+	<br />
+	<br />
 <script src="${pageContext.request.contextPath}/js/main1.js"></script>
