@@ -102,15 +102,6 @@ function validate() {
 		frm.mem_id.focus();
 		return false;
 	}
-	
-	 var chk_num = frm.mem_id.value.search(/[0-9]/g); 
-	 var chk_eng = frm.mem_id.value.search(/[a-z]/ig);
-
-	 if(chk_num < 0 || chk_eng < 0)
-	 { 
-		alert('비밀번호는 숫자와 영문자를 혼용하여야 합니다.'); 
-	    return false;
-	  }
 	</c:if>
 	if(frm.mem_name.value == ""){
 		alert("이름을 입력하세요.");
