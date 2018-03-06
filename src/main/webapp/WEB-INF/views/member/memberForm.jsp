@@ -91,8 +91,6 @@ function validate() {
 			alert("아이디 중복 체크를 해주세요.");
 			return false;
 		}
-	</c:if>
-	
 	if(frm.mem_id.value == ""){
 		alert("아이디를 입력하세요.");
 		frm.mem_id.focus();
@@ -113,7 +111,7 @@ function validate() {
 		alert('비밀번호는 숫자와 영문자를 혼용하여야 합니다.'); 
 	    return false;
 	  }
-	
+	</c:if>
 	if(frm.mem_name.value == ""){
 		alert("이름을 입력하세요.");
 		frm.mem_name.focus();
@@ -255,11 +253,17 @@ function fn_list() {
 			<tr>
 				<th class="info col-xs-2" style="padding-left:20px;font-size:18px;">회원아이디</th>
 				<td>
+					<c:if test="${param.type == 'I'}">
 					<input type="hidden" id="idChk" value="N" />
 					<input type="text" name="mem_id" value="${member.mem_id}" maxlength="20"> 
 					<button type="button" class="btn btn-warning" id="btnIdCheck">중복체크</button>
 					8~20자 내의 영문,숫자 조합
 					<label id="resultMsg"></label>
+					</c:if>
+					<c:if test="${param.type != 'I'}">
+					<input type="hidden" name="mem_id" value="${member.mem_id}"> 
+						${member.mem_id}
+					</c:if>
 				</td>
 			</tr>
 			<tr>
@@ -393,6 +397,10 @@ function fn_list() {
 				<th class="info" style="padding-left:20px;font-size:18px;">회원포인트</th>
 				<td><input type="text" name="mem_point" size="20" value="${member.mem_point}"></td>
 			</tr>
+			</c:if>
+			<c:if test="${LOGIN_USER.class_code != 99}">
+				<input type="hidden" name="class_code" value="${member.class_code}">
+				<input type="hidden" name="mem_point" value="${member.mem_point}">
 			</c:if>
 		<tr>
 			<td colspan="4">
