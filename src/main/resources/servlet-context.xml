@@ -64,6 +64,8 @@
 	<exclude-mapping path="/member/memberForm"/>
 	<exclude-mapping path="/member/memberFormId"/>
 	<exclude-mapping path="/member/memberFormPwd"/>
+	<exclude-mapping path="/member/memberIdcheck"/>
+	<exclude-mapping path="/member/memberPwdcheck"/>
 	<exclude-mapping path="/member/memberAgree"/>
 	<exclude-mapping path="/member/memberEnd"/>
 	<exclude-mapping path="/board/3030101"/>
