@@ -37,8 +37,8 @@ var currentCnt= 1;
 				'<li class="image" align="center">'+								
 							'<a href="${pageContext.request.contextPath}/snack/snack_detail/'+data[i].snack_id+'">'+
 								'<img src="${pageContext.request.contextPath}/img/snack/'+data[i].snack_name+'.jpg" alt="Gallery">'+
-							'</a> <br>'+						
-							 	 '<span>'+data[i].snack_name+'</span><br>'+
+							'</a> <br><br>'+						
+							 	 '<span style="font-size: 18px; font-weight:bold; text-align:center; ">'+data[i].snack_name+'</span><br>'+
 							 	 <c:if test="data[i].snack_combo_yn=='Y'">
 							 	'<span>'+data[i].snack_subname+'</span>'+
 							 	 </c:if>
