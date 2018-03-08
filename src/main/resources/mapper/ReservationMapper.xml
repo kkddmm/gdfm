@@ -299,6 +299,30 @@ where ci_id = #{ci_id}
 )
 	</insert>
 	
+	<select id ="getShowInfoList" resultType="map" parameterType="map">
+select g.*
+from
+(
+select f.*, rownum as rnum
+from 
+(
+
+select  a.movie_ko_name,b.ci_name, c.screen_name, d.start_time,d.end_time,d.show_date,e.dimension_name
+from movie a, cinema b, screen c, movie_show_info d , movie_dimension_code e
+where a. movie_id = d.movie_id
+and  c.screen_id = d.screen_id 
+and c.ci_id = b.ci_id
+and d.dimension_code = e.dimension_code
+order by d.show_date desc
+) f
+) g
+where g.rnum between #{startRow} and #{endRow}
+	</select>
+	
+	<select id ="getShowInfoCnt" resultType="int">	
+select count(*)
+from movie_show_info
+	</select>
 	
 	
 	

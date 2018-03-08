@@ -61,13 +61,6 @@
 			if(!payCon){
 				return false;
 			}
-			
-			
-			
-			
-			
-			
-			
 		$.ajax({
 			url : '${pageContext.request.contextPath}/reservation/chkBeforePay' ,
 		    method : 'post',

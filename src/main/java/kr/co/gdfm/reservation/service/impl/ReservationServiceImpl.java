@@ -49,7 +49,7 @@ public class ReservationServiceImpl implements ReservationService{
 
 	@Override
 	public int insertSit(Map<String, Object> paramMap) {
-			int i;
+			int i; 
 				reservationMapper.deleteUncountedSit();
 				reservationMapper.deleteSitByReservationDel();
 				i = reservationMapper.insertSit(paramMap);
@@ -117,6 +117,19 @@ public class ReservationServiceImpl implements ReservationService{
 	public int insertShowInfo(MovieShowInfo movieShowInfo) {
 		// TODO Auto-generated method stub
 		return reservationMapper.insertShowInfo(movieShowInfo);
+	}
+
+	@Override
+	public int getShowInfoCnt() {
+		// TODO Auto-generated method stub
+		return reservationMapper.getShowInfoCnt();
+	}
+	
+	
+	@Override
+	public List<Map<String, Object>> getShowInfoList(Map<String, Object> paramMap) {
+		// TODO Auto-generated method stub
+		return reservationMapper.getShowInfoList(paramMap);
 	}
 
 	

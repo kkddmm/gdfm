@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.gdfm.cinema.model.Cinema;
 import kr.co.gdfm.cinema.service.CinemaService;
+import kr.co.gdfm.common.util.PagingUtil;
 import kr.co.gdfm.movie.model.Movie;
 import kr.co.gdfm.movie.service.MovieService;
 import kr.co.gdfm.reservation.model.MovieShowInfo;
@@ -263,6 +264,38 @@ public class ReservationController {
 		return successMap;
 		
 	}
+	
+	
+	@RequestMapping("/getShowInfoList")
+	public String getShowInfoList(Model model,
+			@RequestParam(value="pageSize", required=false, defaultValue="10") int pageSize,
+			@RequestParam(value="currentPage", required=false, defaultValue="1") int currentPage
+			) {
+		
+		int pageCount = 5;	//기본값
+		int totalCount = 0;
+		
+		totalCount = reservationService.getShowInfoCnt();
+		
+		
+		
+		Map<String, Object> paramMap = new HashMap<>();		
+		
+		PagingUtil pageUtils = new PagingUtil(currentPage, totalCount, pageSize, pageCount);
+		paramMap.put("startRow", pageUtils.getStartRow());
+		paramMap.put("endRow", pageUtils.getEndRow());
+		List<Map<String, Object>> showInfoList = reservationService.getShowInfoList(paramMap);
+	
+		model.addAttribute("pagingUtil", pageUtils);
+		model.addAttribute("showInfoList", showInfoList);
+		 
+		return "admin/showInfoList";
+	}
+	
+	
+	
+	
+	
 	
 	
 	

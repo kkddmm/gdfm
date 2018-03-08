@@ -46,4 +46,8 @@ public interface ReservationService {
 	public List<Map<String, Object>> getDimension(int movie_id);
 
 	public int insertShowInfo(MovieShowInfo movieShowInfo);
+
+	public int getShowInfoCnt();
+
+	public List<Map<String, Object>> getShowInfoList(Map<String, Object> paramMap);
 }

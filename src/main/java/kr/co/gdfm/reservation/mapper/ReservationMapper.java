@@ -57,4 +57,8 @@ public interface ReservationMapper {
 
 	public int insertShowInfo(MovieShowInfo movieShowInfo);
 
+	public int getShowInfoCnt();
+
+	public List<Map<String, Object>> getShowInfoList(Map<String, Object> paramMap);
+
 }

@@ -35,6 +35,7 @@ function fn_search(currentPage) {
 			<p>
 			<input type="hidden" name="currentPage" value="${param.currentPage}">	<!-- 현재페이지 -->
 			
+			
 			<select name="searchType" class="form-control">
 				<option value="">전체</option>
 				<option value="id" ${param.searchType == 'id' ? 'selected' : ''}>아이디</option>
